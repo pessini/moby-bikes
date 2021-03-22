@@ -10,7 +10,7 @@ Using Spark and Python.
 
 
 
-All datasets are public and posted on [Data.gov.ie](https://data.gov.ie/) which is a open data portal provided by the Government of Ireland :ireland:
+All datasets are public and available at [Data.gov.ie](https://data.gov.ie/) which is a open data portal provided by the Government of Ireland :ireland:
 
 [PhoenixPark Daily Data - Datasets - data.gov.ie](https://data.gov.ie/dataset/phoenixpark-daily-data)
 
