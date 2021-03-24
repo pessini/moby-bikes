@@ -14,11 +14,7 @@ All datasets are public and available at [Data.gov.ie](https://data.gov.ie/) whi
 
 [Moby Bikes bikeshare - Datasets - data.gov.ie](https://data.gov.ie/dataset/moby-bikes)
 
-
-
 __Tasks__
-
-
 
 - Based on weather forecast what demand Moby will have? So they can prepare themselves for a high or low demand. Maybe they need to use the time on a low-demand day to focus on fixing or replacing their broken bikes.
 
