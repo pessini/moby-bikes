@@ -22,14 +22,11 @@ __Tasks__
 
 
 
-Several studies reported the influence of the weather on usage of bicycle sharing in many cities around the world[[1]](#1)[[2]](#2)..
+Several studies reported the influence of the weather on usage of bicycle sharing in many cities around the world[[1]](#1) [[2]](#2).
 
 
 ## References
 
-<a id="1">[1]</a> 
-Li, L., & McDonald, F. (2013). Automated self-organising vehicles for Barclays Cycle Hire. *Memetic Computing*, *5*(1), 35–48. https://doi.org/10.1007/s12293-012-0101-3
+<a id="1">[1]</a> Li, L., & McDonald, F. (2013). Automated self-organising vehicles for Barclays Cycle Hire. *Memetic Computing*, *5*(1), 35–48. https://doi.org/10.1007/s12293-012-0101-3
 
-[2]
-
-Gebhart, K., & Noland, R. B. (2014). The impact of weather conditions on bikeshare trips in Washington, DC. *Transportation*, *41*(6), 1205–1225. https://doi.org/10.1007/s11116-014-9540-7
+[2] Gebhart, K., & Noland, R. B. (2014). The impact of weather conditions on bikeshare trips in Washington, DC. *Transportation*, *41*(6), 1205–1225. https://doi.org/10.1007/s11116-014-9540-7
