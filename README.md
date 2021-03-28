@@ -1,4 +1,4 @@
-# Moby Bikes - Rental Prediction
+# Moby Bikes - Rental Demand Prediction
 
 The project will use two main open datasets provided from Moby and Met Éireann to predict the number of rentals on a day based on weather conditions.
 
