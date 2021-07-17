@@ -11,6 +11,7 @@
 
 # MS Visual Studio
 .vscode
+*.code-workspace
 
 # Local only folder
 /ignore-folder/
