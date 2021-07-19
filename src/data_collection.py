@@ -18,15 +18,27 @@ parameters = {
     "end": '2021-6-4',
     "bikeid": 5
 }
-response = requests.get("https://data.smartdublin.ie/mobybikes-api/historical", params=parameters)
+response = requests.get("https://data.smartdublin.ie/mobybikes-api/last_reading")
 
 
 
 # %%
+print(response.json())
 
 #########################################
 ###### API for Weather forecasting ######
 #########################################
 # https://data.gov.ie/dataset/phoenix-park-hourly-data
-#https://data.gov.ie/dataset/phoenixpark-daily-data
+# https://data.gov.ie/dataset/phoenixpark-daily-data
 
+
+
+
+#%%
+def jprint(obj):
+    # create a formatted string of the Python JSON object
+    text = json.dumps(obj, sort_keys=True, indent=4)
+    print(text)
+
+jprint(response.json())
+# %%
