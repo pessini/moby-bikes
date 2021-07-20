@@ -7,9 +7,11 @@ from pandas import json_normalize
 import seaborn as sns
 
 # %%
-historical_data = pd.read_csv('../data/raw/moby-bikes-historical-data-012021.csv')
+historical_data = pd.read_csv('../data/interim/moby-bikes-historical-data.csv')
+historical_data_copy = historical_data.copy()
+historical_data_copy = historical_data_copy.drop(['BikeIdentifier', 'BikeTypeName', 'EBikeProfileID', 'IsEBike', 'IsMotor', 'IsSmartLock', 'SpikeID'], axis=1)
+historical_data_copy.to_json('../data/interim/moby-bikes-historical-data.json', orient='records')
 
-historical_data.head()
 
 # %%
 parameters = {
