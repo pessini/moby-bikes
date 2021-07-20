@@ -11,7 +11,6 @@ historical_data = pd.read_csv('../data/raw/moby-bikes-historical-data-012021.csv
 
 historical_data.head()
 
-
 # %%
 parameters = {
     "start": '2020-10-13',

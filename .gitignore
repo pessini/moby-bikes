@@ -16,6 +16,7 @@
 # Local only folder
 /ignore-folder/
 
+.streamlit
 .ipynb_checkpoints
 .virtual_documents
 /data/
