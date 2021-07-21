@@ -32,3 +32,29 @@ from datetime import datetime
 
 
 # %%
+from urllib.request import urlopen
+  
+# import json
+import requests
+# store the URL in url as 
+# parameter for urlopen
+url = "https://calendarific.com/api/v2/holidays/"
+  
+# store the response of URL
+#response = urlopen(url)
+
+parameters = {
+    "api_key": '45f3218e321b77bf8ae47b5680283784344b5d4f',
+    "country": 'ie',
+    "year": '2020'
+}
+response = requests.get(url, params=parameters)
+
+#%%
+def jprint(obj):
+    # create a formatted string of the Python JSON object
+    text = json.dumps(obj, sort_keys=True, indent=4)
+    print(text)
+
+jprint(response.json())
+# %%
