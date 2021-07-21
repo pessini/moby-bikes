@@ -1,11 +1,10 @@
-# %%
+
 import pandas as pd
 import numpy as np
 import json
 from pandas import json_normalize
 
-# %%
-historical_data = pd.read_csv('../../data/interim/moby-bikes-historical-data.csv')
+historical_data = pd.read_csv('./data/interim/moby-bikes-historical-data.csv')
 historical_data_copy = historical_data.copy()
 
 columns_todrop = ['BikeIdentifier', 
@@ -17,8 +16,8 @@ columns_todrop = ['BikeIdentifier',
                   'SpikeID']
 historical_data_copy = historical_data_copy.drop(columns_todrop, axis=1)
 
+historical_data.head()
 
-# %%
 from datetime import datetime
 # 
 
