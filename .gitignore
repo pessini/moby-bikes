@@ -15,11 +15,12 @@
 
 # Local only folder
 /ignore-folder/
+/data/
+*conn/
 
 .streamlit
 .ipynb_checkpoints
 .virtual_documents
-/data/
 
 /conda-env/
 requirements*
