@@ -10,9 +10,9 @@ API provided from Met Éireann and Moby Bikes.
 
 All datasets are public and available at [Data.gov.ie](https://data.gov.ie/) which is a open data portal provided by the Government of Ireland :ireland:
 
-[PhoenixPark Daily Data - Datasets - data.gov.ie](https://data.gov.ie/dataset/phoenixpark-daily-data)
+* [PhoenixPark Daily Data - Datasets - data.gov.ie](https://data.gov.ie/dataset/phoenixpark-daily-data)
 
-[Moby Bikes bikeshare - Datasets - data.gov.ie](https://data.gov.ie/dataset/moby-bikes)
+* [Moby Bikes bikeshare - Datasets - data.gov.ie](https://data.gov.ie/dataset/moby-bikes)
 
 __Tasks__
 
