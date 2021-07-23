@@ -6,11 +6,11 @@
 <p align="center"><a href="https://github.com/create-go-app/cli/releases" target="_blank"><img src="https://img.shields.io/badge/python-v3.9.6-blue?style=for-the-badge&logo=Python" alt="cli version" /></a>&nbsp;<img src="https://img.shields.io/badge/ML_Accuracy-89.2%25-success?style=for-the-badge&logo=none" alt="go cover" />&nbsp;<img src="https://img.shields.io/badge/license-mit-red?style=for-the-badge&logo=none" alt="license" /></p>
 <p align="center">
 	<strong>
-		<a href="https://thelounge.chat/">Live Demo</a>
+		<a href="https://github.com/pessini/moby-bikes">Live Demo</a>
 		•
-		<a href="https://thelounge.chat/docs">Docs</a>
+		<a href="https://github.com/pessini/moby-bikes">Docs</a>
 		•
-		<a href="https://demo.thelounge.chat/">Demo</a>
+		<a href="https://github.com/pessini/moby-bikes">Demo</a>
 	</strong>
 </p>
 
@@ -21,7 +21,7 @@
 <p align="center"><a href="https://github.com/create-go-app/cli/releases" target="_blank"><img src="https://img.shields.io/badge/python-v3.9.6-blue?style=for-the-badge&logo=none" alt="cli version" /></a>&nbsp;<img src="https://img.shields.io/badge/ML_Accuracy-89.2%25-success?style=for-the-badge&logo=none" alt="go cover" />&nbsp;<img src="https://img.shields.io/badge/license-mit-red?style=for-the-badge&logo=none" alt="license" /></p> -->
 
 <p align="center">
-	<img src="https://raw.githubusercontent.com/thelounge/thelounge.github.io/master/img/thelounge-screenshot.png" width="550">
+	<img src="https://i.ytimg.com/vi/-s8er6tHD3o/maxresdefault.jpg" width="550">
 </p>
 
 ## In a nutshell
