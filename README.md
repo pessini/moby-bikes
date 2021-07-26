@@ -44,7 +44,7 @@ The project will use two main open datasets provided from Moby and Met Éireann 
 <h2 id="table-of-contents"> Table of Contents</h2>
 
 <details open="open">
-  <summary>Table of Contents</summary>
+  <summary>Contents</summary>
   <ol>
     <li><a href="#about-the-project">About The Project</a></li>
     <li><a href="#prerequisites"> ➤ Prerequisites</a></li>
