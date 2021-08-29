@@ -30,7 +30,6 @@ The project will use two main open datasets provided from Moby and Met Éireann 
 
 - Test
 - Test
-- Test
 
 ## Table of Contents
 - [Success Metrics](#success-metrics)
