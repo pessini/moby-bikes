@@ -65,6 +65,29 @@ The project will use two main open datasets provided from Moby and Met Éireann 
   </ol>
 </details>
 
+# Problem
+
+## eBike Operators
+
+### Job Description:
+
+MOBY is Ireland’s most exciting urban mobility company. We deployed a fleet of shared electric bikes in the nation’s capital.
+
+We need an ambitious  person distributing and relocating our eBikes throughout the city, while performing safety checks and basic maintenance (training provided).
+
+Delivering and collecting  private rental eBikes for our customers.
+
+We plan to expand our team in Dublin and abroad, so there will be opportunities to progress within the company .
+
+### Responsibilities:
+
+- **Distributing bikes to the city’s most in-demand locations (Cycling electric cargo trike).**
+- **Replacing bike batteries when out of charge.**
+- Relocating bikes which have been incorrectly parked.
+- Scheduling and completing delivery and collection of subscription eBikes (Moby+ and Moby+ Pro) to our customers.
+- **Check and repair eBikes on street (training provided).**
+- Other responsibilities as required.
+
 ## Success Metrics
 
 - KPI
