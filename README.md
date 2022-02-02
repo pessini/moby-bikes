@@ -3,25 +3,26 @@
 </p>
 <h1 align="center"> Data Science Project </h1>
 <h3 align="center"> Analytical Dashboard & Rental Demand Prediction </h3>  
-<p align="center"><a href="https://github.com/create-go-app/cli/releases" target="_blank"><img src="https://img.shields.io/badge/python-v3.9.6-blue?style=for-the-badge&logo=Python" alt="cli version" /></a>&nbsp;<img src="https://img.shields.io/badge/ML_Accuracy-89.2%25-success?style=for-the-badge&logo=none" alt="go cover" />&nbsp;<img src="https://img.shields.io/badge/license-mit-red?style=for-the-badge&logo=none" alt="license" /></p>
+<p align="center"><a href="https://github.com/create-go-app/cli/releases" target="_blank"><img src="https://img.shields.io/badge/python-v3.9.6-blue?style=for-the-badge&logo=Python" alt="cli version" /></a> <img src="https://img.shields.io/badge/ML_Accuracy-89.2%25-success?style=for-the-badge&logo=none" alt="go cover" /> <img src="https://img.shields.io/badge/license-mit-red?style=for-the-badge&logo=none" alt="license" /></p>
 <p align="center">
-	<strong>
-		<a href="https://github.com/pessini/moby-bikes">Live Demo</a>
-		•
-		<a href="https://github.com/pessini/moby-bikes">Docs</a>
-		•
-		<a href="https://github.com/pessini/moby-bikes">Demo</a>
-	</strong>
+    <strong>
+        <a href="https://github.com/pessini/moby-bikes">Live Demo</a>
+        •
+        <a href="https://github.com/pessini/moby-bikes">Docs</a>
+        •
+        <a href="https://github.com/pessini/moby-bikes">Demo</a>
+    </strong>
 </p>
 
 <!-- <p align="center"> 
   <img src="https://github.com/ma-shamshiri/Human-Activity-Recognition/blob/main/images/Signal.gif?raw=true" alt="Sample signal" width="70%" height="70%">
 </p> -->
+
 <!-- 
-<p align="center"><a href="https://github.com/create-go-app/cli/releases" target="_blank"><img src="https://img.shields.io/badge/python-v3.9.6-blue?style=for-the-badge&logo=none" alt="cli version" /></a>&nbsp;<img src="https://img.shields.io/badge/ML_Accuracy-89.2%25-success?style=for-the-badge&logo=none" alt="go cover" />&nbsp;<img src="https://img.shields.io/badge/license-mit-red?style=for-the-badge&logo=none" alt="license" /></p> -->
+<p align="center"><a href="https://github.com/create-go-app/cli/releases" target="_blank"><img src="https://img.shields.io/badge/python-v3.9.6-blue?style=for-the-badge&logo=none" alt="cli version" /></a> <img src="https://img.shields.io/badge/ML_Accuracy-89.2%25-success?style=for-the-badge&logo=none" alt="go cover" /> <img src="https://img.shields.io/badge/license-mit-red?style=for-the-badge&logo=none" alt="license" /></p> -->
 
 <p align="center">
-	<img src="https://i.ytimg.com/vi/-s8er6tHD3o/maxresdefault.jpg" width="550">
+    <img src="https://i.ytimg.com/vi/-s8er6tHD3o/maxresdefault.jpg" width="550">
 </p>
 
 ## In a nutshell
@@ -32,14 +33,15 @@ The project will use two main open datasets provided from Moby and Met Éireann 
 - Test
 
 ## Table of Contents
+
 - [Success Metrics](#success-metrics)
 - [Dataset](#dataset)
 - [Philosophy](#philosophy)
 - [Events](#events)
 - [State](#state)
 
-
 <!-- TABLE OF CONTENTS -->
+
 <h2 id="table-of-contents"> Table of Contents</h2>
 
 <details open="open">
@@ -110,10 +112,7 @@ __Tasks__
 
 - Possible task. Predict the demand based on their bases.
 
-
-
 Several studies reported the influence of the weather on usage of bicycle sharing in many cities around the world[[1]](#1) [[2]](#2).
-
 
 ## References
 
