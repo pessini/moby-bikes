@@ -62,7 +62,7 @@ pathlib.Path().resolve()
 
 # %%
 path = r'../data/raw/hist-rentals'
-all_files = glob.glob(path + '/moby-bikes*.csv')
+all_files = glob.glob(f'{path}/moby-bikes*.csv')
 print(all_files)
 
 
