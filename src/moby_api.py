@@ -1,3 +1,4 @@
+# %%
 import pandas as pd
 import numpy as np
 import requests
@@ -24,9 +25,9 @@ baseurl = "https://data.smartdublin.ie/mobybikes-api/"
 
 last_reading_url = f'{baseurl}last_reading/'
 
-r = requests.get(last_reading_url, headers=headers, params=parameters)
-data = r.text
-parse_json = json.loads(data)
+# r = requests.get(last_reading_url, headers=headers, params=parameters)
+# data = r.text
+# parse_json = json.loads(data)
 
 
 # def jprint(obj):
@@ -58,7 +59,7 @@ def read_mongo(query=None, collection='', no_id=True):
     try:
         # Connect to MongoDB
         conn = _connect_mongo(host=mongodb.host, port=mongodb.port, username=mongodb.user_name, password=mongodb.pass_word, db_name=mongodb.db_name)
-        db = conn.mobybikes # switch to the database
+        db = conn.moby # switch to the database
 
         if collection in db.list_collection_names(): 
             # Make a query to the specific DB and Collection 
@@ -99,7 +100,9 @@ def insert_mongo(data=None, collection='', no_id=True):
         print('No data to insert in MongoDB')
 
 
-# historical_data = read_mongo(collection='historical')
+historical_data = read_mongo(collection='historical')
 irish_calendar = read_mongo(collection='irishcalendar')
 
-insert_mongo(data=parse_json, collection='lastreading')
+historical_data.head()
+
+# insert_mongo(data=parse_json, collection='lastreading')
