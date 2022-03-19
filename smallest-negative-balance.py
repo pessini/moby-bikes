@@ -40,9 +40,6 @@
 # Each line i of the n subsequent lines (where 0 =< i =< n) contains 3 space-separated strings:
 #   debts[i][0], debts[i][1], debts[i][2], borrow, lender, amount.
 
-from curses import has_key
-
-
 def split_group(record):
     value = record.split(' ')
     borrower,lender,amount = value[0].upper(),value[1].upper(),int(value[2])
@@ -51,22 +48,47 @@ def split_group(record):
 def calculate_debts(record,group_debts):
     borrower,lender,amount = record[0],record[1],record[2]
     
-    if borrower not in group_debts:
-        group_debts = {borrower: 0}
+    if borrower in group_debts:
+        borrow_amount = group_debts.get(borrower) - amount
     else:
-        group_debts[borrower] = amount
+        borrow_amount = -amount
         
+    group_debts[borrower] = borrow_amount
+        
+    if lender in group_debts:
+        lender_amount = group_debts.get(lender) + amount
+    else:
+        lender_amount = amount
+        
+    group_debts[lender] = lender_amount
+    
     return group_debts
+
+def get_smallest_balance(group_debts):
+    minval = min(group_debts.values())
+    res = []
+    if minval < 0:
+        res = list(filter(lambda x: group_debts[x]==minval, group_debts))
+    return res
 
 def smallest_negative_balance(debts):
     group_debts = dict()
     for record in debts:
         group = split_group(record)
-        print(group)
-        print(calculate_debts(group, group_debts))
-        print('\n')
+        members_debt = calculate_debts(group, group_debts)
+    
+    print(members_debt)
+    members_smallest_balance = get_smallest_balance(members_debt)
+    
+    if members_smallest_balance:
+        members_smallest_balance.sort()
+    else:
+       members_smallest_balance = ['Nobody has a negative balance']
+    
+    return members_smallest_balance
            
 if __name__ == '__main__':
     
-    debs_table = ['Alex Blake 2', 'Blake Alex 2', 'Casey Alex 5', 'Blake Casey 7', 'Alex Blake 4', 'Alex Case 4']
-    smallest_negative_balance(debs_table)
+    # debs_table = ['Alex Blake 2', 'Blake Alex 2', 'Casey Alex 5', 'Blake Casey 7', 'Alex Blake 4', 'Alex Casey 4']
+    debs_table = ['Alex Blake 1', 'Blake Alex 2', 'Casey Alex 5', 'Blake Casey 1', 'Alex Blake 2', 'Alex Casey 4']
+    print(smallest_negative_balance(debs_table))
