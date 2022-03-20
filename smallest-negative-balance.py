@@ -66,13 +66,14 @@ def calculate_debts(record,group_debts):
 
 def get_smallest_balance(group_debts):
     minval = min(group_debts.values())
-    res = []
-    if minval < 0:
-        res = list(filter(lambda x: group_debts[x]==minval, group_debts))
-    return res
+    return (
+        list(filter(lambda x: group_debts[x] == minval, group_debts))
+        if minval < 0 
+        else [] # if minval is positive return empty list
+    )
 
 def smallest_negative_balance(debts):
-    group_debts = dict()
+    group_debts = {}
     for record in debts:
         group = split_group(record)
         members_debt = calculate_debts(group, group_debts)
@@ -89,4 +90,6 @@ def smallest_negative_balance(debts):
 if __name__ == '__main__':
     
     debs_table = ['Alex Blake 2', 'Blake Alex 2', 'Casey Alex 5', 'Blake Casey 7', 'Alex Blake 4', 'Alex Casey 4']
+    # Testing return all members with balance = 0
+    # debs_table = ['Alex Blake 1', 'Blake Alex 2', 'Casey Alex 5', 'Blake Casey 3', 'Alex Blake 4', 'Alex Casey 2']
     print(smallest_negative_balance(debs_table))
