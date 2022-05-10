@@ -1,3 +1,4 @@
+# %%
 import os
 import glob
 import pandas as pd
@@ -23,3 +24,4 @@ moby_all.shape
 
 # %%
 moby_all.isnull().sum()
+# %%
