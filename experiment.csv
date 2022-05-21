@@ -1,3 +1,0 @@
-,algo_name,hyperparameters,metric,date,notes
-0,Linear Regression,alpha=5,Metric: RSME - Train: 3.2223 - Val: 2.2323 - Test: 4.5623,21/05/2022 00:15:52,Hello there LN!
-1,Random Forest,num_leafs=5,Metric: MAE - Train: 7482.2 - Val: 243.23 - Test: 424.523,21/05/2022 00:15:52,Hello there RF!
