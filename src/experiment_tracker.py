@@ -4,6 +4,12 @@ import datetime
 from typing import Union
 
 class Score:
+    """
+    Creates a new object to store scores from different metrics
+
+    Returns:
+        __repr__: str in a dic structure to simplify further manipulations
+    """
     def __init__(self, metric_name, train, validation=None, test=None):
         self.metric_name = metric_name
         self.train = train
@@ -15,6 +21,9 @@ class Score:
         return f"{{ 'metric': {self.metric_name}, 'train': {self.train},  'validation': {self.validation}, 'test': {self.test} }}"
 
 class Experiment:
+    """
+    
+    """
     def __init__(self, algorithm, predictors, hyperparameters, score=Union[Score, list], notes=None):
         # Union[int, float] from Python 3.10 onwards can be replace by "|" (e.g: int | float)
 
@@ -32,7 +41,7 @@ class Experiment:
         self.notes = notes
         
     def __repr__(self) -> str:
-        return f"Experiment: {self.algorithm} - Datetime: {self.date} - Hyperparamaters: {self.hyperparameters} - Score: {self.dict_scores} - Notes: {self.notes}"
+        return f"Experiment: {self.algorithm} - Datetime: {self.date} - Notes: {self.notes}"
         
 class ExperimentTracker:
 
@@ -84,3 +93,4 @@ df = df_tracking.to_dataframe()
 # print(df)
 df.to_csv('experiment.csv', index=False)
 df.to_excel('tracking.xlsx', sheet_name='ML-Experiment', index=False)
+# https://www.delftstack.com/howto/python-pandas/split-column-in-python-pandas/

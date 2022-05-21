@@ -1,0 +1,4 @@
+algorithm,predictors,hyperparameters,dict_scores,date,notes
+Linear Regression,"[""temp"",""rhum"",""wdsp""]",alpha=5,"{ 'metric': RSME, 'train': 3.2223,  'validation': 2.2323, 'test': 4.5623 }",21/05/2022 15:52:33,Hello there LN!
+Linear Regression,"[""temp"",""rhum"",""wdsp""]",alpha=10,"{ 'metric': RSME, 'train': 3.2223,  'validation': 2.2323, 'test': 4.5623 }",21/05/2022 15:52:33,LN! alpha is 10 now
+Random Forest,"[""temp"",""rhum"",""wdsp""]",num_leafs = 5,"[{ 'metric': MAE, 'train': 7482.2,  'validation': 243.23, 'test': 424.523 }, { 'metric': RSM, 'train': 72.2,  'validation': 24.23, 'test': 4.5 }]",21/05/2022 15:52:33,Hello there RF!
