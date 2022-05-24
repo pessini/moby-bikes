@@ -111,7 +111,20 @@ class ExperimentTracker:
                 break
         else:
             raise Exception("Cannot update an idea which is not in the list!!!")
+    
+    def remove_idea(self, idea_or_id: Union[Idea, int] = None):
         
+        # if the parameter is an idea object then we get the ID
+        if (isinstance(idea_or_id, Idea)):
+            idea_or_id = id(idea_or_id)
+            
+        for i in self.ideas:
+            if (id(i) == idea_or_id):
+                self.ideas.remove(i)
+                print(f"--- Idea #{id(i)} removed! ---")
+                break
+        else:
+            raise Exception("Cannot remove an idea which is not in the list!!!")
         
     def to_dataframe(self, type='experiments'):
         # columns_name = ['Title','Date','Predictors','Hyperparameters','Metric','Train','Validation','Test','Details']
