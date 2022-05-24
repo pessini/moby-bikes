@@ -45,13 +45,13 @@ class Experiment:
         return f"Experiment: {self.algorithm} - Datetime: {self.date} - Notes: {self.notes}"
     
 class Idea:
-    def __init__(self, idea: str, outcome: str, learning: str):
+    def __init__(self, idea: str, potential_outcome: str, learnings: str = None):
         self.idea = idea
-        self.outcome = outcome
-        self.learning = learning
+        self.potential_outcome = potential_outcome
+        self.learnings = learnings
         
     def __repr__(self) -> str:
-        return f"Idea: {self.idea} - Potential Outcome: {self.outcome} - Learning: {self.learning}"
+        return f"ID: {id(self)} - Idea: {self.idea} - Potential Outcome: {self.potential_outcome} - Learnings: {self.learnings}"
         
 class ExperimentTracker:
 
@@ -62,14 +62,56 @@ class ExperimentTracker:
     def add_experiment(self,value):  # sourcery skip: raise-specific-error
         if (isinstance(value,Experiment) and value not in self.experiments):
             self.experiments.append(value)
+            print("--- New Experiment added! ---")
+            print(f"ID#: {id(value)} \nAlgorithm: {value.algorithm} \nPredictors: {value.predictors}")
+            print(f"Hyperparameters: {value.hyperparameters}\nDate: {value.date}")
+            print(f"Metric: {value.dict_scores}")
+            print(f"Notes: {value.notes}") if value.notes else print("")
         else:
             raise Exception("Cannot add an experiment which is not an Experiment Object!!!")
+        
+    def remove_experiment(self, experiment_id: Union[Experiment, int] = None, experiment: Experiment = None):
+        if (isinstance(experiment_id, Experiment)):
+            experiment_id = id(experiment_id)
+            
+        for e in self.experiments:
+            if (id(e) == experiment_id):
+                self.experiments.remove(e)
+                print(f"--- Experiment #{id(e)} removed! ---")
+                break
+        else:
+            raise Exception("Cannot remove an experiment which is not in the list!!!")
 
     def new_idea(self,value):
         if (isinstance(value,Idea) and value not in self.ideas):
             self.ideas.append(value)
+            print(f"--- New Idea added! ---\nID#: {id(value)} \nIdea: {value.idea} \nPotential Outcome: {value.potential_outcome}")
+            print(f"Learnings: {value.learnings}") if value.learnings else print("")
         else:
-            raise Exception("Cannot add a new idea which is not an Idea Object!!!")
+            raise Exception("Cannot add an idea which is not an Idea Object!!!")
+        
+    def update_idea(self, idea_or_id: Union[Idea, int], idea=None, potential_outcome=None, learnings=None):
+        if (idea is None and potential_outcome is None and learnings is None):
+            raise Exception("Cannot update an idea without any attribute to update!!!")
+        
+        # if the parameter is an idea object then we get the ID
+        if (isinstance(idea_or_id, Idea)):
+            idea_or_id = id(idea_or_id)
+            
+        for i in self.ideas:
+            if (id(i) == idea_or_id):
+                if (idea):
+                    i.idea = idea
+                if (potential_outcome):
+                    i.potential_outcome = potential_outcome
+                if (learnings):
+                    i.learnings = learnings
+                print(f"--- Idea updated! ---\nID#: {id(i)} \nIdea: {i.idea} \nPotential Outcome: {i.potential_outcome}")
+                print(f"Learnings: {i.learnings}") if i.learnings else print("")
+                break
+        else:
+            raise Exception("Cannot update an idea which is not in the list!!!")
+        
         
     def to_dataframe(self, type='experiments'):
         # columns_name = ['Title','Date','Predictors','Hyperparameters','Metric','Train','Validation','Test','Details']
@@ -131,14 +173,28 @@ class ExperimentTracker:
 
 ##############################################################
 
-# idea1 = Idea("Predicting the number of deaths in a given country", "Deaths", "Deaths")
+# idea1 = Idea("Linear Regression", "Simple linear regression would perform bad as we have a non normal distribution", "")
 # df_tracking.new_idea(idea1)
 
-# idea2 = Idea("Predicting the number of confirmed cases in a given country", "Confirmed cases", "Confirmed cases")
+# print('\n')
+# print(df_tracking.__dict__)
+
+
+# idea2 = Idea("Random Forest", "Maybe it will be good", "Need more tunning")
 # df_tracking.new_idea(idea2)
 
-# print(df_tracking.__dict__)
+
 # print('\n')
+# df_tracking.update_idea(Idea("Linear Regression", "Simple linear regression would perform bad as we have a non normal distribution", "We should use a different model"))
+
+
+
+# print(df_tracking.__dict__)
+
+# df_tracking.update_idea(Idea("Random Forest", "Simple decision tree would perform bad as we have a non normal distribution", "We should use a boosting model"))
+
+# print('\n')
+# print(df_tracking.__dict__)
 # df_tracking.to_excel('tracking.xlsx')
 
 # df_tracking.to_csv('ideas.csv', type='ideas')
