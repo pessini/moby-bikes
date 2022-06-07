@@ -1,3 +1,4 @@
+from pyexpat import model
 import sys
 import pandas as pd
 import datetime
@@ -130,6 +131,22 @@ class ExperimentTracker:
         data = self.experiments if (type == "experiments") else self.ideas
         return pd.DataFrame( [vars(e) for e in data])
     
+    def print_partial_results(self):
+        if experiments := self.experiments:
+            print("--- Experiments ---")
+
+            for experiment in experiments:
+                print(f"\nModel: {experiment.algorithm}")
+                if (isinstance(experiment.dict_scores, list)):
+                    for metric in experiment.dict_scores:
+                        print(f"{metric.metric_name} - Train: {metric.train} - Validation: {metric.validation} - Test: {metric.test}")
+                else:
+                    print(f"{experiment.dict_scores.metric_name} - Train: {experiment.dict_scores.train} - \
+Validation: {experiment.dict_scores.validation} - Test: {experiment.dict_scores.test}")
+        else:
+            print("No experiments added yet!")
+        
+    
     def to_csv(self, filename: str, type='experiments'):
         if (type == "experiments"):
             df_experiments = self.to_dataframe()
@@ -159,26 +176,26 @@ class ExperimentTracker:
 
 # df_tracking = ExperimentTracker()
 
-###############################
+# ###############################
 
-###############################
-######## Experiment 1 #########
-###############################
+# ##############################
+# ####### Experiment 1 #########
+# ##############################
 # rsme = Score('RSME', '3.2223', '2.2323', '4.5623')
 # exp_linr = Experiment('Linear Regression','["temp","rhum","wdsp"]', 'alpha=5', rsme, 'Hello there LN!')
 # df_tracking.add_experiment(exp_linr)
 
-###############################
-######## Experiment 2 #########
-###############################
+# ##############################
+# ####### Experiment 2 #########
+# ##############################
 # exp_linr2 = Experiment('Linear Regression','["temp","rhum","wdsp"]', 'alpha=10', rsme, 'LN! alpha is 10 now')
 # df_tracking.add_experiment(exp_linr2)
 
-###############################
-######## Experiment 3 #########
-###############################
+# ##############################
+# ####### Experiment 3 #########
+# ##############################
 # mae_rf = Score('MAE', '7482.2', '243.23', '424.523')
-# rsm_rf = Score('RSM', '72.2', '24.23', '4.5')
+# rsm_rf = Score('RSME', '72.2', '24.23', '4.5')
 # metrics_rf = [mae_rf,rsm_rf]
 # exp_rf = Experiment('Random Forest', '["temp","rhum","wdsp"]', 'num_leafs = 5',metrics_rf,'Hello there RF!')
 # df_tracking.add_experiment(exp_rf)
@@ -211,6 +228,8 @@ class ExperimentTracker:
 
 # df_tracking.to_csv('ideas.csv', type='ideas')
 
+# print('\n')
+# df_tracking.print_partial_results()
 
 # df = df_tracking.to_dataframe()
 # # print(df)
