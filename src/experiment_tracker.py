@@ -131,17 +131,20 @@ class ExperimentTracker:
         data = self.experiments if (type == "experiments") else self.ideas
         return pd.DataFrame( [vars(e) for e in data])
     
-    def print_partial_results(self):
+    def print_partial_results(self, filter_model='', filter_metric=''):
         if experiments := self.experiments:
             print("--- Experiments ---")
 
             for experiment in experiments:
-                print(f"\nModel: {experiment.algorithm}")
-                if (isinstance(experiment.dict_scores, list)):
-                    for metric in experiment.dict_scores:
-                        print(f"{metric.metric_name} - Train: {metric.train} - Validation: {metric.validation} - Test: {metric.test}")
-                else:
-                    print(f"{experiment.dict_scores.metric_name} - Train: {experiment.dict_scores.train} - \
+                if str.upper(filter_model) in str.upper(experiment.algorithm):
+                    print(f"\nModel: {experiment.algorithm}")
+                    if (isinstance(experiment.dict_scores, list)):
+                        for metric in experiment.dict_scores:
+                            if str.upper(filter_metric) in str.upper(metric.metric_name):
+                                print(f"{metric.metric_name} - Train: {metric.train} - Validation: {metric.validation} - Test: {metric.test}")
+                    else:
+                        if str.upper(filter_metric) in str.upper(experiment.dict_scores.metric_name):
+                            print(f"{experiment.dict_scores.metric_name} - Train: {experiment.dict_scores.train} - \
 Validation: {experiment.dict_scores.validation} - Test: {experiment.dict_scores.test}")
         else:
             print("No experiments added yet!")
