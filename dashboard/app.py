@@ -23,3 +23,4 @@ def load_data():
 
 df = load_data()
 st.dataframe(df)
+
