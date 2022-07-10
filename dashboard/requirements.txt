@@ -1,0 +1,9 @@
+datetime
+pandas=1.4.3
+numpy=1.23.0
+scikit-learn=1.1.1
+xgboost=1.5.1
+pickle
+category_encoders=2.5.0
+requests
+bs4
