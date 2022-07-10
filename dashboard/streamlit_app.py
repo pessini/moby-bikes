@@ -220,7 +220,7 @@ st.header('Dashboard')
 st.subheader("Predicting bike rentals demand")
 # predictors = ['temp','rhum','dayofweek','timesofday','wdsp','rainfall_intensity', 'working_day', 'hour', 'season']
 
-xgb_pipe = pickle.load(open("../models/xgb_pipeline.pkl", "rb"))
+xgb_pipe = pickle.load(open("xgb_pipeline.pkl", "rb"))
 
 # @st.cache
 def predict(df):
