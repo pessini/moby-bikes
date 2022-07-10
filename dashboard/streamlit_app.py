@@ -1,7 +1,6 @@
 from datetime import datetime
 import streamlit as st
 import pandas as pd
-from datetime import datetime
 import numpy as np
 from sklearn import metrics
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, OneHotEncoder, OrdinalEncoder
