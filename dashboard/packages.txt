@@ -1,7 +1,7 @@
 datetime
 pandas
 numpy
-sklearn
+scikit-learn
 xgboost
 pickle
 category_encoders
