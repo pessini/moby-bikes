@@ -1,3 +1,4 @@
+from datetime import datetime
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -9,40 +10,47 @@ import xgboost as xgb
 import pickle
 import category_encoders as ce
 import requests
+from bs4 import BeautifulSoup
 
+def parse_xml(xml_data):
+  # Initializing soup variable
+    soup = BeautifulSoup(xml_data, 'lxml')
+  # Iterating through time tag and extracting elements
+    all_items = soup.find_all('time')
+    forecast_df = pd.DataFrame(columns=['temp', 'wdsp', 'rhum', 'rainfall_intensity'])
 
-st.header('Dashboard')
-st.subheader("Predicting bike rentals demand")
-# predictors = ['temp','rhum','dayofweek','timesofday','wdsp','rainfall_intensity', 'working_day', 'hour', 'season']
+    for item in all_items:
 
-xgb_pipe = pickle.load(open("../models/xgb_pipeline.pkl", "rb"))
+        datetime_object = pd.to_datetime(item.get('to'))
 
-@st.cache
-def predict(df):
-    return xgb_pipe.predict(df)
+        if item.location.find('temperature'):
+            temp = item.location.temperature.get('value')
 
-@st.cache
-def load_data():
-    df = pd.read_csv("df_test.csv")
-    X = df.drop(['count'], axis=1)
-    y = df.pop('count')
-    return X,y
+        if item.location.find('windspeed'):
+            wdsp = item.location.windspeed.get('mps')
 
-st.write('''
-         #### Normalized Root Mean Square Error (NRMSE)
-         ''')
-st.latex(r'''NRMSE = \frac{RSME}{y_{max} - y_{min}}''')
+        if item.location.find('humidity'):
+            humidity = item.location.humidity.get('value')
+        
 
-X,y = load_data()
-predicted = pd.Series(xgb_pipe.predict(X))
+        row = {
+            'temp': temp,
+            'rhum': humidity,
+            'wdsp': wdsp,
+        }
 
-st.dataframe(predicted)
+        if item.location.find('precipitation'):
+            precipitation = item.location.precipitation.get('value')
+    
+        if datetime_object in forecast_df.index:
+            forecast_df.loc[datetime_object]['rainfall_intensity'] = precipitation
+        else:
+            forecast_df = pd.concat([pd.DataFrame(row, columns=forecast_df.columns, index=[datetime_object]),forecast_df])
+        
+    # df = pd.DataFrame.from_records(forecast, index=datetime_object)
+    st.write(forecast_df.sort_index())
 
-
-
-
-
-
+    return 'df'
 
 # Preprocessing
 def preprocessor(predictors: list) -> ColumnTransformer:
@@ -122,3 +130,46 @@ def preprocessor(predictors: list) -> ColumnTransformer:
     
     return ColumnTransformer(transformers=transformers_list, 
                              remainder='drop')
+
+
+st.header('Dashboard')
+st.subheader("Predicting bike rentals demand")
+# predictors = ['temp','rhum','dayofweek','timesofday','wdsp','rainfall_intensity', 'working_day', 'hour', 'season']
+
+xgb_pipe = pickle.load(open("../models/xgb_pipeline.pkl", "rb"))
+
+@st.cache
+def predict(df):
+    return xgb_pipe.predict(df)
+
+@st.cache
+def load_data():
+    df = pd.read_csv("df_test.csv")
+    X = df.drop(['count'], axis=1)
+    y = df.pop('count')
+    return X,y
+
+st.write('''
+         #### Normalized Root Mean Square Error (NRMSE)
+         ''')
+st.latex(r'''NRMSE = \frac{RSME}{y_{max} - y_{min}}''')
+
+X,y = load_data()
+predicted = pd.Series(xgb_pipe.predict(X))
+
+st.dataframe(predicted)
+
+
+st.write('''
+**GPS coordinates of Dublin Airport in Ireland** \n
+Latitude: 53.4264 - Longitude: -6.2499 \n
+**Weather Forescat API URL**: http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast?lat=53.4264;long=-6.2499
+''')
+
+URL_WEATHER_API = "http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast?lat=53.4264;long=-6.2499"
+response = requests.get(URL_WEATHER_API).content
+
+# st.write(soup.prettify())
+
+df_forecast = parse_xml(response)
+

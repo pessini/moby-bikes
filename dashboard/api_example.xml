@@ -1,0 +1,2260 @@
+<weatherdata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://api.met.no/weatherapi/locationforecast/1.9/schema" created="2022-07-10T13:21:36Z">
+   <meta>
+      <model name="harmonie" termin="2022-07-10T06:00:00Z" runended="2022-07-10T09:49:19Z" nextrun="2022-07-10T16:00:00Z" from="2022-07-10T14:00:00Z" to="2022-07-12T12:00:00Z" />
+      <model name="ec_n1280_1hr" termin="2022-07-10T00:00:00Z" runended="2022-07-10T09:49:18Z" nextrun="2022-07-10T18:00:00Z" from="2022-07-12T13:00:00Z" to="2022-07-13T18:00:00Z" />
+      <model name="ec_n1280_3hr" termin="2022-07-10T00:00:00Z" runended="2022-07-10T09:49:19Z" nextrun="2022-07-10T18:00:00Z" from="2022-07-13T21:00:00Z" to="2022-07-16T00:00:00Z" />
+      <model name="ec_n1280_6hr" termin="2022-07-10T00:00:00Z" runended="2022-07-10T09:49:19Z" nextrun="2022-07-10T18:00:00Z" from="2022-07-16T06:00:00Z" to="2022-07-20T00:00:00Z" />
+      </meta>
+   <product class="pointData">
+      <time datatype="forecast" from="2022-07-10T14:00:00Z" to="2022-07-10T14:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="20.7"/>
+            <windDirection id="dd" deg="112.6" name="SE"/>
+            <windSpeed id="ff" mps="3.3" beaufort="2" name="Svak vind"/>
+            <windGust id="ff_gust" mps="8.1"/>
+            <globalRadiation value="833.2" unit="W/m^2"/>
+            <humidity value="60.6" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1027.6"/>
+            <cloudiness id="NN" percent="74.2"/>
+            <lowClouds id="LOW" percent="1.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="73.9"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-10T13:00:00Z" to="2022-07-10T14:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-10T15:00:00Z" to="2022-07-10T15:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="20.1"/>
+            <windDirection id="dd" deg="115.6" name="SE"/>
+            <windSpeed id="ff" mps="3.3" beaufort="2" name="Svak vind"/>
+            <windGust id="ff_gust" mps="8.4"/>
+            <globalRadiation value="769.5" unit="W/m^2"/>
+            <humidity value="61.4" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1027.4"/>
+            <cloudiness id="NN" percent="14.3"/>
+            <lowClouds id="LOW" percent="1.8"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="13.1"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.6"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-10T14:00:00Z" to="2022-07-10T15:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="LightCloud" number="2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-10T16:00:00Z" to="2022-07-10T16:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="19.0"/>
+            <windDirection id="dd" deg="115.3" name="SE"/>
+            <windSpeed id="ff" mps="3.5" beaufort="3" name="Lett bris"/>
+            <windGust id="ff_gust" mps="8.6"/>
+            <globalRadiation value="667.4" unit="W/m^2"/>
+            <humidity value="65.0" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1026.9"/>
+            <cloudiness id="NN" percent="15.2"/>
+            <lowClouds id="LOW" percent="15.2"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-10T15:00:00Z" to="2022-07-10T16:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="LightCloud" number="2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-10T17:00:00Z" to="2022-07-10T17:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="17.6"/>
+            <windDirection id="dd" deg="121.3" name="SE"/>
+            <windSpeed id="ff" mps="3.9" beaufort="3" name="Lett bris"/>
+            <windGust id="ff_gust" mps="8.9"/>
+            <globalRadiation value="539.7" unit="W/m^2"/>
+            <humidity value="69.3" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1026.3"/>
+            <cloudiness id="NN" percent="20.7"/>
+            <lowClouds id="LOW" percent="20.6"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.0"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-10T16:00:00Z" to="2022-07-10T17:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="LightCloud" number="2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-10T18:00:00Z" to="2022-07-10T18:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="15.9"/>
+            <windDirection id="dd" deg="124.5" name="SE"/>
+            <windSpeed id="ff" mps="4.2" beaufort="3" name="Lett bris"/>
+            <windGust id="ff_gust" mps="9.0"/>
+            <globalRadiation value="396.5" unit="W/m^2"/>
+            <humidity value="75.2" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1026.0"/>
+            <cloudiness id="NN" percent="26.9"/>
+            <lowClouds id="LOW" percent="26.9"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.6"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-10T17:00:00Z" to="2022-07-10T18:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="LightCloud" number="2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-10T19:00:00Z" to="2022-07-10T19:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="14.4"/>
+            <windDirection id="dd" deg="128.2" name="SE"/>
+            <windSpeed id="ff" mps="3.9" beaufort="3" name="Lett bris"/>
+            <windGust id="ff_gust" mps="8.6"/>
+            <globalRadiation value="247.3" unit="W/m^2"/>
+            <humidity value="81.3" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1025.8"/>
+            <cloudiness id="NN" percent="32.0"/>
+            <lowClouds id="LOW" percent="32.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-10T18:00:00Z" to="2022-07-10T19:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="LightCloud" number="2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-10T20:00:00Z" to="2022-07-10T20:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="13.1"/>
+            <windDirection id="dd" deg="131.2" name="SE"/>
+            <windSpeed id="ff" mps="3.8" beaufort="3" name="Lett bris"/>
+            <windGust id="ff_gust" mps="7.6"/>
+            <globalRadiation value="111.0" unit="W/m^2"/>
+            <humidity value="88.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1025.4"/>
+            <cloudiness id="NN" percent="51.6"/>
+            <lowClouds id="LOW" percent="51.5"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-10T19:00:00Z" to="2022-07-10T20:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-10T21:00:00Z" to="2022-07-10T21:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="12.6"/>
+            <windDirection id="dd" deg="132.8" name="SE"/>
+            <windSpeed id="ff" mps="2.9" beaufort="2" name="Svak vind"/>
+            <windGust id="ff_gust" mps="5.9"/>
+            <globalRadiation value="17.3" unit="W/m^2"/>
+            <humidity value="92.2" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1025.4"/>
+            <cloudiness id="NN" percent="72.2"/>
+            <lowClouds id="LOW" percent="67.4"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="29.2"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.5"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-10T20:00:00Z" to="2022-07-10T21:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-10T22:00:00Z" to="2022-07-10T22:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="12.8"/>
+            <windDirection id="dd" deg="138.7" name="SE"/>
+            <windSpeed id="ff" mps="2.1" beaufort="2" name="Svak vind"/>
+            <windGust id="ff_gust" mps="4.9"/>
+            <globalRadiation value="0.0" unit="W/m^2"/>
+            <humidity value="93.0" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1025.2"/>
+            <cloudiness id="NN" percent="99.9"/>
+            <lowClouds id="LOW" percent="62.5"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="99.6"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.8"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-10T21:00:00Z" to="2022-07-10T22:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-10T23:00:00Z" to="2022-07-10T23:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="13.3"/>
+            <windDirection id="dd" deg="102.5" name="E"/>
+            <windSpeed id="ff" mps="0.6" beaufort="1" name="Flau vind"/>
+            <windGust id="ff_gust" mps="3.2"/>
+            <globalRadiation value="0.0" unit="W/m^2"/>
+            <humidity value="92.3" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1024.9"/>
+            <cloudiness id="NN" percent="70.3"/>
+            <lowClouds id="LOW" percent="42.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="26.6"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-10T22:00:00Z" to="2022-07-10T23:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T00:00:00Z" to="2022-07-11T00:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="13.6"/>
+            <windDirection id="dd" deg="19.4" name="N"/>
+            <windSpeed id="ff" mps="0.7" beaufort="1" name="Flau vind"/>
+            <windGust id="ff_gust" mps="2.3"/>
+            <globalRadiation value="0.0" unit="W/m^2"/>
+            <humidity value="91.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1024.4"/>
+            <cloudiness id="NN" percent="45.3"/>
+            <lowClouds id="LOW" percent="32.3"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="3.3"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-10T23:00:00Z" to="2022-07-11T00:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T01:00:00Z" to="2022-07-11T01:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="13.1"/>
+            <windDirection id="dd" deg="9.7" name="N"/>
+            <windSpeed id="ff" mps="0.8" beaufort="1" name="Flau vind"/>
+            <windGust id="ff_gust" mps="2.5"/>
+            <globalRadiation value="0.0" unit="W/m^2"/>
+            <humidity value="93.5" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1023.9"/>
+            <cloudiness id="NN" percent="72.4"/>
+            <lowClouds id="LOW" percent="37.8"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="50.4"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T00:00:00Z" to="2022-07-11T01:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T02:00:00Z" to="2022-07-11T02:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="12.9"/>
+            <windDirection id="dd" deg="49.3" name="NE"/>
+            <windSpeed id="ff" mps="0.9" beaufort="1" name="Flau vind"/>
+            <windGust id="ff_gust" mps="2.6"/>
+            <globalRadiation value="0.0" unit="W/m^2"/>
+            <humidity value="93.9" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1023.4"/>
+            <cloudiness id="NN" percent="88.6"/>
+            <lowClouds id="LOW" percent="44.3"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="70.3"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.0"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T01:00:00Z" to="2022-07-11T02:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T03:00:00Z" to="2022-07-11T03:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="12.7"/>
+            <windDirection id="dd" deg="9.9" name="N"/>
+            <windSpeed id="ff" mps="0.7" beaufort="1" name="Flau vind"/>
+            <windGust id="ff_gust" mps="2.3"/>
+            <globalRadiation value="0.0" unit="W/m^2"/>
+            <humidity value="94.2" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1023.1"/>
+            <cloudiness id="NN" percent="70.1"/>
+            <lowClouds id="LOW" percent="43.4"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="29.3"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T02:00:00Z" to="2022-07-11T03:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T04:00:00Z" to="2022-07-11T04:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="12.6"/>
+            <windDirection id="dd" deg="341.4" name="N"/>
+            <windSpeed id="ff" mps="0.7" beaufort="1" name="Flau vind"/>
+            <windGust id="ff_gust" mps="2.0"/>
+            <globalRadiation value="0.0" unit="W/m^2"/>
+            <humidity value="92.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1023.3"/>
+            <cloudiness id="NN" percent="86.5"/>
+            <lowClouds id="LOW" percent="30.4"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="85.2"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T03:00:00Z" to="2022-07-11T04:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T05:00:00Z" to="2022-07-11T05:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="12.9"/>
+            <windDirection id="dd" deg="24.9" name="NE"/>
+            <windSpeed id="ff" mps="0.6" beaufort="1" name="Flau vind"/>
+            <windGust id="ff_gust" mps="2.3"/>
+            <globalRadiation value="15.2" unit="W/m^2"/>
+            <humidity value="90.8" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1023.2"/>
+            <cloudiness id="NN" percent="97.3"/>
+            <lowClouds id="LOW" percent="31.8"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="89.2"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.5"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T04:00:00Z" to="2022-07-11T05:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T06:00:00Z" to="2022-07-11T06:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="14.0"/>
+            <windDirection id="dd" deg="88.1" name="E"/>
+            <windSpeed id="ff" mps="0.6" beaufort="1" name="Flau vind"/>
+            <windGust id="ff_gust" mps="2.3"/>
+            <globalRadiation value="94.0" unit="W/m^2"/>
+            <humidity value="87.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1023.3"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="30.3"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.0"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T05:00:00Z" to="2022-07-11T06:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T07:00:00Z" to="2022-07-11T07:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="16.6"/>
+            <windDirection id="dd" deg="153.4" name="SE"/>
+            <windSpeed id="ff" mps="1.1" beaufort="1" name="Flau vind"/>
+            <windGust id="ff_gust" mps="3.3"/>
+            <globalRadiation value="213.2" unit="W/m^2"/>
+            <humidity value="79.7" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1023.2"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="8.3"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="13.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T06:00:00Z" to="2022-07-11T07:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T08:00:00Z" to="2022-07-11T08:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="19.0"/>
+            <windDirection id="dd" deg="159.6" name="S"/>
+            <windSpeed id="ff" mps="1.7" beaufort="2" name="Svak vind"/>
+            <windGust id="ff_gust" mps="4.7"/>
+            <globalRadiation value="352.2" unit="W/m^2"/>
+            <humidity value="69.9" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1023.0"/>
+            <cloudiness id="NN" percent="99.6"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="99.6"/>
+            <dewpointTemperature id="TD" unit="celsius" value="13.5"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T07:00:00Z" to="2022-07-11T08:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T09:00:00Z" to="2022-07-11T09:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="20.8"/>
+            <windDirection id="dd" deg="159.5" name="S"/>
+            <windSpeed id="ff" mps="2.0" beaufort="2" name="Svak vind"/>
+            <windGust id="ff_gust" mps="6.2"/>
+            <globalRadiation value="458.7" unit="W/m^2"/>
+            <humidity value="63.2" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1022.7"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="13.7"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T08:00:00Z" to="2022-07-11T09:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T10:00:00Z" to="2022-07-11T10:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="22.1"/>
+            <windDirection id="dd" deg="180.2" name="S"/>
+            <windSpeed id="ff" mps="3.0" beaufort="2" name="Svak vind"/>
+            <windGust id="ff_gust" mps="7.7"/>
+            <globalRadiation value="543.3" unit="W/m^2"/>
+            <humidity value="51.0" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1022.3"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.5"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T09:00:00Z" to="2022-07-11T10:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T11:00:00Z" to="2022-07-11T11:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="23.5"/>
+            <windDirection id="dd" deg="183.8" name="S"/>
+            <windSpeed id="ff" mps="3.8" beaufort="3" name="Lett bris"/>
+            <windGust id="ff_gust" mps="8.7"/>
+            <globalRadiation value="557.5" unit="W/m^2"/>
+            <humidity value="40.9" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1021.8"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="9.5"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T10:00:00Z" to="2022-07-11T11:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T12:00:00Z" to="2022-07-11T12:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="23.8"/>
+            <windDirection id="dd" deg="190.9" name="S"/>
+            <windSpeed id="ff" mps="4.8" beaufort="3" name="Lett bris"/>
+            <windGust id="ff_gust" mps="10.3"/>
+            <globalRadiation value="568.3" unit="W/m^2"/>
+            <humidity value="38.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1021.5"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <mediumClouds id="MEDIUM" percent="0.1"/>
+            <highClouds id="HIGH" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="8.7"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T11:00:00Z" to="2022-07-11T12:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T13:00:00Z" to="2022-07-11T13:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="24.9"/>
+            <windDirection id="dd" deg="192.4" name="S"/>
+            <windSpeed id="ff" mps="5.6" beaufort="4" name="Laber bris"/>
+            <windGust id="ff_gust" mps="11.2"/>
+            <globalRadiation value="652.4" unit="W/m^2"/>
+            <humidity value="38.6" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1021.0"/>
+            <cloudiness id="NN" percent="80.3"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="80.3"/>
+            <dewpointTemperature id="TD" unit="celsius" value="9.9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T12:00:00Z" to="2022-07-11T13:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T14:00:00Z" to="2022-07-11T14:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="25.4"/>
+            <windDirection id="dd" deg="200.7" name="S"/>
+            <windSpeed id="ff" mps="6.1" beaufort="4" name="Laber bris"/>
+            <windGust id="ff_gust" mps="12.1"/>
+            <globalRadiation value="722.6" unit="W/m^2"/>
+            <humidity value="39.4" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1020.3"/>
+            <cloudiness id="NN" percent="93.5"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="93.5"/>
+            <dewpointTemperature id="TD" unit="celsius" value="10.7"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T13:00:00Z" to="2022-07-11T14:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T15:00:00Z" to="2022-07-11T15:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="25.5"/>
+            <windDirection id="dd" deg="202.5" name="S"/>
+            <windSpeed id="ff" mps="6.6" beaufort="4" name="Laber bris"/>
+            <windGust id="ff_gust" mps="12.4"/>
+            <globalRadiation value="670.8" unit="W/m^2"/>
+            <humidity value="38.4" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1019.8"/>
+            <cloudiness id="NN" percent="97.0"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <mediumClouds id="MEDIUM" percent="0.1"/>
+            <highClouds id="HIGH" percent="97.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="10.3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T14:00:00Z" to="2022-07-11T15:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T16:00:00Z" to="2022-07-11T16:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="24.1"/>
+            <windDirection id="dd" deg="203.6" name="SW"/>
+            <windSpeed id="ff" mps="6.5" beaufort="4" name="Laber bris"/>
+            <windGust id="ff_gust" mps="12.6"/>
+            <globalRadiation value="546.5" unit="W/m^2"/>
+            <humidity value="42.5" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1019.4"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <mediumClouds id="MEDIUM" percent="3.4"/>
+            <highClouds id="HIGH" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="10.7"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T15:00:00Z" to="2022-07-11T16:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T17:00:00Z" to="2022-07-11T17:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="22.9"/>
+            <windDirection id="dd" deg="202.8" name="SW"/>
+            <windSpeed id="ff" mps="6.0" beaufort="4" name="Laber bris"/>
+            <windGust id="ff_gust" mps="12.6"/>
+            <globalRadiation value="406.2" unit="W/m^2"/>
+            <humidity value="46.9" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1019.4"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <mediumClouds id="MEDIUM" percent="7.7"/>
+            <highClouds id="HIGH" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.0"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T16:00:00Z" to="2022-07-11T17:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T18:00:00Z" to="2022-07-11T18:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="22.0"/>
+            <windDirection id="dd" deg="201.3" name="S"/>
+            <windSpeed id="ff" mps="5.7" beaufort="4" name="Laber bris"/>
+            <windGust id="ff_gust" mps="11.8"/>
+            <globalRadiation value="247.8" unit="W/m^2"/>
+            <humidity value="50.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1019.0"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <mediumClouds id="MEDIUM" percent="20.3"/>
+            <highClouds id="HIGH" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T17:00:00Z" to="2022-07-11T18:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T19:00:00Z" to="2022-07-11T19:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="21.1"/>
+            <windDirection id="dd" deg="206.7" name="SW"/>
+            <windSpeed id="ff" mps="5.6" beaufort="4" name="Laber bris"/>
+            <windGust id="ff_gust" mps="10.8"/>
+            <globalRadiation value="125.4" unit="W/m^2"/>
+            <humidity value="49.9" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1019.0"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <mediumClouds id="MEDIUM" percent="33.4"/>
+            <highClouds id="HIGH" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="10.3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T18:00:00Z" to="2022-07-11T19:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T20:00:00Z" to="2022-07-11T20:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="20.7"/>
+            <windDirection id="dd" deg="207.3" name="SW"/>
+            <windSpeed id="ff" mps="4.4" beaufort="3" name="Lett bris"/>
+            <windGust id="ff_gust" mps="9.8"/>
+            <globalRadiation value="52.0" unit="W/m^2"/>
+            <humidity value="47.9" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1018.9"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <mediumClouds id="MEDIUM" percent="52.2"/>
+            <highClouds id="HIGH" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="9.3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T19:00:00Z" to="2022-07-11T20:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T21:00:00Z" to="2022-07-11T21:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="20.7"/>
+            <windDirection id="dd" deg="194.6" name="S"/>
+            <windSpeed id="ff" mps="3.9" beaufort="3" name="Lett bris"/>
+            <windGust id="ff_gust" mps="8.7"/>
+            <globalRadiation value="6.8" unit="W/m^2"/>
+            <humidity value="47.6" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1018.9"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <mediumClouds id="MEDIUM" percent="100.0"/>
+            <highClouds id="HIGH" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="9.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T20:00:00Z" to="2022-07-11T21:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T22:00:00Z" to="2022-07-11T22:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="20.3"/>
+            <windDirection id="dd" deg="179.7" name="S"/>
+            <windSpeed id="ff" mps="3.0" beaufort="2" name="Svak vind"/>
+            <windGust id="ff_gust" mps="8.4"/>
+            <globalRadiation value="0.0" unit="W/m^2"/>
+            <humidity value="52.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1018.8"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <mediumClouds id="MEDIUM" percent="100.0"/>
+            <highClouds id="HIGH" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="10.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T21:00:00Z" to="2022-07-11T22:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T23:00:00Z" to="2022-07-11T23:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="20.3"/>
+            <windDirection id="dd" deg="185.2" name="S"/>
+            <windSpeed id="ff" mps="2.9" beaufort="2" name="Svak vind"/>
+            <windGust id="ff_gust" mps="8.6"/>
+            <globalRadiation value="0.0" unit="W/m^2"/>
+            <humidity value="52.0" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1018.7"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <mediumClouds id="MEDIUM" percent="100.0"/>
+            <highClouds id="HIGH" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="10.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T22:00:00Z" to="2022-07-11T23:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T00:00:00Z" to="2022-07-12T00:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="20.7"/>
+            <windDirection id="dd" deg="211.7" name="SW"/>
+            <windSpeed id="ff" mps="4.9" beaufort="3" name="Lett bris"/>
+            <windGust id="ff_gust" mps="9.3"/>
+            <globalRadiation value="0.0" unit="W/m^2"/>
+            <humidity value="46.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1018.6"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <mediumClouds id="MEDIUM" percent="100.0"/>
+            <highClouds id="HIGH" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="8.7"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-11T23:00:00Z" to="2022-07-12T00:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T01:00:00Z" to="2022-07-12T01:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="20.0"/>
+            <windDirection id="dd" deg="229.0" name="SW"/>
+            <windSpeed id="ff" mps="5.5" beaufort="4" name="Laber bris"/>
+            <windGust id="ff_gust" mps="9.8"/>
+            <globalRadiation value="0.0" unit="W/m^2"/>
+            <humidity value="48.9" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1018.7"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <mediumClouds id="MEDIUM" percent="100.0"/>
+            <highClouds id="HIGH" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="8.9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T00:00:00Z" to="2022-07-12T01:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T02:00:00Z" to="2022-07-12T02:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="19.5"/>
+            <windDirection id="dd" deg="223.2" name="SW"/>
+            <windSpeed id="ff" mps="5.3" beaufort="3" name="Lett bris"/>
+            <windGust id="ff_gust" mps="9.6"/>
+            <globalRadiation value="0.0" unit="W/m^2"/>
+            <humidity value="50.6" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1018.5"/>
+            <cloudiness id="NN" percent="99.7"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <mediumClouds id="MEDIUM" percent="94.0"/>
+            <highClouds id="HIGH" percent="93.3"/>
+            <dewpointTemperature id="TD" unit="celsius" value="9.0"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T01:00:00Z" to="2022-07-12T02:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T03:00:00Z" to="2022-07-12T03:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="19.3"/>
+            <windDirection id="dd" deg="216.6" name="SW"/>
+            <windSpeed id="ff" mps="4.5" beaufort="3" name="Lett bris"/>
+            <windGust id="ff_gust" mps="9.1"/>
+            <globalRadiation value="0.0" unit="W/m^2"/>
+            <humidity value="52.9" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1018.0"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <mediumClouds id="MEDIUM" percent="100.0"/>
+            <highClouds id="HIGH" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="9.5"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T02:00:00Z" to="2022-07-12T03:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T04:00:00Z" to="2022-07-12T04:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="19.3"/>
+            <windDirection id="dd" deg="219.2" name="SW"/>
+            <windSpeed id="ff" mps="4.7" beaufort="3" name="Lett bris"/>
+            <windGust id="ff_gust" mps="8.2"/>
+            <globalRadiation value="0.0" unit="W/m^2"/>
+            <humidity value="55.6" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1018.4"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <mediumClouds id="MEDIUM" percent="100.0"/>
+            <highClouds id="HIGH" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="10.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T03:00:00Z" to="2022-07-12T04:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T05:00:00Z" to="2022-07-12T05:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="19.1"/>
+            <windDirection id="dd" deg="219.6" name="SW"/>
+            <windSpeed id="ff" mps="4.0" beaufort="3" name="Lett bris"/>
+            <windGust id="ff_gust" mps="8.2"/>
+            <globalRadiation value="4.1" unit="W/m^2"/>
+            <humidity value="58.3" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1018.6"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <mediumClouds id="MEDIUM" percent="100.0"/>
+            <highClouds id="HIGH" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="10.8"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T04:00:00Z" to="2022-07-12T05:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.9"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T06:00:00Z" to="2022-07-12T06:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="18.7"/>
+            <windDirection id="dd" deg="230.7" name="SW"/>
+            <windSpeed id="ff" mps="4.0" beaufort="3" name="Lett bris"/>
+            <windGust id="ff_gust" mps="7.9"/>
+            <globalRadiation value="31.4" unit="W/m^2"/>
+            <humidity value="61.7" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1019.3"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="24.6"/>
+            <mediumClouds id="MEDIUM" percent="100.0"/>
+            <highClouds id="HIGH" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T05:00:00Z" to="2022-07-12T06:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="4.8"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T07:00:00Z" to="2022-07-12T07:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="18.7"/>
+            <windDirection id="dd" deg="235.0" name="SW"/>
+            <windSpeed id="ff" mps="3.5" beaufort="3" name="Lett bris"/>
+            <windGust id="ff_gust" mps="7.6"/>
+            <globalRadiation value="79.9" unit="W/m^2"/>
+            <humidity value="63.4" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1019.4"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="51.6"/>
+            <mediumClouds id="MEDIUM" percent="98.7"/>
+            <highClouds id="HIGH" percent="99.8"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.7"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T06:00:00Z" to="2022-07-12T07:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="3.8"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T08:00:00Z" to="2022-07-12T08:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="20.1"/>
+            <windDirection id="dd" deg="244.8" name="SW"/>
+            <windSpeed id="ff" mps="3.8" beaufort="3" name="Lett bris"/>
+            <windGust id="ff_gust" mps="7.8"/>
+            <globalRadiation value="163.7" unit="W/m^2"/>
+            <humidity value="60.6" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1019.5"/>
+            <cloudiness id="NN" percent="45.7"/>
+            <lowClouds id="LOW" percent="6.2"/>
+            <mediumClouds id="MEDIUM" percent="36.5"/>
+            <highClouds id="HIGH" percent="7.3"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T07:00:00Z" to="2022-07-12T08:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="4.7"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T09:00:00Z" to="2022-07-12T09:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="20.8"/>
+            <windDirection id="dd" deg="244.6" name="SW"/>
+            <windSpeed id="ff" mps="4.4" beaufort="3" name="Lett bris"/>
+            <windGust id="ff_gust" mps="8.6"/>
+            <globalRadiation value="336.2" unit="W/m^2"/>
+            <humidity value="60.7" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1019.7"/>
+            <cloudiness id="NN" percent="76.3"/>
+            <lowClouds id="LOW" percent="74.2"/>
+            <mediumClouds id="MEDIUM" percent="18.5"/>
+            <highClouds id="HIGH" percent="0.5"/>
+            <dewpointTemperature id="TD" unit="celsius" value="13.0"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T08:00:00Z" to="2022-07-12T09:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T10:00:00Z" to="2022-07-12T10:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="22.0"/>
+            <windDirection id="dd" deg="257.6" name="W"/>
+            <windSpeed id="ff" mps="4.2" beaufort="3" name="Lett bris"/>
+            <windGust id="ff_gust" mps="8.5"/>
+            <globalRadiation value="323.3" unit="W/m^2"/>
+            <humidity value="57.7" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1019.8"/>
+            <cloudiness id="NN" percent="29.3"/>
+            <lowClouds id="LOW" percent="21.0"/>
+            <mediumClouds id="MEDIUM" percent="12.6"/>
+            <highClouds id="HIGH" percent="0.6"/>
+            <dewpointTemperature id="TD" unit="celsius" value="13.4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T09:00:00Z" to="2022-07-12T10:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="LightCloud" number="2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T11:00:00Z" to="2022-07-12T11:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="22.8"/>
+            <windDirection id="dd" deg="260.8" name="W"/>
+            <windSpeed id="ff" mps="4.3" beaufort="3" name="Lett bris"/>
+            <windGust id="ff_gust" mps="8.4"/>
+            <globalRadiation value="317.2" unit="W/m^2"/>
+            <humidity value="57.0" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1020.0"/>
+            <cloudiness id="NN" percent="83.3"/>
+            <lowClouds id="LOW" percent="79.2"/>
+            <mediumClouds id="MEDIUM" percent="5.8"/>
+            <highClouds id="HIGH" percent="42.9"/>
+            <dewpointTemperature id="TD" unit="celsius" value="13.9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T10:00:00Z" to="2022-07-12T11:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T12:00:00Z" to="2022-07-12T12:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="20.3"/>
+            <windDirection id="dd" deg="281.0" name="W"/>
+            <windSpeed id="ff" mps="4.1" beaufort="3" name="Lett bris"/>
+            <windGust id="ff_gust" mps="8.0"/>
+            <globalRadiation value="275.7" unit="W/m^2"/>
+            <humidity value="66.7" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1020.3"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="96.3"/>
+            <mediumClouds id="MEDIUM" percent="53.8"/>
+            <highClouds id="HIGH" percent="98.4"/>
+            <dewpointTemperature id="TD" unit="celsius" value="14.0"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T11:00:00Z" to="2022-07-12T12:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.1" probability="11.7"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T13:00:00Z" to="2022-07-12T13:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="20.4"/>
+            <windDirection id="dd" deg="307.4" name="NW"/>
+            <windSpeed id="ff" mps="1.4" beaufort="1" name="Flau vind"/>
+            <globalRadiation value="422.8" unit="W/m^2"/>
+            <humidity value="74.6" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1020.0"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="15.9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T12:00:00Z" to="2022-07-12T13:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.1" probability="11.5"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T14:00:00Z" to="2022-07-12T14:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="19.6"/>
+            <windDirection id="dd" deg="338.3" name="N"/>
+            <windSpeed id="ff" mps="1.3" beaufort="1" name="Flau vind"/>
+            <globalRadiation value="405.2" unit="W/m^2"/>
+            <humidity value="80.3" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1020.3"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="16.3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T13:00:00Z" to="2022-07-12T14:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.1" probability="13.7"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T15:00:00Z" to="2022-07-12T15:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="18.9"/>
+            <windDirection id="dd" deg="351.3" name="N"/>
+            <windSpeed id="ff" mps="2.1" beaufort="2" name="Svak vind"/>
+            <globalRadiation value="370.1" unit="W/m^2"/>
+            <humidity value="83.6" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1020.4"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="99.9"/>
+            <dewpointTemperature id="TD" unit="celsius" value="16.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T14:00:00Z" to="2022-07-12T15:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.1" probability="9.2"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T16:00:00Z" to="2022-07-12T16:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="19.1"/>
+            <windDirection id="dd" deg="309.1" name="NW"/>
+            <windSpeed id="ff" mps="1.6" beaufort="2" name="Svak vind"/>
+            <globalRadiation value="351.1" unit="W/m^2"/>
+            <humidity value="80.0" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1020.3"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="15.8"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T15:00:00Z" to="2022-07-12T16:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.1" probability="7.2"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T17:00:00Z" to="2022-07-12T17:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="19.6"/>
+            <windDirection id="dd" deg="251.3" name="W"/>
+            <windSpeed id="ff" mps="1.6" beaufort="2" name="Svak vind"/>
+            <globalRadiation value="309.4" unit="W/m^2"/>
+            <humidity value="75.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1020.2"/>
+            <cloudiness id="NN" percent="94.6"/>
+            <lowClouds id="LOW" percent="95.4"/>
+            <dewpointTemperature id="TD" unit="celsius" value="15.3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T16:00:00Z" to="2022-07-12T17:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="4.1"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T18:00:00Z" to="2022-07-12T18:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="19.8"/>
+            <windDirection id="dd" deg="277.6" name="W"/>
+            <windSpeed id="ff" mps="1.9" beaufort="2" name="Svak vind"/>
+            <globalRadiation value="248.3" unit="W/m^2"/>
+            <humidity value="71.9" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1020.2"/>
+            <cloudiness id="NN" percent="93.0"/>
+            <lowClouds id="LOW" percent="93.6"/>
+            <dewpointTemperature id="TD" unit="celsius" value="14.8"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T17:00:00Z" to="2022-07-12T18:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="1.7"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T19:00:00Z" to="2022-07-12T19:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="20.0"/>
+            <windDirection id="dd" deg="271.9" name="W"/>
+            <windSpeed id="ff" mps="2.5" beaufort="2" name="Svak vind"/>
+            <globalRadiation value="173.3" unit="W/m^2"/>
+            <humidity value="60.5" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1020.3"/>
+            <cloudiness id="NN" percent="52.1"/>
+            <lowClouds id="LOW" percent="26.6"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T18:00:00Z" to="2022-07-12T19:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.5"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T20:00:00Z" to="2022-07-12T20:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="18.8"/>
+            <windDirection id="dd" deg="224.2" name="SW"/>
+            <windSpeed id="ff" mps="1.7" beaufort="2" name="Svak vind"/>
+            <globalRadiation value="82.1" unit="W/m^2"/>
+            <humidity value="65.6" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1020.4"/>
+            <cloudiness id="NN" percent="9.6"/>
+            <lowClouds id="LOW" percent="4.6"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T19:00:00Z" to="2022-07-12T20:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.7"/>
+<symbol id="Sun" number="1"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T21:00:00Z" to="2022-07-12T21:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="17.4"/>
+            <windDirection id="dd" deg="249.0" name="W"/>
+            <windSpeed id="ff" mps="2.9" beaufort="2" name="Svak vind"/>
+            <globalRadiation value="12.3" unit="W/m^2"/>
+            <humidity value="67.5" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1021.0"/>
+            <cloudiness id="NN" percent="92.9"/>
+            <lowClouds id="LOW" percent="93.7"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T20:00:00Z" to="2022-07-12T21:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="1.2"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T22:00:00Z" to="2022-07-12T22:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="17.1"/>
+            <windDirection id="dd" deg="304.6" name="NW"/>
+            <windSpeed id="ff" mps="5.5" beaufort="4" name="Laber bris"/>
+            <globalRadiation value="-0.0" unit="W/m^2"/>
+            <humidity value="70.0" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1022.0"/>
+            <cloudiness id="NN" percent="38.0"/>
+            <lowClouds id="LOW" percent="38.4"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.7"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T21:00:00Z" to="2022-07-12T22:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.4"/>
+<symbol id="LightCloud" number="2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T23:00:00Z" to="2022-07-12T23:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="15.2"/>
+            <windDirection id="dd" deg="320.9" name="NW"/>
+            <windSpeed id="ff" mps="5.0" beaufort="3" name="Lett bris"/>
+            <globalRadiation value="0.0" unit="W/m^2"/>
+            <humidity value="76.7" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1023.1"/>
+            <cloudiness id="NN" percent="31.9"/>
+            <lowClouds id="LOW" percent="32.3"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T22:00:00Z" to="2022-07-12T23:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="LightCloud" number="2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T00:00:00Z" to="2022-07-13T00:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="13.6"/>
+            <windDirection id="dd" deg="314.3" name="NW"/>
+            <windSpeed id="ff" mps="3.7" beaufort="3" name="Lett bris"/>
+            <globalRadiation value="0.0" unit="W/m^2"/>
+            <humidity value="79.8" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1023.6"/>
+            <cloudiness id="NN" percent="27.4"/>
+            <lowClouds id="LOW" percent="4.8"/>
+            <dewpointTemperature id="TD" unit="celsius" value="10.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-12T23:00:00Z" to="2022-07-13T00:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="LightCloud" number="2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T01:00:00Z" to="2022-07-13T01:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="12.6"/>
+            <windDirection id="dd" deg="304.3" name="NW"/>
+            <windSpeed id="ff" mps="3.3" beaufort="2" name="Svak vind"/>
+            <globalRadiation value="0.0" unit="W/m^2"/>
+            <humidity value="83.0" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1023.9"/>
+            <cloudiness id="NN" percent="75.6"/>
+            <lowClouds id="LOW" percent="10.4"/>
+            <dewpointTemperature id="TD" unit="celsius" value="9.8"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T00:00:00Z" to="2022-07-13T01:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T02:00:00Z" to="2022-07-13T02:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="11.9"/>
+            <windDirection id="dd" deg="302.9" name="NW"/>
+            <windSpeed id="ff" mps="3.5" beaufort="3" name="Lett bris"/>
+            <globalRadiation value="0.0" unit="W/m^2"/>
+            <humidity value="84.4" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1024.1"/>
+            <cloudiness id="NN" percent="58.6"/>
+            <lowClouds id="LOW" percent="6.5"/>
+            <dewpointTemperature id="TD" unit="celsius" value="9.4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T01:00:00Z" to="2022-07-13T02:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T03:00:00Z" to="2022-07-13T03:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="11.4"/>
+            <windDirection id="dd" deg="288.9" name="W"/>
+            <windSpeed id="ff" mps="3.7" beaufort="3" name="Lett bris"/>
+            <globalRadiation value="0.0" unit="W/m^2"/>
+            <humidity value="86.3" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1024.3"/>
+            <cloudiness id="NN" percent="67.2"/>
+            <lowClouds id="LOW" percent="0.8"/>
+            <dewpointTemperature id="TD" unit="celsius" value="9.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T02:00:00Z" to="2022-07-13T03:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T04:00:00Z" to="2022-07-13T04:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="11.0"/>
+            <windDirection id="dd" deg="282.8" name="W"/>
+            <windSpeed id="ff" mps="3.9" beaufort="3" name="Lett bris"/>
+            <globalRadiation value="0.0" unit="W/m^2"/>
+            <humidity value="86.7" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1024.5"/>
+            <cloudiness id="NN" percent="21.9"/>
+            <lowClouds id="LOW" percent="0.8"/>
+            <dewpointTemperature id="TD" unit="celsius" value="8.9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T03:00:00Z" to="2022-07-13T04:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="LightCloud" number="2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T05:00:00Z" to="2022-07-13T05:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="11.0"/>
+            <windDirection id="dd" deg="281.2" name="W"/>
+            <windSpeed id="ff" mps="3.8" beaufort="3" name="Lett bris"/>
+            <globalRadiation value="11.0" unit="W/m^2"/>
+            <humidity value="84.2" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1024.8"/>
+            <cloudiness id="NN" percent="65.5"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="8.4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T04:00:00Z" to="2022-07-13T05:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T06:00:00Z" to="2022-07-13T06:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="11.9"/>
+            <windDirection id="dd" deg="283.9" name="W"/>
+            <windSpeed id="ff" mps="4.1" beaufort="3" name="Lett bris"/>
+            <globalRadiation value="83.2" unit="W/m^2"/>
+            <humidity value="79.7" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1025.2"/>
+            <cloudiness id="NN" percent="0.0"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="8.5"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T05:00:00Z" to="2022-07-13T06:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="Sun" number="1"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T07:00:00Z" to="2022-07-13T07:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="13.1"/>
+            <windDirection id="dd" deg="284.9" name="W"/>
+            <windSpeed id="ff" mps="4.2" beaufort="3" name="Lett bris"/>
+            <globalRadiation value="194.1" unit="W/m^2"/>
+            <humidity value="75.9" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1025.5"/>
+            <cloudiness id="NN" percent="0.0"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="9.0"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T06:00:00Z" to="2022-07-13T07:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="Sun" number="1"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T08:00:00Z" to="2022-07-13T08:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="14.5"/>
+            <windDirection id="dd" deg="286.9" name="W"/>
+            <windSpeed id="ff" mps="4.0" beaufort="3" name="Lett bris"/>
+            <globalRadiation value="325.9" unit="W/m^2"/>
+            <humidity value="70.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1025.6"/>
+            <cloudiness id="NN" percent="5.6"/>
+            <lowClouds id="LOW" percent="5.6"/>
+            <dewpointTemperature id="TD" unit="celsius" value="9.1"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T07:00:00Z" to="2022-07-13T08:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="Sun" number="1"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T09:00:00Z" to="2022-07-13T09:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="16.1"/>
+            <windDirection id="dd" deg="291.7" name="W"/>
+            <windSpeed id="ff" mps="4.1" beaufort="3" name="Lett bris"/>
+            <globalRadiation value="429.1" unit="W/m^2"/>
+            <humidity value="58.4" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1025.6"/>
+            <cloudiness id="NN" percent="68.1"/>
+            <lowClouds id="LOW" percent="68.8"/>
+            <dewpointTemperature id="TD" unit="celsius" value="7.9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T08:00:00Z" to="2022-07-13T09:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T10:00:00Z" to="2022-07-13T10:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="17.4"/>
+            <windDirection id="dd" deg="286.9" name="W"/>
+            <windSpeed id="ff" mps="4.1" beaufort="3" name="Lett bris"/>
+            <globalRadiation value="508.1" unit="W/m^2"/>
+            <humidity value="53.0" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1025.5"/>
+            <cloudiness id="NN" percent="34.4"/>
+            <lowClouds id="LOW" percent="34.8"/>
+            <dewpointTemperature id="TD" unit="celsius" value="7.7"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T09:00:00Z" to="2022-07-13T10:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="LightCloud" number="2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T11:00:00Z" to="2022-07-13T11:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="18.7"/>
+            <windDirection id="dd" deg="281.0" name="W"/>
+            <windSpeed id="ff" mps="4.4" beaufort="3" name="Lett bris"/>
+            <globalRadiation value="564.4" unit="W/m^2"/>
+            <humidity value="50.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1025.4"/>
+            <cloudiness id="NN" percent="95.3"/>
+            <lowClouds id="LOW" percent="96.1"/>
+            <dewpointTemperature id="TD" unit="celsius" value="8.1"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T10:00:00Z" to="2022-07-13T11:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T12:00:00Z" to="2022-07-13T12:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="19.3"/>
+            <windDirection id="dd" deg="279.6" name="W"/>
+            <windSpeed id="ff" mps="4.5" beaufort="3" name="Lett bris"/>
+            <globalRadiation value="624.4" unit="W/m^2"/>
+            <humidity value="48.6" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1025.4"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="8.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T11:00:00Z" to="2022-07-13T12:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="1.2"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T13:00:00Z" to="2022-07-13T13:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="19.1"/>
+            <windDirection id="dd" deg="273.5" name="W"/>
+            <windSpeed id="ff" mps="4.1" beaufort="3" name="Lett bris"/>
+            <globalRadiation value="629.3" unit="W/m^2"/>
+            <humidity value="50.6" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1025.4"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="99.9"/>
+            <dewpointTemperature id="TD" unit="celsius" value="8.6"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T12:00:00Z" to="2022-07-13T13:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T14:00:00Z" to="2022-07-13T14:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="19.0"/>
+            <windDirection id="dd" deg="272.1" name="W"/>
+            <windSpeed id="ff" mps="3.5" beaufort="3" name="Lett bris"/>
+            <globalRadiation value="597.5" unit="W/m^2"/>
+            <humidity value="52.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1025.3"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="99.9"/>
+            <dewpointTemperature id="TD" unit="celsius" value="8.9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T13:00:00Z" to="2022-07-13T14:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T15:00:00Z" to="2022-07-13T15:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="19.2"/>
+            <windDirection id="dd" deg="268.2" name="W"/>
+            <windSpeed id="ff" mps="3.7" beaufort="3" name="Lett bris"/>
+            <globalRadiation value="544.1" unit="W/m^2"/>
+            <humidity value="51.0" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1025.1"/>
+            <cloudiness id="NN" percent="98.2"/>
+            <lowClouds id="LOW" percent="99.3"/>
+            <dewpointTemperature id="TD" unit="celsius" value="8.8"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T14:00:00Z" to="2022-07-13T15:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T16:00:00Z" to="2022-07-13T16:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="19.6"/>
+            <windDirection id="dd" deg="265.6" name="W"/>
+            <windSpeed id="ff" mps="3.6" beaufort="3" name="Lett bris"/>
+            <globalRadiation value="454.8" unit="W/m^2"/>
+            <humidity value="47.7" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1024.7"/>
+            <cloudiness id="NN" percent="95.6"/>
+            <lowClouds id="LOW" percent="93.6"/>
+            <dewpointTemperature id="TD" unit="celsius" value="8.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T15:00:00Z" to="2022-07-13T16:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T17:00:00Z" to="2022-07-13T17:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="19.6"/>
+            <windDirection id="dd" deg="266.6" name="W"/>
+            <windSpeed id="ff" mps="3.3" beaufort="2" name="Svak vind"/>
+            <globalRadiation value="367.5" unit="W/m^2"/>
+            <humidity value="47.8" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1024.4"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="8.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T16:00:00Z" to="2022-07-13T17:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T18:00:00Z" to="2022-07-13T18:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="19.2"/>
+            <windDirection id="dd" deg="274.7" name="W"/>
+            <windSpeed id="ff" mps="3.3" beaufort="2" name="Svak vind"/>
+            <globalRadiation value="278.6" unit="W/m^2"/>
+            <humidity value="50.3" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1024.4"/>
+            <cloudiness id="NN" percent="98.1"/>
+            <lowClouds id="LOW" percent="84.7"/>
+            <dewpointTemperature id="TD" unit="celsius" value="8.7"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T17:00:00Z" to="2022-07-13T18:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0" probability="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T21:00:00Z" to="2022-07-13T21:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="16.3"/>
+            <windDirection id="dd" deg="292.3" name="W"/>
+            <windSpeed id="ff" mps="3.3" beaufort="2" name="Svak vind"/>
+            <globalRadiation value="89.3" unit="W/m^2"/>
+            <humidity value="70.6" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1025.5"/>
+            <cloudiness id="NN" percent="23.1"/>
+            <lowClouds id="LOW" percent="10.7"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.0"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T18:00:00Z" to="2022-07-13T21:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="LightCloud" number="2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-14T00:00:00Z" to="2022-07-14T00:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="13.3"/>
+            <windDirection id="dd" deg="272.0" name="W"/>
+            <windSpeed id="ff" mps="2.9" beaufort="2" name="Svak vind"/>
+            <globalRadiation value="-0.0" unit="W/m^2"/>
+            <humidity value="83.7" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1025.8"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="26.8"/>
+            <dewpointTemperature id="TD" unit="celsius" value="10.6"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-13T21:00:00Z" to="2022-07-14T00:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-14T03:00:00Z" to="2022-07-14T03:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="11.5"/>
+            <windDirection id="dd" deg="289.2" name="W"/>
+            <windSpeed id="ff" mps="2.1" beaufort="2" name="Svak vind"/>
+            <globalRadiation value="0.0" unit="W/m^2"/>
+            <humidity value="91.3" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1025.4"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="2.1"/>
+            <dewpointTemperature id="TD" unit="celsius" value="10.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-14T00:00:00Z" to="2022-07-14T03:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-14T06:00:00Z" to="2022-07-14T06:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="11.9"/>
+            <windDirection id="dd" deg="279.7" name="W"/>
+            <windSpeed id="ff" mps="2.5" beaufort="2" name="Svak vind"/>
+            <globalRadiation value="28.5" unit="W/m^2"/>
+            <humidity value="89.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1026.0"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="0.3"/>
+            <dewpointTemperature id="TD" unit="celsius" value="10.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-14T03:00:00Z" to="2022-07-14T06:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-14T09:00:00Z" to="2022-07-14T09:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="15.8"/>
+            <windDirection id="dd" deg="286.3" name="W"/>
+            <windSpeed id="ff" mps="1.5" beaufort="1" name="Flau vind"/>
+            <globalRadiation value="295.1" unit="W/m^2"/>
+            <humidity value="66.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1026.0"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="73.2"/>
+            <dewpointTemperature id="TD" unit="celsius" value="9.6"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-14T06:00:00Z" to="2022-07-14T09:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-14T12:00:00Z" to="2022-07-14T12:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="17.8"/>
+            <windDirection id="dd" deg="22.1" name="N"/>
+            <windSpeed id="ff" mps="0.2" beaufort="0" name="Stille"/>
+            <globalRadiation value="506.7" unit="W/m^2"/>
+            <humidity value="56.8" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1025.4"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="62.5"/>
+            <dewpointTemperature id="TD" unit="celsius" value="9.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-14T09:00:00Z" to="2022-07-14T12:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-14T15:00:00Z" to="2022-07-14T15:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="17.5"/>
+            <windDirection id="dd" deg="115.7" name="SE"/>
+            <windSpeed id="ff" mps="4.7" beaufort="3" name="Lett bris"/>
+            <globalRadiation value="559.6" unit="W/m^2"/>
+            <humidity value="67.2" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1024.8"/>
+            <cloudiness id="NN" percent="24.2"/>
+            <lowClouds id="LOW" percent="23.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.5"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-14T12:00:00Z" to="2022-07-14T15:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="LightCloud" number="2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-14T18:00:00Z" to="2022-07-14T18:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="16.0"/>
+            <windDirection id="dd" deg="131.1" name="SE"/>
+            <windSpeed id="ff" mps="5.5" beaufort="4" name="Laber bris"/>
+            <globalRadiation value="361.1" unit="W/m^2"/>
+            <humidity value="73.3" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1023.7"/>
+            <cloudiness id="NN" percent="45.4"/>
+            <lowClouds id="LOW" percent="6.1"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-14T15:00:00Z" to="2022-07-14T18:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-14T21:00:00Z" to="2022-07-14T21:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="14.8"/>
+            <windDirection id="dd" deg="147.5" name="SE"/>
+            <windSpeed id="ff" mps="3.5" beaufort="3" name="Lett bris"/>
+            <globalRadiation value="81.6" unit="W/m^2"/>
+            <humidity value="83.2" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1023.1"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="29.2"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.0"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-14T18:00:00Z" to="2022-07-14T21:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-15T00:00:00Z" to="2022-07-15T00:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="14.9"/>
+            <windDirection id="dd" deg="256.6" name="W"/>
+            <windSpeed id="ff" mps="2.1" beaufort="2" name="Svak vind"/>
+            <globalRadiation value="0.0" unit="W/m^2"/>
+            <humidity value="85.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1022.4"/>
+            <cloudiness id="NN" percent="92.5"/>
+            <lowClouds id="LOW" percent="0.1"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.5"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-14T21:00:00Z" to="2022-07-15T00:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-15T03:00:00Z" to="2022-07-15T03:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="12.9"/>
+            <windDirection id="dd" deg="266.0" name="W"/>
+            <windSpeed id="ff" mps="4.3" beaufort="3" name="Lett bris"/>
+            <globalRadiation value="0.0" unit="W/m^2"/>
+            <humidity value="85.0" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1021.6"/>
+            <cloudiness id="NN" percent="3.6"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="10.5"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-15T00:00:00Z" to="2022-07-15T03:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Sun" number="1"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-15T06:00:00Z" to="2022-07-15T06:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="12.6"/>
+            <windDirection id="dd" deg="258.0" name="W"/>
+            <windSpeed id="ff" mps="3.6" beaufort="3" name="Lett bris"/>
+            <globalRadiation value="22.7" unit="W/m^2"/>
+            <humidity value="82.5" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1021.6"/>
+            <cloudiness id="NN" percent="6.8"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="9.7"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-15T03:00:00Z" to="2022-07-15T06:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Sun" number="1"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-15T09:00:00Z" to="2022-07-15T09:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="16.4"/>
+            <windDirection id="dd" deg="262.5" name="W"/>
+            <windSpeed id="ff" mps="3.6" beaufort="3" name="Lett bris"/>
+            <globalRadiation value="240.5" unit="W/m^2"/>
+            <humidity value="65.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1021.6"/>
+            <cloudiness id="NN" percent="66.6"/>
+            <lowClouds id="LOW" percent="1.5"/>
+            <dewpointTemperature id="TD" unit="celsius" value="9.9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-15T06:00:00Z" to="2022-07-15T09:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-15T12:00:00Z" to="2022-07-15T12:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="19.8"/>
+            <windDirection id="dd" deg="155.3" name="SE"/>
+            <windSpeed id="ff" mps="2.0" beaufort="2" name="Svak vind"/>
+            <globalRadiation value="512.0" unit="W/m^2"/>
+            <humidity value="55.7" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1020.8"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="0.1"/>
+            <dewpointTemperature id="TD" unit="celsius" value="10.8"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-15T09:00:00Z" to="2022-07-15T12:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-15T15:00:00Z" to="2022-07-15T15:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="20.4"/>
+            <windDirection id="dd" deg="129.4" name="SE"/>
+            <windSpeed id="ff" mps="3.0" beaufort="2" name="Svak vind"/>
+            <globalRadiation value="578.3" unit="W/m^2"/>
+            <humidity value="69.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1019.6"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="14.7"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-15T12:00:00Z" to="2022-07-15T15:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-15T18:00:00Z" to="2022-07-15T18:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="22.7"/>
+            <windDirection id="dd" deg="250.5" name="W"/>
+            <windSpeed id="ff" mps="3.3" beaufort="2" name="Svak vind"/>
+            <globalRadiation value="368.2" unit="W/m^2"/>
+            <humidity value="47.7" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1018.3"/>
+            <cloudiness id="NN" percent="2.2"/>
+            <lowClouds id="LOW" percent="0.8"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.1"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-15T15:00:00Z" to="2022-07-15T18:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Sun" number="1"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-15T21:00:00Z" to="2022-07-15T21:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="19.1"/>
+            <windDirection id="dd" deg="273.6" name="W"/>
+            <windSpeed id="ff" mps="2.9" beaufort="2" name="Svak vind"/>
+            <globalRadiation value="82.7" unit="W/m^2"/>
+            <humidity value="62.8" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1018.8"/>
+            <cloudiness id="NN" percent="85.4"/>
+            <lowClouds id="LOW" percent="1.6"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-15T18:00:00Z" to="2022-07-15T21:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-16T00:00:00Z" to="2022-07-16T00:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="16.3"/>
+            <windDirection id="dd" deg="252.5" name="W"/>
+            <windSpeed id="ff" mps="3.3" beaufort="2" name="Svak vind"/>
+            <globalRadiation value="-0.0" unit="W/m^2"/>
+            <humidity value="74.9" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1019.2"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="0.7"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.0"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-15T21:00:00Z" to="2022-07-16T00:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-16T06:00:00Z" to="2022-07-16T06:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="14.7"/>
+            <windDirection id="dd" deg="238.1" name="SW"/>
+            <windSpeed id="ff" mps="3.4" beaufort="3" name="Lett bris"/>
+            <globalRadiation value="12.9" unit="W/m^2"/>
+            <humidity value="80.6" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1018.8"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.5"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-16T00:00:00Z" to="2022-07-16T06:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="3.8"/>
+<symbol id="LightRain" number="9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-16T12:00:00Z" to="2022-07-16T12:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="21.1"/>
+            <windDirection id="dd" deg="248.2" name="W"/>
+            <windSpeed id="ff" mps="3.0" beaufort="2" name="Svak vind"/>
+            <globalRadiation value="437.0" unit="W/m^2"/>
+            <humidity value="67.8" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1019.8"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="0.8"/>
+            <dewpointTemperature id="TD" unit="celsius" value="15.1"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-16T06:00:00Z" to="2022-07-16T12:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="3.1"/>
+<symbol id="LightRain" number="9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-16T18:00:00Z" to="2022-07-16T18:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="22.4"/>
+            <windDirection id="dd" deg="128.4" name="SE"/>
+            <windSpeed id="ff" mps="1.4" beaufort="1" name="Flau vind"/>
+            <globalRadiation value="475.5" unit="W/m^2"/>
+            <humidity value="76.8" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1017.9"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="18.3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-16T12:00:00Z" to="2022-07-16T18:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-17T00:00:00Z" to="2022-07-17T00:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="16.1"/>
+            <windDirection id="dd" deg="259.2" name="W"/>
+            <windSpeed id="ff" mps="0.7" beaufort="1" name="Flau vind"/>
+            <globalRadiation value="37.3" unit="W/m^2"/>
+            <humidity value="77.5" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1017.4"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-16T18:00:00Z" to="2022-07-17T00:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-17T06:00:00Z" to="2022-07-17T06:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="15.6"/>
+            <windDirection id="dd" deg="315.2" name="NW"/>
+            <windSpeed id="ff" mps="0.9" beaufort="1" name="Flau vind"/>
+            <globalRadiation value="11.3" unit="W/m^2"/>
+            <humidity value="69.3" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1014.4"/>
+            <cloudiness id="NN" percent="98.4"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="10.0"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-17T00:00:00Z" to="2022-07-17T06:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-17T12:00:00Z" to="2022-07-17T12:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="23.4"/>
+            <windDirection id="dd" deg="100.9" name="E"/>
+            <windSpeed id="ff" mps="1.6" beaufort="2" name="Svak vind"/>
+            <globalRadiation value="420.0" unit="W/m^2"/>
+            <humidity value="55.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1015.0"/>
+            <cloudiness id="NN" percent="47.3"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="14.0"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-17T06:00:00Z" to="2022-07-17T12:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-17T18:00:00Z" to="2022-07-17T18:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="21.5"/>
+            <windDirection id="dd" deg="124.3" name="SE"/>
+            <windSpeed id="ff" mps="3.3" beaufort="2" name="Svak vind"/>
+            <globalRadiation value="535.9" unit="W/m^2"/>
+            <humidity value="57.4" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1015.5"/>
+            <cloudiness id="NN" percent="30.2"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.8"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-17T12:00:00Z" to="2022-07-17T18:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="LightCloud" number="2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-18T00:00:00Z" to="2022-07-18T00:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="16.0"/>
+            <windDirection id="dd" deg="31.4" name="NE"/>
+            <windSpeed id="ff" mps="1.4" beaufort="1" name="Flau vind"/>
+            <globalRadiation value="43.2" unit="W/m^2"/>
+            <humidity value="87.4" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1017.3"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="14.0"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-17T18:00:00Z" to="2022-07-18T00:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-18T06:00:00Z" to="2022-07-18T06:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="15.5"/>
+            <windDirection id="dd" deg="15.9" name="N"/>
+            <windSpeed id="ff" mps="2.2" beaufort="2" name="Svak vind"/>
+            <globalRadiation value="12.0" unit="W/m^2"/>
+            <humidity value="93.5" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1017.9"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="37.6"/>
+            <dewpointTemperature id="TD" unit="celsius" value="14.6"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-18T00:00:00Z" to="2022-07-18T06:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-18T12:00:00Z" to="2022-07-18T12:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="19.5"/>
+            <windDirection id="dd" deg="70.3" name="E"/>
+            <windSpeed id="ff" mps="2.4" beaufort="2" name="Svak vind"/>
+            <globalRadiation value="397.5" unit="W/m^2"/>
+            <humidity value="79.3" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1018.9"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="20.9"/>
+            <dewpointTemperature id="TD" unit="celsius" value="16.0"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-18T06:00:00Z" to="2022-07-18T12:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-18T18:00:00Z" to="2022-07-18T18:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="17.1"/>
+            <windDirection id="dd" deg="92.0" name="E"/>
+            <windSpeed id="ff" mps="1.0" beaufort="1" name="Flau vind"/>
+            <globalRadiation value="481.5" unit="W/m^2"/>
+            <humidity value="90.3" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1018.8"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="15.7"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-18T12:00:00Z" to="2022-07-18T18:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="1.1"/>
+<symbol id="LightRain" number="9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-19T00:00:00Z" to="2022-07-19T00:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="16.0"/>
+            <windDirection id="dd" deg="41.2" name="NE"/>
+            <windSpeed id="ff" mps="1.4" beaufort="1" name="Flau vind"/>
+            <globalRadiation value="40.6" unit="W/m^2"/>
+            <humidity value="92.3" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1019.2"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="2.4"/>
+            <dewpointTemperature id="TD" unit="celsius" value="14.9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-18T18:00:00Z" to="2022-07-19T00:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.9"/>
+<symbol id="Drizzle" number="46"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-19T06:00:00Z" to="2022-07-19T06:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="15.8"/>
+            <windDirection id="dd" deg="349.2" name="N"/>
+            <windSpeed id="ff" mps="2.0" beaufort="2" name="Svak vind"/>
+            <globalRadiation value="11.7" unit="W/m^2"/>
+            <humidity value="93.2" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1019.0"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="14.9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-19T00:00:00Z" to="2022-07-19T06:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-19T12:00:00Z" to="2022-07-19T12:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="20.7"/>
+            <windDirection id="dd" deg="30.2" name="NE"/>
+            <windSpeed id="ff" mps="4.4" beaufort="3" name="Lett bris"/>
+            <globalRadiation value="403.9" unit="W/m^2"/>
+            <humidity value="72.7" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1020.3"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="27.4"/>
+            <dewpointTemperature id="TD" unit="celsius" value="15.8"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-19T06:00:00Z" to="2022-07-19T12:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-19T18:00:00Z" to="2022-07-19T18:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="19.0"/>
+            <windDirection id="dd" deg="38.4" name="NE"/>
+            <windSpeed id="ff" mps="3.6" beaufort="3" name="Lett bris"/>
+            <globalRadiation value="471.4" unit="W/m^2"/>
+            <humidity value="81.4" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1020.7"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="0.7"/>
+            <dewpointTemperature id="TD" unit="celsius" value="15.9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-19T12:00:00Z" to="2022-07-19T18:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-20T00:00:00Z" to="2022-07-20T00:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <temperature id="TTT" unit="celsius" value="16.3"/>
+            <windDirection id="dd" deg="18.5" name="N"/>
+            <windSpeed id="ff" mps="4.8" beaufort="3" name="Lett bris"/>
+            <globalRadiation value="37.0" unit="W/m^2"/>
+            <humidity value="85.7" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1022.5"/>
+            <cloudiness id="NN" percent="96.7"/>
+            <lowClouds id="LOW" percent="30.6"/>
+            <dewpointTemperature id="TD" unit="celsius" value="14.0"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2022-07-19T18:00:00Z" to="2022-07-20T00:00:00Z">
+         <location altitude="50" latitude="53.4264" longitude="-6.2499">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+   </product>
+</weatherdata> 
