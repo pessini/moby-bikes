@@ -248,4 +248,6 @@ df_forecast = generate_features(df_xml)
 predicted = pd.Series( xgb_pipe.predict(df_forecast), name='predicted') # round up to nearest integer
 predicted = predicted.map(round_up)
 df_forecast['predicted'] = predicted.values
-st.dataframe(df_forecast)
+
+# limiting 15 hours forecast
+st.dataframe(df_forecast[['date', 'hour', 'temp', 'rhum', 'wdsp', 'rainfall_intensity', 'predicted']][:15].reset_index(drop=True))
