@@ -11,6 +11,7 @@ import pickle
 import category_encoders as ce
 import requests
 from bs4 import BeautifulSoup
+import base64
 
 @st.cache
 def parse_xml(xml_data):
@@ -216,11 +217,22 @@ def generate_features(df):
 
     return df
 
+# Download Predictions dataframe as csv
+# https://discuss.streamlit.io/t/how-to-download-file-in-streamlit/1806
+def filedownload(df):
+    csv = df.to_csv(index=False)
+    b64 = base64.b64encode(csv.encode()).decode()  # strings <-> bytes conversions
+    return f'<a href="data:file/csv;base64,{b64}" download="predictions.csv">Download CSV File</a>'
+
 st.header('Dashboard')
 st.subheader("Predicting bike rentals demand")
 # predictors = ['temp','rhum','dayofweek','timesofday','wdsp','rainfall_intensity', 'working_day', 'hour', 'season']
 
-xgb_pipe = pickle.load(open("/app/moby-bikes/dashboard/xgb_pipeline.pkl", "rb"))
+pipeline_path = './'
+# pipeline_path = '/app/moby-bikes/dashboard/'
+
+pipe_filename = f"{pipeline_path}xgb_pipeline.pkl"
+xgb_pipe = pickle.load(open(pipe_filename, "rb"))
 
 # @st.cache
 def predict(df):
@@ -231,11 +243,10 @@ st.write('''
          ''')
 st.latex(r'''NRMSE = \frac{RSME}{y_{max} - y_{min}}''')
 
-
 st.write('''
 **GPS coordinates of Dublin Airport in Ireland** \n
 Latitude: 53.4264 - Longitude: -6.2499 \n
-**Weather Forescat API URL**: http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast?lat=53.4264;long=-6.2499
+**Weather Forecast API URL**: http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast?lat=53.4264;long=-6.2499
 ''')
 
 URL_WEATHER_API = "http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast?lat=53.4264;long=-6.2499"
@@ -249,4 +260,6 @@ predicted = predicted.map(round_up)
 df_forecast['predicted'] = predicted.values
 
 # limiting 15 hours forecast
-st.dataframe(df_forecast[['date', 'hour', 'temp', 'rhum', 'wdsp', 'rainfall_intensity', 'predicted']][:15].reset_index(drop=True))
+df_predictions = df_forecast[['date', 'hour', 'temp', 'rhum', 'wdsp', 'rainfall_intensity', 'predicted']][:15].reset_index(drop=True)
+st.dataframe(df_predictions)
+st.markdown(filedownload(df_predictions), unsafe_allow_html=True)
