@@ -1,7 +1,7 @@
-from datetime import datetime
 import streamlit as st
 import pandas as pd
 import numpy as np
+from datetime import datetime
 from sklearn import metrics
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, OneHotEncoder, OrdinalEncoder
 from sklearn.compose import ColumnTransformer
@@ -12,6 +12,12 @@ import category_encoders as ce
 import requests
 from bs4 import BeautifulSoup
 import base64
+
+#---------------------------------#
+# Page layout
+## Page expands to full width
+st.set_page_config(layout="wide")
+#---------------------------------#
 
 @st.cache
 def parse_xml(xml_data):
@@ -246,7 +252,8 @@ st.latex(r'''NRMSE = \frac{RSME}{y_{max} - y_{min}}''')
 st.write('''
 **GPS coordinates of Dublin Airport in Ireland** \n
 Latitude: 53.4264 - Longitude: -6.2499 \n
-**Weather Forecast API URL**: http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast?lat=53.4264;long=-6.2499
+**Weather Forecast API URL**: \n
+http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast?lat=53.4264;long=-6.2499
 ''')
 
 URL_WEATHER_API = "http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast?lat=53.4264;long=-6.2499"
@@ -262,4 +269,6 @@ df_forecast['predicted'] = predicted.values
 # limiting 15 hours forecast
 df_predictions = df_forecast[['date', 'hour', 'temp', 'rhum', 'wdsp', 'rainfall_intensity', 'predicted']][:15].reset_index(drop=True)
 st.dataframe(df_predictions)
+
+# link to download dataframe as csv
 st.markdown(filedownload(df_predictions), unsafe_allow_html=True)
