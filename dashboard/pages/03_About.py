@@ -37,22 +37,17 @@ else: # remote
 st.set_page_config(  # Alternate names: setup_page, page, layout
 	layout="wide",  # Can be "centered" or "wide". In the future also "dashboard", etc.
 	initial_sidebar_state="auto",  # Can be "auto", "expanded", "collapsed"
-	page_title='Moby Bikes - Dashboard',  # String or None. Strings get appended with "• Streamlit". 
+	page_title='Moby Bikes - About',  # String or None. Strings get appended with "• Streamlit". 
 	page_icon=f'{APP_PATH}img/favicon.webp',  # String, anything supported by st.image, or None.
 )
 #---------------------------------
 #---------------------------------#
 
-#---------------------------------#
-# Page layout (continued)
-## Divide page to 3 columns (col1 = sidebar, col2 and col3 = page contents)
-col1 = st.sidebar
-col2, col3 = st.columns((2,1))
+# moby_banner = Image.open(f'{APP_PATH}img/moby_move_home_page_img.webp')
+# st.image(moby_banner, width=720)
 
-#---------------------------------#
-
-moby_banner = Image.open(f'{APP_PATH}img/moby_move_home_page_img.webp')
-st.image(moby_banner, width=500)
-
-st.header('Dashboard')
+st.header('About the project')
 st.subheader("Predicting bike rentals demand")
+
+st.latex(r'''NRMSE = \frac{RSME}{y_{max} - y_{min}}''')
+st.markdown('''This web app is part of a GitHub repository: https://github.com/pessini/moby-bikes''')
