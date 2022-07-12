@@ -12,11 +12,39 @@ import category_encoders as ce
 import requests
 from bs4 import BeautifulSoup
 import base64
+import socket
+from PIL import Image
+
+def host_is_local(hostname, port=None):
+    """returns True if the hostname points to the localhost, otherwise False."""
+    if port is None:
+        port = 22  # no port specified, lets just use the ssh port
+    hostname = socket.getfqdn(hostname)
+    if hostname in ("localhost", "0.0.0.0"):
+        return True
+    localhost = socket.gethostname()
+    localaddrs = socket.getaddrinfo(localhost, port)
+    targetaddrs = socket.getaddrinfo(hostname, port)
+    for (family, socktype, proto, canonname, sockaddr) in localaddrs:
+        for (rfamily, rsocktype, rproto, rcanonname, rsockaddr) in targetaddrs:
+            if rsockaddr[0] == sockaddr[0]:
+                return True
+    return False
+
+# Check if it is local or remote
+if socket.gethostname() == 'MacBook-Air-de-Leandro.local':
+    APP_PATH = '/Users/pessini/Dropbox/Data-Science/moby-bikes/dashboard/'
+else:
+    APP_PATH = '/app/moby-bikes/dashboard/'
 
 #---------------------------------#
 # Page layout
-## Page expands to full width
-st.set_page_config(layout="wide")
+st.set_page_config(  # Alternate names: setup_page, page, layout
+	layout="wide",  # Can be "centered" or "wide". In the future also "dashboard", etc.
+	initial_sidebar_state="auto",  # Can be "auto", "expanded", "collapsed"
+	page_title='Moby Bikes - Demand Forecasting',  # String or None. Strings get appended with "• Streamlit". 
+	page_icon=f'{APP_PATH}img/favicon.webp',  # String, anything supported by st.image, or None.
+)
 #---------------------------------#
 
 @st.cache
@@ -225,35 +253,34 @@ def generate_features(df):
 
 # Download Predictions dataframe as csv
 # https://discuss.streamlit.io/t/how-to-download-file-in-streamlit/1806
-def filedownload(df):
+def filedownload(df, filename=None):
     csv = df.to_csv(index=False)
     b64 = base64.b64encode(csv.encode()).decode()  # strings <-> bytes conversions
-    return f'<a href="data:file/csv;base64,{b64}" download="predictions.csv">Download CSV File</a>'
+    filename = filename or 'predictions.csv'
+    return f'<a href="data:file/csv;base64,{b64}" download="{filename}">Download CSV File</a>'
 
-st.header('Dashboard')
+st.header('Demand Forecasting')
 st.subheader("Predicting bike rentals demand")
 # predictors = ['temp','rhum','dayofweek','timesofday','wdsp','rainfall_intensity', 'working_day', 'hour', 'season']
 
-pipeline_path = './'
-# pipeline_path = '/app/moby-bikes/dashboard/'
-
-pipe_filename = f"{pipeline_path}xgb_pipeline.pkl"
+pipe_filename = f"{APP_PATH}xgb_pipeline.pkl"
 xgb_pipe = pickle.load(open(pipe_filename, "rb"))
 
 # @st.cache
 def predict(df):
     return xgb_pipe.predict(df)
 
-st.write('''
-         #### Normalized Root Mean Square Error (NRMSE)
-         ''')
-st.latex(r'''NRMSE = \frac{RSME}{y_{max} - y_{min}}''')
+# st.latex(r'''NRMSE = \frac{RSME}{y_{max} - y_{min}}''')
+
+image = Image.open(f'{APP_PATH}img/met-eireann-long.png')
+st.image(image, use_column_width=False, width=30)
 
 st.write('''
-**GPS coordinates of Dublin Airport in Ireland** \n
-Latitude: 53.4264 - Longitude: -6.2499 \n
-**Weather Forecast API URL**: \n
-http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast?lat=53.4264;long=-6.2499
+This web app shows the predicted bike rentals demand for the next hours based on Weather data.\n
+
+Weather Forecast API [URL](http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast?lat=53.4264;long=-6.2499)
+
+Source: [Met Éireann - The Irish Meteorological Service](https://www.met.ie/weather/forecast/)
 ''')
 
 URL_WEATHER_API = "http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast?lat=53.4264;long=-6.2499"
@@ -266,9 +293,27 @@ predicted = pd.Series( xgb_pipe.predict(df_forecast), name='predicted') # round 
 predicted = predicted.map(round_up)
 df_forecast['predicted'] = predicted.values
 
+#####################################################
+##### Trick to hide table and dataframe indexes #####
+#####################################################
+# CSS to inject contained in a string
+hide_dataframe_row_index = """
+            <style>
+            .row_heading.level0 {display:none}
+            .blank {display:none}
+            </style>
+            """
+
+# Inject CSS with Markdown
+st.markdown(hide_dataframe_row_index, unsafe_allow_html=True)
+
 # limiting 15 hours forecast
 df_predictions = df_forecast[['date', 'hour', 'temp', 'rhum', 'wdsp', 'rainfall_intensity', 'predicted']][:15].reset_index(drop=True)
-st.dataframe(df_predictions)
+df_predictions.columns = ['Date', 'Hour', 'Temperature', 'Relative Humidity', 'Wind Speed', 'Rainfall Intensity', 'Predicted Demand']
+st.table(df_predictions)
 
+csv_filename = str(df_predictions['Date'][0]) + '_' + str(df_predictions['Hour'][0]) + 'h_' + \
+    str(df_predictions['Date'][len(df_predictions)-1]) + '_' + str(df_predictions['Hour'][len(df_predictions)-1]) + 'h_predictions.csv'
+# st.write(csv_filename)
 # link to download dataframe as csv
-st.markdown(filedownload(df_predictions), unsafe_allow_html=True)
+st.markdown(filedownload(df_predictions, filename=csv_filename), unsafe_allow_html=True)
