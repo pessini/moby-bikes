@@ -24,7 +24,8 @@ r = requests.get(historical_url, headers=headers, params=parameters)
 json_str = r.text
 parse_json = json.loads(json_str)
 
-ROOT_DIR = os.path.abspath(os.curdir)
-json_filename = f'{ROOT_DIR}/data/raw/moby/{yesterday_dt_str}.json'
-with open(json_filename, 'w', encoding='utf-8') as f:
-    json.dump(parse_json, f, ensure_ascii=False, indent=4)
+ROOT_DIR_LOCAL = os.path.abspath(os.curdir)
+json_filename = f'{ROOT_DIR_LOCAL}/data/raw/moby/{yesterday_dt_str}.json'
+if not os.path.exists(json_filename):
+    with open(json_filename, 'w', encoding='utf-8') as f:
+        json.dump(parse_json, f, ensure_ascii=False, indent=4)
