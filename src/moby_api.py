@@ -44,7 +44,7 @@ def _connect_mongo(host, port, username, password, db_name):
         try:
             mongo_uri = f'mongodb://{username}:{quote_plus(password)}@{host}:{port}/{db_name}'
             conn = MongoClient(mongo_uri)
-        except:
+        except Exception:
             print('Could not connect to MongoDB')
     else:
         conn = MongoClient(host, port)
@@ -73,9 +73,9 @@ def read_mongo(query=None, collection='', no_id=True):
             print(f'Collection {collection} was not found!')
         # close mongodb connection
         conn.close()
-    except:
+    except Exception:
         print('Could not query MongoDB')
-    
+
     return df
 
 def insert_mongo(data=None, collection='', no_id=True):
@@ -94,7 +94,7 @@ def insert_mongo(data=None, collection='', no_id=True):
                 print(f'Collection {collection} was not found!')
             # close mongodb connection
             conn.close()
-        except:
+        except Exception:
             print('Could not insert data in MongoDB')
     else:
         print('No data to insert in MongoDB')
