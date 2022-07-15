@@ -1,3 +1,4 @@
+# sourcery skip: use-named-expression
 import requests
 import json
 from datetime import datetime, timedelta
@@ -20,12 +21,17 @@ baseurl = "https://data.smartdublin.ie/mobybikes-api/"
 
 historical_url = f'{baseurl}historical/'
 
-r = requests.get(historical_url, headers=headers, params=parameters)
-json_str = r.text
+ROOT_DIR_LOCAL = os.path.abspath(os.curdir)
+
+api_response = requests.get(historical_url, headers=headers, params=parameters)
+json_str = api_response.text
 parse_json = json.loads(json_str)
 
-ROOT_DIR_LOCAL = os.path.abspath(os.curdir)
-json_filename = f'{ROOT_DIR_LOCAL}/data/raw/moby/{yesterday_dt_str}.json'
+if api_response:
+    json_filename = f'{ROOT_DIR_LOCAL}/data/raw/moby/{yesterday_dt_str}.json'
+else:
+    json_filename = f'{ROOT_DIR_LOCAL}/data/raw/moby/{yesterday_dt_str}_error.json'
+    
 if not os.path.exists(json_filename):
     with open(json_filename, 'w', encoding='utf-8') as f:
         json.dump(parse_json, f, ensure_ascii=False, indent=4)
