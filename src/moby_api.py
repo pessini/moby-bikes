@@ -28,9 +28,9 @@ json_str = api_response.text
 parse_json = json.loads(json_str)
 
 if api_response:
-    json_filename = f'{ROOT_DIR_LOCAL}/data/raw/moby/{yesterday_dt_str}.json'
+    json_filename = f'{ROOT_DIR_LOCAL}/data/external/moby/{yesterday_dt_str}.json'
 else:
-    json_filename = f'{ROOT_DIR_LOCAL}/data/raw/moby/{yesterday_dt_str}_error.json'
+    json_filename = f'{ROOT_DIR_LOCAL}/data/external/moby/{yesterday_dt_str}_error.json'
     
 if not os.path.exists(json_filename):
     with open(json_filename, 'w', encoding='utf-8') as f:
