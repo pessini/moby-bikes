@@ -46,8 +46,7 @@ client = pymongo.MongoClient(**st.secrets["mongo"])
 def get_data():
     db = client.mobybikes
     items = db['moby-historical'].find().limit(1000)
-    df = pd.DataFrame(items)
-    return df
+    return pd.DataFrame(items)
 items = get_data()
 
 text_to_display = '''
