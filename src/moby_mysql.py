@@ -19,7 +19,7 @@ cnx = mysql.connector.connect(**config)
 
 cursor = cnx.cursor()
 
-query = ("select LastRentalStart, BikeID, MAX(LastGPSTime) as lastgps "
+query = ("select LastRentalStart, BikeID, TIMESTAMPDIFF(MINUTE, MAX(LastGPSTime), LastRentalStart) * -1 as duration "
          "from mobybikes.tmpRentals "
          "group by LastRentalStart, BikeID "
          "having BikeID = 10 order by LastRentalStart asc")
@@ -31,5 +31,5 @@ df = pd.DataFrame(myresult, columns=cursor.column_names)
 cursor.close()
 cnx.close()
 
-print(df.head())
+print(df)
 

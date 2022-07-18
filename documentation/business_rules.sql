@@ -8,7 +8,7 @@ Assumption: Due to lack of information and data, to calculate the duration renta
 -- CREATE FUNCTION rental_duration(last_gpstime datetime, rental_start datetime) 
 -- RETURNS int
 -- BEGIN
---     RETURN TIMESTAMPDIFF(MINUTE, last_gpstime, rental_start);
+--     RETURN TIMESTAMPDIFF(MINUTE, last_gpstime, rental_start) * -1;
 -- END; //
 
 /** 
