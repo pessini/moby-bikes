@@ -1,6 +1,8 @@
 -- Link to schema: https://app.quickdatabasediagrams.com/#/d/fWEwXP
 -- DB schema diagram for Moby Bikes - MySQL
 
+CREATE DATABASE IF NOT EXISTS mobybikes;
+
 DROP TABLE IF EXISTS mobybikes.`Rental`;
 DROP TABLE IF EXISTS mobybikes.`Coordinates`;
 DROP TABLE IF EXISTS mobybikes.`Weather`;
@@ -12,9 +14,9 @@ CREATE TABLE mobybikes.`Rental` (
     -- Unique bike ID used for rent bike
     `BikeID` int  NOT NULL ,
     -- Battery status when rental started
-    `BatteryStart` DECIMAL(5,2)  default null ,
+    `BatteryStart` int signed  default null ,
     -- Battery status when rental finished
-    `BatteryEnd` DECIMAL(5,2)  default null ,
+    `BatteryEnd` int signed  default null ,
     -- Rental Duration = LastGPSTime - LastRentalStart
     `Duration` int  NOT NULL ,
     PRIMARY KEY (
@@ -80,7 +82,7 @@ CREATE TABLE mobybikes.`tmpRentals` (
     -- Use for rent bike
     `BikeID` int  NOT NULL ,
     -- Bike max distance in km
-    `Battery` DECIMAL(5,2)  default null ,
+    `Battery` int signed  default null ,
     -- Last time bike connected with GPS
     `LastGPSTime` datetime  NOT NULL ,
     -- Bike coordinates if bike is locked out of station
