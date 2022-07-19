@@ -1,7 +1,6 @@
 /** 
 Assumption: Due to lack of information and data, to calculate the duration rental time I am assuming that when a new bike rental starts 
 	the duration in *minutes* will be calculated by: RentalDuration = LastGPSTime - LastRentalStart
-    TIMESTAMPDIFF(unit,datetime_expr1,datetime_expr2)
 */
 -- DROP FUNCTION IF EXISTS rental_duration;
 -- DELIMITER //
@@ -20,9 +19,9 @@ delimiter //
 create procedure check_rentals() 
 begin 
 	select 
-		LastRentalStart, BikeID
+		LastRentalStart, BikeID, LastGPSTime
     from mobybikes.tmpRentals
-    group by LastRentalStart, BikeID
+    group by LastRentalStart, BikeID, LastGPSTime
     order by BikeID,LastRentalStart asc; 
 end //
 
