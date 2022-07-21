@@ -23,14 +23,9 @@ begin
 	-- declare bikes int;
 --     declare rentals_dt datetime;
 	select 
-		LastRentalStart,
-		BikeID,
-        rental_duration(MAX(LastGPSTime),LastRentalStart) as duration
-        
+		*
     from mobybikes.tmpRentals
-    group by
-		LastRentalStart, BikeID
-    order by LastRentalStart asc;
+    order by LastRentalStart desc limit 100;
     
     -- insert into 
 end //
