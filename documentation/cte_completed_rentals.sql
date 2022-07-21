@@ -1,3 +1,7 @@
+-- --------------------------------------------------------------------------------------------------
+-- CTE to query all rentals (rental start and bikeid) except the last that could be "in progress"
+-- All selected rentals will be used to process later
+-- --------------------------------------------------------------------------------------------------
 WITH CTE_COMPLETED_RENTALS as
 (
 	select 
