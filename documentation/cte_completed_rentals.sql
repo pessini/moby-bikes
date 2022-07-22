@@ -1,38 +1,24 @@
 -- --------------------------------------------------------------------------------------------------
--- CTE to query all rentals (rental start and bikeid) except the last that could be "in progress"
+-- CTE to query all rentals (rental start and bikeid) but the last one which could be "in progress"
 -- All selected rentals will be used to process later
 -- --------------------------------------------------------------------------------------------------
-WITH CTE_COMPLETED_RENTALS as
+WITH CTE_COMPLETED_RENTALS AS
 (
-	select 
+	SELECT 
 		r.LastRentalStart,
 		r.BikeID
-	from
+		-- ,r.rent_rank
+	FROM
 	(
-		select 
+		SELECT 
 			LastRentalStart,
 			BikeID,
 			RANK() OVER (PARTITION BY BikeID ORDER BY LastRentalStart DESC) rent_rank
-		from
+		FROM
 			mobybikes.tmpRentals
-		group by 
+		GROUP BY
 			LastRentalStart, BikeID
 		
-	) r WHERE rent_rank > 1
+	) r 
+	WHERE rent_rank > 1
 )
-
-SELECT * FROM CTE_COMPLETED_RENTALS
-
-
--- SELECT
--- 	LastRentalStart,
---     BikeID,
---     LastGPSTime
--- FROM
--- 	cte_lastRows
--- where
--- 	(LastRentalStart,BikeID) not in (
--- 							select max(LastRentalStart),BikeID from cte_lastRows group by LastRentalStart, BikeID
---                             )
--- order by
--- 	LastRentalStart ASC;
