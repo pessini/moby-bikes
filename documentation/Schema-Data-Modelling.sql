@@ -3,13 +3,14 @@
 
 CREATE DATABASE IF NOT EXISTS mobybikes;
 
-DROP TABLE IF EXISTS mobybikes.`Rental`;
-DROP TABLE IF EXISTS mobybikes.`Coordinates`;
+ALTER TABLE mobybikes.Rentals_Coordinates DROP CONSTRAINT fk_Rental_Date_BikeID;
+DROP TABLE IF EXISTS mobybikes.`Rentals`;
+DROP TABLE IF EXISTS mobybikes.`Rentals_Coordinates`;
 DROP TABLE IF EXISTS mobybikes.`Weather`;
 DROP TABLE IF EXISTS mobybikes.`Day_Info`;
-DROP TABLE IF EXISTS mobybikes.`tmpRentals`;
+DROP TABLE IF EXISTS mobybikes.`rawRentals`;
 
-CREATE TABLE mobybikes.`Rental` (
+CREATE TABLE mobybikes.`Rentals` (
     `Date` datetime  NOT NULL ,
     -- Unique bike ID used for rent bike
     `BikeID` int  NOT NULL ,
@@ -18,25 +19,24 @@ CREATE TABLE mobybikes.`Rental` (
     -- Battery status when rental finished
     `BatteryEnd` int signed  default null ,
     -- Rental Duration = LastGPSTime - LastRentalStart
-    `Duration` int  NOT NULL ,
+    `Duration` BIGINT NULL ,
     PRIMARY KEY (
         `Date`,`BikeID`
     )
 );
 
 -- Rentals coordinates
-CREATE TABLE mobybikes.`Coordinates` (
+CREATE TABLE mobybikes.`Rentals_Coordinates` (
+	`_id` INT AUTO_INCREMENT PRIMARY KEY,
     `Date` datetime  NOT NULL ,
     -- Unique bike ID used for rent bike
     `BikeID` int  NOT NULL ,
     -- Bike coordinates if bike is locked out of station
     `Latitude` decimal(11,7)  NULL ,
     -- Bike coordinates if bike is locked out of station
-    `Longitude` decimal(11,7)  NULL ,
-    PRIMARY KEY (
-        `Date`,`BikeID`
-    )
+    `Longitude` decimal(11,7)  NULL
 );
+
 
 CREATE TABLE mobybikes.`Weather` (
     `Date` datetime  NOT NULL ,
@@ -76,7 +76,7 @@ CREATE TABLE mobybikes.`Day_Info` (
 );
 
 -- Table with all rentals before preprocess
-CREATE TABLE mobybikes.`tmpRentals` (
+CREATE TABLE mobybikes.`rawRentals` (
     -- Last time bike was rented
     `LastRentalStart` datetime  NOT NULL ,
     -- Use for rent bike
@@ -91,5 +91,6 @@ CREATE TABLE mobybikes.`tmpRentals` (
     `Longitude` decimal(11,7)  NULL 
 );
 
-ALTER TABLE mobybikes.`Rental` ADD CONSTRAINT `fk_Rental_Date_BikeID` FOREIGN KEY(`Date`, `BikeID`)
-REFERENCES mobybikes.`Coordinates`(`Date`, `BikeID`);
+ALTER TABLE mobybikes.`Rentals_Coordinates` ADD CONSTRAINT `fk_Rental_Date_BikeID` FOREIGN KEY(`Date`, `BikeID`)
+REFERENCES mobybikes.`Rentals`(`Date`, `BikeID`);
+
