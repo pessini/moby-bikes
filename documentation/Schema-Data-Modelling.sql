@@ -9,6 +9,7 @@ DROP TABLE IF EXISTS mobybikes.`Rentals_Coordinates`;
 DROP TABLE IF EXISTS mobybikes.`Weather`;
 DROP TABLE IF EXISTS mobybikes.`Day_Info`;
 DROP TABLE IF EXISTS mobybikes.`rawRentals`;
+DROP TABLE IF EXISTS mobybikes.`Log_Events`;
 
 CREATE TABLE mobybikes.`Rentals` (
     `Date` datetime  NOT NULL ,
@@ -89,6 +90,18 @@ CREATE TABLE mobybikes.`rawRentals` (
     `Latitude` decimal(11,7)  NULL ,
     -- Bike coordinates if bike is locked out of station
     `Longitude` decimal(11,7)  NULL 
+);
+
+-- Log events to track processing errors
+CREATE TABLE mobybikes.`Log_Events` (
+	`_id` INT AUTO_INCREMENT PRIMARY KEY,
+    `Date` datetime NOT NULL ,
+    -- Number of Rentals to be processed
+    `Rentals_ToProcess` int NULL ,
+    -- Total Rentals which were already processed
+    `Rentals_Processed` int NULL ,
+    -- Number of Rentals failed to be processed
+    `Errors` int NULL 
 );
 
 ALTER TABLE mobybikes.`Rentals_Coordinates` ADD CONSTRAINT `fk_Rental_Date_BikeID` FOREIGN KEY(`Date`, `BikeID`)

@@ -4,6 +4,8 @@ DROP PROCEDURE IF EXISTS SP_COORDINATES;
 DROP PROCEDURE IF EXISTS SP_NEW_RENTALS;
 DROP PROCEDURE IF EXISTS SP_COMPLETED_RENTALS_TO_PROCESS;
 DROP PROCEDURE IF EXISTS SP_CLEASING_PROCESSED_RENTALS;
+DROP PROCEDURE IF EXISTS SP_LOG_RENTAL_EVENTS;
+DROP PROCEDURE IF EXISTS SP_GET_NUMBER_OPENED_RENTALS;
 DROP TABLE IF EXISTS TEMP_completed_rentals;
 -- DROP TEMPORARY TABLE IF EXISTS completed_rentals;
 
@@ -31,11 +33,63 @@ BEGIN
 END //
 DELIMITER ;
 
+
 DELIMITER //
-CREATE PROCEDURE SP_COMPLETED_RENTALS_TO_PROCESS()
+CREATE PROCEDURE SP_LOG_RENTAL_EVENTS(
+	IN rentals_to_process INT,
+    IN rentals_processed INT,
+    IN number_errors INT
+)
+BEGIN
+
+	INSERT INTO mobybikes.Log_events (`Date`, `Rentals_ToProcess`, `Rentals_Processed`, `Errors`)
+    VALUES (NOW(), rentals_to_process, rentals_processed, number_errors);
+	
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE SP_GET_NUMBER_RENTALS(
+	IN rental_status VARCHAR(50),
+	OUT number_rentals INT)
+BEGIN
+	
+    WITH CTE_OPENED_RENTALS AS (
+		SELECT 
+			r.LastRentalStart,
+			r.BikeID,
+			r.rent_rank
+		FROM
+		(
+			SELECT 
+				LastRentalStart,
+				BikeID,
+				RANK() OVER (PARTITION BY BikeID ORDER BY LastRentalStart DESC) rent_rank
+			FROM
+				mobybikes.rawRentals
+			GROUP BY
+				LastRentalStart, BikeID
+		) r
+    )
+    IF rental_status = "OPENED" THEN
+		SELECT COUNT(*) INTO number_rentals FROM CTE_OPENED_RENTALS WHERE rent_rank = 1;
+	ELSEIF rental_status = "COMPLETED" THEN
+		SELECT COUNT(*) INTO number_rentals FROM CTE_OPENED_RENTALS WHERE rent_rank > 1;
+	ELSE THEN
+		SELECT COUNT(*) INTO number_rentals FROM CTE_OPENED_RENTALS;
+    END IF;
+    -- rent_rank = 1 - Opened Rentals
+    -- rent_rank > 1 - Completed Rentals
+	
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE SP_COMPLETED_RENTALS_TO_PROCESS(OUT rentals_to_process INT)
 BEGIN
 	-- The ERROR 1137 is a known issue with MySQL that hasn’t got any fix since 2008.
 	-- Not creating a temporary table because of an issue referenced above.
+
     DROP TABLE IF EXISTS TEMP_completed_rentals;
     
 	CREATE TABLE TEMP_completed_rentals
@@ -55,6 +109,9 @@ BEGIN
 			LastRentalStart, BikeID
 	) r 
 	WHERE rent_rank > 1;
+    
+    -- returning the number of rentals to be processed
+	SELECT COUNT(*) INTO rentals_to_process FROM TEMP_completed_rentals;
     
 END //
 DELIMITER ;
@@ -96,7 +153,10 @@ DELIMITER //
 CREATE PROCEDURE SP_NEW_RENTALS()
 BEGIN
 
-	CALL SP_COMPLETED_RENTALS_TO_PROCESS();
+	DECLARE rentals_to_process, rentals_processed, number_errors INT;
+    DECLARE total_completed_rentals, total_opened_rentals INT;
+
+	CALL SP_COMPLETED_RENTALS_TO_PROCESS(rentals_to_process);
 
 	INSERT INTO mobybikes.Rentals (Date, BikeID, BatteryStart, BatteryEnd, Duration)
 	WITH CTE_RENTAL_START_FINISH AS (
@@ -128,7 +188,9 @@ BEGIN
         BikeID,
         FLOOR (CAST( GROUP_CONCAT( CASE WHEN RentStarting = 1 THEN Battery ELSE NULL END) AS DECIMAL(12,1))) AS BatteryStart,
         FLOOR (CAST( GROUP_CONCAT( CASE WHEN RentStarting = 0 THEN Battery ELSE NULL END) AS DECIMAL(12,1))) AS BatteryEnd,
-        FLOOR (CAST( GROUP_CONCAT( RENTAL_DURATION(LastGPSTime,LastRentalStart) ) AS DECIMAL(12,1))) AS duration
+        -- ORDER BY RentStarting ASC so the first row to calculate would be with RentStarting = 0 (finished rental row)
+        -- Not using IF because some rows have only one and then if there is only row with RentStarting=1, it will use that one
+        FLOOR (CAST( GROUP_CONCAT( RENTAL_DURATION(LastGPSTime,LastRentalStart) ORDER BY RentStarting ASC ) AS DECIMAL(12,1))) AS duration
     FROM 
 		CTE_RENTAL_START_FINISH
 	GROUP BY
@@ -137,7 +199,19 @@ BEGIN
 		BikeID, LastRentalStart ASC;
         
 	CALL SP_COORDINATES();
+    
+    -- count(*) rawRentals
+    SET total_completed_rentals := (SELECT COUNT(*) FROM mobybikes.TEMP_completed_rentals);
+    
     CALL SP_CLEASING_PROCESSED_RENTALS();
+    
+	CALL SP_GET_NUMBER_OPENED_RENTALS(total_opened_rentals);
+
+    SET rentals_processed := total_completed_rentals - total_opened_rentals;
+    
+    SET number_errors := rentals_to_process - rentals_processed;
+    
+    CALL SP_LOG_RENTAL_EVENTS(rentals_to_process, rentals_processed, number_errors);
         
 END //
 DELIMITER ;
