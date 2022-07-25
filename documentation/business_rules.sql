@@ -85,7 +85,9 @@ BEGIN
 	WHERE
 		(LastRentalStart,BikeID) IN (SELECT LastRentalStart,BikeID FROM mobybikes.TEMP_completed_rentals)
 	AND
-		(Latitude IS NOT NULL OR Longitude IS NOT NULL);
+		(Latitude IS NOT NULL OR Longitude IS NOT NULL)
+	AND
+		(Latitude <> 0 OR Longitude <> 0);
 	
 END //
 DELIMITER ;
@@ -126,13 +128,7 @@ BEGIN
         BikeID,
         FLOOR (CAST( GROUP_CONCAT( CASE WHEN RentStarting = 1 THEN Battery ELSE NULL END) AS DECIMAL(12,1))) AS BatteryStart,
         FLOOR (CAST( GROUP_CONCAT( CASE WHEN RentStarting = 0 THEN Battery ELSE NULL END) AS DECIMAL(12,1))) AS BatteryEnd,
-        FLOOR (
-			CAST( 
-				GROUP_CONCAT( 
-					IF ( RentStarting = 0, RENTAL_DURATION(LastGPSTime,LastRentalStart), RENTAL_DURATION(LastGPSTime,LastRentalStart) )
-				) 
-			AS DECIMAL(12,1))
-		) AS duration
+        FLOOR (CAST( GROUP_CONCAT( RENTAL_DURATION(LastGPSTime,LastRentalStart) ) AS DECIMAL(12,1))) AS duration
     FROM 
 		CTE_RENTAL_START_FINISH
 	GROUP BY
