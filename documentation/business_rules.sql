@@ -19,7 +19,15 @@ CREATE FUNCTION RENTAL_DURATION(LAST_GPSTIME DATETIME, RENTAL_START DATETIME)
 RETURNS INT
 DETERMINISTIC
 BEGIN
-    RETURN TIMESTAMPDIFF(MINUTE, LAST_GPSTIME, RENTAL_START) * -1;
+	DECLARE duration BIGINT DEFAULT 0;
+    
+    SET duration = TIMESTAMPDIFF(MINUTE, RENTAL_START, LAST_GPSTIME);
+    
+    IF duration < 0 THEN
+		SET duration = 0;
+	END IF;
+    
+    RETURN duration;
 END //
 DELIMITER ;
 
@@ -75,7 +83,9 @@ BEGIN
 	FROM
 		mobybikes.rawRentals
 	WHERE
-		(LastRentalStart,BikeID) IN (SELECT LastRentalStart,BikeID FROM mobybikes.TEMP_completed_rentals);
+		(LastRentalStart,BikeID) IN (SELECT LastRentalStart,BikeID FROM mobybikes.TEMP_completed_rentals)
+	AND
+		(Latitude IS NOT NULL OR Longitude IS NOT NULL);
 	
 END //
 DELIMITER ;
@@ -116,7 +126,13 @@ BEGIN
         BikeID,
         FLOOR (CAST( GROUP_CONCAT( CASE WHEN RentStarting = 1 THEN Battery ELSE NULL END) AS DECIMAL(12,1))) AS BatteryStart,
         FLOOR (CAST( GROUP_CONCAT( CASE WHEN RentStarting = 0 THEN Battery ELSE NULL END) AS DECIMAL(12,1))) AS BatteryEnd,
-        FLOOR (CAST( GROUP_CONCAT( IF ( RentStarting = 0, RENTAL_DURATION(LastGPSTime,LastRentalStart), NULL )) AS DECIMAL(12,1))) AS duration
+        FLOOR (
+			CAST( 
+				GROUP_CONCAT( 
+					IF ( RentStarting = 0, RENTAL_DURATION(LastGPSTime,LastRentalStart), RENTAL_DURATION(LastGPSTime,LastRentalStart) )
+				) 
+			AS DECIMAL(12,1))
+		) AS duration
     FROM 
 		CTE_RENTAL_START_FINISH
 	GROUP BY
