@@ -75,7 +75,7 @@ BEGIN
 		SELECT COUNT(*) INTO number_rentals FROM CTE_OPENED_RENTALS WHERE rent_rank = 1;
 	ELSEIF rental_status = "COMPLETED" THEN
 		SELECT COUNT(*) INTO number_rentals FROM CTE_OPENED_RENTALS WHERE rent_rank > 1;
-	ELSE THEN
+	ELSEIF rental_status = "TOTAL" THEN
 		SELECT COUNT(*) INTO number_rentals FROM CTE_OPENED_RENTALS;
     END IF;
     -- rent_rank = 1 - Opened Rentals
