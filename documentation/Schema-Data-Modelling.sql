@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS mobybikes.`Rentals_Coordinates`;
 DROP TABLE IF EXISTS mobybikes.`Weather`;
 DROP TABLE IF EXISTS mobybikes.`Day_Info`;
 DROP TABLE IF EXISTS mobybikes.`rawRentals`;
-DROP TABLE IF EXISTS mobybikes.`Log_Events`;
+DROP TABLE IF EXISTS mobybikes.`Log_Rentals`;
 
 CREATE TABLE mobybikes.`Rentals` (
     `Date` datetime  NOT NULL ,
@@ -93,13 +93,11 @@ CREATE TABLE mobybikes.`rawRentals` (
 );
 
 -- Log events to track processing errors
-CREATE TABLE mobybikes.`Log_Events` (
+CREATE TABLE mobybikes.`Log_Rentals` (
 	`_id` INT AUTO_INCREMENT PRIMARY KEY,
     `Date` datetime NOT NULL ,
-    -- Number of Rentals to be processed
-    `Rentals_ToProcess` int NULL ,
-    -- Total Rentals which were already processed
-    `Rentals_Processed` int NULL ,
+    -- Total Rentals processed
+    `Processed` int NULL ,
     -- Number of Rentals failed to be processed
     `Errors` int NULL 
 );
