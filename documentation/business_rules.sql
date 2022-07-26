@@ -2,6 +2,29 @@
 DROP TABLE IF EXISTS mobybikes.TEMP_completed_rentals;
 -- DROP TEMPORARY TABLE IF EXISTS completed_rentals;
 
+DROP TRIGGER IF EXISTS TRG_NEW_DATA;
+DELIMITER //
+CREATE TRIGGER TRG_NEW_DATA
+AFTER INSERT ON mobybikes.`Log_Files`
+FOR EACH ROW
+BEGIN
+	DECLARE log_id INT;
+    SELECT NEW._id INTO log_id;
+	CALL SP_GET_LAST_LOG_ID(log_id);
+END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS SP_GET_LAST_LOG_ID;
+DELIMITER //
+CREATE PROCEDURE SP_GET_LAST_LOG_ID(INOUT id_log INT)
+BEGIN
+	SELECT id_log INTO id_log;
+    DROP TABLE IF EXISTS TEMP_debug;
+    CREATE TABLE TEMP_debug
+	SELECT concat('myvar is ', id_log);
+END //
+DELIMITER ;
+
 -- --------------------------------------------------------------------------------------------------
 -- Function to calculate rentals duration
 /** 
@@ -9,9 +32,9 @@ DROP TABLE IF EXISTS mobybikes.TEMP_completed_rentals;
     bike rental starts the duration in *minutes* will be calculated by: RentalDuration = LastGPSTime - LastRentalStart
 */
 -- --------------------------------------------------------------------------------------------------
-DROP FUNCTION IF EXISTS RENTAL_DURATION;
+DROP FUNCTION IF EXISTS FN_RENTAL_DURATION;
 DELIMITER //
-CREATE FUNCTION RENTAL_DURATION(LAST_GPSTIME DATETIME, RENTAL_START DATETIME) 
+CREATE FUNCTION FN_RENTAL_DURATION(LAST_GPSTIME DATETIME, RENTAL_START DATETIME) 
 RETURNS INT
 DETERMINISTIC
 BEGIN
@@ -200,7 +223,7 @@ BEGIN
         FLOOR (CAST( GROUP_CONCAT( CASE WHEN RentStarting = 0 THEN Battery ELSE NULL END) AS DECIMAL(12,1))) AS BatteryEnd,
         -- ORDER BY RentStarting ASC so the first row to calculate would be with RentStarting = 0 (finished rental row)
         -- Not using IF because some rows have only one and then if there is only row with RentStarting=1, it will use that one
-        FLOOR (CAST( GROUP_CONCAT( RENTAL_DURATION(LastGPSTime,LastRentalStart) ORDER BY RentStarting ASC ) AS DECIMAL(12,1))) AS duration
+        FLOOR (CAST( GROUP_CONCAT( FN_RENTAL_DURATION(LastGPSTime,LastRentalStart) ORDER BY RentStarting ASC ) AS DECIMAL(12,1))) AS duration
     FROM 
 		CTE_RENTAL_START_FINISH
 	GROUP BY
