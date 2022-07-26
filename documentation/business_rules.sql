@@ -1,5 +1,5 @@
 -- --------------------------------------------------------------------------------------------------
-DROP TABLE IF EXISTS TEMP_completed_rentals;
+DROP TABLE IF EXISTS mobybikes.TEMP_completed_rentals;
 -- DROP TEMPORARY TABLE IF EXISTS completed_rentals;
 
 -- --------------------------------------------------------------------------------------------------

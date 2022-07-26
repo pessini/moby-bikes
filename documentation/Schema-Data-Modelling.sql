@@ -1,15 +1,18 @@
--- Link to schema: https://app.quickdatabasediagrams.com/#/d/fWEwXP
+-- Link to schema: 
+-- https://app.quickdatabasediagrams.com/#/d/fWEwXP
 -- DB schema diagram for Moby Bikes - MySQL
 
 CREATE DATABASE IF NOT EXISTS mobybikes;
 
-ALTER TABLE mobybikes.Rentals_Coordinates DROP CONSTRAINT fk_Rental_Date_BikeID;
+-- ALTER TABLE mobybikes.Rentals_Coordinates DROP CONSTRAINT fk_Rental_Date_BikeID;
 DROP TABLE IF EXISTS mobybikes.`Rentals`;
 DROP TABLE IF EXISTS mobybikes.`Rentals_Coordinates`;
 DROP TABLE IF EXISTS mobybikes.`Weather`;
 DROP TABLE IF EXISTS mobybikes.`Day_Info`;
 DROP TABLE IF EXISTS mobybikes.`rawRentals`;
+DROP TABLE IF EXISTS mobybikes.`Log_Files`;
 DROP TABLE IF EXISTS mobybikes.`Log_Rentals`;
+DROP TABLE IF EXISTS mobybikes.`Log_Weather`;
 
 CREATE TABLE mobybikes.`Rentals` (
     `Date` datetime  NOT NULL ,
@@ -93,13 +96,37 @@ CREATE TABLE mobybikes.`rawRentals` (
 );
 
 -- Log events to track processing errors
+CREATE TABLE mobybikes.`Log_Files` (
+	`_id` INT AUTO_INCREMENT PRIMARY KEY,
+    `Date` datetime NOT NULL ,
+    -- Rental filename to be processed
+    `Rentals_Filename` VARCHAR(200) NOT NULL ,
+    -- Weather data filename to be processed
+    `Weather_Filename` VARCHAR(200) NOT NULL
+);
+
+-- Log events to track processing errors on Rentals
 CREATE TABLE mobybikes.`Log_Rentals` (
 	`_id` INT AUTO_INCREMENT PRIMARY KEY,
+    `id_file` int NOT NULL ,
     `Date` datetime NOT NULL ,
     -- Total Rentals processed
     `Processed` int NULL ,
     -- Number of Rentals failed to be processed
-    `Errors` int NULL 
+    `Errors` int NULL ,
+    FOREIGN KEY (`id_file`) REFERENCES mobybikes.`Log_Files`(`_id`)
+);
+
+-- Log events to track processing errors on Weather Data
+CREATE TABLE mobybikes.`Log_Weather` (
+	`_id` INT AUTO_INCREMENT PRIMARY KEY,
+    `id_file` int NOT NULL ,
+    `Date` datetime NOT NULL ,
+    -- Weather data processed
+    `Processed` int NULL ,
+    -- Number of hourly weather data failed to be processed
+    `Errors` int NULL ,
+    FOREIGN KEY (`id_file`) REFERENCES mobybikes.`Log_Files`(`_id`)
 );
 
 ALTER TABLE mobybikes.`Rentals_Coordinates` ADD CONSTRAINT `fk_Rental_Date_BikeID` FOREIGN KEY(`Date`, `BikeID`)
