@@ -4,13 +4,13 @@ DROP TABLE IF EXISTS mobybikes.TEMP_completed_rentals;
 
 DROP TRIGGER IF EXISTS TRG_NEW_DATA;
 DELIMITER //
-CREATE TRIGGER TRG_NEW_DATA
+CREATE TRIGGER TRG_NEW_DATA_ADDED
 AFTER INSERT ON mobybikes.`Log_Files`
 FOR EACH ROW
 BEGIN
 	DECLARE log_id INT;
     SELECT NEW._id INTO log_id;
-	CALL SP_GET_LAST_LOG_ID(log_id);
+	CALL SP_RENTALS_PROCESSING(log_id);
 END //
 DELIMITER ;
 
@@ -54,12 +54,13 @@ DROP PROCEDURE IF EXISTS SP_LOG_RENTAL_EVENTS;
 DELIMITER //
 CREATE PROCEDURE SP_LOG_RENTAL_EVENTS(
     IN rentals_processed INT,
-    IN number_errors INT
+    IN number_errors INT,
+    IN id_log_file INT
 )
 BEGIN
 
-	INSERT INTO mobybikes.Log_Rentals (`Date`, `Processed`, `Errors`)
-    VALUES (NOW(), rentals_processed, number_errors);
+	INSERT INTO mobybikes.Log_Rentals (`id_file`,`Date`, `Processed`, `Errors`)
+    VALUES (id_log_file, NOW(), rentals_processed, number_errors);
 	
 END //
 DELIMITER ;
@@ -183,7 +184,7 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS SP_RENTALS_PROCESSING;
 DELIMITER //
-CREATE PROCEDURE SP_RENTALS_PROCESSING()
+CREATE PROCEDURE SP_RENTALS_PROCESSING(IN log_rental INT)
 BEGIN
 
     DECLARE total_completed_rentals, total_opened_rentals, rentals_to_process, number_errors INT;
@@ -245,7 +246,7 @@ BEGIN
     SET number_errors := rentals_to_process - total_opened_rentals;
     
     -- log the number of processed rentals and the number of errors occurred when processing them
-    CALL SP_LOG_RENTAL_EVENTS(total_completed_rentals, number_errors);
+    CALL SP_LOG_RENTAL_EVENTS(total_completed_rentals, number_errors, log_rental);
         
 END //
 DELIMITER ;
