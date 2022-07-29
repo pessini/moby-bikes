@@ -237,13 +237,13 @@ DELIMITER //
 CREATE PROCEDURE SP_LOG_WEATHER_EVENTS(IN id_log_file INT)
 BEGIN
 
-	DECLARE today_dt DATETIME;
+	DECLARE yesterday_dt DATETIME;
     DECLARE weather_events, number_errors INT;
     
-    SET today_dt := NOW();
-    SELECT COUNT(*) INTO weather_events FROM mobybikes.Weather WHERE DATE(`Date`) = DATE(today_dt);
+    SELECT DATE_SUB(NOW(), INTERVAL 1 DAY) INTO yesterday_dt;
+    SELECT COUNT(*) INTO weather_events FROM mobybikes.Weather WHERE DATE(`Date`) = DATE(yesterday_dt);
     
-	SET number_errors := 24 - weather_events; -- it should have been recorded 24 hours
+	SET number_errors := 24 - weather_events; -- it should have been recorded 24 hours from yesterday's data
     
 	INSERT INTO mobybikes.Log_Weather (`id_file`,`Date`, `Processed`, `Errors`)
     VALUES (id_log_file, NOW(), weather_events, number_errors);
