@@ -2,19 +2,6 @@
 DROP TABLE IF EXISTS mobybikes.TEMP_completed_rentals;
 -- DROP TEMPORARY TABLE IF EXISTS completed_rentals;
 
-DROP TRIGGER IF EXISTS TRG_NEW_DATA_ADDED;
-DELIMITER //
-USE `mobybikes` //
-CREATE TRIGGER TRG_NEW_DATA_ADDED
-AFTER INSERT ON mobybikes.`Log_Files`
-FOR EACH ROW
-BEGIN
-	DECLARE log_id INT;
-    SELECT NEW._id INTO log_id;
-	CALL SP_RENTALS_PROCESSING(log_id);
-END //
-DELIMITER ;
-
 -- --------------------------------------------------------------------------------------------------
 -- Function to calculate rentals duration
 /** 
@@ -175,9 +162,13 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS SP_RENTALS_PROCESSING;
 DELIMITER //
 CREATE PROCEDURE SP_RENTALS_PROCESSING(IN log_rental INT)
-BEGIN
+proc_Exit:BEGIN
 
     DECLARE total_completed_rentals, total_opened_rentals, rentals_to_process, number_errors INT;
+    
+    IF log_rental is NULL THEN
+        LEAVE proc_Exit;
+    END IF;
 
 	-- creates a temporary table and returns the total of completed rentals
 	CALL SP_COMPLETED_RENTALS(total_completed_rentals);
@@ -240,3 +231,23 @@ BEGIN
         
 END //
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS SP_LOG_WEATHER_EVENTS;
+DELIMITER //
+CREATE PROCEDURE SP_LOG_WEATHER_EVENTS(IN id_log_file INT)
+BEGIN
+
+	DECLARE today_dt DATETIME;
+    DECLARE weather_events, number_errors INT;
+    
+    SET today_dt := NOW();
+    SELECT COUNT(*) INTO weather_events FROM mobybikes.Weather WHERE DATE(`Date`) = DATE(today_dt);
+    
+	SET number_errors := 24 - weather_events; -- it should have been recorded 24 hours
+    
+	INSERT INTO mobybikes.Log_Weather (`id_file`,`Date`, `Processed`, `Errors`)
+    VALUES (id_log_file, NOW(), weather_events, number_errors);
+	
+END //
+DELIMITER ;
+

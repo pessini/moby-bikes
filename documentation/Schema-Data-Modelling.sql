@@ -4,9 +4,9 @@
 
 CREATE DATABASE IF NOT EXISTS mobybikes;
 
--- ALTER TABLE mobybikes.Rentals_Coordinates DROP CONSTRAINT fk_Rental_Date_BikeID;
--- ALTER TABLE mobybikes.Log_Rentals DROP CONSTRAINT fk_Log_File_R;
--- ALTER TABLE mobybikes.Log_Weather DROP CONSTRAINT fk_Log_File_W;
+ALTER TABLE mobybikes.Rentals_Coordinates DROP CONSTRAINT fk_Rental_Date_BikeID;
+ALTER TABLE mobybikes.Log_Rentals DROP CONSTRAINT fk_Log_File_R;
+ALTER TABLE mobybikes.Log_Weather DROP CONSTRAINT fk_Log_File_W;
 
 DROP TABLE IF EXISTS mobybikes.`Rentals`;
 DROP TABLE IF EXISTS mobybikes.`Rentals_Coordinates`;
