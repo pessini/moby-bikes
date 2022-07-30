@@ -232,6 +232,11 @@ proc_Exit:BEGIN
 END //
 DELIMITER ;
 
+
+-- --------------------------------------------------------------------------------------------------
+-- WEATHER
+-- --------------------------------------------------------------------------------------------------
+
 DROP PROCEDURE IF EXISTS SP_LOG_WEATHER_EVENTS;
 DELIMITER //
 CREATE PROCEDURE SP_LOG_WEATHER_EVENTS(IN id_log_file INT)
@@ -250,4 +255,10 @@ BEGIN
 	
 END //
 DELIMITER ;
+
+
+
+
+
+
 
