@@ -31,6 +31,11 @@ WEATHER_DATA_URL = 'https://www.met.ie/latest-reports/observations/download/Dubl
 ROOT_DIR_LOCAL = os.path.abspath(os.curdir)
 
 try:
+    
+    
+    
+    
+    
     dubairport_yesterday = pd.read_csv(WEATHER_DATA_URL)
     dubairport_yesterday.columns = ['time', 'report', 'temp', 'wdsp', 'wind_gust', 'wind_direction', 'rain', 'pressure']
     dubairport_yesterday['time'] = dubairport_yesterday['time'].apply(format_hour)
