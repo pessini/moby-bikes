@@ -1,14 +1,12 @@
-# Host: localhost
-# Port: 3306
-# User: root
-# SSL: enabled with TLS_AES_256_GCM_SHA384
 
 #%%
 import mysql.connector
 import pandas as pd
 import numpy as np
+from mysql_conn import mysqldb as mysqlconn
 
-cnx = mysql.connector.connect(**config)
+#%%
+cnx = mysql.connector.connect(**mysqlconn.config)
 
 cursor = cnx.cursor()
 

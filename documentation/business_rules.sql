@@ -9,6 +9,8 @@ DROP TABLE IF EXISTS mobybikes.TEMP_completed_rentals;
     bike rental starts the duration in *minutes* will be calculated by: RentalDuration = LastGPSTime - LastRentalStart
 */
 -- --------------------------------------------------------------------------------------------------
+USE mobybikes;
+
 DROP FUNCTION IF EXISTS FN_RENTAL_DURATION;
 DELIMITER //
 CREATE FUNCTION FN_RENTAL_DURATION(LAST_GPSTIME DATETIME, RENTAL_START DATETIME) 
