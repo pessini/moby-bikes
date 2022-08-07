@@ -33,6 +33,10 @@ def format_hour(hour) -> int:
     hour_str = hour.split(':')
     return int(hour_str[0])
 
+def key_exists(mykey, mybucket):
+    if result := s3_client.list_objects_v2(Bucket=mybucket, Prefix=mykey):
+        return 'Contents' in result
+
 headers={'content-type': 'application/json', 'accept': 'application/json'}
 
 WEATHER_DATA_API_URL = "https://prodapi.metweb.ie/observations/dublin/yesterday"
@@ -73,7 +77,11 @@ def get_weather_data():
                 f.write(e.__str__())
         
     finally:
-        s3_client.upload_file(LOCAL_FILE_SYS + "/" + weather_filename, S3_BUCKET, "weather_" + weather_filename)
+        
+        if key_exists("weather_" + weather_filename, S3_BUCKET):
+            print("Weather data file already in S3 bucket!")
+        else:
+            s3_client.upload_file(LOCAL_FILE_SYS + "/" + weather_filename, S3_BUCKET, "weather_" + weather_filename)
     
 def get_rentals_data():
     ###############################################################
@@ -105,8 +113,11 @@ def get_rentals_data():
 
     with open(LOCAL_FILE_SYS + "/" + moby_json_filename, 'w', encoding='utf-8') as f:
         json.dump(moby_parse_json, f, ensure_ascii=False, indent=4)
-            
-    s3_client.upload_file(LOCAL_FILE_SYS + "/" + moby_json_filename, S3_BUCKET, "moby_" + moby_json_filename)
+    
+    if key_exists("moby_" + moby_json_filename, S3_BUCKET):
+        print("Moby rentals data file already in S3 bucket!")
+    else:
+        s3_client.upload_file(LOCAL_FILE_SYS + "/" + moby_json_filename, S3_BUCKET, "moby_" + moby_json_filename)
         
         
 def lambda_handler(event, context):
