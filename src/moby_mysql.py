@@ -8,21 +8,6 @@ import mysql.connector
 import pandas as pd
 import numpy as np
 
-config = {
-  'user': 'root',
-  'password': 'SanFedele0430@',
-  'host': '127.0.0.1',
-  'database': 'mobybikes',
-  'raise_on_warnings': True
-}
-# config = {
-#   'user': 'root',
-#   'password': 'anq2677@',
-#   'host': '127.0.0.1',
-#   'database': 'mobybikes',
-#   'raise_on_warnings': True
-# }
-
 cnx = mysql.connector.connect(**config)
 
 cursor = cnx.cursor()
