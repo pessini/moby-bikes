@@ -2,6 +2,7 @@ import mysql.connector
 from mysql_conn import mysqldb as mysqlcredentials
 
 try:
+    
     conn = mysql.connector.connect(**mysqlcredentials.config)
     conn.autocommit = False
     cursor = conn.cursor()
@@ -21,10 +22,13 @@ try:
     print(cursor.rowcount, "record(s) inserted.")
 
 except mysql.connector.Error as error:
+    
     print(f"Failed to update record to database rollback: {error}")
     # reverting changes because of exception
     conn.rollback()
+    
 finally:
+    
     # closing database connection.
     if conn.is_connected():
         cursor.close()
