@@ -1,29 +1,40 @@
-
-#%%
 import mysql.connector
-import pandas as pd
-import numpy as np
-from mysql_conn import mysqldb as mysqlconn
+from mysql_conn import mysqldb as mysqlcredentials
 
-#%%
-cnx = mysql.connector.connect(**mysqlconn.config)
+try:
+    conn = mysql.connector.connect(**mysqlcredentials.config)
+    conn.autocommit = False
+    cursor = conn.cursor()
 
-cursor = cnx.cursor()
+    data = [
+        ('2022-08-08 18:28:35',865,0),
+        ('2022-08-08 18:33:49',3183,0),
+        ('2022-08-08 18:38:48',3133,0),
+    ]
+    stmt = """INSERT IGNORE INTO mobybikes.Log_Rentals (Date, Processed, Errors) VALUES (%s, %s, %s)"""
 
-query = ("select * from mobybikes.tmpRentals order by LastRentalStart asc")
+    query = ('''INSERT INTO Log_Rentals (Date,Processed,Errors) VALUES ('2022-08-08 18:28:35',865,0), 
+            ('2022-08-08 18:33:49',3183,0), ('2022-08-08 18:38:48',3133,0);''')
 
-cursor.execute(query)
-myresult = cursor.fetchall()
-df = pd.DataFrame(myresult, columns=cursor.column_names)
+    cursor.executemany(stmt,data)
+    conn.commit()
+    print(cursor.rowcount, "record(s) inserted.")
 
-cursor.close()
-cnx.close()
+except mysql.connector.Error as error:
+    print(f"Failed to update record to database rollback: {error}")
+    # reverting changes because of exception
+    conn.rollback()
+finally:
+    # closing database connection.
+    if conn.is_connected():
+        cursor.close()
+        conn.close()
+        print("connection is closed")
 
-#%%
-df.head()
+# myresult = cursor.fetchall()
+# df = pd.DataFrame(myresult, columns=cursor.column_names)
 
+# cursor.execute("SELECT * FROM Log_Rentals")
 
-# %%
-df_grouped = df.groupby(['LastRentalStart', 'BikeID'])
-df_grouped.head()
-# %%
+# for v in cursor:
+#     print(v)

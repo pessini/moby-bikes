@@ -1,6 +1,11 @@
-INSERT INTO mobybikes.Log_Files(`Date`, `Rentals_Filename`, `Weather_Filename`)
-VALUES (NOW(), "rental.json", "weather.xml");
+CALL SP_RENTALS_PROCESSING();
+-- CALL SP_LOG_WEATHER_EVENTS();
 
--- CALL SP_RENTALS_PROCESSING(LAST_INSERT_ID());
 
-CALL SP_LOG_WEATHER_EVENTS(LAST_INSERT_ID());
+-- 092020.csv - 865
+-- 102020.csv - 4048
+-- 112020.csv - 7181
+-- 122020.csv - 10055
+-- 012021.csv - 12365
+-- 022021.csv - 14834
+-- 032021.csv - 

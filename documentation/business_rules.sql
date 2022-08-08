@@ -33,13 +33,12 @@ DROP PROCEDURE IF EXISTS SP_LOG_RENTAL_EVENTS;
 DELIMITER //
 CREATE PROCEDURE SP_LOG_RENTAL_EVENTS(
     IN rentals_processed INT,
-    IN number_errors INT,
-    IN id_log_file INT
+    IN number_errors INT
 )
 BEGIN
 
-	INSERT INTO mobybikes.Log_Rentals (`id_file`,`Date`, `Processed`, `Errors`)
-    VALUES (id_log_file, NOW(), rentals_processed, number_errors);
+	INSERT INTO mobybikes.Log_Rentals (`Date`, `Processed`, `Errors`)
+    VALUES (NOW(), rentals_processed, number_errors);
 	
 END //
 DELIMITER ;
@@ -134,7 +133,6 @@ BEGIN
 	DELETE FROM mobybikes.rawRentals WHERE (LastRentalStart,BikeID) IN (SELECT LastRentalStart,BikeID FROM mobybikes.TEMP_completed_rentals);
     DROP TABLE IF EXISTS TEMP_completed_rentals;
     SET SQL_SAFE_UPDATES = 1;
-	
 END //
 DELIMITER ;
 
@@ -163,14 +161,10 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS SP_RENTALS_PROCESSING;
 DELIMITER //
-CREATE PROCEDURE SP_RENTALS_PROCESSING(IN log_rental INT)
-proc_Exit:BEGIN
+CREATE PROCEDURE SP_RENTALS_PROCESSING()
+BEGIN
 
     DECLARE total_completed_rentals, total_opened_rentals, rentals_to_process, number_errors INT;
-    
-    IF log_rental is NULL THEN
-        LEAVE proc_Exit;
-    END IF;
 
 	-- creates a temporary table and returns the total of completed rentals
 	CALL SP_COMPLETED_RENTALS(total_completed_rentals);
@@ -229,19 +223,19 @@ proc_Exit:BEGIN
     SET number_errors := rentals_to_process - total_opened_rentals;
     
     -- log the number of processed rentals and the number of errors occurred when processing them
-    CALL SP_LOG_RENTAL_EVENTS(total_completed_rentals, number_errors, log_rental);
+    CALL SP_LOG_RENTAL_EVENTS(total_completed_rentals, number_errors);
         
 END //
 DELIMITER ;
 
 
 -- --------------------------------------------------------------------------------------------------
--- WEATHER
+-- WEATHER LOG
 -- --------------------------------------------------------------------------------------------------
 
 DROP PROCEDURE IF EXISTS SP_LOG_WEATHER_EVENTS;
 DELIMITER //
-CREATE PROCEDURE SP_LOG_WEATHER_EVENTS(IN id_log_file INT)
+CREATE PROCEDURE SP_LOG_WEATHER_EVENTS()
 BEGIN
 
 	DECLARE yesterday_dt DATETIME;
@@ -252,15 +246,8 @@ BEGIN
     
 	SET number_errors := 24 - weather_events; -- it should have been recorded 24 hours from yesterday's data
     
-	INSERT INTO mobybikes.Log_Weather (`id_file`,`Date`, `Processed`, `Errors`)
-    VALUES (id_log_file, NOW(), weather_events, number_errors);
+	INSERT INTO mobybikes.Log_Weather (`Date`, `Processed`, `Errors`)
+    VALUES (NOW(), weather_events, number_errors);
 	
 END //
 DELIMITER ;
-
-
-
-
-
-
-
