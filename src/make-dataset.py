@@ -14,7 +14,7 @@ print(all_files)
 combined_csv = pd.concat([pd.read_csv(f) for f in all_files ])
 
 #export to csv
-combined_csv.to_csv( '../data/raw/historical_data.csv', index=False, encoding='utf-8-sig')
+combined_csv.to_csv( '../data/raw/historical_data.csv', index=False)
 
 # %%
 moby_all = pd.read_csv('../data/raw/historical_data.csv')
