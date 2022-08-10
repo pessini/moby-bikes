@@ -1,5 +1,6 @@
 import json
 from sys import prefix
+from datetime import datetime
 import mysql.connector
 from mysql_conn import mysqldb as mysqlcredentials
 import boto3
@@ -10,22 +11,40 @@ S3_BUCKET = "moby-bikes-rentals"
 rentals_files_in_bucket = s3_client.list_objects(Bucket=S3_BUCKET, Prefix='moby_')
 weather_files_in_bucket = s3_client.list_objects(Bucket=S3_BUCKET, Prefix='weather_')
 
+
+
 def parse_files():
     pass
 
+def get_file_tag(fileName):
+    # Example of tag 'TagSet': [{'Key': 'rental', 'Value': ''}]
+    # If object has not tagging, setting tag = None
+    try:
+        tag = s3_client.get_object_tagging(Bucket = S3_BUCKET, Key=fileName)['TagSet'][0]['Key']
+    except Exception:
+        tag = None
+        
+    return tag
+
+def add_file_tag(fileName, tag):
+    try:
+        today_dt = datetime.now()
+        today_dt_str = today_dt.strftime("%Y-%m-%d")
+        new_tag = {'TagSet': [{'Key': tag, 'Value': today_dt_str}]}
+        s3_client.put_object_tagging(Bucket = S3_BUCKET, Key=fileName,Tagging=new_tag)
+        return True
+    except Exception:
+        return False
+
 for v in rentals_files_in_bucket['Contents']:
     obj = s3_client.Object(S3_BUCKET, v['Key'])
+    
+    tag = get_file_tag(v['Key'])
+    if not tag:
+        add_file_tag(fileName=v['Key'], tag='error')
+
     data = obj.get()['Body'].read().decode('utf-8')
     json_data = json.loads(data)
-    
-{'ResponseMetadata': {'RequestId': 'EMT49ZDYQF7MYCGM', 
-                      'HostId': '1zrX1ogYgqHOfGECth0PIDEhIuqDuYMkXnTAVsz0zS0af6YR0ZQe7rDKZhBM/6SBm9ZDc1GbY0k=', 
-                      'HTTPStatusCode': 200, 
-                      'HTTPHeaders': {'x-amz-id-2': 
-                          '1zrX1ogYgqHOfGECth0PIDEhIuqDuYMkXnTAVsz0zS0af6YR0ZQe7rDKZhBM/6SBm9ZDc1GbY0k=', 
-                          'x-amz-request-id': 'EMT49ZDYQF7MYCGM', 'date': 'Tue, 09 Aug 2022 22:40:30 GMT', 
-                          'transfer-encoding': 'chunked', 'server': 'AmazonS3'}, 'RetryAttempts': 0}, 
- 'TagSet': [{'Key': 'rental', 'Value': ''}]}
 
 def openDB_connection():
     conn = mysql.connector.connect(**mysqlcredentials.config)
