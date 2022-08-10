@@ -8,77 +8,88 @@ import boto3
 s3_client = boto3.client("s3")
 S3_BUCKET = "moby-bikes-rentals"
 
-rentals_files_in_bucket = s3_client.list_objects(Bucket=S3_BUCKET, Prefix='moby_')
-weather_files_in_bucket = s3_client.list_objects(Bucket=S3_BUCKET, Prefix='weather_')
-
-
-
-def parse_files():
-    pass
+def openDB_connection():
+    conn = mysql.connector.connect(**mysqlcredentials.config)
+    cursor = conn.cursor()
+    return conn, cursor
 
 def get_file_tag(fileName):
     # Example of tag 'TagSet': [{'Key': 'rental', 'Value': ''}]
     # If object has not tagging, setting tag = None
     try:
-        tag = s3_client.get_object_tagging(Bucket = S3_BUCKET, Key=fileName)['TagSet'][0]['Key']
+        tag = s3_client.get_object_tagging(Bucket=S3_BUCKET, Key=fileName)['TagSet'][0]['Key']
     except Exception:
         tag = None
         
     return tag
+
+def remove_file_tag(fileName):
+    s3_client.delete_object_tagging(Bucket=S3_BUCKET,Key=fileName)
 
 def add_file_tag(fileName, tag):
     try:
         today_dt = datetime.now()
         today_dt_str = today_dt.strftime("%Y-%m-%d")
         new_tag = {'TagSet': [{'Key': tag, 'Value': today_dt_str}]}
-        s3_client.put_object_tagging(Bucket = S3_BUCKET, Key=fileName,Tagging=new_tag)
+        s3_client.put_object_tagging(Bucket=S3_BUCKET, Key=fileName, Tagging=new_tag)
         return True
     except Exception:
         return False
 
-for v in rentals_files_in_bucket['Contents']:
-    obj = s3_client.Object(S3_BUCKET, v['Key'])
+def process_files_data(type='rentals') -> list:
     
-    tag = get_file_tag(v['Key'])
-    if not tag:
-        add_file_tag(fileName=v['Key'], tag='error')
+    if type == 'rentals':
+        filePrefix = 'moby_'
+    elif type == 'weather':
+        filePrefix = 'weather_'
+        
+    files_in_bucket = s3_client.list_objects(Bucket=S3_BUCKET, Prefix=filePrefix)
+    
+    all_data=[]
+    if 'Contents' in files_in_bucket:
+        for v in files_in_bucket['Contents']:
+            
+            tag = get_file_tag(v['Key'])
+            
+            if not tag: # if object is not tagged, needs to be processed
+                
+                obj = s3_client.get_object(Bucket=S3_BUCKET, Key=v['Key'])
+                json_data = json.loads(obj['Body'].read().decode('utf-8'))
+                
+                if type == 'rentals':
+                    list_data = [(i['LastRentalStart'], 
+                                    i['BikeID'], 
+                                    i['Battery'], 
+                                    i['LastGPSTime'], 
+                                    i['Latitude'], 
+                                    i['Longitude']) for i in json_data]
+                    
+                elif type == 'weather':
+                    list_data = [(i['date'], 
+                                    i['reportTime'], 
+                                    i['temperature'], 
+                                    i['windSpeed'], 
+                                    i['humidity'], 
+                                    i['rainfall']) for i in json_data]
 
-    data = obj.get()['Body'].read().decode('utf-8')
-    json_data = json.loads(data)
+                all_data.extend(list_data)
 
-def openDB_connection():
-    conn = mysql.connector.connect(**mysqlcredentials.config)
-    cursor = conn.cursor()
-    return conn, cursor
+    return all_data
+    
 
-def process_weather_data() -> list:
-    pass
-
-def process_rentals_data() -> list:
-    path = '/Users/lpessini/TUDublin/moby-bikes/data/external/moby/'
-    fileName = '2022-07-20.json'
-
-    with open(path+fileName) as json_file:
-        parse_json = json.load(json_file)
-
-    return [(i['LastRentalStart'], 
-             i['BikeID'], 
-             i['Battery'], 
-             i['LastGPSTime'], 
-             i['Latitude'], 
-             i['Longitude']) for i in parse_json]
-
-def lambda_handler(event=None, context=None):
+def lambda_handler(event, context):
     
     conn, cursor = openDB_connection()
     
     try:
         
-        data = process_rentals_data()
-        stmt = """INSERT INTO mobybikes.rawRentals (LastRentalStart, BikeID, Battery, LastGPSTime, Latitude, Longitude) VALUES (%s, %s, %s, %s, %s, %s)"""
-        cursor.executemany(stmt,data)
-        None if conn.autocommit else conn.commit()
-        print(cursor.rowcount, "record(s) inserted.")
+        data = process_files_data() # rentals
+        print(data)
+        
+        # stmt = """INSERT INTO mobybikes.rawRentals (LastRentalStart, BikeID, Battery, LastGPSTime, Latitude, Longitude) VALUES (%s, %s, %s, %s, %s, %s)"""
+        # cursor.executemany(stmt,data)
+        # None if conn.autocommit else conn.commit()
+        # print(cursor.rowcount, "record(s) inserted.")
 
     except mysql.connector.Error as error:
 
@@ -88,17 +99,11 @@ def lambda_handler(event=None, context=None):
 
     finally:
 
-        cursor.callproc('SP_RENTALS_PROCESSING')
-        # cursor.execute('CALL mobybikes.SP_RENTALS_PROCESSING();', multi=True)
+        # cursor.callproc('SP_RENTALS_PROCESSING')
         
         # closing database connection.
         if conn.is_connected():
             cursor.close()
             conn.close()
             print("Connection is closed!")
-
-
-rentals_list = process_rentals_data()
-# print(*rentals_list, sep='\n')
-print(f'{len(rentals_list)} records in LIST')
-lambda_handler()
+            
