@@ -232,22 +232,19 @@ DELIMITER ;
 -- --------------------------------------------------------------------------------------------------
 -- WEATHER LOG
 -- --------------------------------------------------------------------------------------------------
-
+USE mobybikes;
 DROP PROCEDURE IF EXISTS SP_LOG_WEATHER_EVENTS;
 DELIMITER //
-CREATE PROCEDURE SP_LOG_WEATHER_EVENTS()
+CREATE PROCEDURE SP_LOG_WEATHER_EVENTS(IN DATE_FILE CHAR(10))
 BEGIN
-
-	DECLARE yesterday_dt DATETIME;
     DECLARE weather_events, number_errors INT;
+
+    SELECT COUNT(*) INTO weather_events FROM mobybikes.Weather WHERE DATE(`Date`) = STR_TO_DATE(DATE_FILE,'%Y-%m-%d');
     
-    SELECT DATE_SUB(NOW(), INTERVAL 1 DAY) INTO yesterday_dt;
-    SELECT COUNT(*) INTO weather_events FROM mobybikes.Weather WHERE DATE(`Date`) = DATE(yesterday_dt);
-    
-	SET number_errors := 24 - weather_events; -- it should have been recorded 24 hours from yesterday's data
+	SET number_errors := 24 - weather_events; -- it should have been recorded 24 hours
     
 	INSERT INTO mobybikes.Log_Weather (`Date`, `Processed`, `Errors`)
-    VALUES (NOW(), weather_events, number_errors);
+    VALUES (STR_TO_DATE(DATE_FILE,'%Y-%m-%d'), weather_events, number_errors);
 	
 END //
 DELIMITER ;

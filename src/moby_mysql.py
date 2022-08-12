@@ -105,12 +105,14 @@ def process_files_data(fileType='rentals') -> list:
     files_in_bucket = s3_client.list_objects(Bucket=S3_BUCKET, Prefix=filePrefix)
     
     all_data=[]
+    files_queued = []
     if 'Contents' in files_in_bucket:
-        count_er = 0
-        
+
         for v in files_in_bucket['Contents']:
             
             tag = get_file_tag(v['Key'])
+            
+            files_queued.append(v['Key'])
             
             print(v['Key'])
             # if not tag: # if object is not tagged, needs to be processed
@@ -152,15 +154,15 @@ def process_files_data(fileType='rentals') -> list:
 
     print('Test----Test')
     print(all_data)
-    return all_data
+    return all_data, files_queued
     
 
 def lambda_handler(event, context):  # sourcery skip: use-named-expression
 
     # conn, cursor = openDB_connection()
     
-    rentals_data = process_files_data(fileType='rentals')
-    weather_data = process_files_data(fileType='weather')
+    rentals_data, files_queued = process_files_data(fileType='rentals')
+    weather_data, files_queued = process_files_data(fileType='weather')
 
     # try:
 
