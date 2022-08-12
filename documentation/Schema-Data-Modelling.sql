@@ -52,7 +52,7 @@ CREATE TABLE mobybikes.`Weather` (
     -- in Celsius
     `Temperature` double  NOT NULL ,
     -- in Knots (kt)
-    `WindSpeed` double  NOT NULL ,
+    `WindSpeed` INT  NOT NULL ,
     -- Relative humidity (%)
     `Humidity` int  NOT NULL ,
     -- in millimetres (mm)
@@ -97,7 +97,7 @@ CREATE TABLE mobybikes.`rawRentals` (
 -- Log events to track processing errors on Rentals
 CREATE TABLE mobybikes.`Log_Rentals` (
 	`_id` INT AUTO_INCREMENT PRIMARY KEY,
-    `Date` date NOT NULL ,
+    `Date` DATETIME NOT NULL ,
     -- Total Rentals processed
     `Processed` int NULL ,
     -- Number of Rentals failed to be processed
@@ -107,7 +107,7 @@ CREATE TABLE mobybikes.`Log_Rentals` (
 -- Log events to track processing errors on Weather Data
 CREATE TABLE mobybikes.`Log_Weather` (
 	`_id` INT AUTO_INCREMENT PRIMARY KEY,
-    `Date` date NOT NULL ,
+    `Date` DATE NOT NULL ,
     -- Weather data processed
     `Processed` int NULL ,
     -- Number of hourly weather data failed to be processed

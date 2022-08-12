@@ -1,4 +1,3 @@
-from audioop import add
 import json
 from datetime import datetime
 import mysql.connector
@@ -88,11 +87,11 @@ def feat_eng_weather(data: list) -> list:
     return [(convert_date(str.strip(i[4])),
              str.strip(i[5].split(':')[0]), 
              times_of_day(int( str.strip(i[5].split(':')[0]) )),
-             str.strip(i[0]), 
-             str.strip(i[1]), 
-             str.strip(i[2]), 
+             force_integer( str.strip(i[0]) ), 
+             force_integer( str.strip(i[1]) ), 
+             force_integer( str.strip(i[2]) ), 
              str.strip(i[3]), 
-             rain_intensity_level(np.float( str.strip(i[3]) ))) for i in data]
+             rain_intensity_level(float( str.strip(i[3]) ))) for i in data]
 
 def convert_date(date_weather: str) -> str:
     '''
@@ -107,6 +106,13 @@ def get_date_from_filename(filename: str) -> str:
     filename = filename.split('.')[0]
     return filename.split('_')[1]
 
+def force_integer(input_number):
+    try:
+        tmp = int(input_number)
+    except Exception:
+        tmp = 0
+    return tmp
+
 def process_files_data(fileType='rentals') -> list:
     
     if fileType == 'rentals':
@@ -120,8 +126,10 @@ def process_files_data(fileType='rentals') -> list:
     files_queued = []
     if 'Contents' in files_in_bucket:
         for v in files_in_bucket['Contents']:
+            
             tag = get_file_tag(v['Key'])
             files_queued.append(v['Key'])
+            
             if not tag: # if object is not tagged, needs to be processed
                 
                 obj = s3_client.get_object(Bucket=S3_BUCKET, Key=v['Key'])
@@ -151,7 +159,6 @@ def process_files_data(fileType='rentals') -> list:
 
     return all_data, files_queued
     
-
 def lambda_handler(event, context):
 
     conn, cursor = openDB_connection()
@@ -164,12 +171,13 @@ def lambda_handler(event, context):
 
             stmt = """INSERT INTO mobybikes.rawRentals (LastRentalStart, BikeID, Battery, LastGPSTime, Latitude, Longitude) VALUES (%s, %s, %s, %s, %s, %s)"""
             cursor.executemany(stmt,rentals_data)
-            None if conn.autocommit else conn.commit()
-            print(cursor.rowcount, "record(s) inserted.")
             
             if rfiles_queued:
                 for fileName in rfiles_queued:
                     add_file_tag(fileName,'processed')
+                    
+            None if conn.autocommit else conn.commit()
+            print(cursor.rowcount, "record(s) inserted.")
             
         else:
             print('No Rental files were found to be processed!')
@@ -187,6 +195,7 @@ def lambda_handler(event, context):
     finally:
         
         cursor.callproc('SP_RENTALS_PROCESSING')
+        None if conn.autocommit else conn.commit()
         
         try:
 

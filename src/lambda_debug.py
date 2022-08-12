@@ -93,7 +93,7 @@ def process_files_data(fileType='rentals') -> list:
         
     files_in_bucket = f'{ROOT_DIR_LOCAL}/src/lambda_data/'
     
-    all_data=[]
+    all_data = []
     files_queued = []
     
     for filename in os.listdir(files_in_bucket):
