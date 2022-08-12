@@ -179,6 +179,10 @@ def lambda_handler(event, context):
         print(f"Failed to update record to database rollback: {error}")
         # reverting changes because of exception
         conn.rollback()
+        
+        if rfiles_queued:
+            for fileName in rfiles_queued:
+                add_file_tag(fileName,'error')
 
     finally:
         
@@ -207,6 +211,10 @@ def lambda_handler(event, context):
             print(f"Failed to update record to database rollback: {error}")
             # reverting changes because of exception
             conn.rollback()
+            
+            if wfiles_queued:
+                for fileName in wfiles_queued:
+                    add_file_tag(fileName,'error')
 
     # closing database connection.
     cursor.close()
