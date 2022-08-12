@@ -149,10 +149,10 @@ try:
         stmt = """INSERT INTO mobybikes.Weather (Date, Hour, TimeOfDay, Temperature, WindSpeed, Humidity, Rain, RainLevel) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"""
         cursor.executemany(stmt,weather_data)
         
-        for dt in wfiles_queued:
-            args = (get_date_from_filename(dt),)
-            print(args)
-            cursor.callproc('SP_LOG_WEATHER_EVENTS', args)
+        if wfiles_queued:
+            for dt in wfiles_queued:
+                args = (get_date_from_filename(dt),)
+                cursor.callproc('SP_LOG_WEATHER_EVENTS', args)
             
         None if conn.autocommit else conn.commit()
         

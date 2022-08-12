@@ -42,7 +42,7 @@ CREATE TABLE mobybikes.`Rentals_Coordinates` (
 );
 
 CREATE TABLE mobybikes.`Weather` (
-    `Date` datetime  NOT NULL ,
+    `Date` date  NOT NULL ,
     `Hour` int  NOT NULL ,
     -- Morning (from 7am to noon)
     -- Afternoon (from midday to 6pm)
@@ -97,7 +97,7 @@ CREATE TABLE mobybikes.`rawRentals` (
 -- Log events to track processing errors on Rentals
 CREATE TABLE mobybikes.`Log_Rentals` (
 	`_id` INT AUTO_INCREMENT PRIMARY KEY,
-    `Date` datetime NOT NULL ,
+    `Date` date NOT NULL ,
     -- Total Rentals processed
     `Processed` int NULL ,
     -- Number of Rentals failed to be processed
@@ -107,7 +107,7 @@ CREATE TABLE mobybikes.`Log_Rentals` (
 -- Log events to track processing errors on Weather Data
 CREATE TABLE mobybikes.`Log_Weather` (
 	`_id` INT AUTO_INCREMENT PRIMARY KEY,
-    `Date` datetime NOT NULL ,
+    `Date` date NOT NULL ,
     -- Weather data processed
     `Processed` int NULL ,
     -- Number of hourly weather data failed to be processed
