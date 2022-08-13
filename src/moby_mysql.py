@@ -15,7 +15,7 @@ def openDB_connection():
 
 def get_file_tag(fileName):
     # Example of tag 'TagSet': [{'Key': 'rental', 'Value': ''}]
-    # If object has not tagging, setting tag = None
+    # If object has no tagging, setting tag = None
     try:
         tag = s3_client.get_object_tagging(Bucket=S3_BUCKET, Key=fileName)['TagSet'][0]['Key']
     except Exception:
