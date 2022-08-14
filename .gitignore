@@ -17,6 +17,7 @@
 # Local only folder
 /ignore-folder/
 /data/
+/src/lambda_data/
 /models/
 *conn/
 
