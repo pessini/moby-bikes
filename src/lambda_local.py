@@ -181,10 +181,10 @@ finally:
             cursor.executemany(stmt,weather_data)
 
             if wfiles_queued:
-                for dt in wfiles_queued:
-                    args = (get_date_from_filename(dt),)
+                for fileName in wfiles_queued:
+                    args = (get_date_from_filename(fileName),)
                     cursor.callproc('SP_LOG_WEATHER_EVENTS', args)
-                    shutil.move(f'{ROOT_DIR_LOCAL}/src/lambda_data/{dt}', f'{ROOT_DIR_LOCAL}/src/lambda_data/processed/{dt}')
+                    shutil.move(f'{ROOT_DIR_LOCAL}/src/lambda_data/{fileName}', f'{ROOT_DIR_LOCAL}/src/lambda_data/processed/{fileName}')
 
             None if conn.autocommit else conn.commit()
 
