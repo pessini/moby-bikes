@@ -40,55 +40,22 @@ The project will use two main open datasets provided from Moby and Met Éireann 
 - [Events](#events)
 - [State](#state)
 
-<!-- TABLE OF CONTENTS -->
+## Problem
 
-<h2 id="table-of-contents"> Table of Contents</h2>
+The role of **eBike Operators** includes distributing and relocating eBikes throughout the city, while performing safety checks and basic maintenance.
 
-<details open="open">
-  <summary>Contents</summary>
-  <ol>
-    <li><a href="#about-the-project">About The Project</a></li>
-    <li><a href="#prerequisites"> ➤ Prerequisites</a></li>
-    <li><a href="#folder-structure"> ➤ Folder Structure</a></li>
-    <li><a href="#dataset"> ➤ Dataset</a></li>
-    <li><a href="#roadmap"> ➤ Roadmap</a></li>
-    <li>
-      <a href="#preprocessing"> ➤ Preprocessing</a>
-      <ul>
-        <li><a href="#preprocessed-data">Pre-processed data</a></li>
-        <li><a href="#statistical-feature">Statistical feature</a></li>
-        <li><a href="#topological-feature">Topological feature</a></li>
-      </ul>
-    </li>
-    <!--<li><a href="#experiments">Experiments</a></li>-->
-    <li><a href="#results-and-discussion"> ➤ Results and Discussion</a></li>
-    <li><a href="#references"> ➤ References</a></li>
-    <li><a href="#contributors"> ➤ Contributors</a></li>
-  </ol>
-</details>
-
-# Problem
-
-## eBike Operators
+- Based on weather forecast what demand Moby will have? So they can prepare themselves for a high or low demand. Maybe they need to use the time on a low-demand day to focus on fixing or replacing their broken bikes.
 
 ### Job Description:
 
 MOBY is Ireland’s most exciting urban mobility company. We deployed a fleet of shared electric bikes in the nation’s capital.
 
-We need an ambitious  person distributing and relocating our eBikes throughout the city, while performing safety checks and basic maintenance (training provided).
-
-Delivering and collecting  private rental eBikes for our customers.
-
-We plan to expand our team in Dublin and abroad, so there will be opportunities to progress within the company .
 
 ### Responsibilities:
 
 - **Distributing bikes to the city’s most in-demand locations (Cycling electric cargo trike).**
 - **Replacing bike batteries when out of charge.**
-- Relocating bikes which have been incorrectly parked.
-- Scheduling and completing delivery and collection of subscription eBikes (Moby+ and Moby+ Pro) to our customers.
-- **Check and repair eBikes on street (training provided).**
-- Other responsibilities as required.
+- **Check and repair eBikes on street.**
 
 ## Success Metrics
 
@@ -106,15 +73,14 @@ All datasets are public and available at [Data.gov.ie](https://data.gov.ie/) whi
 
 * [Moby Bikes bikeshare - Datasets - data.gov.ie](https://data.gov.ie/dataset/moby-bikes)
 
-__Tasks__
+## Data Pipeline
 
-- Based on weather forecast what demand Moby will have? So they can prepare themselves for a high or low demand. Maybe they need to use the time on a low-demand day to focus on fixing or replacing their broken bikes.
 
-- Possible task. Predict the demand based on their bases.
 
-Several studies reported the influence of the weather on usage of bicycle sharing in many cities around the world[[1]](#1) [[2]](#2).
 
 ## References
+
+Several studies reported the influence of the weather on usage of bicycle sharing in many cities around the world[[1]](#1) [[2]](#2).
 
 <a id="1">[1]</a> Li, L., & McDonald, F. (2013). Automated self-organising vehicles for Barclays Cycle Hire. *Memetic Computing*, *5*(1), 35–48. https://doi.org/10.1007/s12293-012-0101-3
 
