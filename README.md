@@ -57,6 +57,10 @@ MOBY is Ireland’s most exciting urban mobility company. We deployed a fleet of
 - **Replacing bike batteries when out of charge.**
 - **Check and repair eBikes on street.**
 
+## Data Pipeline
+
+
+
 ## Success Metrics
 
 - KPI
@@ -75,7 +79,7 @@ All datasets are public and available at [Data.gov.ie](https://data.gov.ie/) whi
 
 ## Data Pipeline
 
-
+![Data Pipeline](https://github.com/pessini/moby-bikes/blob/73f3d0af24a09b91fb1ca3c3d09edbf66273fdbf/documentation/data-pipeline.png?raw=true)
 
 
 ## References
