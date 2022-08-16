@@ -1,8 +1,4 @@
 import streamlit as st
-import pandas as pd
-import numpy as np
-# import altair as alt
-import matplotlib.pyplot as plt
 import socket
 from PIL import Image
 
@@ -50,4 +46,23 @@ st.header('About the project')
 st.subheader("Predicting bike rentals demand")
 
 st.latex(r'''NRMSE = \frac{RSME}{y_{max} - y_{min}}''')
+
+moby_data_pipeline = Image.open(f'{APP_PATH}img/data-pipeline.png')
+st.image(moby_data_pipeline, use_column_width='always')
+
+with open(f'{APP_PATH}docs/Moby-Bikes-Data-Pipeline.pdf', "rb") as file:
+    btn = st.download_button(label="Download as PDF",
+                            data=file,
+                            file_name='data-pipeline.pdf',
+                            mime="application/pdf"
+                            )
+    
+
+st.markdown('''### Test''')    
 st.markdown('''This web app is part of a GitHub repository: https://github.com/pessini/moby-bikes''')
+
+st.metric('My metric', 42, 2)
+st.error('Error message')
+st.warning('Warning message')
+st.info('Info message')
+st.success('Success message')
