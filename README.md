@@ -59,7 +59,7 @@ MOBY is Ireland’s most exciting urban mobility company. We deployed a fleet of
 
 ## Data Pipeline
 
-
+![Data Pipeline](https://github.com/pessini/moby-bikes/blob/73f3d0af24a09b91fb1ca3c3d09edbf66273fdbf/documentation/data-pipeline.png?raw=true)
 
 ## Success Metrics
 
@@ -76,10 +76,6 @@ All datasets are public and available at [Data.gov.ie](https://data.gov.ie/) whi
 * [PhoenixPark Daily Data - Datasets - data.gov.ie](https://data.gov.ie/dataset/phoenixpark-daily-data)
 
 * [Moby Bikes bikeshare - Datasets - data.gov.ie](https://data.gov.ie/dataset/moby-bikes)
-
-## Data Pipeline
-
-![Data Pipeline](https://github.com/pessini/moby-bikes/blob/73f3d0af24a09b91fb1ca3c3d09edbf66273fdbf/documentation/data-pipeline.png?raw=true)
 
 
 ## References
