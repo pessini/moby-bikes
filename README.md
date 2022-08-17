@@ -50,7 +50,6 @@ The role of **eBike Operators** includes distributing and relocating eBikes thro
 
 MOBY is Ireland’s most exciting urban mobility company. We deployed a fleet of shared electric bikes in the nation’s capital.
 
-
 ### Responsibilities:
 
 - **Distributing bikes to the city’s most in-demand locations (Cycling electric cargo trike).**
@@ -76,7 +75,6 @@ All datasets are public and available at [Data.gov.ie](https://data.gov.ie/) whi
 * [PhoenixPark Daily Data - Datasets - data.gov.ie](https://data.gov.ie/dataset/phoenixpark-daily-data)
 
 * [Moby Bikes bikeshare - Datasets - data.gov.ie](https://data.gov.ie/dataset/moby-bikes)
-
 
 ## References
 
