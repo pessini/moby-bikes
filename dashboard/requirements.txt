@@ -8,3 +8,5 @@ beautifulsoup4==4.11.1
 lxml==4.9.1
 streamlit==1.10.0
 matplotlib==3.5.2
+mysql-connector-python==8.0.29
+altair==4.2.0
