@@ -5,8 +5,20 @@ import altair as alt
 import matplotlib.pyplot as plt
 from PIL import Image
 import socket
-
 import mysql.connector
+
+#---------------------------------#
+# Page layout
+#---------------------------------#
+# Page layout
+st.set_page_config(  # Alternate names: setup_page, page, layout
+	layout="wide",  # Can be "centered" or "wide". In the future also "dashboard", etc.
+	initial_sidebar_state="auto",  # Can be "auto", "expanded", "collapsed"
+	page_title='Moby Bikes - Dashboard',  # String or None. Strings get appended with "• Streamlit". 
+	page_icon= '🚲',  # String, anything supported by st.image, or None.
+)
+#---------------------------------
+#---------------------------------#
 
 # Initialize connection.
 # Uses st.experimental_singleton to only run once.
@@ -51,18 +63,7 @@ else: # remote
 def get_data():
     pass
 
-#---------------------------------#
-# Page layout
-#---------------------------------#
-# Page layout
-st.set_page_config(  # Alternate names: setup_page, page, layout
-	layout="wide",  # Can be "centered" or "wide". In the future also "dashboard", etc.
-	initial_sidebar_state="auto",  # Can be "auto", "expanded", "collapsed"
-	page_title='Moby Bikes - Dashboard',  # String or None. Strings get appended with "• Streamlit". 
-	page_icon= '🚲',  # String, anything supported by st.image, or None.
-)
-#---------------------------------
-#---------------------------------#
+
 
 #---------------------------------#
 # Page layout (continued)
@@ -81,9 +82,8 @@ st.image(moby_banner, width=500)
 st.header('Dashboard')
 st.subheader("Predicting bike rentals demand")
 
-
-rows = run_query("SELECT * from mobybikes.Log_Rentals;")
+rows = run_query("SELECT * from mobybikes.Rentals;")
 
 # Print results.
 for row in rows:
-    st.write(f"{row[0]} has a :{row[1]}:")
+    st.write(f"{row} has a :{row[1]}:")
