@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from PIL import Image
 import socket
 import mysql.connector
+import datetime
 
 #---------------------------------#
 # Page layout
@@ -63,6 +64,8 @@ else: # remote
 def get_data():
     pass
 
+def format_rental_duration(minutes):
+    return datetime.timedelta(minutes=float(minutes)).__str__()
 
 
 #---------------------------------#
@@ -82,10 +85,20 @@ st.image(moby_banner, width=500)
 st.header('Dashboard')
 st.subheader("Predicting bike rentals demand")
 
-rows = run_query("SELECT * from mobybikes.Rentals LIMIT 10;")
+rows = run_query("""
+                WITH CTE_LASTMONTH AS
+                    (
+                        SELECT AVG(Duration) AS average_duration
+                        FROM mobybikes.Rentals
+                        WHERE DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 30 DAY) AND CURDATE()
+                    )
+                SELECT average_duration FROM CTE_LASTMONTH;""")
 
-st.write(rows)
+# st.metric('My metric', rows(), 2)
+# elapsed = 4*3600 + 13*60 + 6 
+# time.strftime("%Hh%Mm%Ss", time.gmtime(elapsed))
 
+# str(datetime.timedelta(minutes=rows[0][0]))
 # Print results.
 for row in rows:
-    st.write(f"{row[0]} - {row[1]}")
+    st.write(f"Average Rentals last 30 days: {round(row[0],2)} minutes [{ type( format_rental_duration(row[0]) ) }]")
