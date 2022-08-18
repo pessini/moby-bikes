@@ -82,8 +82,10 @@ st.image(moby_banner, width=500)
 st.header('Dashboard')
 st.subheader("Predicting bike rentals demand")
 
-rows = run_query("SELECT * from mobybikes.Rentals;")
+rows = run_query("SELECT * from mobybikes.Rentals LIMIT 10;")
+
+st.write(rows)
 
 # Print results.
 for row in rows:
-    st.write(f"{row} has a :{row[1]}:")
+    st.write(f"{row[0]} - {row[1]}")
