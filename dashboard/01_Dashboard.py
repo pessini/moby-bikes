@@ -79,8 +79,8 @@ col2, col3 = st.columns((2,1))
 # with st.sidebar:
 #     st.markdown('''This web app is part of a GitHub repository: https://github.com/pessini/moby-bikes''')
 
-moby_banner = Image.open(f'{APP_PATH}img/moby_move_home_page_img.webp')
-st.image(moby_banner, width=500)
+# moby_banner = Image.open(f'{APP_PATH}img/moby_move_home_page_img.webp')
+# st.image(moby_banner, width=500)
 
 st.header('Dashboard')
 st.subheader("Predicting bike rentals demand")

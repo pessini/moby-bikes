@@ -29,6 +29,33 @@ BEGIN
 END //
 DELIMITER ;
 
+DROP FUNCTION IF EXISTS FN_TIMESOFDAY;
+DELIMITER //
+CREATE FUNCTION FN_TIMESOFDAY(rental_date DATETIME) 
+RETURNS VARCHAR(10)
+DETERMINISTIC
+BEGIN
+	DECLARE timeofday VARCHAR(10);
+    DECLARE rental_hour INT;
+    
+    SET rental_hour := HOUR(rental_date);
+    
+    IF rental_hour < 7 THEN
+		SET timeofday := 'Night';
+	ELSEIF rental_hour >= 7 AND rental_hour < 12 THEN
+		SET timeofday := 'Morning';
+	ELSEIF rental_hour >= 12 AND rental_hour < 18 THEN
+		SET timeofday := 'Afternoon';
+	ELSEIF rental_hour >= 18 AND rental_hour < 23 THEN
+		SET timeofday := 'Evening';
+	ELSE 
+		SET timeofday := 'Night';
+    END IF;
+
+    RETURN timeofday;
+END //
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS SP_LOG_RENTAL_EVENTS;
 DELIMITER //
 CREATE PROCEDURE SP_LOG_RENTAL_EVENTS(
