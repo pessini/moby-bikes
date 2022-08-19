@@ -56,8 +56,6 @@ def host_is_local(hostname, port=None):
 # Check if it is local or remote
 if socket.gethostname() == 'MacBook-Air-de-Leandro.local': # my mac
     APP_PATH = '/Users/pessini/Dropbox/Data-Science/moby-bikes/dashboard/'
-elif socket.gethostname() == 'lpessini-mbp': # work mac
-    APP_PATH = '/Users/lpessini/TUDublin/moby-bikes/dashboard/'
 else: # remote
     APP_PATH = '/app/moby-bikes/dashboard/'
     
