@@ -22,16 +22,18 @@ from bs4 import BeautifulSoup
 import base64
 import socket
 
+
+# -------------- SETTINGS --------------
+
+page_title = "Moby Bikes Demand Forecasting"
+page_icon = ":bike:"  # emojis: https://www.webfx.com/tools/emoji-cheat-sheet/
+layout = "centered" # Can be "centered" or "wide". In the future also "dashboard", etc.
 #---------------------------------#
 # Page layout
 #---------------------------------#
 # Page layout
-st.set_page_config(  # Alternate names: setup_page, page, layout
-	layout="wide",  # Can be "centered" or "wide". In the future also "dashboard", etc.
-	# initial_sidebar_state="auto",  # Can be "auto", "expanded", "collapsed"
-	page_title='Moby Bikes - Dashboard',  # String or None. Strings get appended with "• Streamlit". 
-	page_icon= ':bike:',  # String, anything supported by st.image, or None.
-)
+st.set_page_config(page_title=page_title, page_icon=page_icon, layout=layout)
+st.title(page_title)
 #---------------------------------
 
 # --- HIDE STREAMLIT STYLE ---
@@ -43,9 +45,10 @@ hide_st_style = """
             .row_heading.level0 {display:none}
             .blank {display:none}
             footer:after {
-                content: "Copyright @ 2022: Streamlit"; 
+                content: "By Leandro Pessini"; 
                 display: block; 
-                position: relative;}
+                position: relative;
+                }
             </style>
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
@@ -64,8 +67,6 @@ selected = option_menu(
 )
 
 #---------------------------------#
-
-
 
 # Initialize connection.
 # Uses st.experimental_singleton to only run once.
@@ -335,6 +336,15 @@ def convert_df(df):
 if selected == "Dashboard":
 
     st.header('Dashboard')
+    
+    # tab1, tab2 = st.tabs(["📈 Chart", "🗃 Data"])
+    # data = np.random.randn(10, 1)
+
+    # tab1.subheader("A tab with a chart")
+    # tab1.line_chart(data)
+
+    # tab2.subheader("A tab with the data")
+    # tab2.write(data)
 
     col_metric_1, col_metric_2, col_metric_3 = st.columns(3)
 
@@ -434,6 +444,3 @@ if selected == "About":
     st.warning('Warning message')
     st.info('Info message')
     st.success('Success message')
-    
-
-st.markdown('''This web app is part of a GitHub repository: https://github.com/pessini/moby-bikes''')
