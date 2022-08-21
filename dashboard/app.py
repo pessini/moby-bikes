@@ -27,7 +27,7 @@ import socket
 
 page_title = "Moby Bikes Demand Forecasting"
 page_icon = ":bike:"  # emojis: https://www.webfx.com/tools/emoji-cheat-sheet/
-layout = "centered" # Can be "centered" or "wide". In the future also "dashboard", etc.
+layout = "wide" # Can be "centered" or "wide". In the future also "dashboard", etc.
 #---------------------------------#
 # Page layout
 #---------------------------------#
@@ -39,16 +39,11 @@ st.title(page_title)
 # --- HIDE STREAMLIT STYLE ---
 hide_st_style = """
             <style>
-            #MainMenu {visibility: hidden;}
+            /*#MainMenu {visibility: hidden;}*/
             /*footer {visibility: hidden;}*/
-            header {visibility: hidden;}
+            /* header {visibility: hidden;} */
             .row_heading.level0 {display:none}
             .blank {display:none}
-            footer:after {
-                content: "By Leandro Pessini"; 
-                display: block; 
-                position: relative;
-                }
             </style>
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
@@ -337,37 +332,30 @@ if selected == "Dashboard":
 
     st.header('Dashboard')
     
-    # tab1, tab2 = st.tabs(["📈 Chart", "🗃 Data"])
-    # data = np.random.randn(10, 1)
+    col_metric_1, col_metric_2 = st.columns(2)
 
-    # tab1.subheader("A tab with a chart")
-    # tab1.line_chart(data)
+    avg_duration_last_month_sql = run_query("""
+                                                WITH CTE_LASTMONTH AS
+                                                    (
+                                                        SELECT AVG(Duration) AS average_duration
+                                                        FROM mobybikes.Rentals
+                                                        WHERE DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 30 DAY) AND CURDATE()
+                                                    )
+                                                SELECT average_duration FROM CTE_LASTMONTH;
+                                            """)
 
-    # tab2.subheader("A tab with the data")
-    # tab2.write(data)
+    col_metric_1.metric('Avg Rental Duration', f"{round(avg_duration_last_month_sql[0][0],2)} minutes")
+    col_metric_2.metric('Avg Rental Duration', f"{round(avg_duration_last_month_sql[0][0],2)} minutes")
+    
+    tab1, tab2 = st.tabs(["📈 Chart", "🗃 Data"])
+    data = np.random.randn(10, 1)
 
-    col_metric_1, col_metric_2, col_metric_3 = st.columns(3)
+    tab1.subheader("A tab with a chart")
+    tab1.line_chart(data)
 
-    rows = run_query("""
-                        WITH CTE_LASTMONTH AS
-                            (
-                                SELECT AVG(Duration) AS average_duration
-                                FROM mobybikes.Rentals
-                                WHERE DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 30 DAY) AND CURDATE()
-                            )
-                        SELECT average_duration FROM CTE_LASTMONTH;
-                    """)
+    tab2.subheader("A tab with the data")
+    tab2.write(data)
 
-    col_metric_1.metric('Avg Rental Duration', f"{round(rows[0][0],2)} minutes")
-    col_metric_2.metric('Avg Rental Duration', f"{round(rows[0][0],2)} minutes")
-    col_metric_3.metric('Avg Rental Duration', f"{round(rows[0][0],2)} minutes")
-
-    # elapsed = 4*3600 + 13*60 + 6 
-    # time.strftime("%Hh%Mm%Ss", time.gmtime(elapsed))
-
-    # str(datetime.timedelta(minutes=rows[0][0]))
-    for row in rows:
-        st.write(f"Average Rentals last 30 days: {round(row[0],2)} minutes [{ type( format_rental_duration(row[0]) ) }]")
         
 #-------Demand Forecasting --------------------------#
 
@@ -444,3 +432,19 @@ if selected == "About":
     st.warning('Warning message')
     st.info('Info message')
     st.success('Success message')
+
+
+
+footer_github = """<div style='position: absolute; padding-top: 100px; width:100%; '>
+            <img title="GitHub Octocat" src='https://github.com/pessini/avian-flu-wild-birds-ireland/blob/main/img/Octocat.jpg?raw=true' style='height: 60px; padding-right: 15px' alt="Octocat" align="left"> This notebook is part of a GitHub repository: https://github.com/pessini/moby-bikes 
+<br>MIT Licensed
+<br>Author: Leandro Pessini</div>
+            """
+
+footer_github = """<div style='position: absolute; padding-top: 100px; width:100%;'>
+<img title="GitHub Mark" src="https://github.com/pessini/avian-flu-wild-birds-ireland/blob/main/img/GitHub-Mark-64px.png?raw=true" style="height: 32px; padding-right: 15px" alt="GitHub Mark" align="left"> 
+<a href='https://github.com/pessini/moby-bikes' target='_blank'>GitHub Repository</a> <br>Author: Leandro Pessini
+</div>
+            """
+        
+st.markdown(footer_github, unsafe_allow_html=True)
