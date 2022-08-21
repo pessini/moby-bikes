@@ -1,7 +1,15 @@
+from operator import index
 import streamlit as st
 import pandas as pd
 import numpy as np
+import altair as alt
+import matplotlib.pyplot as plt
+from PIL import Image
+import socket
+import mysql.connector
 from datetime import datetime
+from datetime import timedelta
+from streamlit_option_menu import option_menu
 from sklearn import metrics
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, OneHotEncoder, OrdinalEncoder
 from sklearn.compose import ColumnTransformer
@@ -13,7 +21,65 @@ import requests
 from bs4 import BeautifulSoup
 import base64
 import socket
-from PIL import Image
+
+#---------------------------------#
+# Page layout
+#---------------------------------#
+# Page layout
+st.set_page_config(  # Alternate names: setup_page, page, layout
+	layout="wide",  # Can be "centered" or "wide". In the future also "dashboard", etc.
+	# initial_sidebar_state="auto",  # Can be "auto", "expanded", "collapsed"
+	page_title='Moby Bikes - Dashboard',  # String or None. Strings get appended with "• Streamlit". 
+	page_icon= ':bike:',  # String, anything supported by st.image, or None.
+)
+#---------------------------------
+
+# --- HIDE STREAMLIT STYLE ---
+hide_st_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            /*footer {visibility: hidden;}*/
+            header {visibility: hidden;}
+            .row_heading.level0 {display:none}
+            .blank {display:none}
+            footer:after {
+                content: "Copyright @ 2022: Streamlit"; 
+                display: block; 
+                position: relative;}
+            </style>
+            """
+st.markdown(hide_st_style, unsafe_allow_html=True)
+
+#####################################################
+##### Trick to hide table and dataframe indexes #####
+# .row_heading.level0 {display:none}
+# .blank {display:none}
+
+# --- NAVIGATION MENU ---
+selected = option_menu(
+    menu_title=None,
+    options=["Dashboard", "Demand Forecasting", "About"],
+    icons=["bar-chart-fill", "graph-up-arrow", "journal-text"],  # https://icons.getbootstrap.com/
+    orientation="horizontal",  # "horizontal" or "vertical"
+)
+
+#---------------------------------#
+
+
+
+# Initialize connection.
+# Uses st.experimental_singleton to only run once.
+@st.experimental_singleton
+def init_connection():
+    return mysql.connector.connect(**st.secrets["mysql"])
+
+# Perform query.
+# Uses st.experimental_memo to only rerun when the query changes or after 10 min.
+@st.experimental_memo(ttl=600)
+def run_query(query):
+    with conn.cursor() as cur:
+        cur.execute(query)
+        return cur.fetchall()
 
 def host_is_local(hostname, port=None):
     """returns True if the hostname points to the localhost, otherwise False."""
@@ -34,20 +100,25 @@ def host_is_local(hostname, port=None):
 # Check if it is local or remote
 if socket.gethostname() == 'MacBook-Air-de-Leandro.local': # my mac
     APP_PATH = '/Users/pessini/Dropbox/Data-Science/moby-bikes/dashboard/'
-elif socket.gethostname() == 'lpessini-mbp': # work mac
-    APP_PATH = '/Users/lpessini/TUDublin/moby-bikes/dashboard/'
 else: # remote
     APP_PATH = '/app/moby-bikes/dashboard/'
+    
+def get_data():
+    pass
 
-#---------------------------------#
-# Page layout
-st.set_page_config(  # Alternate names: setup_page, page, layout
-	layout="wide",  # Can be "centered" or "wide". In the future also "dashboard", etc.
-	initial_sidebar_state="auto",  # Can be "auto", "expanded", "collapsed"
-	page_title='Moby Bikes - Demand Forecasting',  # String or None. Strings get appended with "• Streamlit". 
-	page_icon=f'{APP_PATH}img/favicon.webp',  # String, anything supported by st.image, or None.
-)
-#---------------------------------#
+def format_rental_duration(minutes):
+    return timedelta(minutes=float(minutes)).__str__()
+
+conn = init_connection()
+#------- Load XGBoost Model ---------#
+pipe_filename = f"{APP_PATH}xgb_pipeline.pkl"
+xgb_pipe = pickle.load(open(pipe_filename, "rb"))
+@st.cache
+def predict(df):
+    return xgb_pipe.predict(df)
+
+
+#-------Demand Forecasting --------------------------#
 
 @st.cache
 def parse_xml(xml_data):
@@ -165,7 +236,6 @@ def preprocessor(predictors: list) -> ColumnTransformer:
     return ColumnTransformer(transformers=transformers_list, 
                              remainder='drop')
 
-
 def get_season(date: pd.DatetimeIndex) -> str:
     '''
         Receives a date and returns the corresponded season
@@ -254,68 +324,116 @@ def generate_features(df):
     return df
 
 # Download Predictions dataframe as csv
-# https://discuss.streamlit.io/t/how-to-download-file-in-streamlit/1806
-def filedownload(df, filename=None):
-    csv = df.to_csv(index=False)
-    b64 = base64.b64encode(csv.encode()).decode()  # strings <-> bytes conversions
-    filename = filename or 'predictions.csv'
-    return f'<a href="data:file/csv;base64,{b64}" download="{filename}">Download CSV File</a>'
+@st.cache
+def convert_df(df):
+    # IMPORTANT: Cache the conversion to prevent computation on every rerun
+    return df.to_csv(index=False).encode('utf-8')
 
-st.header('Demand Forecasting')
-st.subheader("Predicting bike rentals demand")
-# predictors = ['temp','rhum','dayofweek','timesofday','wdsp','rainfall_intensity', 'working_day', 'hour', 'season']
+#---------------------------------#
 
-pipe_filename = f"{APP_PATH}xgb_pipeline.pkl"
-xgb_pipe = pickle.load(open(pipe_filename, "rb"))
+# --- DASHBOARD ---
+if selected == "Dashboard":
 
-# @st.cache
-def predict(df):
-    return xgb_pipe.predict(df)
+    st.header('Dashboard')
 
-# st.latex(r'''NRMSE = \frac{RSME}{y_{max} - y_{min}}''')
+    col_metric_1, col_metric_2, col_metric_3 = st.columns(3)
 
-image = Image.open(f'{APP_PATH}img/met-eireann-long.png')
-st.image(image, use_column_width=False, width=30)
+    rows = run_query("""
+                        WITH CTE_LASTMONTH AS
+                            (
+                                SELECT AVG(Duration) AS average_duration
+                                FROM mobybikes.Rentals
+                                WHERE DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 30 DAY) AND CURDATE()
+                            )
+                        SELECT average_duration FROM CTE_LASTMONTH;
+                    """)
 
-st.write('''
-This web app shows the predicted bike rentals demand for the next hours based on Weather data.\n
+    col_metric_1.metric('Avg Rental Duration', f"{round(rows[0][0],2)} minutes")
+    col_metric_2.metric('Avg Rental Duration', f"{round(rows[0][0],2)} minutes")
+    col_metric_3.metric('Avg Rental Duration', f"{round(rows[0][0],2)} minutes")
 
-Weather Forecast API [URL](http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast?lat=53.4264;long=-6.2499)
+    # elapsed = 4*3600 + 13*60 + 6 
+    # time.strftime("%Hh%Mm%Ss", time.gmtime(elapsed))
 
-Source: [Met Éireann - The Irish Meteorological Service](https://www.met.ie/weather/forecast/)
-''')
+    # str(datetime.timedelta(minutes=rows[0][0]))
+    for row in rows:
+        st.write(f"Average Rentals last 30 days: {round(row[0],2)} minutes [{ type( format_rental_duration(row[0]) ) }]")
+        
+#-------Demand Forecasting --------------------------#
 
-URL_WEATHER_API = "http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast?lat=53.4264;long=-6.2499"
-response = requests.get(URL_WEATHER_API).content
+if selected == "Demand Forecasting":
+    
+    st.header('Demand Forecasting')
+    st.subheader("Predicting bike rentals demand")
+    
+    image = Image.open(f'{APP_PATH}img/met-eireann-long.png')
+    st.image(image, use_column_width=False, width=30)
 
-df_xml = parse_xml(response)
-df_forecast = generate_features(df_xml)
+    st.write('''
+    This web app shows the predicted bike rentals demand for the next hours based on Weather data.\n
 
-predicted = pd.Series( xgb_pipe.predict(df_forecast), name='predicted') # round up to nearest integer
-predicted = predicted.map(round_up)
-df_forecast['predicted'] = predicted.values
+    Weather Forecast API [URL](http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast?lat=53.4264;long=-6.2499)
 
-#####################################################
-##### Trick to hide table and dataframe indexes #####
-#####################################################
-# CSS to inject contained in a string
-hide_dataframe_row_index = """
-            <style>
-            .row_heading.level0 {display:none}
-            .blank {display:none}
-            </style>
-            """
+    Source: [Met Éireann - The Irish Meteorological Service](https://www.met.ie/weather/forecast/)
+    ''')
 
-# Inject CSS with Markdown
-st.markdown(hide_dataframe_row_index, unsafe_allow_html=True)
+    URL_WEATHER_API = "http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast?lat=53.4264;long=-6.2499"
+    response = requests.get(URL_WEATHER_API).content
 
-# limiting 15 hours forecast
-df_predictions = df_forecast[['date', 'hour', 'temp', 'rhum', 'wdsp', 'rainfall_intensity', 'predicted']][:15].reset_index(drop=True)
-df_predictions.columns = ['Date', 'Hour', 'Temperature', 'Relative Humidity', 'Wind Speed', 'Rainfall Intensity', 'Predicted Demand']
-st.table(df_predictions)
+    df_xml = parse_xml(response)
+    df_forecast = generate_features(df_xml)
 
-csv_filename = str(df_predictions['Date'][0]) + '_' + str(df_predictions['Hour'][0]) + 'h_' + \
-    str(df_predictions['Date'][len(df_predictions)-1]) + '_' + str(df_predictions['Hour'][len(df_predictions)-1]) + 'h_predictions.csv'
-# st.write(csv_filename)
-# link to download dataframe as csv
-st.markdown(filedownload(df_predictions, filename=csv_filename), unsafe_allow_html=True)
+    predicted = pd.Series( xgb_pipe.predict(df_forecast), name='predicted') # round up to nearest integer
+    predicted = predicted.map(round_up)
+    df_forecast['predicted'] = predicted.values
+
+    # limiting 15 hours forecast
+    df_predictions = df_forecast[['date', 'hour', 'temp', 'rhum', 'wdsp', 'rainfall_intensity', 'predicted']][:15].reset_index(drop=True)
+    df_predictions.columns = ['Date', 'Hour', 'Temperature', 'Relative Humidity', 'Wind Speed', 'Rainfall Intensity', 'Predicted Demand']
+    st.table(df_predictions)
+
+    csv_filename = str(df_predictions['Date'][0]) + '_' + str(df_predictions['Hour'][0]) + 'h_' + \
+        str(df_predictions['Date'][len(df_predictions)-1]) + '_' + str(df_predictions['Hour'][len(df_predictions)-1]) + 'h_predictions.csv'
+    # st.write(csv_filename)
+    # link to download dataframe as csv
+    csv = convert_df(df_predictions)
+
+    st.download_button(
+        label="Download CSV File",
+        data=csv,
+        file_name=csv_filename,
+        mime='text/csv',
+    )
+    # st.markdown(filedownload(df_predictions, filename=csv_filename), unsafe_allow_html=True)
+    
+#---------------------------------#
+
+if selected == "About":
+    
+    st.header('About the project')
+    st.subheader("Predicting bike rentals demand")
+
+    st.latex(r'''NRMSE = \frac{RSME}{y_{max} - y_{min}}''')
+
+    moby_data_pipeline = Image.open(f'{APP_PATH}img/data-pipeline.png')
+    st.image(moby_data_pipeline, use_column_width='never')
+
+    with open(f'{APP_PATH}docs/Moby-Bikes-Data-Pipeline.pdf', "rb") as file:
+        btn = st.download_button(label="Download as PDF",
+                                data=file,
+                                file_name='data-pipeline.pdf',
+                                mime="application/pdf"
+                                )
+        
+
+    st.markdown('''### Test''')    
+    st.markdown('''This web app is part of a GitHub repository: https://github.com/pessini/moby-bikes''')
+
+    st.metric('My metric', 42, 2)
+    st.error('Error message')
+    st.warning('Warning message')
+    st.info('Info message')
+    st.success('Success message')
+    
+
+st.markdown('''This web app is part of a GitHub repository: https://github.com/pessini/moby-bikes''')
