@@ -1,30 +1,23 @@
-from operator import index
 import streamlit as st
+from streamlit_option_menu import option_menu
 import pandas as pd
 import numpy as np
 import altair as alt
-import matplotlib.pyplot as plt
 from PIL import Image
 import socket
 import mysql.connector
-from datetime import datetime
-from datetime import timedelta
-from streamlit_option_menu import option_menu
-from sklearn import metrics
-from sklearn.preprocessing import StandardScaler, MinMaxScaler, OneHotEncoder, OrdinalEncoder
-from sklearn.compose import ColumnTransformer
-from sklearn.pipeline import Pipeline
+from datetime import datetime, timedelta
 import xgboost as xgb
 import pickle
+from sklearn import metrics
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
 import category_encoders as ce
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
 import requests
 from bs4 import BeautifulSoup
-import base64
-import socket
-
 
 # -------------- SETTINGS --------------
-
 page_title = "Moby Bikes Demand Forecasting"
 page_icon = ":bike:"  # emojis: https://www.webfx.com/tools/emoji-cheat-sheet/
 layout = "wide" # Can be "centered" or "wide". In the future also "dashboard", etc.
@@ -175,7 +168,6 @@ def preprocessor(predictors: list) -> ColumnTransformer:
 
     num_pipe = Pipeline([
         ('scaler', StandardScaler())
-        # ('scaler', MinMaxScaler())
     ])
 
     num_enconder =  'num', num_pipe, num_vars
@@ -389,10 +381,12 @@ if selected == "Demand Forecasting":
     df_predictions = df_forecast[['date', 'hour', 'temp', 'rhum', 'wdsp', 'rainfall_intensity', 'predicted']][:15].reset_index(drop=True)
     df_predictions.columns = ['Date', 'Hour', 'Temperature', 'Relative Humidity', 'Wind Speed', 'Rainfall Intensity', 'Predicted Demand']
     st.table(df_predictions)
+    
+    #---------------------------------#
+    # DOWNLOAD DATA Button
 
     csv_filename = str(df_predictions['Date'][0]) + '_' + str(df_predictions['Hour'][0]) + 'h_' + \
         str(df_predictions['Date'][len(df_predictions)-1]) + '_' + str(df_predictions['Hour'][len(df_predictions)-1]) + 'h_predictions.csv'
-    # st.write(csv_filename)
     # link to download dataframe as csv
     csv = convert_df(df_predictions)
 
@@ -402,7 +396,6 @@ if selected == "Demand Forecasting":
         file_name=csv_filename,
         mime='text/csv',
     )
-    # st.markdown(filedownload(df_predictions, filename=csv_filename), unsafe_allow_html=True)
     
 #---------------------------------#
 
