@@ -321,7 +321,7 @@ def convert_df(df):
     return df.to_csv(index=False).encode('utf-8')
 
 #---------------------------------#
-# @st.cache
+@st.cache
 def get_avg_duration_last_month() -> float:
     
     sqlquery = run_query("""WITH CTE_LASTMONTH_DURATION AS
@@ -335,7 +335,7 @@ def get_avg_duration_last_month() -> float:
     
     return sqlquery[0][0]
 
-# @st.cache
+@st.cache
 def get_total_rentals_last_month() -> int:
     
     sqlquery = run_query("""WITH CTE_LASTMONTH_RENTALS AS
@@ -349,7 +349,7 @@ def get_total_rentals_last_month() -> int:
     
     return sqlquery[0][0]
 
-# @st.cache
+@st.cache
 def get_hourly_total_rentals() -> pd.DataFrame:
     
     sqlquery = run_query("""WITH CTE_HOURLY_TOTAL_RENTALS AS
@@ -373,6 +373,22 @@ def get_hourly_total_rentals() -> pd.DataFrame:
     
     return pd.DataFrame(sqlquery, columns=['date_rental', 'timeofday', 'day_of_week', 'total_rentals'])
 
+@st.cache
+def get_initial_battery():
+    
+    sqlquery = run_query("""SELECT
+                                BatteryStart
+                            FROM 
+                                mobybikes.Rentals
+                            WHERE
+                                DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 3 MONTH) AND CURDATE()
+                            AND
+                                (BatteryStart IS NOT NULL OR BatteryStart IS NOT NULL)
+                            AND
+                                (BatteryStart <> 0 OR BatteryStart <> 0);
+                        """)
+    return pd.DataFrame(sqlquery, columns=['start_battery'])
+
 def group_battery_status():
     
     df = get_initial_battery()
@@ -389,21 +405,6 @@ def group_battery_status():
     df_summary.drop(['counts','per'], axis=1, inplace=True)
     
     return df_summary
-
-def get_initial_battery():
-    
-    sqlquery = run_query("""SELECT
-                                BatteryStart
-                            FROM 
-                                mobybikes.Rentals
-                            WHERE
-                                DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 3 MONTH) AND CURDATE()
-                            AND
-                                (BatteryStart IS NOT NULL OR BatteryStart IS NOT NULL)
-                            AND
-                                (BatteryStart <> 0 OR BatteryStart <> 0);
-                        """)
-    return pd.DataFrame(sqlquery, columns=['start_battery'])
     
 
 def plot_number_of_rentals(df, by='day_of_week'):
