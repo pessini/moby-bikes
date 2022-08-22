@@ -318,38 +318,100 @@ def convert_df(df):
     return df.to_csv(index=False).encode('utf-8')
 
 #---------------------------------#
+@st.cache
+def get_avg_duration_last_month() -> float:
+    
+    sqlquery = run_query("""WITH CTE_LASTMONTH_DURATION AS
+                        (
+                            SELECT AVG(Duration) AS average_duration
+                            FROM mobybikes.Rentals
+                            WHERE DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 30 DAY) AND CURDATE()
+                        )
+                    SELECT average_duration FROM CTE_LASTMONTH_DURATION;
+                """)
+    
+    return sqlquery[0][0]
 
+@st.cache
+def get_total_rentals_last_month() -> int:
+    
+    sqlquery = run_query("""WITH CTE_LASTMONTH_RENTALS AS
+                                (
+                                    SELECT COUNT(*) AS total_rentals
+                                    FROM mobybikes.Rentals
+                                    WHERE DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 30 DAY) AND CURDATE()
+                                )
+                            SELECT total_rentals FROM CTE_LASTMONTH_RENTALS;
+                        """)
+    
+    return sqlquery[0][0]
+
+@st.cache
+def get_hourly_total_rentals() -> pd.DataFrame:
+    
+    sqlquery = run_query("""WITH CTE_HOURLY_TOTAL_RENTALS AS
+                                    (
+                                        SELECT 
+                                            DATE_FORMAT(`Date`, '%Y-%m-%d %H:00:00') AS date_rental,
+                                            COUNT(*) AS total_rentals
+                                        FROM mobybikes.Rentals
+                                        GROUP BY date_rental
+                                    )
+                                SELECT 
+                                    date_rental,
+                                    FN_TIMESOFDAY(date_rental) AS timeofday, 
+                                    DAYNAME(date_rental) AS day_of_week, 
+                                    total_rentals 
+                                FROM 
+                                    CTE_HOURLY_TOTAL_RENTALS;
+                        """)
+    
+    return pd.DataFrame(sqlquery, columns=['date_rental', 'timeofday', 'day_of_week', 'total_rentals'])
+    
 # --- DASHBOARD ---
 if selected == "Dashboard":
 
     st.header('Dashboard')
     
     col_metric_1, col_metric_2 = st.columns(2)
-
-    avg_duration_last_month_sql = run_query("""
-                                                WITH CTE_LASTMONTH AS
-                                                    (
-                                                        SELECT AVG(Duration) AS average_duration
-                                                        FROM mobybikes.Rentals
-                                                        WHERE DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 30 DAY) AND CURDATE()
-                                                    )
-                                                SELECT average_duration FROM CTE_LASTMONTH;
-                                            """)
-
-    col_metric_1.metric('Avg Rental Duration', f"{round(avg_duration_last_month_sql[0][0],2)} minutes")
-    col_metric_2.metric('Avg Rental Duration', f"{round(avg_duration_last_month_sql[0][0],2)} minutes")
+    avg_duration = get_avg_duration_last_month()
+    total_rentals = get_total_rentals_last_month()
+    col_metric_1.metric('Total Rentals (Last 30 days)', f"{round(total_rentals,2)}")
+    col_metric_2.metric('Avg Rental Duration (Last 30 days)', f"{round(avg_duration,2)} minutes")
+    
+    hourly_rentals = get_hourly_total_rentals()
+    
     
     tab1, tab2 = st.tabs(["📈 Chart", "🗃 Data"])
     data = np.random.randn(10, 1)
 
     tab1.subheader("A tab with a chart")
     tab1.line_chart(data)
+    
+    highlight = alt.selection(type='multi', on='mouseover',
+                          fields=['timeofday'], nearest=True)
+    
+    base = alt.Chart(hourly_rentals).encode(x='date_rental:T', y='total_rentals:Q', color='timeofday:N')
+
+    points = base.mark_circle().encode(
+        opacity=alt.value(0)
+    ).add_selection(
+        highlight
+    ).properties(
+        width=1000,
+    )
+
+    lines = base.mark_line().encode(
+        size=alt.condition(~highlight, alt.value(1), alt.value(3))
+    )
+
+    timeofday_chart = points + lines
 
     tab2.subheader("A tab with the data")
-    tab2.write(data)
+    tab2.write(timeofday_chart)
 
         
-#-------Demand Forecasting --------------------------#
+#------- Demand Forecasting --------#
 
 if selected == "Demand Forecasting":
     
@@ -382,7 +444,6 @@ if selected == "Demand Forecasting":
     df_predictions.columns = ['Date', 'Hour', 'Temperature', 'Relative Humidity', 'Wind Speed', 'Rainfall Intensity', 'Predicted Demand']
     st.table(df_predictions)
     
-    #---------------------------------#
     # DOWNLOAD DATA Button
 
     csv_filename = str(df_predictions['Date'][0]) + '_' + str(df_predictions['Hour'][0]) + 'h_' + \
@@ -428,16 +489,14 @@ if selected == "About":
 
 
 
-footer_github = """<div style='position: absolute; padding-top: 100px; width:100%; '>
-            <img title="GitHub Octocat" src='https://github.com/pessini/avian-flu-wild-birds-ireland/blob/main/img/Octocat.jpg?raw=true' style='height: 60px; padding-right: 15px' alt="Octocat" align="left"> This notebook is part of a GitHub repository: https://github.com/pessini/moby-bikes 
-<br>MIT Licensed
-<br>Author: Leandro Pessini</div>
-            """
+# footer_github = """<div style='position: absolute; padding-top: 100px; width:100%; '>
+#             <img title="GitHub Octocat" src='https://github.com/pessini/avian-flu-wild-birds-ireland/blob/main/img/Octocat.jpg?raw=true' style='height: 60px; padding-right: 15px' alt="Octocat" align="left"> This notebook is part of a GitHub repository: https://github.com/pessini/moby-bikes 
+# <br>MIT Licensed
+# <br>Author: Leandro Pessini</div>
+#             """
 
 footer_github = """<div style='position: absolute; padding-top: 100px; width:100%;'>
 <img title="GitHub Mark" src="https://github.com/pessini/avian-flu-wild-birds-ireland/blob/main/img/GitHub-Mark-64px.png?raw=true" style="height: 32px; padding-right: 15px" alt="GitHub Mark" align="left"> 
 <a href='https://github.com/pessini/moby-bikes' target='_blank'>GitHub Repository</a> <br>Author: Leandro Pessini
-</div>
-            """
-        
+</div>"""
 st.markdown(footer_github, unsafe_allow_html=True)
