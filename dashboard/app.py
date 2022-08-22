@@ -1,5 +1,6 @@
 from cProfile import label
 from inspect import stack
+from tokenize import group
 import streamlit as st
 from streamlit_option_menu import option_menu
 import pandas as pd
@@ -371,6 +372,64 @@ def get_hourly_total_rentals() -> pd.DataFrame:
                         """)
     
     return pd.DataFrame(sqlquery, columns=['date_rental', 'timeofday', 'day_of_week', 'total_rentals'])
+
+def group_battery_status():
+    
+    df = get_initial_battery()
+
+    bins= [0,30,50,80,100]
+    labels = ['< 30%','30% - 50%','50% - 80%','> 80%']
+    df['battery_status'] = pd.cut(df['start_battery'], bins=bins, labels=labels, right=False)
+
+    s = df.battery_status
+    counts = s.value_counts()
+    percent = s.value_counts(normalize=True)
+    df_summary = pd.DataFrame({'counts': counts, 'per': percent}, labels)
+    df_summary["% of Rentals"] = round((df_summary['per']*100),2).astype(str) + '%'
+    df_summary.drop(['counts','per'], axis=1, inplace=True)
+    
+    return df_summary
+
+def get_initial_battery():
+    
+    sqlquery = run_query("""SELECT
+                                BatteryStart
+                            FROM 
+                                mobybikes.Rentals
+                            WHERE
+                                DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 3 MONTH) AND CURDATE()
+                            AND
+                                (BatteryStart IS NOT NULL OR BatteryStart IS NOT NULL)
+                            AND
+                                (BatteryStart <> 0 OR BatteryStart <> 0);
+                        """)
+    return pd.DataFrame(sqlquery, columns=['start_battery'])
+    
+
+def plot_number_of_rentals(df, by='day_of_week'):
+    
+    if by == 'Day of the Week':
+        chart = alt.Chart(hourly_rentals).encode(
+                            x=alt.X('total_rentals:Q', axis=alt.Axis(title='Number of Rentals')), 
+                            y=alt.Y('day_of_week:O', 
+                                    sort=['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], 
+                                    axis=alt.Axis(title='Day of the Week')),
+                            color=alt.Color('day_of_week:N', legend=None)
+                            ).mark_bar().properties(
+                                title='Number of Rentals by Day of the Week', 
+                                width=600, height=400)
+    elif by == 'Period of the Day':
+        chart = alt.Chart(hourly_rentals).encode(
+                            x=alt.X('total_rentals:Q', axis=alt.Axis(title='Number of Rentals')), 
+                            y=alt.Y('timeofday:N', 
+                                    sort=['Morning', 'Afternoon', 'Evening', 'Night'], 
+                                    axis=alt.Axis(title='Period of the Day')), 
+                            color=alt.Color('timeofday:N', legend=None)
+                            ).mark_bar().properties(
+                                title='Number of Rentals by Time of the Day', 
+                                width=600, height=400)
+        
+    return chart
     
 # --- DASHBOARD ---
 if selected == "Dashboard":
@@ -385,30 +444,10 @@ if selected == "Dashboard":
     col_metric_2.metric('Avg Rental Duration', f"{round(avg_duration,2)} minutes")
     
     hourly_rentals = get_hourly_total_rentals()
+    groupby = st.selectbox('Group total rentals by', ['Day of the Week', 'Period of the Day'])
+    st.write(plot_number_of_rentals(hourly_rentals, by=groupby))
     
-    timeofday_chart = alt.Chart(hourly_rentals).encode(
-        x=alt.X('total_rentals:Q', axis=alt.Axis(title='Number of Rentals')), 
-        y=alt.Y('timeofday:N', 
-                sort=['Morning', 'Afternoon', 'Evening', 'Night'], 
-                axis=alt.Axis(title='Period of the Day')), 
-        color=alt.Color('timeofday:N', legend=None)
-        ).mark_bar().properties(
-            title='Number of Rentals by Time of the Day', 
-            width=600, height=400)
-    
-    dayofweek_chart = alt.Chart(hourly_rentals).encode(
-        x=alt.X('total_rentals:Q', axis=alt.Axis(title='Number of Rentals')), 
-        y=alt.Y('day_of_week:O', 
-                sort=['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], 
-                axis=alt.Axis(title='Day of the Week')),
-        color=alt.Color('day_of_week:N', legend=None)
-        ).mark_bar().properties(
-            title='Number of Rentals by Day of the Week', 
-            width=600, height=400)
-    
-    # col_chart1, col_chart2 = st.columns(2)
-    st.write(dayofweek_chart)
-    st.write(timeofday_chart)
+    st.dataframe(group_battery_status())
 
         
 #------- Demand Forecasting --------#
