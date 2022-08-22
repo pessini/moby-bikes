@@ -1,3 +1,5 @@
+from cProfile import label
+from inspect import stack
 import streamlit as st
 from streamlit_option_menu import option_menu
 import pandas as pd
@@ -20,7 +22,7 @@ from bs4 import BeautifulSoup
 # -------------- SETTINGS --------------
 page_title = "Moby Bikes Demand Forecasting"
 page_icon = ":bike:"  # emojis: https://www.webfx.com/tools/emoji-cheat-sheet/
-layout = "wide" # Can be "centered" or "wide". In the future also "dashboard", etc.
+layout = "centered" # Can be "centered" or "wide". In the future also "dashboard", etc.
 #---------------------------------#
 # Page layout
 #---------------------------------#
@@ -318,35 +320,35 @@ def convert_df(df):
     return df.to_csv(index=False).encode('utf-8')
 
 #---------------------------------#
-@st.cache
+# @st.cache
 def get_avg_duration_last_month() -> float:
     
     sqlquery = run_query("""WITH CTE_LASTMONTH_DURATION AS
                         (
                             SELECT AVG(Duration) AS average_duration
                             FROM mobybikes.Rentals
-                            WHERE DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 30 DAY) AND CURDATE()
+                            WHERE DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 3 MONTH) AND CURDATE()
                         )
                     SELECT average_duration FROM CTE_LASTMONTH_DURATION;
                 """)
     
     return sqlquery[0][0]
 
-@st.cache
+# @st.cache
 def get_total_rentals_last_month() -> int:
     
     sqlquery = run_query("""WITH CTE_LASTMONTH_RENTALS AS
                                 (
                                     SELECT COUNT(*) AS total_rentals
                                     FROM mobybikes.Rentals
-                                    WHERE DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 30 DAY) AND CURDATE()
+                                    WHERE DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 3 MONTH) AND CURDATE()
                                 )
                             SELECT total_rentals FROM CTE_LASTMONTH_RENTALS;
                         """)
     
     return sqlquery[0][0]
 
-@st.cache
+# @st.cache
 def get_hourly_total_rentals() -> pd.DataFrame:
     
     sqlquery = run_query("""WITH CTE_HOURLY_TOTAL_RENTALS AS
@@ -356,6 +358,8 @@ def get_hourly_total_rentals() -> pd.DataFrame:
                                             COUNT(*) AS total_rentals
                                         FROM mobybikes.Rentals
                                         GROUP BY date_rental
+                                        HAVING
+                                            DATE(date_rental) BETWEEN DATE_SUB( CURDATE() , INTERVAL 3 MONTH) AND CURDATE()
                                     )
                                 SELECT 
                                     date_rental,
@@ -372,43 +376,39 @@ def get_hourly_total_rentals() -> pd.DataFrame:
 if selected == "Dashboard":
 
     st.header('Dashboard')
+    st.subheader('Showing the last 3 months rentals')
     
     col_metric_1, col_metric_2 = st.columns(2)
     avg_duration = get_avg_duration_last_month()
     total_rentals = get_total_rentals_last_month()
-    col_metric_1.metric('Total Rentals (Last 30 days)', f"{round(total_rentals,2)}")
-    col_metric_2.metric('Avg Rental Duration (Last 30 days)', f"{round(avg_duration,2)} minutes")
+    col_metric_1.metric('Total Rentals', f"{round(total_rentals,2)}")
+    col_metric_2.metric('Avg Rental Duration', f"{round(avg_duration,2)} minutes")
     
     hourly_rentals = get_hourly_total_rentals()
     
+    timeofday_chart = alt.Chart(hourly_rentals).encode(
+        x=alt.X('total_rentals:Q', axis=alt.Axis(title='Number of Rentals')), 
+        y=alt.Y('timeofday:N', 
+                sort=['Morning', 'Afternoon', 'Evening', 'Night'], 
+                axis=alt.Axis(title='Period of the Day')), 
+        color=alt.Color('timeofday:N', legend=None)
+        ).mark_bar().properties(
+            title='Number of Rentals by Time of the Day', 
+            width=600, height=400)
     
-    tab1, tab2 = st.tabs(["📈 Chart", "🗃 Data"])
-    data = np.random.randn(10, 1)
-
-    tab1.subheader("A tab with a chart")
-    tab1.line_chart(data)
+    dayofweek_chart = alt.Chart(hourly_rentals).encode(
+        x=alt.X('total_rentals:Q', axis=alt.Axis(title='Number of Rentals')), 
+        y=alt.Y('day_of_week:O', 
+                sort=['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], 
+                axis=alt.Axis(title='Day of the Week')),
+        color=alt.Color('day_of_week:N', legend=None)
+        ).mark_bar().properties(
+            title='Number of Rentals by Day of the Week', 
+            width=600, height=400)
     
-    highlight = alt.selection(type='multi', on='mouseover',
-                          fields=['timeofday'], nearest=True)
-    
-    base = alt.Chart(hourly_rentals).encode(x='date_rental:T', y='total_rentals:Q', color='timeofday:N')
-
-    points = base.mark_circle().encode(
-        opacity=alt.value(0)
-    ).add_selection(
-        highlight
-    ).properties(
-        width=1000,
-    )
-
-    lines = base.mark_line().encode(
-        size=alt.condition(~highlight, alt.value(1), alt.value(3))
-    )
-
-    timeofday_chart = points + lines
-
-    tab2.subheader("A tab with the data")
-    tab2.write(timeofday_chart)
+    # col_chart1, col_chart2 = st.columns(2)
+    st.write(dayofweek_chart)
+    st.write(timeofday_chart)
 
         
 #------- Demand Forecasting --------#
