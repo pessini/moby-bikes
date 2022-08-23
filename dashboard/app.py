@@ -22,7 +22,8 @@ import requests
 from bs4 import BeautifulSoup
 
 # -------------- SETTINGS --------------
-page_title = "Moby Bikes"
+page_title = "Moby Bikes - Analytical Dashboard & Demand Forecasting"
+page_subtitle = "Analytical Dashboard & Demand Forecasting"
 page_icon = ":bike:"  # emojis: https://www.webfx.com/tools/emoji-cheat-sheet/
 layout = "centered" # Can be "centered" or "wide". In the future also "dashboard", etc.
 #---------------------------------#
@@ -30,7 +31,8 @@ layout = "centered" # Can be "centered" or "wide". In the future also "dashboard
 #---------------------------------#
 # Page layout
 st.set_page_config(page_title=page_title, page_icon=page_icon, layout=layout)
-st.title(page_title)
+st.image('https://www.mobybikes.com/wp-content/uploads/2020/05/logo-1.png', use_column_width='auto')
+st.header(page_subtitle)
 #---------------------------------
 
 # --- HIDE STREAMLIT STYLE ---
@@ -462,8 +464,7 @@ def plot_percentage_rentals(df, by='Day of the Week'):
 def plot_avg_duration_rentals(df, by='Day of the Week'):
 
     grouped_df = group_hourly_rentals(df, group_by=by, type='avg_duration')
-    # st.dataframe(grouped_df)
-    
+
     if by == 'Period of the Day':
         sort = ['Morning', 'Afternoon', 'Evening', 'Night']
         chart_title = 'Average duration (in minutes) of rentals across Times of the Day'
@@ -521,10 +522,10 @@ if selected == "Dashboard":
 
     with st.container():
         st.markdown("""##### Initial battery when rental started""")
-        col_info_1, col_info_2 = st.columns((5,5))
-        with col_info_1:
-            st.info('Data from the past three months')
-        # st.info('Data from the past three months')
+        # col_info_1, col_info_2 = st.columns((5,5))
+        # with col_info_1:
+        #     st.info('Data from the past three months')
+        st.caption('Data from the past three months')
         battery_df = group_battery_status()
         st.dataframe(battery_df.style.highlight_max(axis=0))
 
@@ -563,7 +564,6 @@ if selected == "Demand Forecasting":
     st.table(df_predictions)
     
     # DOWNLOAD DATA Button
-
     csv_filename = str(df_predictions['Date'][0]) + '_' + str(df_predictions['Hour'][0]) + 'h_' + \
         str(df_predictions['Date'][len(df_predictions)-1]) + '_' + str(df_predictions['Hour'][len(df_predictions)-1]) + 'h_predictions.csv'
     # link to download dataframe as csv
