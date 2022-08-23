@@ -22,7 +22,7 @@ import requests
 from bs4 import BeautifulSoup
 
 # -------------- SETTINGS --------------
-page_title = "Moby Bikes Demand Forecasting"
+page_title = "Moby Bikes"
 page_icon = ":bike:"  # emojis: https://www.webfx.com/tools/emoji-cheat-sheet/
 layout = "centered" # Can be "centered" or "wide". In the future also "dashboard", etc.
 #---------------------------------#
@@ -326,13 +326,13 @@ def convert_df(df):
 def get_avg_duration_last_month() -> float:
     
     sqlquery = run_query("""WITH CTE_LASTMONTH_DURATION AS
-                        (
-                            SELECT AVG(Duration) AS average_duration
-                            FROM mobybikes.Rentals
-                            WHERE DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 3 MONTH) AND CURDATE()
-                        )
-                    SELECT average_duration FROM CTE_LASTMONTH_DURATION;
-                """)
+                            (
+                                SELECT AVG(Duration) AS average_duration
+                                FROM mobybikes.Rentals
+                                WHERE DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 3 MONTH) AND CURDATE()
+                            )
+                            SELECT average_duration FROM CTE_LASTMONTH_DURATION;
+                        """)
     
     return sqlquery[0][0]
 
@@ -340,39 +340,15 @@ def get_avg_duration_last_month() -> float:
 def get_total_rentals_last_month() -> int:
     
     sqlquery = run_query("""WITH CTE_LASTMONTH_RENTALS AS
-                                (
-                                    SELECT COUNT(*) AS total_rentals
-                                    FROM mobybikes.Rentals
-                                    WHERE DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 3 MONTH) AND CURDATE()
-                                )
+                            (
+                                SELECT COUNT(*) AS total_rentals
+                                FROM mobybikes.Rentals
+                                WHERE DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 3 MONTH) AND CURDATE()
+                            )
                             SELECT total_rentals FROM CTE_LASTMONTH_RENTALS;
                         """)
     
     return sqlquery[0][0]
-
-@st.cache
-def get_hourly_total_rentals() -> pd.DataFrame:
-    
-    sqlquery = run_query("""WITH CTE_HOURLY_TOTAL_RENTALS AS
-                                    (
-                                        SELECT 
-                                            DATE_FORMAT(`Date`, '%Y-%m-%d %H:00:00') AS date_rental,
-                                            COUNT(*) AS total_rentals
-                                        FROM mobybikes.Rentals
-                                        GROUP BY date_rental
-                                        HAVING
-                                            DATE(date_rental) BETWEEN DATE_SUB( CURDATE() , INTERVAL 3 MONTH) AND CURDATE()
-                                    )
-                                SELECT 
-                                    date_rental,
-                                    FN_TIMESOFDAY(date_rental) AS timeofday, 
-                                    DAYNAME(date_rental) AS day_of_week, 
-                                    total_rentals 
-                                FROM 
-                                    CTE_HOURLY_TOTAL_RENTALS;
-                        """)
-    
-    return pd.DataFrame(sqlquery, columns=['date_rental', 'timeofday', 'day_of_week', 'total_rentals'])
 
 @st.cache(allow_output_mutation=True)
 def get_initial_battery():
@@ -406,14 +382,57 @@ def group_battery_status():
     df_summary.drop(['counts','per'], axis=1, inplace=True)
     
     return df_summary
-    
-def group_hourly_rentals(df, group_by='Day of the Week'):
 
-    shortgroup_by = ['timeofday'] if group_by == 'Period of the Day' else ['day_of_week']
-    df_grouped = df.groupby(shortgroup_by).sum()
-    df_grouped['% of Rentals'] = df_grouped['total_rentals'] / df_grouped['total_rentals'].sum()
-    df_grouped.drop(['total_rentals'], axis=1, inplace=True)
-    df_grouped = df_grouped.reset_index().rename(columns={shortgroup_by[0]: group_by})
+@st.cache
+def get_hourly_total_rentals() -> pd.DataFrame:
+    
+    # DATE_FORMAT(`Date`, '%Y-%m-%d %H:00:00') AS date_rental,
+    # HAVING DATE(date_rental) BETWEEN DATE_SUB( CURDATE() , INTERVAL 3 MONTH) AND CURDATE()
+    
+    sqlquery = run_query("""WITH CTE_HOURLY_TOTAL_RENTALS AS
+                            (
+                                SELECT 
+                                    DATE_FORMAT(`Date`, '%Y-%m-%d %H:00:00') AS date_rental,
+                                    COUNT(*) AS total_rentals,
+                                    ROUND( AVG(Duration),2 ) AS hourly_avg_duration
+                                FROM mobybikes.Rentals
+                                GROUP BY date_rental
+                            )
+                            SELECT 
+                                date_rental,
+                                FN_TIMESOFDAY(date_rental) AS timeofday, 
+                                DAYNAME(date_rental) AS day_of_week, 
+                                total_rentals,
+                                hourly_avg_duration
+                            FROM 
+                                CTE_HOURLY_TOTAL_RENTALS;
+                        """)
+    
+    df = pd.DataFrame(sqlquery, columns=['date_rental', 'timeofday', 'day_of_week', 'total_rentals','hourly_avg_duration'])
+    df['date'] = pd.to_datetime(arg=df['date_rental'], utc=True, infer_datetime_format=True).dt.date
+    df['Season'] = pd.to_datetime(df['date']).map(get_season)
+    df.drop(columns=['date'], inplace=True)
+
+    return df
+    
+def group_hourly_rentals(df, group_by='Day of the Week', type='rentals'):
+
+    if group_by == 'Period of the Day':
+        shortgroup_by = ['timeofday']
+    elif group_by == 'Day of the Week':
+        shortgroup_by = ['day_of_week']
+    else:
+        shortgroup_by = group_by
+        
+    if type == 'avg_duration':
+        df_grouped = df.groupby(shortgroup_by)['hourly_avg_duration'].mean().reset_index()
+        df_grouped = df_grouped.rename(columns={shortgroup_by[0]: group_by})
+    else:
+ 
+        df_grouped = df.groupby(shortgroup_by)['total_rentals'].sum().reset_index()
+        df_grouped['% of Rentals'] = df_grouped['total_rentals'] / df_grouped['total_rentals'].sum()
+        df_grouped.drop(['total_rentals'], axis=1, inplace=True)
+        df_grouped = df_grouped.reset_index().rename(columns={shortgroup_by[0]: group_by})
     
     return df_grouped
 
@@ -422,11 +441,12 @@ def plot_percentage_rentals(df, by='Day of the Week'):
     grouped_df = group_hourly_rentals(df, group_by=by)
 
     if by == 'Period of the Day':
-        
         sort = ['Morning', 'Afternoon', 'Evening', 'Night']
         chart_title = 'Number of Rentals by Time of the Day'
+    elif by == 'Season':
+        sort = ['Autumn', 'Spring', 'Summer', 'Winter']
+        chart_title = 'Number of Rentals by Season'
     else:
-
         sort = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
         chart_title = 'Number of Rentals by Day of the Week'
     
@@ -434,31 +454,83 @@ def plot_percentage_rentals(df, by='Day of the Week'):
 
     return alt.Chart(grouped_df)\
         .mark_bar()\
-        .encode(x=alt.X('% of Rentals:Q', axis=alt.Axis(format='.0%', title='% of Rentals')), 
+        .encode(x=alt.X('% of Rentals:Q', axis=alt.Axis(format='.0%', title='% of Rentals'), scale=alt.Scale(domain=(0, 1))), 
                 y=alt.Y(categorical_var, sort=sort, axis=alt.Axis(title='')), 
                 color=alt.Color(categorical_var, legend=None),
-                tooltip=[categorical_var, alt.Tooltip('% of Rentals', format=".2%")])\
-        .properties(title=chart_title, width=600, height=400)
+                opacity=alt.OpacityValue(0.9),
+                tooltip=[categorical_var, alt.Tooltip('% of Rentals:Q', format=".2%")],)\
+        .configure_axis(
+            grid=True
+        ).configure_view(
+            strokeWidth=0
+        ).properties(title=chart_title, width=600, height=400)
+        
+def plot_avg_duration_rentals(df, by='Day of the Week'):
+
+    grouped_df = group_hourly_rentals(df, group_by=by, type='avg_duration')
+    st.dataframe(grouped_df)
+    
+    if by == 'Period of the Day':
+        sort = ['Morning', 'Afternoon', 'Evening', 'Night']
+        chart_title = 'Number of Rentals by Time of the Day'
+    elif by == 'Season':
+        sort = ['Autumn', 'Spring', 'Summer', 'Winter']
+        chart_title = 'Number of Rentals by Season'
+    else:
+        sort = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        chart_title = 'Number of Rentals by Day of the Week'
+    
+    categorical_var = f'{by}:N'
+    
+    return alt.Chart(grouped_df)\
+        .mark_bar()\
+        .encode(x=alt.X('hourly_avg_duration:Q', axis=alt.Axis(title='Average Duration of Rental (Minutes)')), 
+                y=alt.Y(categorical_var, sort=sort, axis=alt.Axis(title='')), 
+                color=alt.Color(categorical_var, legend=None),
+                opacity=alt.OpacityValue(0.9),
+                tooltip=[categorical_var, alt.Tooltip('hourly_avg_duration:Q')],)\
+        .configure_axis(
+            grid=True
+        ).configure_view(
+            strokeWidth=0
+        ).properties(title=chart_title, width=600, height=400)
+
     
 # --- DASHBOARD ---
 if selected == "Dashboard":
 
     st.header('Dashboard')
-    st.subheader('Showing data from the last 3 months rentals')
+    # st.subheader('Showing data from the past three months')
     
-    col_metric_1, col_metric_2 = st.columns(2)
+    col_metric_1, padding, col_metric_2 = st.columns((10,2,10))
     avg_duration = get_avg_duration_last_month()
     total_rentals = get_total_rentals_last_month()
-    col_metric_1.metric('Total Rentals', f"{round(total_rentals,2)}")
-    col_metric_2.metric('Avg Rental Duration', f"{round(avg_duration,2)} minutes")
+    col_metric_1.metric('Total Rentals', total_rentals)
+    col_metric_2.metric('Avg Rental Duration', f"{round(avg_duration,0)} min")
+    
+    st.markdown('---')
+
+    with st.container():
+        col_filter1, padding, col_filter2 = st.columns((10,2,10))
+        with col_filter1:
+            data_type = st.radio("What type of data would you like to show?", ('Number of Rentals', 'Duration of Rentals'))
+        with col_filter2:
+            groupby = st.selectbox('Group by:', ['Day of the Week', 'Period of the Day', 'Season'])
     
     hourly_rentals = get_hourly_total_rentals()
-    groupby = st.selectbox('Group rentals by', ['Day of the Week', 'Period of the Day'])
-    st.altair_chart(plot_percentage_rentals(hourly_rentals, by=groupby))
+    st.markdown('---')
     
-    st.markdown("""##### Initial battery when rental started""")
-    battery_df = group_battery_status()
-    st.dataframe(battery_df.style.highlight_max(axis=0))
+    if data_type == 'Number of Rentals':  
+        st.altair_chart(plot_percentage_rentals(hourly_rentals, by=groupby))
+    elif data_type == 'Duration of Rentals':
+        st.altair_chart(plot_avg_duration_rentals(hourly_rentals, by=groupby))
+
+    with st.container():
+        st.markdown("""##### Initial battery when rental started
+                    Data from the past three months
+                    """)
+        battery_df = group_battery_status()
+        st.dataframe(battery_df.style.highlight_max(axis=0))
 
         
 #------- Demand Forecasting --------#
