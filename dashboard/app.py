@@ -1,6 +1,7 @@
 from cProfile import label
 from inspect import stack
 from tokenize import group
+from unicodedata import category
 import streamlit as st
 from streamlit_option_menu import option_menu
 import pandas as pd
@@ -373,7 +374,7 @@ def get_hourly_total_rentals() -> pd.DataFrame:
     
     return pd.DataFrame(sqlquery, columns=['date_rental', 'timeofday', 'day_of_week', 'total_rentals'])
 
-@st.cache
+@st.cache(allow_output_mutation=True)
 def get_initial_battery():
     
     sqlquery = run_query("""SELECT
@@ -406,37 +407,44 @@ def group_battery_status():
     
     return df_summary
     
+def group_hourly_rentals(df, group_by='Day of the Week'):
 
-def plot_number_of_rentals(df, by='day_of_week'):
+    shortgroup_by = ['timeofday'] if group_by == 'Period of the Day' else ['day_of_week']
+    df_grouped = df.groupby(shortgroup_by).sum()
+    df_grouped['% of Rentals'] = df_grouped['total_rentals'] / df_grouped['total_rentals'].sum()
+    df_grouped.drop(['total_rentals'], axis=1, inplace=True)
+    df_grouped = df_grouped.reset_index().rename(columns={shortgroup_by[0]: group_by})
     
-    if by == 'Day of the Week':
-        chart = alt.Chart(hourly_rentals).encode(
-                            x=alt.X('total_rentals:Q', axis=alt.Axis(title='Number of Rentals')), 
-                            y=alt.Y('day_of_week:O', 
-                                    sort=['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], 
-                                    axis=alt.Axis(title='Day of the Week')),
-                            color=alt.Color('day_of_week:N', legend=None)
-                            ).mark_bar().properties(
-                                title='Number of Rentals by Day of the Week', 
-                                width=600, height=400)
-    elif by == 'Period of the Day':
-        chart = alt.Chart(hourly_rentals).encode(
-                            x=alt.X('total_rentals:Q', axis=alt.Axis(title='Number of Rentals')), 
-                            y=alt.Y('timeofday:N', 
-                                    sort=['Morning', 'Afternoon', 'Evening', 'Night'], 
-                                    axis=alt.Axis(title='Period of the Day')), 
-                            color=alt.Color('timeofday:N', legend=None)
-                            ).mark_bar().properties(
-                                title='Number of Rentals by Time of the Day', 
-                                width=600, height=400)
+    return df_grouped
+
+def plot_percentage_rentals(df, by='Day of the Week'):
+    
+    grouped_df = group_hourly_rentals(df, group_by=by)
+
+    if by == 'Period of the Day':
         
-    return chart
+        sort = ['Morning', 'Afternoon', 'Evening', 'Night']
+        chart_title = 'Number of Rentals by Time of the Day'
+    else:
+
+        sort = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        chart_title = 'Number of Rentals by Day of the Week'
+    
+    categorical_var = f'{by}:N'
+
+    return alt.Chart(grouped_df)\
+        .mark_bar()\
+        .encode(x=alt.X('% of Rentals:Q', axis=alt.Axis(format='.0%', title='% of Rentals')), 
+                y=alt.Y(categorical_var, sort=sort, axis=alt.Axis(title='')), 
+                color=alt.Color(categorical_var, legend=None),
+                tooltip=[categorical_var, alt.Tooltip('% of Rentals', format=".2%")])\
+        .properties(title=chart_title, width=600, height=400)
     
 # --- DASHBOARD ---
 if selected == "Dashboard":
 
     st.header('Dashboard')
-    st.subheader('Showing the last 3 months rentals')
+    st.subheader('Showing data from the last 3 months rentals')
     
     col_metric_1, col_metric_2 = st.columns(2)
     avg_duration = get_avg_duration_last_month()
@@ -445,10 +453,12 @@ if selected == "Dashboard":
     col_metric_2.metric('Avg Rental Duration', f"{round(avg_duration,2)} minutes")
     
     hourly_rentals = get_hourly_total_rentals()
-    groupby = st.selectbox('Group total rentals by', ['Day of the Week', 'Period of the Day'])
-    st.write(plot_number_of_rentals(hourly_rentals, by=groupby))
+    groupby = st.selectbox('Group rentals by', ['Day of the Week', 'Period of the Day'])
+    st.altair_chart(plot_percentage_rentals(hourly_rentals, by=groupby))
     
-    st.dataframe(group_battery_status())
+    st.markdown("""##### Initial battery when rental started""")
+    battery_df = group_battery_status()
+    st.dataframe(battery_df.style.highlight_max(axis=0))
 
         
 #------- Demand Forecasting --------#
@@ -508,7 +518,7 @@ if selected == "About":
     st.latex(r'''NRMSE = \frac{RSME}{y_{max} - y_{min}}''')
 
     moby_data_pipeline = Image.open(f'{APP_PATH}img/data-pipeline.png')
-    st.image(moby_data_pipeline, use_column_width='never')
+    st.image(moby_data_pipeline, use_column_width='always')
 
     with open(f'{APP_PATH}docs/Moby-Bikes-Data-Pipeline.pdf', "rb") as file:
         btn = st.download_button(label="Download as PDF",
