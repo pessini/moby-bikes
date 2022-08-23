@@ -323,31 +323,25 @@ def convert_df(df):
 
 #---------------------------------#
 @st.cache
-def get_avg_duration_last_month() -> float:
-    
-    sqlquery = run_query("""WITH CTE_LASTMONTH_DURATION AS
-                            (
-                                SELECT AVG(Duration) AS average_duration
-                                FROM mobybikes.Rentals
-                                WHERE DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 3 MONTH) AND CURDATE()
-                            )
-                            SELECT average_duration FROM CTE_LASTMONTH_DURATION;
-                        """)
-    
+def get_avg_duration() -> float:
+    # CONCAT(FLOOR(AVG(Duration)/60),'h ', ROUND(MOD(AVG(Duration),60),0),'m') as average_duration
+    # AVG(Duration) AS average_duration
+    sqlquery = run_query("""SELECT 
+                                CONCAT(FLOOR(AVG(Duration)/60),'h ', ROUND(MOD(AVG(Duration),60),0),'m') AS average_duration 
+                            FROM 
+                                mobybikes.Rentals
+                            WHERE 
+                                DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 3 MONTH) AND CURDATE();""")
     return sqlquery[0][0]
 
 @st.cache
-def get_total_rentals_last_month() -> int:
-    
-    sqlquery = run_query("""WITH CTE_LASTMONTH_RENTALS AS
-                            (
-                                SELECT COUNT(*) AS total_rentals
-                                FROM mobybikes.Rentals
-                                WHERE DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 3 MONTH) AND CURDATE()
-                            )
-                            SELECT total_rentals FROM CTE_LASTMONTH_RENTALS;
-                        """)
-    
+def get_total_rentals() -> int:
+    sqlquery = run_query("""SELECT 
+                                COUNT(*) AS total_rentals 
+                            FROM 
+                                mobybikes.Rentals
+                            WHERE 
+                                DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 3 MONTH) AND CURDATE();""")
     return sqlquery[0][0]
 
 @st.cache(allow_output_mutation=True)
@@ -468,23 +462,23 @@ def plot_percentage_rentals(df, by='Day of the Week'):
 def plot_avg_duration_rentals(df, by='Day of the Week'):
 
     grouped_df = group_hourly_rentals(df, group_by=by, type='avg_duration')
-    st.dataframe(grouped_df)
+    # st.dataframe(grouped_df)
     
     if by == 'Period of the Day':
         sort = ['Morning', 'Afternoon', 'Evening', 'Night']
-        chart_title = 'Number of Rentals by Time of the Day'
+        chart_title = 'Average duration (in minutes) of rentals across Times of the Day'
     elif by == 'Season':
         sort = ['Autumn', 'Spring', 'Summer', 'Winter']
-        chart_title = 'Number of Rentals by Season'
+        chart_title = 'Average duration (in minutes) of rentals across Seasons'
     else:
         sort = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-        chart_title = 'Number of Rentals by Day of the Week'
+        chart_title = 'Average duration (in minutes) of rentals across Days of the Week'
     
     categorical_var = f'{by}:N'
     
     return alt.Chart(grouped_df)\
         .mark_bar()\
-        .encode(x=alt.X('hourly_avg_duration:Q', axis=alt.Axis(title='Average Duration of Rental (Minutes)')), 
+        .encode(x=alt.X('hourly_avg_duration:Q', axis=alt.Axis(title='Average Duration of Rental (minutes)')), 
                 y=alt.Y(categorical_var, sort=sort, axis=alt.Axis(title='')), 
                 color=alt.Color(categorical_var, legend=None),
                 opacity=alt.OpacityValue(0.9),
@@ -495,7 +489,6 @@ def plot_avg_duration_rentals(df, by='Day of the Week'):
             strokeWidth=0
         ).properties(title=chart_title, width=600, height=400)
 
-    
 # --- DASHBOARD ---
 if selected == "Dashboard":
 
@@ -503,10 +496,11 @@ if selected == "Dashboard":
     # st.subheader('Showing data from the past three months')
     
     col_metric_1, padding, col_metric_2 = st.columns((10,2,10))
-    avg_duration = get_avg_duration_last_month()
-    total_rentals = get_total_rentals_last_month()
-    col_metric_1.metric('Total Rentals', total_rentals)
-    col_metric_2.metric('Avg Rental Duration', f"{round(avg_duration,0)} min")
+    avg_duration = get_avg_duration()
+    total_rentals = get_total_rentals()
+    col_metric_1.metric('Total Rentals (past 3 months)', total_rentals)
+    # col_metric_2.metric('Avg Rental Duration', f"{round(avg_duration,0)} min")
+    col_metric_2.metric('Avg Rental Duration (past 3 months)', avg_duration)
     
     st.markdown('---')
 
@@ -521,14 +515,16 @@ if selected == "Dashboard":
     st.markdown('---')
     
     if data_type == 'Number of Rentals':  
-        st.altair_chart(plot_percentage_rentals(hourly_rentals, by=groupby))
+        st.altair_chart(plot_percentage_rentals(hourly_rentals, by=groupby), use_container_width=True)
     elif data_type == 'Duration of Rentals':
-        st.altair_chart(plot_avg_duration_rentals(hourly_rentals, by=groupby))
+        st.altair_chart(plot_avg_duration_rentals(hourly_rentals, by=groupby), use_container_width=True)
 
     with st.container():
-        st.markdown("""##### Initial battery when rental started
-                    Data from the past three months
-                    """)
+        st.markdown("""##### Initial battery when rental started""")
+        col_info_1, col_info_2 = st.columns((5,5))
+        with col_info_1:
+            st.info('Data from the past three months')
+        # st.info('Data from the past three months')
         battery_df = group_battery_status()
         st.dataframe(battery_df.style.highlight_max(axis=0))
 
