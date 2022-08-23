@@ -31,7 +31,8 @@ layout = "centered" # Can be "centered" or "wide". In the future also "dashboard
 #---------------------------------#
 # Page layout
 st.set_page_config(page_title=page_title, page_icon=page_icon, layout=layout)
-st.image('https://www.mobybikes.com/wp-content/uploads/2020/05/logo-1.png', use_column_width='auto')
+# 'https://github.com/pessini/moby-bikes/blob/main/dashboard/img/moby-logo.png?raw=true'
+st.image('https://www.mobybikes.com/wp-content/uploads/2020/05/logo-1.png', use_column_width='never')
 st.header(page_subtitle)
 #---------------------------------
 
@@ -376,6 +377,7 @@ def group_battery_status():
     df_summary = pd.DataFrame({'counts': counts, 'per': percent}, labels)
     df_summary["% of Rentals"] = round((df_summary['per']*100),2).astype(str) + '%'
     df_summary.drop(['counts','per'], axis=1, inplace=True)
+    df_summary = df_summary.reset_index().rename(columns={'index': 'Battery Status'})
     
     return df_summary
 
@@ -493,8 +495,8 @@ def plot_avg_duration_rentals(df, by='Day of the Week'):
 # --- DASHBOARD ---
 if selected == "Dashboard":
 
-    st.header('Dashboard')
-    # st.subheader('Showing data from the past three months')
+    # st.header('Dashboard')
+    st.subheader('Dashboard')
     
     col_metric_1, padding, col_metric_2 = st.columns((10,2,10))
     avg_duration = get_avg_duration()
@@ -527,14 +529,12 @@ if selected == "Dashboard":
         #     st.info('Data from the past three months')
         st.caption('Data from the past three months')
         battery_df = group_battery_status()
-        st.dataframe(battery_df.style.highlight_max(axis=0))
+        st.table(battery_df.style.highlight_max('% of Rentals'))
 
-        
 #------- Demand Forecasting --------#
-
 if selected == "Demand Forecasting":
     
-    st.header('Demand Forecasting')
+    # st.header('Demand Forecasting')
     st.subheader("Predicting bike rentals demand")
     
     image = Image.open(f'{APP_PATH}img/met-eireann-long.png')
@@ -577,11 +577,10 @@ if selected == "Demand Forecasting":
     )
     
 #---------------------------------#
-
 if selected == "About":
     
-    st.header('About the project')
-    st.subheader("Predicting bike rentals demand")
+    # st.header('About the project')
+    st.subheader('About the project')
 
     st.latex(r'''NRMSE = \frac{RSME}{y_{max} - y_{min}}''')
 
