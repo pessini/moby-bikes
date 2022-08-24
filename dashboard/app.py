@@ -663,7 +663,9 @@ if selected == "About":
         
     
     st.write(f"{APP_PATH}notebooks-html/07-evaluation.html")
-    components.iframe(f"{APP_PATH}notebooks-html/07-evaluation.html")
+    # https://github.com/pessini/moby-bikes/blob/main/dashboard/notebooks-html/01-data-wrangling.html
+    components.iframe("https://raw.githubusercontent.com/pessini/moby-bikes/main/dashboard/notebooks-html/01-data-wrangling.html?raw=true")
+    components.iframe("https://github.com/pessini/moby-bikes/blob/main/dashboard/notebooks-html/01-data-wrangling.html?raw=true")
         
     st.write("""
              ### Notebooks
