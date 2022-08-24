@@ -572,7 +572,7 @@ if selected == "Dashboard":
         #     st.info('Data from the past three months')
         st.caption('Data from the past three months')
         battery_df = group_battery_status()
-        st.table(battery_df.style.highlight_max('% of Rentals'))
+        st.table(battery_df.style.highlight_max(subset='% of Rentals', color='#c8fe00'))
 
 
 def highlight_high_demand(val):
