@@ -1,8 +1,5 @@
-from cProfile import label
-from inspect import stack
-from tokenize import group
-from unicodedata import category
 import streamlit as st
+import streamlit.components.v1 as components
 from streamlit_option_menu import option_menu
 import pandas as pd
 import numpy as np
@@ -566,7 +563,7 @@ if selected == "Dashboard":
 
     # --- TABLE with Battery Status ---
     with st.container():
-        st.markdown("""##### Initial battery when rental started""")
+        st.markdown("""##### Battery status when rental started""")
         # col_info_1, col_info_2 = st.columns((5,5))
         # with col_info_1:
         #     st.info('Data from the past three months')
@@ -628,10 +625,31 @@ if selected == "Demand Forecasting":
 #---------------------------------#
 if selected == "About":
     
-    # st.header('About the project')
-    st.subheader('About the project')
-
-    st.latex(r'''NRMSE = \frac{RSME}{y_{max} - y_{min}}''')
+    st.header('eBike Operations Optimization')
+    
+    st.write("""
+             
+             MOBY is an urban mobility company based in Ireland. 
+             We deployed a fleet of shared electric bikes in the nation’s capital.
+             
+             ### In a nutshell
+             
+             
+             ### Problem
+             
+             The role of **eBike Operators** includes distributing and relocating eBikes throughout the city, while performing safety checks and basic maintenance.
+             
+             ##### Responsibilities
+             
+            - Distributing bikes to the city’s most in-demand locations (Cycling electric cargo trike).
+            - Replacing bike batteries when out of charge.
+            - Check and repair eBikes on street.
+            
+            ### Data Pipeline
+            
+             """)
+ 
+    # ![Data Pipeline](https://github.com/pessini/moby-bikes/blob/73f3d0af24a09b91fb1ca3c3d09edbf66273fdbf/documentation/data-pipeline.png?raw=true)
 
     moby_data_pipeline = Image.open(f'{APP_PATH}img/data-pipeline.png')
     st.image(moby_data_pipeline, use_column_width='always')
@@ -643,23 +661,18 @@ if selected == "About":
                                 mime="application/pdf"
                                 )
         
+    
+    st.write(f"{APP_PATH}notebooks-html/07-evaluation.html")
+    components.iframe(f"{APP_PATH}notebooks-html/07-evaluation.html")
+        
+    st.write("""
+             ### Notebooks
+             1. [Data Wrangling](https://duckduckgo.com "The best search engine for privacy")
+             2. [Feature Engineering](https://duckduckgo.com "The best search engine for privacy")
+             3. [Exploratory Data Analysis](https://duckduckgo.com "The best search engine for privacy")
+             
+             """)
 
-    st.markdown('''### Test''')    
-    st.markdown('''This web app is part of a GitHub repository: https://github.com/pessini/moby-bikes''')
-
-    st.metric('My metric', 42, 2)
-    st.error('Error message')
-    st.warning('Warning message')
-    st.info('Info message')
-    st.success('Success message')
-
-
-
-# footer_github = """<div style='position: absolute; padding-top: 100px; width:100%; '>
-#             <img title="GitHub Octocat" src='https://github.com/pessini/avian-flu-wild-birds-ireland/blob/main/img/Octocat.jpg?raw=true' style='height: 60px; padding-right: 15px' alt="Octocat" align="left"> This notebook is part of a GitHub repository: https://github.com/pessini/moby-bikes 
-# <br>MIT Licensed
-# <br>Author: Leandro Pessini</div>
-#             """
 
 footer_github = """<div style='position: absolute; padding-top: 100px; width:100%;'>
 <img title="GitHub Mark" src="https://github.com/pessini/avian-flu-wild-birds-ireland/blob/main/img/GitHub-Mark-64px.png?raw=true" style="height: 32px; padding-right: 15px" alt="GitHub Mark" align="left"> 
