@@ -524,19 +524,30 @@ if selected == "Dashboard":
     # st.header('Dashboard')
     st.subheader('Dashboard')
     
+    # --- METRICS ---
     col_metric_1, padding, col_metric_2 = st.columns((10,2,10))
-    avg_duration = float(get_avg_duration())
-    avg_duration_delta = avg_duration - float(get_avg_duration_delta())
+    
     total_rentals = get_total_rentals()
-    total_rentals_delta = total_rentals - get_total_rentals_delta()
+    try:
+        total_rentals_delta = total_rentals - get_total_rentals_delta()
+    except Exception:
+        total_rentals_delta = None
+        
     col_metric_1.metric('Total Rentals (past 3 months)', total_rentals, total_rentals_delta)
-    # col_metric_2.metric('Avg Rental Duration', f"{round(avg_duration,0)} min")
+
+    avg_duration = float(get_avg_duration())
+    try:
+        avg_duration_delta = avg_duration - float(get_avg_duration_delta())
+    except Exception:
+        avg_duration_delta = None
+
     col_metric_2.metric('Avg Rental Duration (past 3 months)', 
                         convert_minutes_to_hours(avg_duration), 
                         convert_minutes_to_hours(avg_duration_delta))
     
     st.markdown('---')
 
+    # --- FILTERS ---
     with st.container():
         col_filter1, padding, col_filter2 = st.columns((10,2,10))
         with col_filter1:
@@ -547,11 +558,13 @@ if selected == "Dashboard":
     hourly_rentals = get_hourly_total_rentals()
     st.markdown('---')
     
+    # --- CHARTS ---
     if data_type == 'Number of Rentals':  
         st.altair_chart(plot_percentage_rentals(hourly_rentals, by=groupby), use_container_width=True)
     elif data_type == 'Duration of Rentals':
         st.altair_chart(plot_avg_duration_rentals(hourly_rentals, by=groupby), use_container_width=True)
 
+    # --- TABLE with Battery Status ---
     with st.container():
         st.markdown("""##### Initial battery when rental started""")
         # col_info_1, col_info_2 = st.columns((5,5))
