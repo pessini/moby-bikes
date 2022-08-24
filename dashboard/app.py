@@ -574,6 +574,11 @@ if selected == "Dashboard":
         battery_df = group_battery_status()
         st.table(battery_df.style.highlight_max('% of Rentals'))
 
+
+def highlight_high_demand(val):
+    color = '#c8fe00' if val > 10 else None
+    return f'background-color: {color}'
+
 #------- Demand Forecasting --------#
 if selected == "Demand Forecasting":
     
@@ -604,7 +609,8 @@ if selected == "Demand Forecasting":
     # limiting 15 hours forecast
     df_predictions = df_forecast[['date', 'hour', 'temp', 'rhum', 'wdsp', 'rainfall_intensity', 'predicted']][:15].reset_index(drop=True)
     df_predictions.columns = ['Date', 'Hour', 'Temperature', 'Relative Humidity', 'Wind Speed', 'Rainfall Intensity', 'Predicted Demand']
-    st.table(df_predictions)
+    st.caption('Highlighting hours with high demand (> 10)')
+    st.table(df_predictions.style.applymap(highlight_high_demand, subset=['Predicted Demand']))
     
     # DOWNLOAD DATA Button
     csv_filename = str(df_predictions['Date'][0]) + '_' + str(df_predictions['Hour'][0]) + 'h_' + \
