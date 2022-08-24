@@ -324,17 +324,32 @@ def convert_df(df):
     # IMPORTANT: Cache the conversion to prevent computation on every rerun
     return df.to_csv(index=False).encode('utf-8')
 
+def convert_minutes_to_hours(minutes):
+    hour, min = divmod(minutes, 60)
+    return f"{round_up(hour)}h {round_up(min)}m"
+
 #---------------------------------#
 @st.cache
 def get_avg_duration() -> float:
     # CONCAT(FLOOR(AVG(Duration)/60),'h ', ROUND(MOD(AVG(Duration),60),0),'m') as average_duration
     # AVG(Duration) AS average_duration
     sqlquery = run_query("""SELECT 
-                                CONCAT(FLOOR(AVG(Duration)/60),'h ', ROUND(MOD(AVG(Duration),60),0),'m') AS average_duration 
+                                AVG(Duration) AS average_duration
                             FROM 
                                 mobybikes.Rentals
                             WHERE 
                                 DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 3 MONTH) AND CURDATE();""")
+    return sqlquery[0][0]
+
+# Indicator of how the metric changed
+@st.cache
+def get_avg_duration_delta() -> float:
+    sqlquery = run_query("""SELECT 
+                                AVG(Duration) AS average_duration
+                            FROM 
+                                mobybikes.Rentals
+                            WHERE 
+                                DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 6 MONTH) AND DATE_SUB( CURDATE() , INTERVAL 3 MONTH);""")
     return sqlquery[0][0]
 
 @st.cache
@@ -345,6 +360,17 @@ def get_total_rentals() -> int:
                                 mobybikes.Rentals
                             WHERE 
                                 DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 3 MONTH) AND CURDATE();""")
+    return sqlquery[0][0]
+
+# Indicator of how the metric changed
+@st.cache
+def get_total_rentals_delta() -> float:
+    sqlquery = run_query("""SELECT 
+                                COUNT(*) AS total_rentals  
+                            FROM 
+                                mobybikes.Rentals
+                            WHERE 
+                                DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 6 MONTH) AND DATE_SUB( CURDATE() , INTERVAL 3 MONTH);""")
     return sqlquery[0][0]
 
 @st.cache(allow_output_mutation=True)
@@ -499,11 +525,15 @@ if selected == "Dashboard":
     st.subheader('Dashboard')
     
     col_metric_1, padding, col_metric_2 = st.columns((10,2,10))
-    avg_duration = get_avg_duration()
+    avg_duration = float(get_avg_duration())
+    avg_duration_delta = avg_duration - float(get_avg_duration_delta())
     total_rentals = get_total_rentals()
-    col_metric_1.metric('Total Rentals (past 3 months)', total_rentals)
+    total_rentals_delta = total_rentals - get_total_rentals_delta()
+    col_metric_1.metric('Total Rentals (past 3 months)', total_rentals, total_rentals_delta)
     # col_metric_2.metric('Avg Rental Duration', f"{round(avg_duration,0)} min")
-    col_metric_2.metric('Avg Rental Duration (past 3 months)', avg_duration)
+    col_metric_2.metric('Avg Rental Duration (past 3 months)', 
+                        convert_minutes_to_hours(avg_duration), 
+                        convert_minutes_to_hours(avg_duration_delta))
     
     st.markdown('---')
 
