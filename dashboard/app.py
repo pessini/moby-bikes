@@ -23,6 +23,285 @@ page_title = "Moby Bikes - Analytical Dashboard & Demand Forecasting"
 page_subtitle = "Analytical Dashboard & Demand Forecasting"
 page_icon = ":bike:"  # emojis: https://www.webfx.com/tools/emoji-cheat-sheet/
 layout = "centered" # Can be "centered" or "wide". In the future also "dashboard", etc.
+
+BUSINESS_RULES_SQL = """
+-- --------------------------------------------------------------------------------------------------
+DROP TABLE IF EXISTS mobybikes.TEMP_completed_rentals;
+-- DROP TEMPORARY TABLE IF EXISTS completed_rentals;
+
+-- --------------------------------------------------------------------------------------------------
+-- Function to calculate rentals duration
+/** 
+    Assumption: Due to lack of information and data, to calculate the duration rental time I am assuming that when a new 
+    bike rental starts the duration in *minutes* will be calculated by: RentalDuration = LastGPSTime - LastRentalStart
+*/
+-- --------------------------------------------------------------------------------------------------
+USE mobybikes;
+
+DROP FUNCTION IF EXISTS FN_RENTAL_DURATION;
+DELIMITER //
+CREATE FUNCTION FN_RENTAL_DURATION(LAST_GPSTIME DATETIME, RENTAL_START DATETIME) 
+RETURNS INT
+DETERMINISTIC
+BEGIN
+    DECLARE duration BIGINT DEFAULT 0;
+    
+    SET duration = TIMESTAMPDIFF(MINUTE, RENTAL_START, LAST_GPSTIME);
+    
+    IF duration < 0 THEN
+        SET duration = 0;
+    END IF;
+    
+    RETURN duration;
+END //
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS FN_TIMESOFDAY;
+DELIMITER //
+CREATE FUNCTION FN_TIMESOFDAY(rental_date DATETIME) 
+RETURNS VARCHAR(10)
+DETERMINISTIC
+BEGIN
+    DECLARE timeofday VARCHAR(10);
+    DECLARE rental_hour INT;
+    
+    SET rental_hour := HOUR(rental_date);
+    
+    IF rental_hour < 7 THEN
+        SET timeofday := 'Night';
+    ELSEIF rental_hour >= 7 AND rental_hour < 12 THEN
+        SET timeofday := 'Morning';
+    ELSEIF rental_hour >= 12 AND rental_hour < 18 THEN
+        SET timeofday := 'Afternoon';
+    ELSEIF rental_hour >= 18 AND rental_hour < 23 THEN
+        SET timeofday := 'Evening';
+    ELSE 
+        SET timeofday := 'Night';
+    END IF;
+
+    RETURN timeofday;
+END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS SP_LOG_RENTAL_EVENTS;
+DELIMITER //
+CREATE PROCEDURE SP_LOG_RENTAL_EVENTS(
+    IN rentals_processed INT,
+    IN number_errors INT
+)
+BEGIN
+
+    INSERT INTO mobybikes.Log_Rentals (`Date`, `Processed`, `Errors`)
+    VALUES (NOW(), rentals_processed, number_errors);
+    
+END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS SP_GET_TOTAL_RENTALS_TO_PROCESS;
+DELIMITER //
+CREATE PROCEDURE SP_GET_TOTAL_RENTALS_TO_PROCESS(OUT total_rentals INT)
+BEGIN
+
+    SELECT
+        COUNT(*) INTO total_rentals
+    FROM
+    (
+        SELECT 
+            LastRentalStart,
+            BikeID
+        FROM
+            mobybikes.rawRentals
+        GROUP BY
+            LastRentalStart, BikeID
+    ) AS r;
+    
+END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS SP_GET_TOTAL_OPENED_RENTALS;
+DELIMITER //
+CREATE PROCEDURE SP_GET_TOTAL_OPENED_RENTALS(OUT opened_rentals INT)
+BEGIN
+    WITH CTE_OPENED_RENTALS AS (
+        SELECT 
+            r.LastRentalStart,
+            r.BikeID,
+            r.rent_rank
+        FROM
+        (
+            SELECT 
+                LastRentalStart,
+                BikeID,
+                RANK() OVER (PARTITION BY BikeID ORDER BY LastRentalStart DESC) rent_rank
+            FROM
+                mobybikes.rawRentals
+            GROUP BY
+                LastRentalStart, BikeID
+        ) r
+        WHERE rent_rank = 1
+    )
+    -- returning the number of rentals NOT completed
+    SELECT COUNT(*) INTO opened_rentals FROM CTE_OPENED_RENTALS;
+    
+END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS SP_COMPLETED_RENTALS;
+DELIMITER //
+CREATE PROCEDURE SP_COMPLETED_RENTALS(OUT rentals_to_process INT)
+BEGIN
+    -- The ERROR 1137 is a known issue with MySQL that hasn’t got any fix since 2008.
+    -- Not creating a temporary table because of an issue referenced above.
+
+    DROP TABLE IF EXISTS TEMP_completed_rentals;
+    
+    CREATE TABLE TEMP_completed_rentals
+    SELECT 
+        r.LastRentalStart,
+        r.BikeID,
+        r.rent_rank
+    FROM
+    (
+        SELECT 
+            LastRentalStart,
+            BikeID,
+            RANK() OVER (PARTITION BY BikeID ORDER BY LastRentalStart DESC) rent_rank
+        FROM
+            mobybikes.rawRentals
+        GROUP BY
+            LastRentalStart, BikeID
+    ) r 
+    WHERE rent_rank > 1;
+    
+    -- returning the number of rentals to be processed
+    SELECT COUNT(*) INTO rentals_to_process FROM TEMP_completed_rentals;
+    
+END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS SP_CLEASING_PROCESSED_RENTALS;
+DELIMITER //
+CREATE PROCEDURE SP_CLEASING_PROCESSED_RENTALS()
+BEGIN
+    SET SQL_SAFE_UPDATES = 0;
+    DELETE FROM mobybikes.rawRentals WHERE (LastRentalStart,BikeID) IN (SELECT LastRentalStart,BikeID FROM mobybikes.TEMP_completed_rentals);
+    DROP TABLE IF EXISTS TEMP_completed_rentals;
+    SET SQL_SAFE_UPDATES = 1;
+END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS SP_COORDINATES;
+DELIMITER //
+CREATE PROCEDURE SP_COORDINATES()
+BEGIN
+
+    INSERT INTO mobybikes.Rentals_Coordinates (Date, BikeID, Latitude, Longitude)
+    SELECT
+        LastRentalStart,
+        BikeID,
+        Latitude,
+        Longitude
+    FROM
+        mobybikes.rawRentals
+    WHERE
+        (LastRentalStart,BikeID) IN (SELECT LastRentalStart,BikeID FROM mobybikes.TEMP_completed_rentals)
+    AND
+        (Latitude IS NOT NULL OR Longitude IS NOT NULL)
+    AND
+        (Latitude <> 0 OR Longitude <> 0);
+    
+END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS SP_RENTALS_PROCESSING;
+DELIMITER //
+CREATE PROCEDURE SP_RENTALS_PROCESSING()
+BEGIN
+
+    DECLARE total_completed_rentals, total_opened_rentals, rentals_to_process, number_errors INT;
+
+    -- creates a temporary table and returns the total of completed rentals
+    CALL SP_COMPLETED_RENTALS(total_completed_rentals);
+
+    INSERT INTO mobybikes.Rentals (Date, BikeID, BatteryStart, BatteryEnd, Duration)
+    WITH CTE_RENTAL_START_FINISH AS (
+        SELECT
+            t.LastRentalStart,
+            t.BikeID,
+            t.Battery,
+            t.LastGPSTime,
+            CASE 
+                WHEN t.RN_RentalStart = 1 THEN 1
+                ELSE 0
+            END AS RentStarting
+        FROM
+            (SELECT
+                LastRentalStart, BikeID, Battery, LastGPSTime,
+                ROW_NUMBER() OVER(PARTITION BY LastRentalStart, BikeID ORDER BY LastGPSTime) AS RN_RentalStart,
+                ROW_NUMBER() OVER(PARTITION BY LastRentalStart, BikeID ORDER BY LastGPSTime DESC) AS RN_RentalFinished
+            FROM
+                mobybikes.rawRentals
+            WHERE
+                (LastRentalStart,BikeID) IN (SELECT LastRentalStart,BikeID FROM mobybikes.TEMP_completed_rentals) -- get only finished rentals from temp table
+            ORDER BY
+                BikeID,LastRentalStart ASC) t
+        WHERE
+            t.RN_RentalStart = 1 OR t.RN_RentalFinished = 1
+    )
+    SELECT
+        LastRentalStart,
+        BikeID,
+        FLOOR (CAST( GROUP_CONCAT( CASE WHEN RentStarting = 1 THEN Battery ELSE NULL END) AS DECIMAL(12,1))) AS BatteryStart,
+        FLOOR (CAST( GROUP_CONCAT( CASE WHEN RentStarting = 0 THEN Battery ELSE NULL END) AS DECIMAL(12,1))) AS BatteryEnd,
+        -- ORDER BY RentStarting ASC so the first row to calculate would be with RentStarting = 0 (finished rental row)
+        -- Not using IF because some rows have only one and then if there is only row with RentStarting=1, it will use that one
+        FLOOR (CAST( GROUP_CONCAT( FN_RENTAL_DURATION(LastGPSTime,LastRentalStart) ORDER BY RentStarting ASC ) AS DECIMAL(12,1))) AS duration
+    FROM 
+        CTE_RENTAL_START_FINISH
+    GROUP BY
+        LastRentalStart, BikeID
+    ORDER BY
+        BikeID, LastRentalStart ASC;
+        
+    CALL SP_COORDINATES();
+
+    -- returns the total of opened rentals (not to be processed yet)
+    CALL SP_GET_TOTAL_OPENED_RENTALS(total_opened_rentals);
+    CALL SP_CLEASING_PROCESSED_RENTALS();
+    
+    -- Get rentals that are left to process (it should be only opened rentals)
+    CALL SP_GET_TOTAL_RENTALS_TO_PROCESS(rentals_to_process);
+    
+    -- if = 0 there is no error
+    -- if > 0 there are some rentals left which weren't processed
+    SET number_errors := rentals_to_process - total_opened_rentals;
+    
+    -- log the number of processed rentals and the number of errors occurred when processing them
+    CALL SP_LOG_RENTAL_EVENTS(total_completed_rentals, number_errors);
+        
+END //
+DELIMITER ;
+
+
+-- --------------------------------------------------------------------------------------------------
+-- WEATHER LOG
+-- --------------------------------------------------------------------------------------------------
+USE mobybikes;
+DROP PROCEDURE IF EXISTS SP_LOG_WEATHER_EVENTS;
+DELIMITER //
+CREATE PROCEDURE SP_LOG_WEATHER_EVENTS(IN DATE_FILE CHAR(10))
+BEGIN
+    DECLARE weather_events, number_errors INT;
+
+    SELECT COUNT(*) INTO weather_events FROM mobybikes.Weather WHERE DATE(`Date`) = STR_TO_DATE(DATE_FILE,'%Y-%m-%d');
+    
+    SET number_errors := 24 - weather_events; -- it should have been recorded 24 hours
+    
+    INSERT INTO mobybikes.Log_Weather (`Date`, `Processed`, `Errors`)
+    VALUES (STR_TO_DATE(DATE_FILE,'%Y-%m-%d'), weather_events, number_errors);
+    
+END //
+DELIMITER ;"""
 #---------------------------------#
 # Page layout
 #---------------------------------#
@@ -95,9 +374,6 @@ if socket.gethostname() == 'MacBook-Air-de-Leandro.local': # my mac
     APP_PATH = '/Users/pessini/Dropbox/Data-Science/moby-bikes/dashboard/'
 else: # remote
     APP_PATH = '/app/moby-bikes/dashboard/'
-    
-def get_data():
-    pass
 
 def format_rental_duration(minutes):
     return timedelta(minutes=float(minutes)).__str__()
@@ -578,10 +854,10 @@ def highlight_high_demand(val):
 
 #------- Demand Forecasting --------#
 if selected == "Demand Forecasting":
-    
+
     # st.header('Demand Forecasting')
     st.subheader("Predicting bike rentals demand")
-    
+
     image = Image.open(f'{APP_PATH}img/met-eireann-long.png')
     st.image(image, use_column_width=False, width=30)
 
@@ -608,7 +884,7 @@ if selected == "Demand Forecasting":
     df_predictions.columns = ['Date', 'Hour', 'Temperature', 'Relative Humidity', 'Wind Speed', 'Rainfall Intensity', 'Predicted Demand']
     st.caption('Highlighting hours with high demand (> 10)')
     st.table(df_predictions.style.applymap(highlight_high_demand, subset=['Predicted Demand']))
-    
+
     # DOWNLOAD DATA Button
     csv_filename = str(df_predictions['Date'][0]) + '_' + str(df_predictions['Hour'][0]) + 'h_' + \
         str(df_predictions['Date'][len(df_predictions)-1]) + '_' + str(df_predictions['Hour'][len(df_predictions)-1]) + 'h_predictions.csv'
@@ -621,34 +897,39 @@ if selected == "Demand Forecasting":
         file_name=csv_filename,
         mime='text/csv',
     )
-    
+
 #---------------------------------#
+
 if selected == "About":
-    
+
     st.header('eBike Operations Optimization')
-    
+
     st.write("""
-             
-             MOBY is an urban mobility company based in Ireland. 
-             We deployed a fleet of shared electric bikes in the nation’s capital.
-             
-             ### In a nutshell
-             
-             
-             ### Problem
-             
-             The role of **eBike Operators** includes distributing and relocating eBikes throughout the city, while performing safety checks and basic maintenance.
-             
-             ##### Responsibilities
-             
-            - Distributing bikes to the city’s most in-demand locations (Cycling electric cargo trike).
-            - Replacing bike batteries when out of charge.
-            - Check and repair eBikes on street.
+            MOBY is an urban mobility company based in Ireland. 
+            We deployed a fleet of shared electric bikes in the nation’s capital.   
+
+            ### In a nutshell (TL:DR)
+            
+            - Objectives and Problem Statement
+            - Minimum Viable Product (MVP)
+            - Research and explorations
+            - Milestones and Results
+
+            ### Problem Statement
+
+            As part of Moby Operations, there is a role called "*eBike Operators*" which among its responsibilities are distributing and relocating 
+            eBikes throughout the city, while performing safety checks and basic maintenance.
+
+            To optimize operations, we want to predict the demand for the next hours based on weather data in order to decide whether to increase fleet or
+            is safe to collect bikes to repair.
+
+            Several studies reported the influence of the weather on usage of bicycle sharing in many cities around the world [(See References)](#references).
             
             ### Data Pipeline
+
             
              """)
- 
+
     # ![Data Pipeline](https://github.com/pessini/moby-bikes/blob/73f3d0af24a09b91fb1ca3c3d09edbf66273fdbf/documentation/data-pipeline.png?raw=true)
 
     moby_data_pipeline = Image.open(f'{APP_PATH}img/data-pipeline.png')
@@ -660,24 +941,68 @@ if selected == "About":
                                 file_name='data-pipeline.pdf',
                                 mime="application/pdf"
                                 )
-        
+
+    st.write("""### Notebooks""")
+
+    notebooks = {
+        'Data Wrangling': 'https://pessini.me/moby-bikes/notebooks-html/01-data-wrangling.html',
+        'Feature Engineering': 'https://pessini.me/moby-bikes/notebooks-html/02-feature-engineering.html',
+        'Exploratory Data Analysis': 'https://pessini.me/moby-bikes/notebooks-html/03-exploratory-data-analysis.html',
+        'Outlier Analysis': 'https://pessini.me/moby-bikes/notebooks-html/03A-outliers.html',
+        'Linear Regression': 'https://pessini.me/moby-bikes/notebooks-html/04A-linear-regression.html',
+        'Poisson Regression': 'https://pessini.me/moby-bikes/notebooks-html/04B-poisson.html',
+        'Time Series Analysis': 'https://pessini.me/moby-bikes/notebooks-html/04C-time-series.html',
+        'Modeling': 'https://pessini.me/moby-bikes/notebooks-html/05-modeling.html',
+        'XGBoost': 'https://pessini.me/moby-bikes/notebooks-html/06-xgboost-model.html',
+        'Model Evaluation': 'https://pessini.me/moby-bikes/notebooks-html/07-evaluation.html',
+    }
+
+    str_list = "".join(f"1. [{notebook}]({value}) \n" for notebook, value in notebooks.items())
+    st.markdown(str_list)
+    st.markdown("---")
+
+    st.write("""### Database Business Rules""")
+
+    with st.expander("SQL code"):
+        st.code(BUSINESS_RULES_SQL, language='sql')
+
+    # for notebook in notebooks:
+    #     with st.expander(notebook):
+    #         components.iframe(notebooks[notebook], scrolling=True, height=600)
     
-    st.write(f"{APP_PATH}notebooks-html/07-evaluation.html")
-    # https://github.com/pessini/moby-bikes/blob/main/dashboard/notebooks-html/01-data-wrangling.html
-    components.iframe("https://raw.githubusercontent.com/pessini/moby-bikes/main/dashboard/notebooks-html/01-data-wrangling.html?raw=true")
-    components.iframe("https://github.com/pessini/moby-bikes/blob/main/dashboard/notebooks-html/01-data-wrangling.html?raw=true")
-        
     st.write("""
-             ### Notebooks
-             1. [Data Wrangling](https://duckduckgo.com "The best search engine for privacy")
-             2. [Feature Engineering](https://duckduckgo.com "The best search engine for privacy")
-             3. [Exploratory Data Analysis](https://duckduckgo.com "The best search engine for privacy")
-             
-             """)
+            ### Design Docs to Data Science Project
+            - Document the customer’s business objectives.
+            - Define how your data science project will meet their needs.
+            - Set a vision for your project or product so that you can steer the team in the right direction.
+            - Define clear evaluation metrics so that you can objectively determine whether the project was successful.
+            - Conduct a cost-benefit analysis can help determine project go/no-go and prioritization against other potential projects.
+            - Document what you are not looking to accomplish (beyond your project scope).
+            
+            #### How To Build Design Documents
+            1. Objectives: Why are you building this?
+            1. Minimum Viable Product: What’s important for your audience?
+            1. Research and explorations: What time and resources are available?
+            1. Milestones and Results: What can and has been achieved?
+            1. TL:DR (Too Long Didn’t Read): What’s the summary?""")
+
+    st.markdown("---")
+    
+    st.markdown("""
+            ### References
+            [1] Li, L., & McDonald, F. (2013). Automated self-organising vehicles for Barclays Cycle Hire. *Memetic Computing*, *5*(1), 35–48. [https://doi.org/10.1007/s12293-012-0101-3](https://doi.org/10.1007/s12293-012-0101-3)
+    
+            [2] Gebhart, K., & Noland, R. B. (2014). The impact of weather conditions on bikeshare trips in Washington, DC. *Transportation*, *41*(6), 1205–1225. [https://doi.org/10.1007/s11116-014-9540-7](https://doi.org/10.1007/s11116-014-9540-7)
+            
+            [3] Hotz, B. N. (2022, August 1). 15 Data Science Documentation Best Practices. Data Science Process Alliance. [https://www.datascience-pm.com/documentation-best-practices/](https://www.datascience-pm.com/documentation-best-practices/)
+            
+            [4] Tatan, V. (2022, January 1). The Undeniable Importance of Design Docs to Data Scientists. Medium. [https://towardsdatascience.com/the-undeniable-importance-of-design-docs-to-data-scientists-421132561f3c](https://towardsdatascience.com/the-undeniable-importance-of-design-docs-to-data-scientists-421132561f3c)
+            """)
 
 
 footer_github = """<div style='position: absolute; padding-top: 100px; width:100%;'>
-<img title="GitHub Mark" src="https://github.com/pessini/avian-flu-wild-birds-ireland/blob/main/img/GitHub-Mark-64px.png?raw=true" style="height: 32px; padding-right: 15px" alt="GitHub Mark" align="left"> 
+<img title="GitHub Mark" src="https://github.com/pessini/avian-flu-wild-birds-ireland/blob/main/img/GitHub-Mark-64px.png?raw=true" 
+style="height: 32px; padding-right: 15px" alt="GitHub Mark" align="left"> 
 <a href='https://github.com/pessini/moby-bikes' target='_blank'>GitHub Repository</a> <br>Author: Leandro Pessini
 </div>"""
 st.markdown(footer_github, unsafe_allow_html=True)
