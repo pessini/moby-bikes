@@ -985,6 +985,9 @@ if selected == "About":
             1. Research and explorations: What time and resources are available?
             1. Milestones and Results: What can and has been achieved?
             1. TL:DR (Too Long Didn’t Read): What’s the summary?""")
+    
+   
+    components.iframe('https://whimsical.com/embed/Y81cDnnBwq5V4CHXjB6NpM@VsSo8s35WwyzAmPQfkttcU', scrolling=True, height=450)
 
     st.markdown("---")
     
