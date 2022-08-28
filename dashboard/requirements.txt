@@ -11,3 +11,4 @@ streamlit-option-menu==0.3.2
 matplotlib==3.5.2
 mysql-connector-python==8.0.29
 altair==4.2.0
+openpyxl==3.0.9

@@ -906,7 +906,7 @@ if selected == "About":
 
     st.write("""
             MOBY is an urban mobility company based in Ireland. 
-            We deployed a fleet of shared electric bikes in the nation’s capital.   
+            We deployed a fleet of shared electric bikes in the nation's capital.   
 
             ### In a nutshell (TL:DR)
             
@@ -921,7 +921,7 @@ if selected == "About":
             eBikes throughout the city, while performing safety checks and basic maintenance.
 
             To optimize operations, we want to predict the demand for the next hours based on weather data in order to decide whether to increase fleet or
-            is safe to collect bikes to repair.
+            is safe to perform safefy checks and maintenance and even to collect bikes for repair.
 
             Several studies reported the influence of the weather on usage of bicycle sharing in many cities around the world [(See References)](#references).
             
@@ -962,6 +962,9 @@ if selected == "About":
     st.markdown("---")
 
     st.write("""### Database Business Rules""")
+    
+    db_model = Image.open(f'{APP_PATH}docs/DBDataModel.png')
+    st.image(db_model, use_column_width='always')
 
     with st.expander("SQL code"):
         st.code(BUSINESS_RULES_SQL, language='sql')
@@ -972,7 +975,7 @@ if selected == "About":
     
     st.write("""
             ### Design Docs to Data Science Project
-            - Document the customer’s business objectives.
+            - Document the customer's business objectives.
             - Define how your data science project will meet their needs.
             - Set a vision for your project or product so that you can steer the team in the right direction.
             - Define clear evaluation metrics so that you can objectively determine whether the project was successful.
@@ -981,15 +984,21 @@ if selected == "About":
             
             #### How To Build Design Documents
             1. Objectives: Why are you building this?
-            1. Minimum Viable Product: What’s important for your audience?
+            1. Minimum Viable Product: What's important for your audience?
             1. Research and explorations: What time and resources are available?
             1. Milestones and Results: What can and has been achieved?
-            1. TL:DR (Too Long Didn’t Read): What’s the summary?""")
+            1. TL:DR (Too Long Didn't Read): What's the summary?""")
     
    
     components.iframe('https://whimsical.com/embed/Y81cDnnBwq5V4CHXjB6NpM@VsSo8s35WwyzAmPQfkttcU', scrolling=True, height=450)
-
-    st.markdown("---")
+    
+    # experiment_tracker_ideas = pd.read_excel(f'{APP_PATH}docs/experiment_tracker.xlsx', sheet_name='Ideas', keep_default_na=False, na_values=['<NA>'])
+    # st.table(experiment_tracker_ideas)
+    # st.markdown("---")
+    
+    # experiment_tracker_exp = pd.read_excel(f'{APP_PATH}docs/experiment_tracker.xlsx', sheet_name='Experiments', keep_default_na=False, na_values=['<NA>'])
+    # st.table(experiment_tracker_exp)
+    # st.markdown("---")
     
     st.markdown("""
             ### References
