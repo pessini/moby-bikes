@@ -35,4 +35,6 @@ fleet or is safe to perform safety checks and maintenance and even to collect bi
 
 - Moby Operations team will use **Dashboard** and **Rental Demand Forecasting** to make decisions and planning its daily operations.
 
+---
+
 Read full documentation [here](https://whimsical.com/design-docs-moby-bikes-operations-optimization-3RJyNyq2NHe8rPGzGZjrje)
