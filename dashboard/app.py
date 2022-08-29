@@ -17,14 +17,16 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 import requests
 from bs4 import BeautifulSoup
+import boto3
+
+s3_client = boto3.client("s3")
+S3_BUCKET = "moby-bikes-rentals"
 
 # -------------- SETTINGS --------------
 page_title = "Moby Bikes - Analytical Dashboard & Demand Forecasting"
 page_subtitle = "Analytical Dashboard & Demand Forecasting"
 page_icon = ":bike:"  # emojis: https://www.webfx.com/tools/emoji-cheat-sheet/
-layout = "wide" # Can be "centered" or "wide". In the future also "dashboard", etc.
-#---------------------------------#
-# Page layout
+layout = "centered" # Can be "centered" or "wide". In the future also "dashboard", etc.
 #---------------------------------#
 # Page layout
 st.set_page_config(page_title=page_title, page_icon=page_icon, layout=layout)
@@ -645,6 +647,17 @@ if selected == "About":
     st.write("""
              [Read full documentation](https://whimsical.com/design-docs-moby-bikes-operations-optimization-3RJyNyq2NHe8rPGzGZjrje)
              """)
+    
+   
+    response = s3_client.get_object(Bucket=S3_BUCKET, Key="dashboard/df_train.csv")
+    status = response.get("ResponseMetadata", {}).get("HTTPStatusCode")
+
+    if status == 200:
+        print(f"Successful S3 get_object response. Status - {status}")
+        books_df = pd.read_csv(response.get("Body"))
+        st.dataframe(books_df)
+    else:
+        print(f"Unsuccessful S3 get_object response. Status - {status}")
 
     # ![Data Pipeline](https://github.com/pessini/moby-bikes/blob/73f3d0af24a09b91fb1ca3c3d09edbf66273fdbf/documentation/data-pipeline.png?raw=true)
     # moby_data_pipeline = Image.open(f'{APP_PATH}img/data-pipeline.png')
