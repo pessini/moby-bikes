@@ -902,114 +902,73 @@ if selected == "Demand Forecasting":
 
 if selected == "About":
 
-    st.header('eBike Operations Optimization')
+    st.subheader('eBike Operations Optimization')
 
     st.write("""
-            MOBY is an urban mobility company based in Ireland. 
-            We deployed a fleet of shared electric bikes in the nation's capital.   
+            Moby bikes is an e-bike bike-share scheme in operation in Dublin. 
+            Electric powered bicycles may be rented from and returned to designated cycle stands inside the designated area.
+            
+            As part of Moby Operations, there is a role called "_eBike Operators_" which among its responsibilities are distributing and relocating 
+            eBikes throughout the city, while performing safety checks and basic maintenance.
+
+            **To optimize operations, we want to predict the demand for the next hours based on weather data in order to decide whether to increase 
+            fleet or is safe to perform safety checks and maintenance and even to collect bikes for repair.**
 
             ### In a nutshell (TL:DR)
             
-            - Objectives and Problem Statement
-            - Minimum Viable Product (MVP)
-            - Research and explorations
-            - Milestones and Results
-
-            ### Problem Statement
-
-            As part of Moby Operations, there is a role called "*eBike Operators*" which among its responsibilities are distributing and relocating 
-            eBikes throughout the city, while performing safety checks and basic maintenance.
-
-            To optimize operations, we want to predict the demand for the next hours based on weather data in order to decide whether to increase fleet or
-            is safe to perform safety checks and maintenance and even to collect bikes for repair.
-
-            Several studies reported the influence of the weather on usage of bicycle sharing in many cities around the world [(See References)](#references).
+            - **Data Pipeline** - Pull data from APIs and dump it into a AWS S3 bucket. Read files from S3 and store them in a MYSQL database.
             
-            ### Data Pipeline
-
+            - **Minimum Viable Product (MVP)** - Creates a web app that shows a few business metrics and a few charts.
+            
+            - Uses **machine learning algorithms** to predict the demand for the next hours based on weather data.
+            
+            - Moby Operations team will use **Dashboard** and **Rental Demand Forecasting** to make decisions and planning its daily operations.
             
              """)
 
+    components.iframe('https://whimsical.com/design-docs-moby-bikes-operations-optimization-3RJyNyq2NHe8rPGzGZjrje', scrolling=True, height=800)
+
     # ![Data Pipeline](https://github.com/pessini/moby-bikes/blob/73f3d0af24a09b91fb1ca3c3d09edbf66273fdbf/documentation/data-pipeline.png?raw=true)
-    moby_data_pipeline = Image.open(f'{APP_PATH}img/data-pipeline.png')
-    st.image(moby_data_pipeline, use_column_width='always')
+    # moby_data_pipeline = Image.open(f'{APP_PATH}img/data-pipeline.png')
+    # st.image(moby_data_pipeline, use_column_width='always')
 
-    with open(f'{APP_PATH}docs/Moby-Bikes-Data-Pipeline.pdf', "rb") as file:
-        btn = st.download_button(label="Download as PDF",
-                                data=file,
-                                file_name='data-pipeline.pdf',
-                                mime="application/pdf"
-                                )
+    # with open(f'{APP_PATH}docs/Moby-Bikes-Data-Pipeline.pdf', "rb") as file:
+    #     btn = st.download_button(label="Download as PDF",
+    #                             data=file,
+    #                             file_name='data-pipeline.pdf',
+    #                             mime="application/pdf"
+    #                             )
 
-    st.write("""### Notebooks""")
+    # st.write("""### Notebooks""")
 
-    notebooks = {
-        'Data Wrangling': 'https://pessini.me/moby-bikes/notebooks-html/01-data-wrangling.html',
-        'Feature Engineering': 'https://pessini.me/moby-bikes/notebooks-html/02-feature-engineering.html',
-        'Exploratory Data Analysis': 'https://pessini.me/moby-bikes/notebooks-html/03-exploratory-data-analysis.html',
-        'Outlier Analysis': 'https://pessini.me/moby-bikes/notebooks-html/03A-outliers.html',
-        'Linear Regression': 'https://pessini.me/moby-bikes/notebooks-html/04A-linear-regression.html',
-        'Poisson Regression': 'https://pessini.me/moby-bikes/notebooks-html/04B-poisson.html',
-        'Time Series Analysis': 'https://pessini.me/moby-bikes/notebooks-html/04C-time-series.html',
-        'Modeling': 'https://pessini.me/moby-bikes/notebooks-html/05-modeling.html',
-        'XGBoost': 'https://pessini.me/moby-bikes/notebooks-html/06-xgboost-model.html',
-        'Model Evaluation': 'https://pessini.me/moby-bikes/notebooks-html/07-evaluation.html',
-    }
+    # notebooks = {
+    #     'Data Wrangling': 'https://pessini.me/moby-bikes/notebooks-html/01-data-wrangling.html',
+    #     'Feature Engineering': 'https://pessini.me/moby-bikes/notebooks-html/02-feature-engineering.html',
+    #     'Exploratory Data Analysis': 'https://pessini.me/moby-bikes/notebooks-html/03-exploratory-data-analysis.html',
+    #     'Outlier Analysis': 'https://pessini.me/moby-bikes/notebooks-html/03A-outliers.html',
+    #     'Linear Regression': 'https://pessini.me/moby-bikes/notebooks-html/04A-linear-regression.html',
+    #     'Poisson Regression': 'https://pessini.me/moby-bikes/notebooks-html/04B-poisson.html',
+    #     'Time Series Analysis': 'https://pessini.me/moby-bikes/notebooks-html/04C-time-series.html',
+    #     'Modeling': 'https://pessini.me/moby-bikes/notebooks-html/05-modeling.html',
+    #     'XGBoost': 'https://pessini.me/moby-bikes/notebooks-html/06-xgboost-model.html',
+    #     'Model Evaluation': 'https://pessini.me/moby-bikes/notebooks-html/07-evaluation.html',
+    # }
 
-    str_list = "".join(f"1. [{notebook}]({value}) \n" for notebook, value in notebooks.items())
-    st.markdown(str_list)
-    st.markdown("---")
+    # str_list = "".join(f"1. [{notebook}]({value}) \n" for notebook, value in notebooks.items())
+    # st.markdown(str_list)
+    # st.markdown("---")
 
-    st.write("""### Database Business Rules""")
+    # st.write("""### Database Business Rules""")
     
-    db_model = Image.open(f'{APP_PATH}docs/DBDataModel.png')
-    st.image(db_model, use_column_width='always')
+    # db_model = Image.open(f'{APP_PATH}docs/DBDataModel.png')
+    # st.image(db_model, use_column_width='always')
 
-    with st.expander("SQL code"):
-        st.code(BUSINESS_RULES_SQL, language='sql')
+    # with st.expander("SQL code"):
+    #     st.code(BUSINESS_RULES_SQL, language='sql')
 
     # for notebook in notebooks:
     #     with st.expander(notebook):
     #         components.iframe(notebooks[notebook], scrolling=True, height=600)
-    
-    st.write("""
-            ### Design Docs to Data Science Project
-            - Document the customer's business objectives.
-            - Define how your data science project will meet their needs.
-            - Set a vision for your project or product so that you can steer the team in the right direction.
-            - Define clear evaluation metrics so that you can objectively determine whether the project was successful.
-            - Conduct a cost-benefit analysis can help determine project go/no-go and prioritization against other potential projects.
-            - Document what you are not looking to accomplish (beyond your project scope).
-            
-            #### How To Build Design Documents
-            1. Objectives: Why are you building this?
-            1. Minimum Viable Product: What's important for your audience?
-            1. Research and explorations: What time and resources are available?
-            1. Milestones and Results: What can and has been achieved?
-            1. TL:DR (Too Long Didn't Read): What's the summary?""")
-    
-   
-    components.iframe('https://whimsical.com/embed/Y81cDnnBwq5V4CHXjB6NpM@VsSo8s35WwyzAmPQfkttcU', scrolling=True, height=450)
-    
-    # experiment_tracker_ideas = pd.read_excel(f'{APP_PATH}docs/experiment_tracker.xlsx', sheet_name='Ideas', keep_default_na=False, na_values=['<NA>'])
-    # st.table(experiment_tracker_ideas)
-    # st.markdown("---")
-    
-    # experiment_tracker_exp = pd.read_excel(f'{APP_PATH}docs/experiment_tracker.xlsx', sheet_name='Experiments', keep_default_na=False, na_values=['<NA>'])
-    # st.table(experiment_tracker_exp)
-    # st.markdown("---")
-    
-    st.markdown("""
-            ### References
-            [1] Li, L., & McDonald, F. (2013). Automated self-organising vehicles for Barclays Cycle Hire. *Memetic Computing*, *5*(1), 35–48. [https://doi.org/10.1007/s12293-012-0101-3](https://doi.org/10.1007/s12293-012-0101-3)
-    
-            [2] Gebhart, K., & Noland, R. B. (2014). The impact of weather conditions on bikeshare trips in Washington, DC. *Transportation*, *41*(6), 1205–1225. [https://doi.org/10.1007/s11116-014-9540-7](https://doi.org/10.1007/s11116-014-9540-7)
-            
-            [3] Hotz, B. N. (2022, August 1). 15 Data Science Documentation Best Practices. Data Science Process Alliance. [https://www.datascience-pm.com/documentation-best-practices/](https://www.datascience-pm.com/documentation-best-practices/)
-            
-            [4] Tatan, V. (2022, January 1). The Undeniable Importance of Design Docs to Data Scientists. Medium. [https://towardsdatascience.com/the-undeniable-importance-of-design-docs-to-data-scientists-421132561f3c](https://towardsdatascience.com/the-undeniable-importance-of-design-docs-to-data-scientists-421132561f3c)
-            """)
-
 
 footer_github = """<div style='position: absolute; padding-top: 100px; width:100%;'>
 <img title="GitHub Mark" src="https://github.com/pessini/avian-flu-wild-birds-ireland/blob/main/img/GitHub-Mark-64px.png?raw=true" 
