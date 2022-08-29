@@ -921,7 +921,7 @@ if selected == "About":
             eBikes throughout the city, while performing safety checks and basic maintenance.
 
             To optimize operations, we want to predict the demand for the next hours based on weather data in order to decide whether to increase fleet or
-            is safe to perform safefy checks and maintenance and even to collect bikes for repair.
+            is safe to perform safety checks and maintenance and even to collect bikes for repair.
 
             Several studies reported the influence of the weather on usage of bicycle sharing in many cities around the world [(See References)](#references).
             
