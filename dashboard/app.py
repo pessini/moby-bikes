@@ -849,25 +849,16 @@ if selected == "Dashboard":
 
 
 def highlight_high_demand(val):
-    color = '#c8fe00' if val > 10 else None
+    color = '#c8fe00' if val > 8 else None
     return f'background-color: {color}'
 
 #------- Demand Forecasting --------#
 if selected == "Demand Forecasting":
 
     # st.header('Demand Forecasting')
-    st.subheader("Predicting bike rentals demand")
+    st.subheader("Bike Rentals Demand")
 
-    image = Image.open(f'{APP_PATH}img/met-eireann-long.png')
-    st.image(image, use_column_width=False, width=30)
-
-    st.write('''
-    This web app shows the predicted bike rentals demand for the next hours based on Weather data.\n
-
-    Weather Forecast API [URL](http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast?lat=53.4264;long=-6.2499)
-
-    Source: [Met Éireann - The Irish Meteorological Service](https://www.met.ie/weather/forecast/)
-    ''')
+    st.write('''This table shows the predicted bike rentals demand for the next hours based on Weather data.\n''')
 
     URL_WEATHER_API = "http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast?lat=53.4264;long=-6.2499"
     response = requests.get(URL_WEATHER_API).content
@@ -882,7 +873,7 @@ if selected == "Demand Forecasting":
     # limiting 15 hours forecast
     df_predictions = df_forecast[['date', 'hour', 'temp', 'rhum', 'wdsp', 'rainfall_intensity', 'predicted']][:15].reset_index(drop=True)
     df_predictions.columns = ['Date', 'Hour', 'Temperature', 'Relative Humidity', 'Wind Speed', 'Rainfall Intensity', 'Predicted Demand']
-    st.caption('Highlighting hours with high demand (> 10)')
+    st.caption('Highlighting hours with high demand (> 8)')
     st.table(df_predictions.style.applymap(highlight_high_demand, subset=['Predicted Demand']))
 
     # DOWNLOAD DATA Button
@@ -897,36 +888,40 @@ if selected == "Demand Forecasting":
         file_name=csv_filename,
         mime='text/csv',
     )
+    
+    st.write("""Source: [Met Éireann - The Irish Meteorological Service](https://www.met.ie/weather/forecast/)""")
 
 #---------------------------------#
 
 if selected == "About":
 
     st.subheader('eBike Operations Optimization')
+    st.image("https://i.ytimg.com/vi/-s8er6tHD3o/maxresdefault.jpg", use_column_width='always')
 
     st.write("""
-            Moby bikes is an e-bike bike-share scheme in operation in Dublin. 
-            Electric powered bicycles may be rented from and returned to designated cycle stands inside the designated area.
-            
+            ### Objective
             As part of Moby Operations, there is a role called "_eBike Operators_" which among its responsibilities are distributing and relocating 
             eBikes throughout the city, while performing safety checks and basic maintenance.
 
             **To optimize operations, we want to predict the demand for the next hours based on weather data in order to decide whether to increase 
             fleet or is safe to perform safety checks and maintenance and even to collect bikes for repair.**
-
+            
             ### In a nutshell (TL:DR)
             
             - **Data Pipeline** - Pull data from APIs and dump it into a AWS S3 bucket. Read files from S3 and store them in a MYSQL database.
             
-            - **Minimum Viable Product (MVP)** - Creates a web app that shows a few business metrics and a few charts.
+            - **Minimum Viable Product (MVP)** - A web app that shows a few business metrics and a few charts.
             
             - Uses **machine learning algorithms** to predict the demand for the next hours based on weather data.
             
             - Moby Operations team will use **Dashboard** and **Rental Demand Forecasting** to make decisions and planning its daily operations.
-            
              """)
 
-    components.iframe('https://whimsical.com/design-docs-moby-bikes-operations-optimization-3RJyNyq2NHe8rPGzGZjrje', scrolling=True, height=800)
+    # components.iframe('https://whimsical.com/design-docs-moby-bikes-operations-optimization-3RJyNyq2NHe8rPGzGZjrje', scrolling=True, height=800)
+    st.markdown('---')
+    st.write("""
+             [Read full documentation](https://whimsical.com/design-docs-moby-bikes-operations-optimization-3RJyNyq2NHe8rPGzGZjrje)
+             """)
 
     # ![Data Pipeline](https://github.com/pessini/moby-bikes/blob/73f3d0af24a09b91fb1ca3c3d09edbf66273fdbf/documentation/data-pipeline.png?raw=true)
     # moby_data_pipeline = Image.open(f'{APP_PATH}img/data-pipeline.png')

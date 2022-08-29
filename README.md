@@ -3,7 +3,7 @@
 </p>
 <h1 align="center"> eBike Operations Optimization </h1>
 <h3 align="center"> Analytical Dashboard & Rental Demand Prediction </h3>  
-<p align="center"><a href="https://github.com/create-go-app/cli/releases" target="_blank"><img src="https://img.shields.io/badge/python-v3.9.6-blue?style=for-the-badge&logo=Python" alt="cli version" /></a> <img src="https://img.shields.io/badge/ML_Accuracy-89.2%25-success?style=for-the-badge&logo=none" alt="go cover" /> <img src="https://img.shields.io/badge/license-mit-red?style=for-the-badge&logo=none" alt="license" /></p>
+<p align="center"><img src="https://img.shields.io/badge/license-mit-blue?style=for-the-badge&logo=none" alt="license" /></p>
 <p align="center">
     <strong>
         <a href="https://pessini-moby-bikes-dashboardapp-hhvohw.streamlitapp.com/" target="_blank">Live Demo</a>
@@ -29,7 +29,7 @@ fleet or is safe to perform safety checks and maintenance and even to collect bi
 
 - **Data Pipeline** - Pull data from APIs and dump it into a AWS S3 bucket. Read files from S3 and store them in a MYSQL database.
 
-- **Minimum Viable Product (MVP)** - Creates a web app that shows a few business metrics and a few charts.
+- **Minimum Viable Product (MVP)** - A web app that shows a few business metrics and a few charts.
 
 - Uses **machine learning algorithms** to predict the demand for the next hours based on weather data.
 
@@ -37,4 +37,4 @@ fleet or is safe to perform safety checks and maintenance and even to collect bi
 
 ---
 
-Read full documentation [here](https://whimsical.com/design-docs-moby-bikes-operations-optimization-3RJyNyq2NHe8rPGzGZjrje)
+[Read full documentation here](https://whimsical.com/design-docs-moby-bikes-operations-optimization-3RJyNyq2NHe8rPGzGZjrje).
