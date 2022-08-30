@@ -317,7 +317,7 @@ def convert_minutes_to_hours(minutes):
 
 #---------------------------------#
 
-# @st.cache
+@st.cache
 def get_moby_metrics():
     response = s3_client.get_object(Bucket=S3_BUCKET, Key=S3_FILE_METRICS)
     file = response.get("Body").read().decode('utf-8')
