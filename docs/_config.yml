@@ -13,7 +13,7 @@ description: Product documentation template for Jekyll.
 author:
   name: Leandro Pessini
   email: leandro@pessini.me
-  twitter: # twitter username without the @ symbol
+  github: pessini
 social:
   name: Design Docs
   links:
@@ -36,7 +36,6 @@ exclude:
   - Gemfile.lock
   - README.md
   - LICENCE
-  - changelog.html
 
 collections:
   docs:

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Machine Learning | Design Docs</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Machine Learning" />
+<meta name="author" content="Leandro Pessini" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The Data Pipeline was deployed using a combination of AWS services and Streamlit. To delivery predictions, several notebooks were created such as feature engineering and XGBoost modeling to achieve a Normalized Root Mean Square Error (NRMSE) of 0.14699" />
+<meta property="og:description" content="The Data Pipeline was deployed using a combination of AWS services and Streamlit. To delivery predictions, several notebooks were created such as feature engineering and XGBoost modeling to achieve a Normalized Root Mean Square Error (NRMSE) of 0.14699" />
+<link rel="canonical" href="http://localhost:4000/milestones-results/Machine-Learning/" />
+<meta property="og:url" content="http://localhost:4000/milestones-results/Machine-Learning/" />
+<meta property="og:site_name" content="Design Docs" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Machine Learning" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","author":{"@type":"Person","name":"Leandro Pessini"},"description":"The Data Pipeline was deployed using a combination of AWS services and Streamlit. To delivery predictions, several notebooks were created such as feature engineering and XGBoost modeling to achieve a Normalized Root Mean Square Error (NRMSE) of 0.14699","headline":"Machine Learning","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/siteicon.png"},"name":"Leandro Pessini"},"url":"http://localhost:4000/milestones-results/Machine-Learning/"}</script>
+<!-- End Jekyll SEO tag -->
+
+		<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Design Docs" />
+
+		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,700,700italic|Open+Sans:400,400italic,600,600italic,700,700italic|Inconsolata:400,700">
+		<link rel="stylesheet" href="/css/main.css">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<link rel="icon" type="image/png" href="/touch-icon.png" sizes="192x192">
+		<link rel="icon" type="image/png" href="/images/favicon.png">
+
+		
+	</head>
+
+	<body>
+		<header>
+			<h1>
+				<a href="/"><img src="/images/emblem.svg" width="40" height="40" alt="Design Docs logo"></a>
+				Design Docs
+				<button type="button" class="open-nav" id="open-nav"></button>
+			</h1>
+
+			<form action="/search/" method="get">
+				<input type="text" name="q" id="search-input" placeholder="Search" autofocus>
+				<input type="submit" value="Search" style="display: none;">
+			</form>
+
+			<nav class="full-navigation">
+				<ul>
+					<li class="nav-item top-level ">
+						
+						<a href="/">eBikes Operations Optimization</a>
+					</li>
+				</ul>
+
+				<ul>
+					
+					
+						<li class="nav-item top-level ">
+							
+							<a href="/MVP/pipeline/">Minimum Viable Product (MVP)</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/MVP/pipeline/">Data Pipeline</a></li>
+								
+									<li class="nav-item "><a href="/MVP/database/">Database Modeling</a></li>
+								
+									<li class="nav-item "><a href="/MVP/streamlit/">Web App Mockup</a></li>
+								
+							</ul>
+						</li>
+					
+						<li class="nav-item top-level current">
+							
+							<a href="/milestones-results/challenges/">Milestones and Results</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/milestones-results/challenges/">Challenges and weakness</a></li>
+								
+									<li class="nav-item current"><a href="/milestones-results/Machine-Learning/">Machine Learning</a></li>
+								
+							</ul>
+						</li>
+					
+				</ul>
+
+				<!-- <ul>
+					<li class="nav-item top-level ">
+						
+						<a href="/changelog/"></a>
+					</li>
+				</ul> -->
+			</nav>
+		</header>
+
+		<section class="main">
+			<div class="page-header">
+				<h2>Milestones and Results</h2>
+				<h3>Machine Learning</h3>
+			</div>
+			<article class="content">
+				<p>The Data Pipeline was deployed using a combination of AWS services and Streamlit. To delivery predictions, several notebooks were created such as feature engineering and XGBoost modeling to achieve a <strong>Normalized Root Mean Square Error (NRMSE)</strong> of 0.14699</p>
+
+<p>To keep track of different models tested, an<a href="https://github.com/pessini/moby-bikes/blob/main/documentation/experiment_tracker.xlsx"> Excel file</a> is created (with help of a <a href="https://gist.github.com/pessini/32227430c700a081acc608725dee4eb7">Python class</a> to document all versions.</p>
+
+<p><img src="/images/exp_tracker_ideas.png" alt="Experiment Tracker - Ideas" />
+<img src="/images/exp_tracker.png" alt="Experiment Tracker - Experiments" /></p>
+
+<p><a href="https://gist.github.com/pessini/32227430c700a081acc608725dee4eb7">Experiment Tracker Class</a></p>
+
+<hr />
+<h2 id="notebooks">Notebooks</h2>
+
+<ol>
+  <li><a href="https://pessini.me/moby-bikes/notebooks-html/01-data-wrangling.html">Data Wrangling</a></li>
+  <li><a href="https://pessini.me/moby-bikes/notebooks-html/02-feature-engineering.html">Feature Engineering</a></li>
+  <li><a href="https://pessini.me/moby-bikes/notebooks-html/03-exploratory-data-analysis.html">Exploratory Data Analysis</a></li>
+  <li><a href="https://pessini.me/moby-bikes/notebooks-html/03A-outliers.html">Outlier Analysis</a></li>
+  <li><a href="https://pessini.me/moby-bikes/notebooks-html/04A-linear-regression.html">Linear Regression</a></li>
+  <li><a href="https://pessini.me/moby-bikes/notebooks-html/04B-poisson.html">Poisson Regression</a></li>
+  <li><a href="https://pessini.me/moby-bikes/notebooks-html/04C-time-series.html">Time Series Analysis</a></li>
+  <li><a href="https://pessini.me/moby-bikes/notebooks-html/05-modeling.html">Modeling</a></li>
+  <li><a href="https://pessini.me/moby-bikes/notebooks-html/06-xgboost-model.htm">XGBoost</a></li>
+  <li><a href="https://pessini.me/moby-bikes/notebooks-html/07-evaluation.html">Model Evaluation</a></li>
+</ol>
+
+<p><strong>Pre-trained XGBoost model</strong>: <a href="https://github.com/pessini/moby-bikes/blob/main/dashboard/xgb_pipeline.pkl">https://github.com/pessini/moby-bikes/blob/main/dashboard/xgb_pipeline.pkl</a></p>
+
+			</article>
+
+			<!-- <div style='position: relative; padding: 10px;height: 100px; line-height: 100px; text-align: center;'>
+				<img title="GitHub Mark" src="https://github.com/pessini/avian-flu-wild-birds-ireland/blob/main/img/GitHub-Mark-64px.png?raw=true"
+				style="height: 18px;" alt="GitHub Mark">
+				<a href='https://github.com/pessini/moby-bikes'
+				target='_blank'
+				style="font-size: small;display: inline-block;
+  							vertical-align: middle;
+  							line-height: normal;margin-bottom:5px;">GitHub Repository</a>
+			</div> -->
+			<div>
+				<p align="center">
+				  <a href="https://github.com/pessini"><img alt="GitHub" title="GitHub" height="18" width="18" src="/images/github.svg"></a>
+					<span style="font-size: 18px; display: inline-block;">|</span>
+				  <a href="https://www.linkedin.com/in/leandropessini"><img alt="LinkedIn" title="LinkedIn" height="18" width="18" src="/images/linkedin.svg"></a>
+					<br />Project by <a href="https://pessini.me">Leandro Pessini</a>
+				</p>
+			</div>
+		</section>
+
+		<script>
+			document.getElementById("open-nav").addEventListener("click", function () {
+				document.body.classList.toggle("nav-open");
+			});
+		</script>
+	</body>
+</html>

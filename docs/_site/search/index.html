@@ -60,50 +60,38 @@
 					
 						<li class="nav-item top-level ">
 							
-							<a href="/contact-syncing/facebook/">Contact Syncing</a>
+							<a href="/MVP/pipeline/">Minimum Viable Product (MVP)</a>
 							<ul>
 								
-									<li class="nav-item "><a href="/contact-syncing/facebook/">Facebook</a></li>
+									<li class="nav-item "><a href="/MVP/pipeline/">Data Pipeline</a></li>
 								
-									<li class="nav-item "><a href="/contact-syncing/phone/">Phone</a></li>
+									<li class="nav-item "><a href="/MVP/database/">Database Modeling</a></li>
+								
+									<li class="nav-item "><a href="/MVP/streamlit/">Web App Mockup</a></li>
 								
 							</ul>
 						</li>
 					
 						<li class="nav-item top-level ">
 							
-							<a href="/devices/ios/">Devices</a>
+							<a href="/milestones-results/challenges/">Milestones and Results</a>
 							<ul>
 								
-									<li class="nav-item "><a href="/devices/ios/">iOS</a></li>
+									<li class="nav-item "><a href="/milestones-results/challenges/">Challenges and weakness</a></li>
 								
-									<li class="nav-item "><a href="/devices/android/">Android</a></li>
-								
-							</ul>
-						</li>
-					
-						<li class="nav-item top-level ">
-							
-							<a href="/media/images/">Media</a>
-							<ul>
-								
-									<li class="nav-item "><a href="/media/images/">Images</a></li>
-								
-									<li class="nav-item "><a href="/media/video/">Video</a></li>
-								
-									<li class="nav-item "><a href="/media/documents/">Documents</a></li>
+									<li class="nav-item "><a href="/milestones-results/Machine-Learning/">Machine Learning</a></li>
 								
 							</ul>
 						</li>
 					
 				</ul>
 
-				<ul>
+				<!-- <ul>
 					<li class="nav-item top-level ">
 						
 						<a href="/changelog/"></a>
 					</li>
-				</ul>
+				</ul> -->
 			</nav>
 		</header>
 
@@ -124,12 +112,12 @@
 					
 					
 
-					"contact-syncing-facebook": {
-						"id": "contact-syncing-facebook",
-						"title": "Facebook",
+					"mvp-database": {
+						"id": "mvp-database",
+						"title": "Database Modeling",
 						"category": "",
-						"url": " /contact-syncing/facebook/",
-						"content": "Sync your Facebook contacts with ChatApp. Any of your Facebook friends with ChatApp accounts are automatically added to your contact list!\n\n\n  Signing up with Facebook automatically starts syncing contacts.\n\n\nTo sync your contacts:\n\n\n  Open your User Settings\n  Select the Connect Facebook button\n  Authorise ChatApp\n  Test"
+						"url": " /MVP/database/",
+						"content": "An AWS Aurora MySQL database will be used to store the data after being dumped on AWS S3 Bucket. An DB Diagram was created to be used as initial schema:\n\n\n\nLink: https://app.quickdatabasediagrams.com/#/d/fWEwXP"
 					}
 
 					
@@ -141,12 +129,12 @@
 					,
 					
 
-					"contact-syncing-phone": {
-						"id": "contact-syncing-phone",
-						"title": "Phone",
+					"mvp-pipeline": {
+						"id": "mvp-pipeline",
+						"title": "Data Pipeline",
 						"category": "",
-						"url": " /contact-syncing/phone/",
-						"content": "Sync your phone contacts with ChatApp. ChatApp saves your phone contacts and adds anyone with an email address to your contact list!\n\n\n  Syncing contacts with your phone restores any previously synced contacts.\n\n\nTo sync your contacts:\n\n\n  Open your User Settings on your phone app\n  Select the Sync Contacts button\n  Authorise ChatApp permissions\n  Select some or all of your contacts"
+						"url": " /MVP/pipeline/",
+						"content": "The chosen Data Pipeline structure was using AWS Services as showing below:\n\n\n\nSummary\n\n\n  \n    Every morning a Lambda function is invoked to pull data from APIs and dump it into a S3 Bucket.\n  \n  \n    Later in the morning, a new Lambda function is invoked to parse files from S3, process and load them into an Aurora (MySQL) database.\n  \n  \n    A Streamlit web app is deployed to present an analytical dashboard with KPIs and Rentals Demand predictions from Weather Forecast."
 					}
 
 					
@@ -158,12 +146,12 @@
 					,
 					
 
-					"devices-android": {
-						"id": "devices-android",
-						"title": "Android",
+					"mvp-streamlit": {
+						"id": "mvp-streamlit",
+						"title": "Web App Mockup",
 						"category": "",
-						"url": " /devices/android/",
-						"content": "Use ChatApp on all of your Android devices. Every version is supported.\n\nTo install ChatApp on your device:\n\n\n  Open the Google Play Store\n  Search for ChatApp\n  Select Install"
+						"url": " /MVP/streamlit/",
+						"content": ""
 					}
 
 					
@@ -175,12 +163,12 @@
 					,
 					
 
-					"devices-ios": {
-						"id": "devices-ios",
-						"title": "iOS",
+					"milestones-results-machine-learning": {
+						"id": "milestones-results-machine-learning",
+						"title": "Machine Learning",
 						"category": "",
-						"url": " /devices/ios/",
-						"content": "Use ChatApp on most of your Apple devices. Only the latest versions are supported.\n\nTo install ChatApp on your device:\n\n\n  Open the App Store\n  Search for ChatApp\n  Select Install"
+						"url": " /milestones-results/Machine-Learning/",
+						"content": "The Data Pipeline was deployed using a combination of AWS services and Streamlit. To delivery predictions, several notebooks were created such as feature engineering and XGBoost modeling to achieve a Normalized Root Mean Square Error (NRMSE) of 0.14699\n\nTo keep track of different models tested, an Excel file is created (with help of a Python class to document all versions.\n\n\n\n\nExperiment Tracker Class\n\n\nNotebooks\n\n\n  Data Wrangling\n  Feature Engineering\n  Exploratory Data Analysis\n  Outlier Analysis\n  Linear Regression\n  Poisson Regression\n  Time Series Analysis\n  Modeling\n  XGBoost\n  Model Evaluation\n\n\nPre-trained XGBoost model: https://github.com/pessini/moby-bikes/blob/main/dashboard/xgb_pipeline.pkl"
 					}
 
 					
@@ -192,46 +180,12 @@
 					,
 					
 
-					"media-documents": {
-						"id": "media-documents",
-						"title": "Documents",
+					"milestones-results-challenges": {
+						"id": "milestones-results-challenges",
+						"title": "Challenges and weakness",
 						"category": "",
-						"url": " /media/documents/",
-						"content": "Share documents with your friends! Send work or school projects from your computer or phone.\n\nTo share a document:\n\n\n  Open a message with someone\n  Select the Send Media button\n  Pick a document\n  Test\n\n\n\n  Changes made to documents after sending are not saved back, you’ll have to get contacts to send you updated versions."
-					}
-
-					
-				
-			
-		
-			
-				
-					,
-					
-
-					"media-images": {
-						"id": "media-images",
-						"title": "Images",
-						"category": "",
-						"url": " /media/images/",
-						"content": "Share images with your friends! Send photos and pictures from your computer, phone or camera.\n\n\n  Images are stored until you choose to remove them.\n\n\nTo share an image:\n\n\n  Open a message with someone\n  Select the Send Media button\n  Pick an image\n\n\n\n\nSupported types:\n\n\n  JPEG\n  PNG\n  BMP\n  GIF\n\n\nUnsupported types:\n\n\n  SVG\n  WEBP"
-					}
-
-					
-				
-			
-		
-			
-				
-					,
-					
-
-					"media-video": {
-						"id": "media-video",
-						"title": "Video",
-						"category": "",
-						"url": " /media/video/",
-						"content": "Share video to your friends! Send videos from your computer, phone, camera or YouTube.\n\nTo share a video:\n\n\n  Open a message with someone\n  Select the Send Media button\n  Pick a video or paste a YouTube link\n\n\n\n  Videos can use up a lot of bandwidth so be aware of your mobile data."
+						"url": " /milestones-results/challenges/",
+						"content": "Monitoring &amp; Logging was not implemented yet!\n\n\nThe lack of data is definitely a bottleneck to our project. For example, within the initial data exploration a few rental types were found:\n\n\n  DUB-General\n  Workshop\n  Healthcare\n  Private\n\n\nWorkshop is unknown if bikes were allocated either to an specific event or the workshop is provided by Moby Bikes in order to promote its services, for example. The same rule applies to Healthcare type.\n\nRental’s duration\n\nPeriod of use\n\n“5.1 Bikes should not be used for more than 19 consecutive hours, this is the maximum period of use.” General Terms and Conditions (“GTC”)\n\n\n  Assumption: Due to lack of information and data, to calculate the duration rental time I am assuming that when a new bike rental starts the duration in minutes will be calculated by:\n\n\nRentalDuration = LastGPSTime − LastRentalStart\n\nWeather Data\n\nPhoenix Park Station vs Dublin Airport Station\n\nGeographically, the station at Phoenix Park would be the most suitable choice but unfortunately, they do not collect Wind information which in Ireland plays an important role when deciding to go cycling or not. For those who are not familiar with Irish weather, it rains a lot and mostly we do not have much choice about it but the wind is something that can prevent you go outside or choosing a different kind of transportation. Heavy rain is not that common, though.\n\nHourly vs Daily data\n\nA daily data to the business could make more sense but because the weather is so unpredictable in Ireland (it can completely change in an hour), the best option would be hourly data if looking at a historical perspective. Important to note that from the Weather API the forecast is provided hourly. For simplicity and better planning, we can always aggregate the predicted results by day."
 					}
 
 					
@@ -244,6 +198,24 @@
 <script src="/scripts/search.js"></script>
 
 			</article>
+
+			<!-- <div style='position: relative; padding: 10px;height: 100px; line-height: 100px; text-align: center;'>
+				<img title="GitHub Mark" src="https://github.com/pessini/avian-flu-wild-birds-ireland/blob/main/img/GitHub-Mark-64px.png?raw=true"
+				style="height: 18px;" alt="GitHub Mark">
+				<a href='https://github.com/pessini/moby-bikes'
+				target='_blank'
+				style="font-size: small;display: inline-block;
+  							vertical-align: middle;
+  							line-height: normal;margin-bottom:5px;">GitHub Repository</a>
+			</div> -->
+			<div>
+				<p align="center">
+				  <a href="https://github.com/pessini"><img alt="GitHub" title="GitHub" height="18" width="18" src="/images/github.svg"></a>
+					<span style="font-size: 18px; display: inline-block;">|</span>
+				  <a href="https://www.linkedin.com/in/leandropessini"><img alt="LinkedIn" title="LinkedIn" height="18" width="18" src="/images/linkedin.svg"></a>
+					<br />Project by <a href="https://pessini.me">Leandro Pessini</a>
+				</p>
+			</div>
 		</section>
 
 		<script>

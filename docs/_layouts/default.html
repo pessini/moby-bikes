@@ -60,12 +60,12 @@
 					{% endfor %}
 				</ul>
 
-				<ul>
+				<!-- <ul>
 					<li class="nav-item top-level {% if page.url == '/changelog/' %}current{% endif %}">
 						{% assign changelog = site.html_pages | where: 'url', '/changelog/' | first %}
 						<a href="{{ site.baseurl }}/changelog/">{{ changelog.title }}</a>
 					</li>
-				</ul>
+				</ul> -->
 			</nav>
 		</header>
 
@@ -77,6 +77,24 @@
 			<article class="content">
 				{{ content }}
 			</article>
+
+			<!-- <div style='position: relative; padding: 10px;height: 100px; line-height: 100px; text-align: center;'>
+				<img title="GitHub Mark" src="https://github.com/pessini/avian-flu-wild-birds-ireland/blob/main/img/GitHub-Mark-64px.png?raw=true"
+				style="height: 18px;" alt="GitHub Mark">
+				<a href='https://github.com/pessini/moby-bikes'
+				target='_blank'
+				style="font-size: small;display: inline-block;
+  							vertical-align: middle;
+  							line-height: normal;margin-bottom:5px;">GitHub Repository</a>
+			</div> -->
+			<div>
+				<p align="center">
+				  <a href="https://github.com/pessini"><img alt="GitHub" title="GitHub" height="18" width="18" src="{{ site.baseurl }}/images/github.svg"></a>
+					<span style="font-size: 18px; display: inline-block;">|</span>
+				  <a href="https://www.linkedin.com/in/leandropessini"><img alt="LinkedIn" title="LinkedIn" height="18" width="18" src="{{ site.baseurl }}/images/linkedin.svg"></a>
+					<br />Project by <a href="https://pessini.me">Leandro Pessini</a>
+				</p>
+			</div>
 		</section>
 
 		<script>

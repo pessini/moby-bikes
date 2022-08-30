@@ -2,32 +2,17 @@
 title: eBikes Operations Optimization
 ---
 
+![Moby Banner](/images/maxresdefault.jpeg)
+
 [Moby bikes](https://mobybikes.com/) is an e-bike bike-share scheme in operation in Dublin. Electric powered bicycles may be rented from and returned to designated cycle stands inside the designated area.
 
-> [Sign up](http://example.com/signup) or learn more about ChatApp at [example.com](http://example.com/).
 
-### Getting Started
+## Problem Statement
 
-Getting a message sent is quick and easy with ChatApp:
+As part of Moby Operations, there is a role called "_eBike Operators_" which among its responsibilities are distributing and relocating eBikes throughout the city, while performing safety checks and basic maintenance.
 
-1. Sign up for an account
-2. Add your friends from their email addresses
-3. Type a message or send a photo
+**To optimize operations, we want to predict the demand for the next hours based on weather data in order to decide whether to increase fleet or is safe to perform safety checks and maintenance and even to collect bikes for repair.**
 
-> Feel free to send us a message at [feedback@example.com](mailto:feedback@example.com) with your feedback.
+> The first step was creating a Canvas to obtain a project overview.
 
-### Features
-
-Explore more of ChatApp by reading about our features:
-
-#### Media
-
-Send images, videos and other media to people. Sources include your computer, phone and Facebook.
-
-#### Contact Syncing
-
-Sync your contact list with your phone and/or Facebook contacts. Never lose your contacts between devices again!
-
-#### Devices
-
-ChatApp is available everywhere. Find out how to set it up on your all your devices.
+![Canvas](/images/canvas.png)
