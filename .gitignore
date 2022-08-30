@@ -21,7 +21,8 @@
 /models/
 *conn/
 
-.streamlit
+secrets.toml
+credentials.toml
 .ipynb_checkpoints
 .virtual_documents
 
