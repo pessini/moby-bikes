@@ -8,8 +8,8 @@ The Data Pipeline was deployed using a combination of AWS services and Streamlit
 
 To keep track of different models tested, an[ Excel file](https://github.com/pessini/moby-bikes/blob/main/documentation/experiment_tracker.xlsx) is created (with help of a [Python class](https://gist.github.com/pessini/32227430c700a081acc608725dee4eb7) to document all versions.
 
-![Experiment Tracker - Ideas](/images/exp_tracker_ideas.png)
-![Experiment Tracker - Experiments](/images/exp_tracker.png)
+![Experiment Tracker - Ideas](https://github.com/pessini/moby-bikes/blob/0ac9ebcf8d70e38494175b8eaef9ced2ad1685c3/docs/images/exp_tracker_ideas.png?raw=true)
+![Experiment Tracker - Experiments](https://github.com/pessini/moby-bikes/blob/0ac9ebcf8d70e38494175b8eaef9ced2ad1685c3/docs/images/exp_tracker.png?raw=true)
 
 [Experiment Tracker Class](https://gist.github.com/pessini/32227430c700a081acc608725dee4eb7)
 
