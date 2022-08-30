@@ -1,12 +1,14 @@
-<p align="center"> 
-  <img src="https://www.mobybikes.com/wp-content/uploads/2020/05/logo-1.png" width="224px"/>
-</p>
-<h1 align="center"> eBike Operations Optimization </h1>
-<h3 align="center"> Analytical Dashboard & Rental Demand Prediction </h3>  
+<h1 align="center" style="padding: 50px">
+    <p align="center"> 
+        <img src="https://www.mobybikes.com/wp-content/uploads/2020/05/logo-1.png" width="224px"/>
+    </p>
+</h1>
+<h3 align="center"> eBike Operations Optimization <br /><br />
+Analytical Dashboard & Demand Forecasting </h3>  
 <p align="center"><img src="https://img.shields.io/badge/license-mit-blue?style=for-the-badge&logo=none" alt="license" /></p>
 <p align="center">
     <strong>
-        <a href="https://pessini-moby-bikes-dashboardapp-hhvohw.streamlitapp.com/" target="_blank">Live Demo</a>
+        <a href="https://pessini-moby-bikes-dashboardapp-hhvohw.streamlitapp.com/" target="_blank">Web App</a>
         •
         <a href="https://whimsical.com/design-docs-moby-bikes-operations-optimization-3RJyNyq2NHe8rPGzGZjrje" target="_blank">Documentation</a>
     </strong>
@@ -16,6 +18,7 @@
     <img src="https://i.ytimg.com/vi/-s8er6tHD3o/maxresdefault.jpg" width="550">
 </p>
 
+<br />
 Moby bikes is an e-bike bike-share scheme in operation in Dublin. 
 Electric powered bicycles may be rented from and returned to designated cycle stands inside the designated area.
 

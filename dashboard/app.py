@@ -570,53 +570,10 @@ if selected == "About":
             - Moby Operations team will use **Dashboard** and **Rental Demand Forecasting** to make decisions and planning its daily operations.
              """)
 
-    # components.iframe('https://whimsical.com/design-docs-moby-bikes-operations-optimization-3RJyNyq2NHe8rPGzGZjrje', scrolling=True, height=800)
     st.markdown('---')
     st.write("""
              [Read full documentation](https://whimsical.com/design-docs-moby-bikes-operations-optimization-3RJyNyq2NHe8rPGzGZjrje)
              """)
-
-    # ![Data Pipeline](https://github.com/pessini/moby-bikes/blob/73f3d0af24a09b91fb1ca3c3d09edbf66273fdbf/documentation/data-pipeline.png?raw=true)
-    # moby_data_pipeline = Image.open(f'{APP_PATH}img/data-pipeline.png')
-    # st.image(moby_data_pipeline, use_column_width='always')
-
-    # with open(f'{APP_PATH}docs/Moby-Bikes-Data-Pipeline.pdf', "rb") as file:
-    #     btn = st.download_button(label="Download as PDF",
-    #                             data=file,
-    #                             file_name='data-pipeline.pdf',
-    #                             mime="application/pdf"
-    #                             )
-
-    # st.write("""### Notebooks""")
-
-    # notebooks = {
-    #     'Data Wrangling': 'https://pessini.me/moby-bikes/notebooks-html/01-data-wrangling.html',
-    #     'Feature Engineering': 'https://pessini.me/moby-bikes/notebooks-html/02-feature-engineering.html',
-    #     'Exploratory Data Analysis': 'https://pessini.me/moby-bikes/notebooks-html/03-exploratory-data-analysis.html',
-    #     'Outlier Analysis': 'https://pessini.me/moby-bikes/notebooks-html/03A-outliers.html',
-    #     'Linear Regression': 'https://pessini.me/moby-bikes/notebooks-html/04A-linear-regression.html',
-    #     'Poisson Regression': 'https://pessini.me/moby-bikes/notebooks-html/04B-poisson.html',
-    #     'Time Series Analysis': 'https://pessini.me/moby-bikes/notebooks-html/04C-time-series.html',
-    #     'Modeling': 'https://pessini.me/moby-bikes/notebooks-html/05-modeling.html',
-    #     'XGBoost': 'https://pessini.me/moby-bikes/notebooks-html/06-xgboost-model.html',
-    #     'Model Evaluation': 'https://pessini.me/moby-bikes/notebooks-html/07-evaluation.html',
-    # }
-
-    # str_list = "".join(f"1. [{notebook}]({value}) \n" for notebook, value in notebooks.items())
-    # st.markdown(str_list)
-    # st.markdown("---")
-
-    # st.write("""### Database Business Rules""")
-    
-    # db_model = Image.open(f'{APP_PATH}docs/DBDataModel.png')
-    # st.image(db_model, use_column_width='always')
-
-    # with st.expander("SQL code"):
-    #     st.code(BUSINESS_RULES_SQL, language='sql')
-
-    # for notebook in notebooks:
-    #     with st.expander(notebook):
-    #         components.iframe(notebooks[notebook], scrolling=True, height=600)
 
 footer_github = """<div style='position: absolute; padding-top: 100px; width:100%;'>
 <img title="GitHub Mark" src="https://github.com/pessini/avian-flu-wild-birds-ireland/blob/main/img/GitHub-Mark-64px.png?raw=true" 
