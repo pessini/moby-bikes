@@ -18,9 +18,14 @@ from sklearn.pipeline import Pipeline
 import requests
 from bs4 import BeautifulSoup
 import boto3
+import json
+import ast
 
 s3_client = boto3.client("s3")
 S3_BUCKET = "moby-bikes-rentals"
+S3_FILE_RENTALS = "dashboard/rentals.json"
+S3_FILE_METRICS = "dashboard/metrics.json"
+S3_FILE_BATTERY = "dashboard/battery.json"
 
 # -------------- SETTINGS --------------
 page_title = "Moby Bikes - Analytical Dashboard & Demand Forecasting"
@@ -61,20 +66,6 @@ selected = option_menu(
 )
 
 #---------------------------------#
-
-# Initialize connection.
-# Uses st.experimental_singleton to only run once.
-@st.experimental_singleton
-def init_connection():
-    return mysql.connector.connect(**st.secrets["mysql"])
-
-# Perform query.
-# Uses st.experimental_memo to only rerun when the query changes or after 10 min.
-@st.experimental_memo(ttl=600)
-def run_query(query):
-    with conn.cursor() as cur:
-        cur.execute(query)
-        return cur.fetchall()
 
 def host_is_local(hostname, port=None):
     """returns True if the hostname points to the localhost, otherwise False."""
@@ -325,65 +316,23 @@ def convert_minutes_to_hours(minutes):
     return f"{round_up(hour)}h {round_up(min)}m"
 
 #---------------------------------#
-@st.cache
-def get_avg_duration() -> float:
-    # CONCAT(FLOOR(AVG(Duration)/60),'h ', ROUND(MOD(AVG(Duration),60),0),'m') as average_duration
-    # AVG(Duration) AS average_duration
-    sqlquery = run_query("""SELECT 
-                                AVG(Duration) AS average_duration
-                            FROM 
-                                mobybikes.Rentals
-                            WHERE 
-                                DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 3 MONTH) AND CURDATE();""")
-    return sqlquery[0][0]
 
-# Indicator of how the metric changed
-@st.cache
-def get_avg_duration_delta() -> float:
-    sqlquery = run_query("""SELECT 
-                                AVG(Duration) AS average_duration
-                            FROM 
-                                mobybikes.Rentals
-                            WHERE 
-                                DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 6 MONTH) AND DATE_SUB( CURDATE() , INTERVAL 3 MONTH);""")
-    return sqlquery[0][0]
-
-@st.cache
-def get_total_rentals() -> int:
-    sqlquery = run_query("""SELECT 
-                                COUNT(*) AS total_rentals 
-                            FROM 
-                                mobybikes.Rentals
-                            WHERE 
-                                DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 3 MONTH) AND CURDATE();""")
-    return sqlquery[0][0]
-
-# Indicator of how the metric changed
-@st.cache
-def get_total_rentals_delta() -> float:
-    sqlquery = run_query("""SELECT 
-                                COUNT(*) AS total_rentals  
-                            FROM 
-                                mobybikes.Rentals
-                            WHERE 
-                                DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 6 MONTH) AND DATE_SUB( CURDATE() , INTERVAL 3 MONTH);""")
-    return sqlquery[0][0]
+# @st.cache
+def get_moby_metrics():
+    response = s3_client.get_object(Bucket=S3_BUCKET, Key=S3_FILE_METRICS)
+    file = response.get("Body").read().decode('utf-8')
+    metric_dict = ast.literal_eval(file)
+    return pd.DataFrame(metric_dict, index=[0], dtype=float)
 
 @st.cache(allow_output_mutation=True)
 def get_initial_battery():
     
-    sqlquery = run_query("""SELECT
-                                BatteryStart
-                            FROM 
-                                mobybikes.Rentals
-                            WHERE
-                                DATE(`Date`) BETWEEN DATE_SUB( CURDATE() , INTERVAL 3 MONTH) AND CURDATE()
-                            AND
-                                (BatteryStart IS NOT NULL OR BatteryStart IS NOT NULL)
-                            AND
-                                (BatteryStart <> 0 OR BatteryStart <> 0);
-                        """)
-    return pd.DataFrame(sqlquery, columns=['start_battery'])
+    response = s3_client.get_object(Bucket=S3_BUCKET, Key=S3_FILE_BATTERY)
+    file = response.get("Body").read().decode('utf-8')
+    df_battery = pd.read_json(file)
+    df_battery.columns = ['start_battery']
+    
+    return df_battery
 
 def group_battery_status():
     
@@ -406,29 +355,10 @@ def group_battery_status():
 @st.cache
 def get_hourly_total_rentals() -> pd.DataFrame:
     
-    # DATE_FORMAT(`Date`, '%Y-%m-%d %H:00:00') AS date_rental,
-    # HAVING DATE(date_rental) BETWEEN DATE_SUB( CURDATE() , INTERVAL 3 MONTH) AND CURDATE()
-    
-    sqlquery = run_query("""WITH CTE_HOURLY_TOTAL_RENTALS AS
-                            (
-                                SELECT 
-                                    DATE_FORMAT(`Date`, '%Y-%m-%d %H:00:00') AS date_rental,
-                                    COUNT(*) AS total_rentals,
-                                    ROUND( AVG(Duration),2 ) AS hourly_avg_duration
-                                FROM mobybikes.Rentals
-                                GROUP BY date_rental
-                            )
-                            SELECT 
-                                date_rental,
-                                FN_TIMESOFDAY(date_rental) AS timeofday, 
-                                DAYNAME(date_rental) AS day_of_week, 
-                                total_rentals,
-                                hourly_avg_duration
-                            FROM 
-                                CTE_HOURLY_TOTAL_RENTALS;
-                        """)
-    
-    df = pd.DataFrame(sqlquery, columns=['date_rental', 'timeofday', 'day_of_week', 'total_rentals','hourly_avg_duration'])
+    response = s3_client.get_object(Bucket=S3_BUCKET, Key=S3_FILE_RENTALS)
+    file = response.get("Body").read().decode('utf-8')
+    df = pd.read_json(file)
+    df.columns=['date_rental', 'timeofday', 'day_of_week', 'total_rentals','hourly_avg_duration']
     df['date'] = pd.to_datetime(arg=df['date_rental'], utc=True, infer_datetime_format=True).dt.date
     df['Season'] = pd.to_datetime(df['date']).map(get_season)
     df.drop(columns=['date'], inplace=True)
@@ -516,26 +446,24 @@ def plot_avg_duration_rentals(df, by='Day of the Week'):
 
 # --- DASHBOARD ---
 if selected == "Dashboard":
-    
-    conn = init_connection()
 
     # st.header('Dashboard')
     st.subheader('Dashboard')
-    
+
     # --- METRICS ---
     col_metric_1, padding, col_metric_2 = st.columns((10,2,10))
-    
-    total_rentals = get_total_rentals()
+    metrics_moby = get_moby_metrics()
+    total_rentals = int(metrics_moby['total_rentals'][0])
     try:
-        total_rentals_delta = total_rentals - get_total_rentals_delta()
+        total_rentals_delta = total_rentals - int(metrics_moby['total_rentals_delta'][0])
     except Exception:
         total_rentals_delta = None
         
     col_metric_1.metric('Total Rentals (past 3 months)', total_rentals, total_rentals_delta)
 
-    avg_duration = float(get_avg_duration())
+    avg_duration = metrics_moby['average_duration'][0]
     try:
-        avg_duration_delta = avg_duration - float(get_avg_duration_delta())
+        avg_duration_delta = avg_duration - metrics_moby['average_duration_delta'][0]
     except Exception:
         avg_duration_delta = None
 
@@ -647,17 +575,6 @@ if selected == "About":
     st.write("""
              [Read full documentation](https://whimsical.com/design-docs-moby-bikes-operations-optimization-3RJyNyq2NHe8rPGzGZjrje)
              """)
-    
-   
-    response = s3_client.get_object(Bucket=S3_BUCKET, Key="dashboard/df_train.csv")
-    status = response.get("ResponseMetadata", {}).get("HTTPStatusCode")
-
-    if status == 200:
-        print(f"Successful S3 get_object response. Status - {status}")
-        books_df = pd.read_csv(response.get("Body"))
-        st.dataframe(books_df)
-    else:
-        print(f"Unsuccessful S3 get_object response. Status - {status}")
 
     # ![Data Pipeline](https://github.com/pessini/moby-bikes/blob/73f3d0af24a09b91fb1ca3c3d09edbf66273fdbf/documentation/data-pipeline.png?raw=true)
     # moby_data_pipeline = Image.open(f'{APP_PATH}img/data-pipeline.png')
