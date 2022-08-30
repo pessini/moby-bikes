@@ -6,7 +6,7 @@ order: 1
 
 The chosen Data Pipeline structure was using AWS Services as showing below:
 
-![Data Pipeline](https://github.com/pessini/moby-bikes/blob/73f3d0af24a09b91fb1ca3c3d09edbf66273fdbf/documentation/data-pipeline.png?raw=true)
+![Data Pipeline](/images/data-pipeline.png)
 
 ## Summary
 
