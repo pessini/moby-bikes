@@ -5,7 +5,7 @@
 </h1>
 <h3 align="center"> eBike Operations Optimization <br /><br />
 Analytical Dashboard & Demand Forecasting </h3>  
-<p align="center"><img src="https://img.shields.io/badge/license-mit-blue?style=for-the-badge&logo=none" alt="license" /></p>
+<p align="center"><img src="https://img.shields.io/badge/LICENSE-MIT-blue?style=?style=flat-square&logo=appveyor&logo=none" alt="license" /></p>
 <p align="center">
     <strong>
         <a href="https://pessini-moby-bikes-dashboardapp-hhvohw.streamlitapp.com/" target="_blank">Web App</a>
