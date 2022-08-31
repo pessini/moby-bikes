@@ -9,15 +9,17 @@ show_full_navigation: true
 
 # Values for the jekyll-seo-tag gem (https://github.com/jekyll/jekyll-seo-tag)
 logo: /siteicon.png
-description: Product documentation template for Jekyll.
+description: Design Docs - eBikes Operations Optimization
 author:
   name: Leandro Pessini
   email: leandro@pessini.me
   github: pessini
 social:
-  name: Design Docs
+  name: Leandro Pessini
   links:
-    - https://github.com/pessini/moby-bikes
+    - https://github.com/pessini/
+    - https://www.linkedin.com/in/leandropessini
+    - https://pessini.me
 
 # -----
 # Build

@@ -23,9 +23,9 @@ _`Workshop`_ is unknown if bikes were allocated either to an specific event or t
 
 > **Assumption**: Due to lack of information and data, to calculate the duration rental time I am assuming that when a new bike rental starts the duration in _minutes_ will be calculated by:
 
-```
-RentalDuration = LastGPSTime − LastRentalStart
-```
+$$ (RentalDuration = LastGPSTime − LastRentalStart) $$
+
+
 ## Weather Data
 
 ### Phoenix Park Station vs Dublin Airport Station
