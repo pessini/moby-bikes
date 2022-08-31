@@ -2,7 +2,7 @@
 title: eBikes Operations Optimization
 ---
 
-![Moby Banner](/images/maxresdefault.jpeg)
+![Moby Banner]({{ site.baseurl }}/images/maxresdefault.jpeg)
 
 [Moby bikes](https://mobybikes.com/) is an e-bike bike-share scheme in operation in Dublin. Electric powered bicycles may be rented from and returned to designated cycle stands inside the designated area.
 
@@ -15,4 +15,4 @@ As part of Moby Operations, there is a role called "_eBike Operators_" which amo
 
 > The first step was creating a Canvas to obtain a project overview.
 
-![Canvas](/images/canvas.png)
+![Canvas]({{ site.baseurl }}/images/canvas.png)

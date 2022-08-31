@@ -6,7 +6,7 @@ order: 1
 
 The chosen Data Pipeline structure was using AWS Services as showing below:
 
-![Data Pipeline](/images/data-pipeline.png)
+![Data Pipeline]({{ site.baseurl }}/images/data-pipeline.png)
 
 ## Summary
 

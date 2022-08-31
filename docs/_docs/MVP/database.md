@@ -6,7 +6,8 @@ order: 2
 
 An AWS Aurora MySQL database will be used to store the data after being dumped on AWS S3 Bucket. An [DB Diagram was created](https://www.quickdatabasediagrams.com/) to be used as initial schema:
 
-![Database Model](/images/DBDataModel.png)
+| ![Database Model]({{ site.baseurl }}/images/DBDataModel.png) |
+| :--: |
+| *Database Model Diagram* |
 
-
-Link: [https://app.quickdatabasediagrams.com/#/d/fWEwXP](https://app.quickdatabasediagrams.com/#/d/fWEwXP)
+See online: [https://app.quickdatabasediagrams.com/#/d/fWEwXP](https://app.quickdatabasediagrams.com/#/d/fWEwXP)
