@@ -4,4 +4,4 @@ category: Minimum Viable Product (MVP)
 order: 3
 ---
 
-![Streamlit Web App](/images/Dashboard-Mockup.png)
+![Streamlit Web App]({{ site.baseurl }}/images/Dashboard-Mockup.png)
