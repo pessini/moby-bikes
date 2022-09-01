@@ -6,21 +6,21 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>Change Log | Design Docs</title>
+<title>Design Docs | Design Docs - eBikes Operations Optimization</title>
 <meta name="generator" content="Jekyll v3.9.2" />
-<meta property="og:title" content="Change Log" />
+<meta property="og:title" content="Design Docs" />
 <meta name="author" content="Leandro Pessini" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Design Docs - eBikes Operations Optimization" />
-<meta property="og:description" content="Design Docs - eBikes Operations Optimization" />
-<link rel="canonical" href="http://localhost:4000/moby-bikes/changelog/" />
-<meta property="og:url" content="http://localhost:4000/moby-bikes/changelog/" />
+<meta name="description" content="APIs Sources" />
+<meta property="og:description" content="APIs Sources" />
+<link rel="canonical" href="http://localhost:4000/moby-bikes/research-exploration/" />
+<meta property="og:url" content="http://localhost:4000/moby-bikes/research-exploration/" />
 <meta property="og:site_name" content="Design Docs" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Change Log" />
+<meta property="twitter:title" content="Design Docs" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Leandro Pessini"},"description":"Design Docs - eBikes Operations Optimization","headline":"Change Log","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/moby-bikes/siteicon.png"},"name":"Leandro Pessini"},"url":"http://localhost:4000/moby-bikes/changelog/"}</script>
+{"@context":"https://schema.org","@type":"Article","author":{"@type":"Person","name":"Leandro Pessini"},"description":"APIs Sources","headline":"Design Docs","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/moby-bikes/siteicon.png"},"name":"Leandro Pessini"},"url":"http://localhost:4000/moby-bikes/research-exploration/"}</script>
 <!-- End Jekyll SEO tag -->
 
 		<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/moby-bikes/feed.xml" title="Design Docs" />
@@ -94,7 +94,7 @@
 							</ul>
 						</li>
 					
-						<li class="nav-item top-level ">
+						<li class="nav-item top-level current">
 							
 							<a href="/moby-bikes/research-exploration/">Research and Exploration</a>
 							<ul>
@@ -107,7 +107,7 @@
 				</ul>
 
 				<!-- <ul>
-					<li class="nav-item top-level current">
+					<li class="nav-item top-level ">
 						
 						<a href="/moby-bikes/changelog/">Change Log</a>
 					</li>
@@ -117,71 +117,28 @@
 
 		<section class="main">
 			<div class="page-header">
-				<h2>Design Docs</h2>
-				<!-- <h3>Change Log</h3> -->
+				<h2>Research and Exploration</h2>
+				<!-- <h3></h3> -->
 
 					
-					    <h3 style="padding-top: 35px">Change Log</h3>
+					    <h3 style="padding-top: 0px;"></h3>
 					
 
 			</div>
 			<article class="content">
-				<p>Subscribe with <a href="/moby-bikes/feed.xml">RSS</a> to keep up with the latest changes.</p>
+				<h1 id="apis-sources">APIs Sources</h1>
 
-<p class="editor-link"><a href="cloudcannon:collections/_posts" class="btn"><strong>&#9998;</strong> Update Change Log</a></p>
-
-<div class="changelog">
-	
-		<div class="changelog-item">
-			<h3>General fixes and improvements</h3>
-			<p><span class="date">February 05, 2016</span> <span class="badge minor">minor</span></p>
-
-			<p>This release fixes a few minor issues reported by users. We’ve also made a few quality of life improvements.</p>
-
-<p><strong>Features:</strong></p>
+<p>A few data sources were identified to supply the Data Pipeline and be used as main data for this project:</p>
 
 <ul>
-  <li>Streamlined access to contact details</li>
-  <li>Better sort order for archived messages</li>
+  <li><a href="https://mobybikes.com/">Moby Bikes</a> has a <a href="https://data.smartdublin.ie/mobybikes-api">public API</a> where it provides current locations of the bikes in operation in the Dublin area and is updated every 5 minutes. There are also rollups of historic bike location data (30 minutes granularity) available as downloadable CSV resources.</li>
+  <li>The <a href="https://www.met.ie/">Met Éireann</a> WDB <a href="https://data.gov.ie/dataset/met-eireann-weather-forecast-api/resource/5d156b15-38b8-4de9-921b-0ffc8704c88e">API</a> outputs a detailed point forecast in XML format for a coordinate point as defined by the user.</li>
+  <li><a href="https://calendarific.com/">Calendarific</a> Global Holidays <a href="https://calendarific.com/api-documentation">API</a> is a RESTful API giving you access to public, local &amp; bank holidays and observances. An API key is required for every request to the Holiday API.</li>
 </ul>
 
-<p><strong>Fixes:</strong></p>
+<p>The Data Pipeline was built on AWS Services, as demonstrated in the diagram below:</p>
 
-<ul>
-  <li>Input sometimes getting stuck</li>
-  <li>One more memory leak obliterated</li>
-</ul>
-
-
-			<p class="editor-link"><a href="cloudcannon:collections/_posts/2016-02-05-general-fixes-and-improvements.md" class="btn"><strong>&#9998;</strong> Update Entry</a></p>
-		</div>
-	
-		<div class="changelog-item">
-			<h3>Media support</h3>
-			<p><span class="date">January 12, 2016</span> <span class="badge major">major</span></p>
-
-			<p>ChatApp introduces media support! Send images, videos and documents to your contacts.</p>
-
-<p><strong>Features:</strong></p>
-
-<ul>
-  <li>Image support</li>
-  <li>Video support</li>
-  <li>Document support</li>
-</ul>
-
-<p><strong>Fixes:</strong></p>
-
-<ul>
-  <li>Edge case contact syncing issue</li>
-  <li>All memory leaks obliterated</li>
-</ul>
-
-
-			<p class="editor-link"><a href="cloudcannon:collections/_posts/2016-01-12-media-support.md" class="btn"><strong>&#9998;</strong> Update Entry</a></p>
-		</div>
-	
-</div>
+<p><img src="/moby-bikes/images/data-pipeline.png" alt="Data Pipeline" /></p>
 
 			</article>
 

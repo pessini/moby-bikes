@@ -13,6 +13,8 @@ As part of Moby Operations, there is a role called "_eBike Operators_" which amo
 
 **To optimize operations, we want to predict the demand for the next hours based on weather data in order to decide whether to increase fleet or is safe to perform safety checks and maintenance and even to collect bikes for repair.**
 
+## Project Overview
+
 > The first step was creating a Canvas to obtain a project overview.
 
 ![Canvas]({{ site.baseurl }}/images/canvas.png)
