@@ -60,6 +60,26 @@
 					
 						<li class="nav-item top-level ">
 							
+							<a href="/moby-bikes/MVP/pipeline/">Minimum Viable Product (MVP)</a>
+							<ul>
+								
+									
+										<li class="nav-item "><a href="/moby-bikes/MVP/pipeline/">Data Pipeline</a></li>
+									
+								
+									
+										<li class="nav-item "><a href="/moby-bikes/MVP/database/">Database Modeling</a></li>
+									
+								
+									
+										<li class="nav-item "><a href="/moby-bikes/MVP/streamlit/">Web App Mockup</a></li>
+									
+								
+							</ul>
+						</li>
+					
+						<li class="nav-item top-level ">
+							
 							<a href="/moby-bikes/milestones-results/challenges/">Milestones and Results</a>
 							<ul>
 								
@@ -69,26 +89,6 @@
 								
 									
 										<li class="nav-item "><a href="/moby-bikes/milestones-results/Machine-Learning/">Machine Learning</a></li>
-									
-								
-							</ul>
-						</li>
-					
-						<li class="nav-item top-level ">
-							
-							<a href="/moby-bikes/mvp/pipeline/">Minimum Viable Product (MVP)</a>
-							<ul>
-								
-									
-										<li class="nav-item "><a href="/moby-bikes/mvp/pipeline/">Data Pipeline</a></li>
-									
-								
-									
-										<li class="nav-item "><a href="/moby-bikes/mvp/database/">Database Modeling</a></li>
-									
-								
-									
-										<li class="nav-item "><a href="/moby-bikes/mvp/streamlit/">Web App Mockup</a></li>
 									
 								
 							</ul>
@@ -137,6 +137,57 @@
 					
 					
 
+					"mvp-database": {
+						"id": "mvp-database",
+						"title": "Database Modeling",
+						"category": "",
+						"url": " /MVP/database/",
+						"content": "An AWS Aurora MySQL database will be used to store the data after being dumped on AWS S3 Bucket. An DB Diagram was created to be used as initial schema:\n\n\n  \n    \n      \n    \n  \n  \n    \n      Database Model Diagram\n    \n  \n\n\nSee online: https://app.quickdatabasediagrams.com/#/d/fWEwXP"
+					}
+
+					
+				
+			
+		
+			
+				
+					,
+					
+
+					"mvp-pipeline": {
+						"id": "mvp-pipeline",
+						"title": "Data Pipeline",
+						"category": "",
+						"url": " /MVP/pipeline/",
+						"content": "APIs Sources\n\nA few data sources were identified to supply the Data Pipeline and be used as main data for this project:\n\n\n  Moby Bikes has a public API where it provides current locations of the bikes in operation in the Dublin area and is updated every 5 minutes. There are also rollups of historic bike location data (30 minutes granularity) available as downloadable CSV resources.\n  The Met Éireann WDB API outputs a detailed point forecast in XML format for a coordinate point as defined by the user.\n  Calendarific Global Holidays API is a RESTful API giving you access to public, local &amp; bank holidays and observances. An API key is required for every request to the Holiday API.\n\n\nThe Data Pipeline was built on AWS Services, as demonstrated in the diagram below:\n\n\n\nDescription\n\nLambda Function - PullAPIDataMobyBikes\n\nA trigger event was created to run every morning at 6am which will pull data from APIs and dump it into a S3 Bucker.\n\nimport pandas as pd\nfrom datetime import datetime, timedelta\nimport os\nimport requests\nimport json\nimport boto3\n\ns3_client = boto3.client(\"s3\")\nLOCAL_FILE_SYS = \"/tmp\"\nS3_BUCKET = \"moby-bikes-rentals\"\n\ntoday_dt = datetime.now()\ntoday_dt_str = today_dt.strftime(\"%Y-%m-%d\")\nyesterday_dt = today_dt - timedelta(days=1)\nyesterday_dt_str = yesterday_dt.strftime(\"%Y-%m-%d\")\n\n###############################################################\n# Dublin Airport Yesterday Data\n# https://data.gov.ie/dataset/yesterdays-weather-dublin-airport\n###############################################################\n\n# Download CSV\n# URL: https://www.met.ie/latest-reports/observations/download/Dublin-Airport/yesterday\n\n# API (sometimes is not working) - 504 Gateway Timeout\n# Checking alternative with CSV file\n# URL: https://prodapi.metweb.ie/observations/dublin/yesterday\n\ndef format_hour(hour) -&gt; int:\n    '''\n    Receives a string of the form 'HH:MM' and returns a integer with the hour\n    '''\n    hour_str = hour.split(':')\n    return int(hour_str[0])\n\ndef key_exists(mykey, mybucket):\n    if result := s3_client.list_objects_v2(Bucket=mybucket, Prefix=mykey):\n        return 'Contents' in result\n\nheaders={'content-type': 'application/json', 'accept': 'application/json'}\n\nWEATHER_DATA_API_URL = \"https://prodapi.metweb.ie/observations/dublin/yesterday\"\nWEATHER_DATA_CSV_URL = 'https://www.met.ie/latest-reports/observations/download/Dublin-Airport/yesterday'\n# ROOT_DIR_LOCAL = os.path.abspath(os.curdir)\n\ndef get_weather_data():\n\n    try:\n\n        api_response = requests.get(WEATHER_DATA_API_URL, headers=headers)\n        json_str = api_response.text\n        parse_json = json.loads(json_str)\n\n        if api_response:\n            weather_filename = f'{yesterday_dt_str}.json'\n        else:\n            weather_filename = f'{yesterday_dt_str}_error.json'\n\n        with open(LOCAL_FILE_SYS + \"/\" + weather_filename, 'w', encoding='utf-8') as f:\n            json.dump(parse_json, f, ensure_ascii=False, indent=4)\n\n    except Exception:\n\n        try:\n\n            dubairport_yesterday = pd.read_csv(WEATHER_DATA_CSV_URL)\n            dubairport_yesterday.columns = ['time', 'report', 'temp', 'wdsp', 'wind_gust', 'wind_direction', 'rain', 'pressure']\n            dubairport_yesterday['time'] = dubairport_yesterday['time'].apply(format_hour)\n            dubairport_yesterday.drop(['report', 'wind_gust', 'wind_direction', 'pressure'], axis=1, inplace=True)\n            weather_filename = f'{yesterday_dt_str}.csv'\n            dubairport_yesterday.to_csv(LOCAL_FILE_SYS + \"/\" + weather_filename, index=False)\n\n        except Exception as e:\n\n            weather_filename = f'{yesterday_dt_str}_error.txt'\n            with open(LOCAL_FILE_SYS + \"/\" + weather_filename, 'w') as f:\n                f.write(e.__str__())\n\n    finally:\n\n        if key_exists(\"weather_\" + weather_filename, S3_BUCKET):\n            print(\"Weather data file already in S3 bucket!\")\n        else:\n            s3_client.upload_file(LOCAL_FILE_SYS + \"/\" + weather_filename, S3_BUCKET, \"weather_\" + weather_filename)\n\ndef get_rentals_data():\n    ###############################################################\n    # Moby Bikes Data\n    # https://data.gov.ie/dataset/moby-bikes\n    ###############################################################\n\n    # Moby API\n    # URL: https://data.smartdublin.ie/mobybikes-api/\n\n    #parameters = None\n    parameters = {\n        \"start\": yesterday_dt_str,\n        \"end\": today_dt_str\n    }\n\n    baseurl = \"https://data.smartdublin.ie/mobybikes-api/\"\n    # last_reading_url = f'{baseurl}last_reading/'\n\n    historical_url = f'{baseurl}historical/'\n    api_response_moby = requests.get(historical_url, headers=headers, params=parameters)\n    moby_json_str = api_response_moby.text\n    moby_parse_json = json.loads(moby_json_str)\n\n    if api_response_moby:\n        moby_json_filename = f'{yesterday_dt_str}.json'\n    else:\n        moby_json_filename = f'{yesterday_dt_str}_error.json'\n\n    with open(LOCAL_FILE_SYS + \"/\" + moby_json_filename, 'w', encoding='utf-8') as f:\n        json.dump(moby_parse_json, f, ensure_ascii=False, indent=4)\n\n    if key_exists(\"moby_\" + moby_json_filename, S3_BUCKET):\n        print(\"Moby rentals data file already in S3 bucket!\")\n    else:\n        s3_client.upload_file(LOCAL_FILE_SYS + \"/\" + moby_json_filename, S3_BUCKET, \"moby_\" + moby_json_filename)\n\n\ndef lambda_handler(event, context):\n    '''\n    Loads the weather data from the API and saves it to S3\n    '''\n    get_weather_data()\n    get_rentals_data()\n\n\nLambda Function - Persist-Data-From-S3-To-Aurora-Mysql\n\nA trigger event later in the morning (at 8am) was created to parse those files created from the lambda above and store them into an Aurora (MySQL) database.\n\nimport json\nfrom datetime import datetime\nimport mysql.connector\nfrom mysql_conn import mysqldb as mysqlcredentials\nimport boto3\nimport numpy as np\n\ns3_client = boto3.client(\"s3\")\nS3_BUCKET = \"moby-bikes-rentals\"\n\ndef openDB_connection():\n    conn = mysql.connector.connect(**mysqlcredentials.config)\n    cursor = conn.cursor()\n    return conn, cursor\n\ndef get_file_tag(fileName):\n    # Example of tag 'TagSet': [{'Key': 'rental', 'Value': ''}]\n    # If object has no tagging, setting tag = None\n    try:\n        tag = s3_client.get_object_tagging(Bucket=S3_BUCKET, Key=fileName)['TagSet'][0]['Key']\n    except Exception:\n        tag = None\n\n    return tag\n\ndef remove_file_tag(fileName):\n    s3_client.delete_object_tagging(Bucket=S3_BUCKET,Key=fileName)\n\ndef add_file_tag(fileName, tag):\n    try:\n        today_dt = datetime.now()\n        today_dt_str = today_dt.strftime(\"%Y-%m-%d\")\n        new_tag = {'TagSet': [{'Key': tag, 'Value': today_dt_str}]}\n        s3_client.put_object_tagging(Bucket=S3_BUCKET, Key=fileName, Tagging=new_tag)\n        return True\n    except Exception:\n        return False\n\ndef times_of_day(hour: int) -&gt; str:\n    '''\n    Receives an hour and returns the time of day\n    Morning: 7:00 - 11:59\n    Afternoon: 12:01 - 17:59\n    Evening: 18:00 - 22:59\n    Night: 23:00 - 06:59\n    '''\n\n    conditions = [\n        (hour &lt; 7), # night 23:00 - 06:59\n        (hour &gt;= 7) &amp; (hour &lt; 12), # morning 7:00 - 11:59\n        (hour &gt;= 12) &amp; (hour &lt; 18), # afternoon 12:01 - 17:59\n        (hour &gt;= 18) &amp; (hour &lt; 23) # evening 18:00 - 22:59\n    ]\n    values = ['Night', 'Morning', 'Afternoon', 'Evening']\n\n    return str(np.select(conditions, values,'Night'))\n\ndef rain_intensity_level(rain: float) -&gt; str:\n    '''\n    Receives a rain intensity (in mm) and returns the rain intensity level\n    '''\n\n    conditions = [\n        (rain == 0.0), # no rain\n        (rain &lt;= 0.3), # drizzle\n        (rain &gt; 0.3) &amp; (rain &lt;= 0.5), # light rain\n        (rain &gt; 0.5) &amp; (rain &lt;= 4), # moderate rain\n        (rain &gt; 4) # heavy rain\n        ]\n    values = ['no rain', 'drizzle', 'light rain', 'moderate rain','heavy rain']\n\n    return str(np.select(conditions, values))\n\ndef feat_eng_weather(data: list) -&gt; list:\n    '''\n    Receives a List with tuples weather data from JSON file\n    and returns a new list with feature engineered data\n        0 - ['temperature'],\n        1 - ['windSpeed'],\n        2 - ['humidity'],\n        3 - ['rainfall'],\n        4 - ['date'],\n        5 - ['reportTime']\n    Returns:\n        (Date, Hour, TimeOfDay, Temperature, WindSpeed, Humidity, Rain, RainLevel)\n    '''\n    return [(convert_date(str.strip(i[4])),\n             str.strip(i[5].split(':')[0]),\n             times_of_day(int( str.strip(i[5].split(':')[0]) )),\n             force_integer( str.strip(i[0]) ),\n             force_integer( str.strip(i[1]) ),\n             force_integer( str.strip(i[2]) ),\n             str.strip(i[3]),\n             rain_intensity_level(float( str.strip(i[3]) ))) for i in data]\n\ndef convert_date(date_weather: str) -&gt; str:\n    '''\n    Receives a date 'dd-mm-yyyy' and returns a date like 'yyyy-mm-dd'\n    '''\n    return datetime.strptime(date_weather, \"%d-%m-%Y\").strftime(\"%Y-%m-%d\")\n\ndef get_date_from_filename(filename: str) -&gt; str:\n    '''\n    Receives a filename and returns the date from the filename\n    '''\n    filename = filename.split('.')[0]\n    return filename.split('_')[1]\n\ndef force_integer(input_number):\n    try:\n        tmp = int(input_number)\n    except Exception:\n        tmp = 0\n    return tmp\n\ndef process_files_data(fileType='rentals') -&gt; list:\n\n    if fileType == 'rentals':\n        filePrefix = 'moby_'\n    elif fileType == 'weather':\n        filePrefix = 'weather_'\n\n    files_in_bucket = s3_client.list_objects(Bucket=S3_BUCKET, Prefix=filePrefix)\n\n    all_data=[]\n    files_queued = []\n    if 'Contents' in files_in_bucket:\n        for v in files_in_bucket['Contents']:\n\n            tag = get_file_tag(v['Key'])\n\n            if not tag: # if object is not tagged, needs to be processed\n\n                files_queued.append(v['Key'])\n\n                obj = s3_client.get_object(Bucket=S3_BUCKET, Key=v['Key'])\n                json_data = json.loads(obj['Body'].read().decode('utf-8'))\n\n                if fileType == 'rentals':\n\n                    list_rdata = [(i['LastRentalStart'],\n                                    i['BikeID'],\n                                    i['Battery'],\n                                    i['LastGPSTime'],\n                                    i['Latitude'],\n                                    i['Longitude']) for i in json_data]\n                    all_data.extend(list_rdata)\n\n                elif fileType == 'weather':\n\n                    list_wdata = [(i['temperature'],\n                                    i['windSpeed'],\n                                    i['humidity'],\n                                    i['rainfall'],\n                                    i['date'],\n                                    i['reportTime']) for i in json_data]\n\n                    list_wdata = feat_eng_weather(list_wdata)\n                    all_data.extend(list_wdata)\n\n    return all_data, files_queued\n\ndef lambda_handler(event, context):\n\n    conn, cursor = openDB_connection()\n\n    try:\n\n        rentals_data, rfiles_queued = process_files_data(fileType='rentals')\n\n        if rentals_data:\n\n            stmt = \"\"\"INSERT INTO mobybikes.rawRentals (LastRentalStart, BikeID, Battery, LastGPSTime, Latitude, Longitude) VALUES (%s, %s, %s, %s, %s, %s)\"\"\"\n            cursor.executemany(stmt,rentals_data)\n\n            if rfiles_queued:\n                for fileName in rfiles_queued:\n                    add_file_tag(fileName,'processed')\n\n            None if conn.autocommit else conn.commit()\n            print(cursor.rowcount, \"record(s) inserted.\")\n\n        else:\n            print('No Rental files were found to be processed!')\n\n    except mysql.connector.Error as error:\n\n        print(f\"Failed to update record to database rollback: {error}\")\n        # reverting changes because of exception\n        conn.rollback()\n\n        if rfiles_queued:\n            for fileName in rfiles_queued:\n                add_file_tag(fileName,'error')\n\n    finally:\n\n        cursor.callproc('SP_RENTALS_PROCESSING')\n        None if conn.autocommit else conn.commit()\n\n        try:\n\n            weather_data, wfiles_queued = process_files_data(fileType='weather')\n\n            if weather_data:\n                stmt = \"\"\"INSERT INTO mobybikes.Weather (Date, Hour, TimeOfDay, Temperature, WindSpeed, Humidity, Rain, RainLevel) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)\"\"\"\n                cursor.executemany(stmt,weather_data)\n\n                if wfiles_queued:\n                    for fileName in wfiles_queued:\n                        args = (get_date_from_filename(fileName),)\n                        cursor.callproc('SP_LOG_WEATHER_EVENTS', args)\n                        add_file_tag(fileName,'processed')\n\n                None if conn.autocommit else conn.commit()\n            else:\n                print('No Weather files were found to be processed!')\n\n        except mysql.connector.Error as error:\n\n            print(f\"Failed to update record to database rollback: {error}\")\n            # reverting changes because of exception\n            conn.rollback()\n\n            if wfiles_queued:\n                for fileName in wfiles_queued:\n                    add_file_tag(fileName,'error')\n\n    # closing database connection.\n    cursor.close()\n    conn.close()\n\n\n\nStreamlit dashboard\n\nA Streamlit web app is deployed to present an analytical dashboard with KPIs and Rentals Demand predictions from Weather Forecast.\n\n\n  See dashboard mockup"
+					}
+
+					
+				
+			
+		
+			
+				
+					,
+					
+
+					"mvp-streamlit": {
+						"id": "mvp-streamlit",
+						"title": "Web App Mockup",
+						"category": "",
+						"url": " /MVP/streamlit/",
+						"content": "Streamlit Web App Mockup\n    \n  \n\n\nSee version deployed: https://pessini-moby-bikes-dashboardapp-hhvohw.streamlitapp.com/"
+					}
+
+					
+				
+			
+		
+			
+				
+					,
+					
+
 					"milestones-results-machine-learning": {
 						"id": "milestones-results-machine-learning",
 						"title": "Machine Learning",
@@ -160,57 +211,6 @@
 						"category": "",
 						"url": " /milestones-results/challenges/",
 						"content": "Monitoring &amp; Logging was not implemented yet!\n\n\nThe lack of data is definitely a bottleneck to our project. For example, within the initial data exploration a few rental types were found:\n\n\n  DUB-General\n  Workshop\n  Healthcare\n  Private\n\n\nWorkshop is unknown if bikes were allocated either to an specific event or the workshop is provided by Moby Bikes in order to promote its services, for example. The same rule applies to Healthcare type.\n\nRental’s duration\n\nPeriod of use\n\n“5.1 Bikes should not be used for more than 19 consecutive hours, this is the maximum period of use.” General Terms and Conditions (“GTC”)\n\n\n  Assumption: Due to lack of information and data, to calculate the duration rental time I am assuming that when a new bike rental starts the duration in minutes will be calculated by:\n\n\n\\[(RentalDuration = LastGPSTime − LastRentalStart)\\]\n\nWeather Data\n\nPhoenix Park Station vs Dublin Airport Station\n\nGeographically, the station at Phoenix Park would be the most suitable choice but unfortunately, they do not collect Wind information which in Ireland plays an important role when deciding to go cycling or not. For those who are not familiar with Irish weather, it rains a lot and mostly we do not have much choice about it but the wind is something that can prevent you go outside or choosing a different kind of transportation. Heavy rain is not that common, though.\n\nHourly vs Daily data\n\nA daily data to the business could make more sense but because the weather is so unpredictable in Ireland (it can completely change in an hour), the best option would be hourly data if looking at a historical perspective. Important to note that from the Weather API the forecast is provided hourly. For simplicity and better planning, we can always aggregate the predicted results by day."
-					}
-
-					
-				
-			
-		
-			
-				
-					,
-					
-
-					"mvp-database": {
-						"id": "mvp-database",
-						"title": "Database Modeling",
-						"category": "",
-						"url": " /mvp/database/",
-						"content": "An AWS Aurora MySQL database will be used to store the data after being dumped on AWS S3 Bucket. An DB Diagram was created to be used as initial schema:\n\n\n  \n    \n      \n    \n  \n  \n    \n      Database Model Diagram\n    \n  \n\n\nSee online: https://app.quickdatabasediagrams.com/#/d/fWEwXP"
-					}
-
-					
-				
-			
-		
-			
-				
-					,
-					
-
-					"mvp-pipeline": {
-						"id": "mvp-pipeline",
-						"title": "Data Pipeline",
-						"category": "",
-						"url": " /mvp/pipeline/",
-						"content": "APIs Sources\n\nA few data sources were identified to supply the Data Pipeline and be used as main data for this project:\n\n\n  Moby Bikes has a public API where it provides current locations of the bikes in operation in the Dublin area and is updated every 5 minutes. There are also rollups of historic bike location data (30 minutes granularity) available as downloadable CSV resources.\n  The Met Éireann WDB API outputs a detailed point forecast in XML format for a coordinate point as defined by the user.\n  Calendarific Global Holidays API is a RESTful API giving you access to public, local &amp; bank holidays and observances. An API key is required for every request to the Holiday API.\n\n\nThe Data Pipeline was built on AWS Services, as demonstrated in the diagram below:\n\n\n\nDescription\n\nLambda Function - PullAPIDataMobyBikes\n\nA trigger event was created to run every morning at 6am which will pull data from APIs and dump it into a S3 Bucker.\n\nimport pandas as pd\nfrom datetime import datetime, timedelta\nimport os\nimport requests\nimport json\nimport boto3\n\ns3_client = boto3.client(\"s3\")\nLOCAL_FILE_SYS = \"/tmp\"\nS3_BUCKET = \"moby-bikes-rentals\"\n\ntoday_dt = datetime.now()\ntoday_dt_str = today_dt.strftime(\"%Y-%m-%d\")\nyesterday_dt = today_dt - timedelta(days=1)\nyesterday_dt_str = yesterday_dt.strftime(\"%Y-%m-%d\")\n\n###############################################################\n# Dublin Airport Yesterday Data\n# https://data.gov.ie/dataset/yesterdays-weather-dublin-airport\n###############################################################\n\n# Download CSV\n# URL: https://www.met.ie/latest-reports/observations/download/Dublin-Airport/yesterday\n\n# API (sometimes is not working) - 504 Gateway Timeout\n# Checking alternative with CSV file\n# URL: https://prodapi.metweb.ie/observations/dublin/yesterday\n\ndef format_hour(hour) -&gt; int:\n    '''\n    Receives a string of the form 'HH:MM' and returns a integer with the hour\n    '''\n    hour_str = hour.split(':')\n    return int(hour_str[0])\n\ndef key_exists(mykey, mybucket):\n    if result := s3_client.list_objects_v2(Bucket=mybucket, Prefix=mykey):\n        return 'Contents' in result\n\nheaders={'content-type': 'application/json', 'accept': 'application/json'}\n\nWEATHER_DATA_API_URL = \"https://prodapi.metweb.ie/observations/dublin/yesterday\"\nWEATHER_DATA_CSV_URL = 'https://www.met.ie/latest-reports/observations/download/Dublin-Airport/yesterday'\n# ROOT_DIR_LOCAL = os.path.abspath(os.curdir)\n\ndef get_weather_data():\n\n    try:\n\n        api_response = requests.get(WEATHER_DATA_API_URL, headers=headers)\n        json_str = api_response.text\n        parse_json = json.loads(json_str)\n\n        if api_response:\n            weather_filename = f'{yesterday_dt_str}.json'\n        else:\n            weather_filename = f'{yesterday_dt_str}_error.json'\n\n        with open(LOCAL_FILE_SYS + \"/\" + weather_filename, 'w', encoding='utf-8') as f:\n            json.dump(parse_json, f, ensure_ascii=False, indent=4)\n\n    except Exception:\n\n        try:\n\n            dubairport_yesterday = pd.read_csv(WEATHER_DATA_CSV_URL)\n            dubairport_yesterday.columns = ['time', 'report', 'temp', 'wdsp', 'wind_gust', 'wind_direction', 'rain', 'pressure']\n            dubairport_yesterday['time'] = dubairport_yesterday['time'].apply(format_hour)\n            dubairport_yesterday.drop(['report', 'wind_gust', 'wind_direction', 'pressure'], axis=1, inplace=True)\n            weather_filename = f'{yesterday_dt_str}.csv'\n            dubairport_yesterday.to_csv(LOCAL_FILE_SYS + \"/\" + weather_filename, index=False)\n\n        except Exception as e:\n\n            weather_filename = f'{yesterday_dt_str}_error.txt'\n            with open(LOCAL_FILE_SYS + \"/\" + weather_filename, 'w') as f:\n                f.write(e.__str__())\n\n    finally:\n\n        if key_exists(\"weather_\" + weather_filename, S3_BUCKET):\n            print(\"Weather data file already in S3 bucket!\")\n        else:\n            s3_client.upload_file(LOCAL_FILE_SYS + \"/\" + weather_filename, S3_BUCKET, \"weather_\" + weather_filename)\n\ndef get_rentals_data():\n    ###############################################################\n    # Moby Bikes Data\n    # https://data.gov.ie/dataset/moby-bikes\n    ###############################################################\n\n    # Moby API\n    # URL: https://data.smartdublin.ie/mobybikes-api/\n\n    #parameters = None\n    parameters = {\n        \"start\": yesterday_dt_str,\n        \"end\": today_dt_str\n    }\n\n    baseurl = \"https://data.smartdublin.ie/mobybikes-api/\"\n    # last_reading_url = f'{baseurl}last_reading/'\n\n    historical_url = f'{baseurl}historical/'\n    api_response_moby = requests.get(historical_url, headers=headers, params=parameters)\n    moby_json_str = api_response_moby.text\n    moby_parse_json = json.loads(moby_json_str)\n\n    if api_response_moby:\n        moby_json_filename = f'{yesterday_dt_str}.json'\n    else:\n        moby_json_filename = f'{yesterday_dt_str}_error.json'\n\n    with open(LOCAL_FILE_SYS + \"/\" + moby_json_filename, 'w', encoding='utf-8') as f:\n        json.dump(moby_parse_json, f, ensure_ascii=False, indent=4)\n\n    if key_exists(\"moby_\" + moby_json_filename, S3_BUCKET):\n        print(\"Moby rentals data file already in S3 bucket!\")\n    else:\n        s3_client.upload_file(LOCAL_FILE_SYS + \"/\" + moby_json_filename, S3_BUCKET, \"moby_\" + moby_json_filename)\n\n\ndef lambda_handler(event, context):\n    '''\n    Loads the weather data from the API and saves it to S3\n    '''\n    get_weather_data()\n    get_rentals_data()\n\n\nLambda Function - Persist-Data-From-S3-To-Aurora-Mysql\n\nA trigger event later in the morning (at 8am) was created to parse those files created from the lambda above and store them into an Aurora (MySQL) database.\n\nimport json\nfrom datetime import datetime\nimport mysql.connector\nfrom mysql_conn import mysqldb as mysqlcredentials\nimport boto3\nimport numpy as np\n\ns3_client = boto3.client(\"s3\")\nS3_BUCKET = \"moby-bikes-rentals\"\n\ndef openDB_connection():\n    conn = mysql.connector.connect(**mysqlcredentials.config)\n    cursor = conn.cursor()\n    return conn, cursor\n\ndef get_file_tag(fileName):\n    # Example of tag 'TagSet': [{'Key': 'rental', 'Value': ''}]\n    # If object has no tagging, setting tag = None\n    try:\n        tag = s3_client.get_object_tagging(Bucket=S3_BUCKET, Key=fileName)['TagSet'][0]['Key']\n    except Exception:\n        tag = None\n\n    return tag\n\ndef remove_file_tag(fileName):\n    s3_client.delete_object_tagging(Bucket=S3_BUCKET,Key=fileName)\n\ndef add_file_tag(fileName, tag):\n    try:\n        today_dt = datetime.now()\n        today_dt_str = today_dt.strftime(\"%Y-%m-%d\")\n        new_tag = {'TagSet': [{'Key': tag, 'Value': today_dt_str}]}\n        s3_client.put_object_tagging(Bucket=S3_BUCKET, Key=fileName, Tagging=new_tag)\n        return True\n    except Exception:\n        return False\n\ndef times_of_day(hour: int) -&gt; str:\n    '''\n    Receives an hour and returns the time of day\n    Morning: 7:00 - 11:59\n    Afternoon: 12:01 - 17:59\n    Evening: 18:00 - 22:59\n    Night: 23:00 - 06:59\n    '''\n\n    conditions = [\n        (hour &lt; 7), # night 23:00 - 06:59\n        (hour &gt;= 7) &amp; (hour &lt; 12), # morning 7:00 - 11:59\n        (hour &gt;= 12) &amp; (hour &lt; 18), # afternoon 12:01 - 17:59\n        (hour &gt;= 18) &amp; (hour &lt; 23) # evening 18:00 - 22:59\n    ]\n    values = ['Night', 'Morning', 'Afternoon', 'Evening']\n\n    return str(np.select(conditions, values,'Night'))\n\ndef rain_intensity_level(rain: float) -&gt; str:\n    '''\n    Receives a rain intensity (in mm) and returns the rain intensity level\n    '''\n\n    conditions = [\n        (rain == 0.0), # no rain\n        (rain &lt;= 0.3), # drizzle\n        (rain &gt; 0.3) &amp; (rain &lt;= 0.5), # light rain\n        (rain &gt; 0.5) &amp; (rain &lt;= 4), # moderate rain\n        (rain &gt; 4) # heavy rain\n        ]\n    values = ['no rain', 'drizzle', 'light rain', 'moderate rain','heavy rain']\n\n    return str(np.select(conditions, values))\n\ndef feat_eng_weather(data: list) -&gt; list:\n    '''\n    Receives a List with tuples weather data from JSON file\n    and returns a new list with feature engineered data\n        0 - ['temperature'],\n        1 - ['windSpeed'],\n        2 - ['humidity'],\n        3 - ['rainfall'],\n        4 - ['date'],\n        5 - ['reportTime']\n    Returns:\n        (Date, Hour, TimeOfDay, Temperature, WindSpeed, Humidity, Rain, RainLevel)\n    '''\n    return [(convert_date(str.strip(i[4])),\n             str.strip(i[5].split(':')[0]),\n             times_of_day(int( str.strip(i[5].split(':')[0]) )),\n             force_integer( str.strip(i[0]) ),\n             force_integer( str.strip(i[1]) ),\n             force_integer( str.strip(i[2]) ),\n             str.strip(i[3]),\n             rain_intensity_level(float( str.strip(i[3]) ))) for i in data]\n\ndef convert_date(date_weather: str) -&gt; str:\n    '''\n    Receives a date 'dd-mm-yyyy' and returns a date like 'yyyy-mm-dd'\n    '''\n    return datetime.strptime(date_weather, \"%d-%m-%Y\").strftime(\"%Y-%m-%d\")\n\ndef get_date_from_filename(filename: str) -&gt; str:\n    '''\n    Receives a filename and returns the date from the filename\n    '''\n    filename = filename.split('.')[0]\n    return filename.split('_')[1]\n\ndef force_integer(input_number):\n    try:\n        tmp = int(input_number)\n    except Exception:\n        tmp = 0\n    return tmp\n\ndef process_files_data(fileType='rentals') -&gt; list:\n\n    if fileType == 'rentals':\n        filePrefix = 'moby_'\n    elif fileType == 'weather':\n        filePrefix = 'weather_'\n\n    files_in_bucket = s3_client.list_objects(Bucket=S3_BUCKET, Prefix=filePrefix)\n\n    all_data=[]\n    files_queued = []\n    if 'Contents' in files_in_bucket:\n        for v in files_in_bucket['Contents']:\n\n            tag = get_file_tag(v['Key'])\n\n            if not tag: # if object is not tagged, needs to be processed\n\n                files_queued.append(v['Key'])\n\n                obj = s3_client.get_object(Bucket=S3_BUCKET, Key=v['Key'])\n                json_data = json.loads(obj['Body'].read().decode('utf-8'))\n\n                if fileType == 'rentals':\n\n                    list_rdata = [(i['LastRentalStart'],\n                                    i['BikeID'],\n                                    i['Battery'],\n                                    i['LastGPSTime'],\n                                    i['Latitude'],\n                                    i['Longitude']) for i in json_data]\n                    all_data.extend(list_rdata)\n\n                elif fileType == 'weather':\n\n                    list_wdata = [(i['temperature'],\n                                    i['windSpeed'],\n                                    i['humidity'],\n                                    i['rainfall'],\n                                    i['date'],\n                                    i['reportTime']) for i in json_data]\n\n                    list_wdata = feat_eng_weather(list_wdata)\n                    all_data.extend(list_wdata)\n\n    return all_data, files_queued\n\ndef lambda_handler(event, context):\n\n    conn, cursor = openDB_connection()\n\n    try:\n\n        rentals_data, rfiles_queued = process_files_data(fileType='rentals')\n\n        if rentals_data:\n\n            stmt = \"\"\"INSERT INTO mobybikes.rawRentals (LastRentalStart, BikeID, Battery, LastGPSTime, Latitude, Longitude) VALUES (%s, %s, %s, %s, %s, %s)\"\"\"\n            cursor.executemany(stmt,rentals_data)\n\n            if rfiles_queued:\n                for fileName in rfiles_queued:\n                    add_file_tag(fileName,'processed')\n\n            None if conn.autocommit else conn.commit()\n            print(cursor.rowcount, \"record(s) inserted.\")\n\n        else:\n            print('No Rental files were found to be processed!')\n\n    except mysql.connector.Error as error:\n\n        print(f\"Failed to update record to database rollback: {error}\")\n        # reverting changes because of exception\n        conn.rollback()\n\n        if rfiles_queued:\n            for fileName in rfiles_queued:\n                add_file_tag(fileName,'error')\n\n    finally:\n\n        cursor.callproc('SP_RENTALS_PROCESSING')\n        None if conn.autocommit else conn.commit()\n\n        try:\n\n            weather_data, wfiles_queued = process_files_data(fileType='weather')\n\n            if weather_data:\n                stmt = \"\"\"INSERT INTO mobybikes.Weather (Date, Hour, TimeOfDay, Temperature, WindSpeed, Humidity, Rain, RainLevel) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)\"\"\"\n                cursor.executemany(stmt,weather_data)\n\n                if wfiles_queued:\n                    for fileName in wfiles_queued:\n                        args = (get_date_from_filename(fileName),)\n                        cursor.callproc('SP_LOG_WEATHER_EVENTS', args)\n                        add_file_tag(fileName,'processed')\n\n                None if conn.autocommit else conn.commit()\n            else:\n                print('No Weather files were found to be processed!')\n\n        except mysql.connector.Error as error:\n\n            print(f\"Failed to update record to database rollback: {error}\")\n            # reverting changes because of exception\n            conn.rollback()\n\n            if wfiles_queued:\n                for fileName in wfiles_queued:\n                    add_file_tag(fileName,'error')\n\n    # closing database connection.\n    cursor.close()\n    conn.close()\n\n\n\nStreamlit dashboard\n\nA Streamlit web app is deployed to present an analytical dashboard with KPIs and Rentals Demand predictions from Weather Forecast.\n\n\n  See dashboard mockup"
-					}
-
-					
-				
-			
-		
-			
-				
-					,
-					
-
-					"mvp-streamlit": {
-						"id": "mvp-streamlit",
-						"title": "Web App Mockup",
-						"category": "",
-						"url": " /mvp/streamlit/",
-						"content": "Streamlit Web App Mockup\n    \n  \n\n\nSee version deployed: https://pessini-moby-bikes-dashboardapp-hhvohw.streamlitapp.com/"
 					}
 
 					
