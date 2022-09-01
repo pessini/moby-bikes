@@ -11,17 +11,16 @@
 <meta property="og:title" content="Data Pipeline" />
 <meta name="author" content="Leandro Pessini" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="The chosen Data Pipeline structure was using AWS Services as showing below:" />
-<meta property="og:description" content="The chosen Data Pipeline structure was using AWS Services as showing below:" />
+<meta name="description" content="APIs Sources" />
+<meta property="og:description" content="APIs Sources" />
 <link rel="canonical" href="http://localhost:4000/moby-bikes/MVP/pipeline/" />
 <meta property="og:url" content="http://localhost:4000/moby-bikes/MVP/pipeline/" />
 <meta property="og:site_name" content="Design Docs" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2022-08-31T10:21:36+00:00" />
+<meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Data Pipeline" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Article","author":{"@type":"Person","name":"Leandro Pessini"},"dateModified":"2022-08-31T10:21:36+00:00","datePublished":"2022-08-31T10:21:36+00:00","description":"The chosen Data Pipeline structure was using AWS Services as showing below:","headline":"Data Pipeline","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/moby-bikes/siteicon.png"},"name":"Leandro Pessini"},"url":"http://localhost:4000/moby-bikes/MVP/pipeline/"}</script>
+{"@context":"https://schema.org","@type":"Article","author":{"@type":"Person","name":"Leandro Pessini"},"description":"APIs Sources","headline":"Data Pipeline","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/moby-bikes/siteicon.png"},"name":"Leandro Pessini"},"url":"http://localhost:4000/moby-bikes/MVP/pipeline/"}</script>
 <!-- End Jekyll SEO tag -->
 
 		<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/moby-bikes/feed.xml" title="Design Docs" />
@@ -102,23 +101,401 @@
 				<h3>Data Pipeline</h3>
 			</div>
 			<article class="content">
-				<p>The chosen Data Pipeline structure was using AWS Services as showing below:</p>
+				<h2 id="apis-sources">APIs Sources</h2>
+
+<p>A few data sources were identified to supply the Data Pipeline and be used as main data for this project:</p>
+
+<ul>
+  <li><a href="https://mobybikes.com/">Moby Bikes</a> has a <a href="https://data.smartdublin.ie/mobybikes-api">public API</a> where it provides current locations of the bikes in operation in the Dublin area and is updated every 5 minutes. There are also rollups of historic bike location data (30 minutes granularity) available as downloadable CSV resources.</li>
+  <li>The <a href="https://www.met.ie/">Met Éireann</a> WDB <a href="https://data.gov.ie/dataset/met-eireann-weather-forecast-api/resource/5d156b15-38b8-4de9-921b-0ffc8704c88e">API</a> outputs a detailed point forecast in XML format for a coordinate point as defined by the user.</li>
+  <li><a href="https://calendarific.com/">Calendarific</a> Global Holidays <a href="https://calendarific.com/api-documentation">API</a> is a RESTful API giving you access to public, local &amp; bank holidays and observances. An API key is required for every request to the Holiday API.</li>
+</ul>
+
+<p>The Data Pipeline was built on AWS Services, as demonstrated in the diagram below:</p>
 
 <p><img src="/moby-bikes/images/data-pipeline.png" alt="Data Pipeline" /></p>
 
-<h2 id="summary">Summary</h2>
+<h2 id="description">Description</h2>
 
-<ul>
-  <li>
-    <p>Every morning a Lambda function is invoked to pull data from APIs and dump it into a S3 Bucket.</p>
-  </li>
-  <li>
-    <p>Later in the morning, a new Lambda function is invoked to parse files from S3, process and load them into an Aurora (MySQL) database.</p>
-  </li>
-  <li>
-    <p>A <a href="https://pessini-moby-bikes-dashboardapp-hhvohw.streamlitapp.com/">Streamlit web app</a> is deployed to present an analytical dashboard with KPIs and Rentals Demand predictions from Weather Forecast.</p>
-  </li>
-</ul>
+<h3 id="lambda-function---pullapidatamobybikes">Lambda Function - PullAPIDataMobyBikes</h3>
+
+<p>A trigger event was created to run every morning at 6am which will pull data from APIs and dump it into a S3 Bucker.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">boto3</span>
+
+<span class="n">s3_client</span> <span class="o">=</span> <span class="n">boto3</span><span class="p">.</span><span class="n">client</span><span class="p">(</span><span class="s">"s3"</span><span class="p">)</span>
+<span class="n">LOCAL_FILE_SYS</span> <span class="o">=</span> <span class="s">"/tmp"</span>
+<span class="n">S3_BUCKET</span> <span class="o">=</span> <span class="s">"moby-bikes-rentals"</span>
+
+<span class="n">today_dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">now</span><span class="p">()</span>
+<span class="n">today_dt_str</span> <span class="o">=</span> <span class="n">today_dt</span><span class="p">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">"%Y-%m-%d"</span><span class="p">)</span>
+<span class="n">yesterday_dt</span> <span class="o">=</span> <span class="n">today_dt</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">yesterday_dt_str</span> <span class="o">=</span> <span class="n">yesterday_dt</span><span class="p">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">"%Y-%m-%d"</span><span class="p">)</span>
+
+<span class="c1">###############################################################
+# Dublin Airport Yesterday Data
+# https://data.gov.ie/dataset/yesterdays-weather-dublin-airport
+###############################################################
+</span>
+<span class="c1"># Download CSV
+# URL: https://www.met.ie/latest-reports/observations/download/Dublin-Airport/yesterday
+</span>
+<span class="c1"># API (sometimes is not working) - 504 Gateway Timeout
+# Checking alternative with CSV file
+# URL: https://prodapi.metweb.ie/observations/dublin/yesterday
+</span>
+<span class="k">def</span> <span class="nf">format_hour</span><span class="p">(</span><span class="n">hour</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="s">'''
+    Receives a string of the form 'HH:MM' and returns a integer with the hour
+    '''</span>
+    <span class="n">hour_str</span> <span class="o">=</span> <span class="n">hour</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">':'</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">hour_str</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">key_exists</span><span class="p">(</span><span class="n">mykey</span><span class="p">,</span> <span class="n">mybucket</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">result</span> <span class="p">:</span><span class="o">=</span> <span class="n">s3_client</span><span class="p">.</span><span class="n">list_objects_v2</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="n">mybucket</span><span class="p">,</span> <span class="n">Prefix</span><span class="o">=</span><span class="n">mykey</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">'Contents'</span> <span class="ow">in</span> <span class="n">result</span>
+
+<span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s">'content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span> <span class="s">'accept'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
+
+<span class="n">WEATHER_DATA_API_URL</span> <span class="o">=</span> <span class="s">"https://prodapi.metweb.ie/observations/dublin/yesterday"</span>
+<span class="n">WEATHER_DATA_CSV_URL</span> <span class="o">=</span> <span class="s">'https://www.met.ie/latest-reports/observations/download/Dublin-Airport/yesterday'</span>
+<span class="c1"># ROOT_DIR_LOCAL = os.path.abspath(os.curdir)
+</span>
+<span class="k">def</span> <span class="nf">get_weather_data</span><span class="p">():</span>
+
+    <span class="k">try</span><span class="p">:</span>
+
+        <span class="n">api_response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">WEATHER_DATA_API_URL</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+        <span class="n">json_str</span> <span class="o">=</span> <span class="n">api_response</span><span class="p">.</span><span class="n">text</span>
+        <span class="n">parse_json</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">api_response</span><span class="p">:</span>
+            <span class="n">weather_filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">yesterday_dt_str</span><span class="si">}</span><span class="s">.json'</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">weather_filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">yesterday_dt_str</span><span class="si">}</span><span class="s">_error.json'</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">LOCAL_FILE_SYS</span> <span class="o">+</span> <span class="s">"/"</span> <span class="o">+</span> <span class="n">weather_filename</span><span class="p">,</span> <span class="s">'w'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">'utf-8'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">json</span><span class="p">.</span><span class="n">dump</span><span class="p">(</span><span class="n">parse_json</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="nb">Exception</span><span class="p">:</span>
+
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="n">dubairport_yesterday</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">WEATHER_DATA_CSV_URL</span><span class="p">)</span>
+            <span class="n">dubairport_yesterday</span><span class="p">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">'time'</span><span class="p">,</span> <span class="s">'report'</span><span class="p">,</span> <span class="s">'temp'</span><span class="p">,</span> <span class="s">'wdsp'</span><span class="p">,</span> <span class="s">'wind_gust'</span><span class="p">,</span> <span class="s">'wind_direction'</span><span class="p">,</span> <span class="s">'rain'</span><span class="p">,</span> <span class="s">'pressure'</span><span class="p">]</span>
+            <span class="n">dubairport_yesterday</span><span class="p">[</span><span class="s">'time'</span><span class="p">]</span> <span class="o">=</span> <span class="n">dubairport_yesterday</span><span class="p">[</span><span class="s">'time'</span><span class="p">].</span><span class="nb">apply</span><span class="p">(</span><span class="n">format_hour</span><span class="p">)</span>
+            <span class="n">dubairport_yesterday</span><span class="p">.</span><span class="n">drop</span><span class="p">([</span><span class="s">'report'</span><span class="p">,</span> <span class="s">'wind_gust'</span><span class="p">,</span> <span class="s">'wind_direction'</span><span class="p">,</span> <span class="s">'pressure'</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="n">weather_filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">yesterday_dt_str</span><span class="si">}</span><span class="s">.csv'</span>
+            <span class="n">dubairport_yesterday</span><span class="p">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">LOCAL_FILE_SYS</span> <span class="o">+</span> <span class="s">"/"</span> <span class="o">+</span> <span class="n">weather_filename</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+
+            <span class="n">weather_filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">yesterday_dt_str</span><span class="si">}</span><span class="s">_error.txt'</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">LOCAL_FILE_SYS</span> <span class="o">+</span> <span class="s">"/"</span> <span class="o">+</span> <span class="n">weather_filename</span><span class="p">,</span> <span class="s">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">__str__</span><span class="p">())</span>
+
+    <span class="k">finally</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="n">key_exists</span><span class="p">(</span><span class="s">"weather_"</span> <span class="o">+</span> <span class="n">weather_filename</span><span class="p">,</span> <span class="n">S3_BUCKET</span><span class="p">):</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"Weather data file already in S3 bucket!"</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">s3_client</span><span class="p">.</span><span class="n">upload_file</span><span class="p">(</span><span class="n">LOCAL_FILE_SYS</span> <span class="o">+</span> <span class="s">"/"</span> <span class="o">+</span> <span class="n">weather_filename</span><span class="p">,</span> <span class="n">S3_BUCKET</span><span class="p">,</span> <span class="s">"weather_"</span> <span class="o">+</span> <span class="n">weather_filename</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_rentals_data</span><span class="p">():</span>
+    <span class="c1">###############################################################
+</span>    <span class="c1"># Moby Bikes Data
+</span>    <span class="c1"># https://data.gov.ie/dataset/moby-bikes
+</span>    <span class="c1">###############################################################
+</span>
+    <span class="c1"># Moby API
+</span>    <span class="c1"># URL: https://data.smartdublin.ie/mobybikes-api/
+</span>
+    <span class="c1">#parameters = None
+</span>    <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">"start"</span><span class="p">:</span> <span class="n">yesterday_dt_str</span><span class="p">,</span>
+        <span class="s">"end"</span><span class="p">:</span> <span class="n">today_dt_str</span>
+    <span class="p">}</span>
+
+    <span class="n">baseurl</span> <span class="o">=</span> <span class="s">"https://data.smartdublin.ie/mobybikes-api/"</span>
+    <span class="c1"># last_reading_url = f'{baseurl}last_reading/'
+</span>
+    <span class="n">historical_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">baseurl</span><span class="si">}</span><span class="s">historical/'</span>
+    <span class="n">api_response_moby</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">historical_url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">parameters</span><span class="p">)</span>
+    <span class="n">moby_json_str</span> <span class="o">=</span> <span class="n">api_response_moby</span><span class="p">.</span><span class="n">text</span>
+    <span class="n">moby_parse_json</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">moby_json_str</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">api_response_moby</span><span class="p">:</span>
+        <span class="n">moby_json_filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">yesterday_dt_str</span><span class="si">}</span><span class="s">.json'</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">moby_json_filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">yesterday_dt_str</span><span class="si">}</span><span class="s">_error.json'</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">LOCAL_FILE_SYS</span> <span class="o">+</span> <span class="s">"/"</span> <span class="o">+</span> <span class="n">moby_json_filename</span><span class="p">,</span> <span class="s">'w'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">'utf-8'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">json</span><span class="p">.</span><span class="n">dump</span><span class="p">(</span><span class="n">moby_parse_json</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">key_exists</span><span class="p">(</span><span class="s">"moby_"</span> <span class="o">+</span> <span class="n">moby_json_filename</span><span class="p">,</span> <span class="n">S3_BUCKET</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"Moby rentals data file already in S3 bucket!"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">s3_client</span><span class="p">.</span><span class="n">upload_file</span><span class="p">(</span><span class="n">LOCAL_FILE_SYS</span> <span class="o">+</span> <span class="s">"/"</span> <span class="o">+</span> <span class="n">moby_json_filename</span><span class="p">,</span> <span class="n">S3_BUCKET</span><span class="p">,</span> <span class="s">"moby_"</span> <span class="o">+</span> <span class="n">moby_json_filename</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">lambda_handler</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+    <span class="s">'''
+    Loads the weather data from the API and saves it to S3
+    '''</span>
+    <span class="n">get_weather_data</span><span class="p">()</span>
+    <span class="n">get_rentals_data</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="lambda-function---persist-data-from-s3-to-aurora-mysql">Lambda Function - Persist-Data-From-S3-To-Aurora-Mysql</h3>
+
+<p>A trigger event later in the morning (at 8am) was created to parse those files created from the lambda above and store them into an Aurora (MySQL) database.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">mysql.connector</span>
+<span class="kn">from</span> <span class="nn">mysql_conn</span> <span class="kn">import</span> <span class="n">mysqldb</span> <span class="k">as</span> <span class="n">mysqlcredentials</span>
+<span class="kn">import</span> <span class="nn">boto3</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="n">s3_client</span> <span class="o">=</span> <span class="n">boto3</span><span class="p">.</span><span class="n">client</span><span class="p">(</span><span class="s">"s3"</span><span class="p">)</span>
+<span class="n">S3_BUCKET</span> <span class="o">=</span> <span class="s">"moby-bikes-rentals"</span>
+
+<span class="k">def</span> <span class="nf">openDB_connection</span><span class="p">():</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">mysql</span><span class="p">.</span><span class="n">connector</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="o">**</span><span class="n">mysqlcredentials</span><span class="p">.</span><span class="n">config</span><span class="p">)</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="p">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">conn</span><span class="p">,</span> <span class="n">cursor</span>
+
+<span class="k">def</span> <span class="nf">get_file_tag</span><span class="p">(</span><span class="n">fileName</span><span class="p">):</span>
+    <span class="c1"># Example of tag 'TagSet': [{'Key': 'rental', 'Value': ''}]
+</span>    <span class="c1"># If object has no tagging, setting tag = None
+</span>    <span class="k">try</span><span class="p">:</span>
+        <span class="n">tag</span> <span class="o">=</span> <span class="n">s3_client</span><span class="p">.</span><span class="n">get_object_tagging</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="n">S3_BUCKET</span><span class="p">,</span> <span class="n">Key</span><span class="o">=</span><span class="n">fileName</span><span class="p">)[</span><span class="s">'TagSet'</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s">'Key'</span><span class="p">]</span>
+    <span class="k">except</span> <span class="nb">Exception</span><span class="p">:</span>
+        <span class="n">tag</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">return</span> <span class="n">tag</span>
+
+<span class="k">def</span> <span class="nf">remove_file_tag</span><span class="p">(</span><span class="n">fileName</span><span class="p">):</span>
+    <span class="n">s3_client</span><span class="p">.</span><span class="n">delete_object_tagging</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="n">S3_BUCKET</span><span class="p">,</span><span class="n">Key</span><span class="o">=</span><span class="n">fileName</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">add_file_tag</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="n">tag</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">today_dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="n">today_dt_str</span> <span class="o">=</span> <span class="n">today_dt</span><span class="p">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">"%Y-%m-%d"</span><span class="p">)</span>
+        <span class="n">new_tag</span> <span class="o">=</span> <span class="p">{</span><span class="s">'TagSet'</span><span class="p">:</span> <span class="p">[{</span><span class="s">'Key'</span><span class="p">:</span> <span class="n">tag</span><span class="p">,</span> <span class="s">'Value'</span><span class="p">:</span> <span class="n">today_dt_str</span><span class="p">}]}</span>
+        <span class="n">s3_client</span><span class="p">.</span><span class="n">put_object_tagging</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="n">S3_BUCKET</span><span class="p">,</span> <span class="n">Key</span><span class="o">=</span><span class="n">fileName</span><span class="p">,</span> <span class="n">Tagging</span><span class="o">=</span><span class="n">new_tag</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">except</span> <span class="nb">Exception</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+<span class="k">def</span> <span class="nf">times_of_day</span><span class="p">(</span><span class="n">hour</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="s">'''
+    Receives an hour and returns the time of day
+    Morning: 7:00 - 11:59
+    Afternoon: 12:01 - 17:59
+    Evening: 18:00 - 22:59
+    Night: 23:00 - 06:59
+    '''</span>
+
+    <span class="n">conditions</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="n">hour</span> <span class="o">&lt;</span> <span class="mi">7</span><span class="p">),</span> <span class="c1"># night 23:00 - 06:59
+</span>        <span class="p">(</span><span class="n">hour</span> <span class="o">&gt;=</span> <span class="mi">7</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">hour</span> <span class="o">&lt;</span> <span class="mi">12</span><span class="p">),</span> <span class="c1"># morning 7:00 - 11:59
+</span>        <span class="p">(</span><span class="n">hour</span> <span class="o">&gt;=</span> <span class="mi">12</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">hour</span> <span class="o">&lt;</span> <span class="mi">18</span><span class="p">),</span> <span class="c1"># afternoon 12:01 - 17:59
+</span>        <span class="p">(</span><span class="n">hour</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">hour</span> <span class="o">&lt;</span> <span class="mi">23</span><span class="p">)</span> <span class="c1"># evening 18:00 - 22:59
+</span>    <span class="p">]</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s">'Night'</span><span class="p">,</span> <span class="s">'Morning'</span><span class="p">,</span> <span class="s">'Afternoon'</span><span class="p">,</span> <span class="s">'Evening'</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">select</span><span class="p">(</span><span class="n">conditions</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span><span class="s">'Night'</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">rain_intensity_level</span><span class="p">(</span><span class="n">rain</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="s">'''
+    Receives a rain intensity (in mm) and returns the rain intensity level
+    '''</span>
+
+    <span class="n">conditions</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="n">rain</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">),</span> <span class="c1"># no rain
+</span>        <span class="p">(</span><span class="n">rain</span> <span class="o">&lt;=</span> <span class="mf">0.3</span><span class="p">),</span> <span class="c1"># drizzle
+</span>        <span class="p">(</span><span class="n">rain</span> <span class="o">&gt;</span> <span class="mf">0.3</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rain</span> <span class="o">&lt;=</span> <span class="mf">0.5</span><span class="p">),</span> <span class="c1"># light rain
+</span>        <span class="p">(</span><span class="n">rain</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rain</span> <span class="o">&lt;=</span> <span class="mi">4</span><span class="p">),</span> <span class="c1"># moderate rain
+</span>        <span class="p">(</span><span class="n">rain</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">)</span> <span class="c1"># heavy rain
+</span>        <span class="p">]</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s">'no rain'</span><span class="p">,</span> <span class="s">'drizzle'</span><span class="p">,</span> <span class="s">'light rain'</span><span class="p">,</span> <span class="s">'moderate rain'</span><span class="p">,</span><span class="s">'heavy rain'</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">select</span><span class="p">(</span><span class="n">conditions</span><span class="p">,</span> <span class="n">values</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">feat_eng_weather</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="s">'''
+    Receives a List with tuples weather data from JSON file
+    and returns a new list with feature engineered data
+        0 - ['temperature'],
+        1 - ['windSpeed'],
+        2 - ['humidity'],
+        3 - ['rainfall'],
+        4 - ['date'],
+        5 - ['reportTime']
+    Returns:
+        (Date, Hour, TimeOfDay, Temperature, WindSpeed, Humidity, Rain, RainLevel)
+    '''</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="n">convert_date</span><span class="p">(</span><span class="nb">str</span><span class="p">.</span><span class="n">strip</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">4</span><span class="p">])),</span>
+             <span class="nb">str</span><span class="p">.</span><span class="n">strip</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">split</span><span class="p">(</span><span class="s">':'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]),</span>
+             <span class="n">times_of_day</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span> <span class="nb">str</span><span class="p">.</span><span class="n">strip</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">split</span><span class="p">(</span><span class="s">':'</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span> <span class="p">)),</span>
+             <span class="n">force_integer</span><span class="p">(</span> <span class="nb">str</span><span class="p">.</span><span class="n">strip</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">),</span>
+             <span class="n">force_integer</span><span class="p">(</span> <span class="nb">str</span><span class="p">.</span><span class="n">strip</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="p">),</span>
+             <span class="n">force_integer</span><span class="p">(</span> <span class="nb">str</span><span class="p">.</span><span class="n">strip</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="p">),</span>
+             <span class="nb">str</span><span class="p">.</span><span class="n">strip</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span>
+             <span class="n">rain_intensity_level</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span> <span class="nb">str</span><span class="p">.</span><span class="n">strip</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="p">)))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">convert_date</span><span class="p">(</span><span class="n">date_weather</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="s">'''
+    Receives a date 'dd-mm-yyyy' and returns a date like 'yyyy-mm-dd'
+    '''</span>
+    <span class="k">return</span> <span class="n">datetime</span><span class="p">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_weather</span><span class="p">,</span> <span class="s">"%d-%m-%Y"</span><span class="p">).</span><span class="n">strftime</span><span class="p">(</span><span class="s">"%Y-%m-%d"</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_date_from_filename</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="s">'''
+    Receives a filename and returns the date from the filename
+    '''</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">'.'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">filename</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">'_'</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">force_integer</span><span class="p">(</span><span class="n">input_number</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">input_number</span><span class="p">)</span>
+    <span class="k">except</span> <span class="nb">Exception</span><span class="p">:</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="n">tmp</span>
+
+<span class="k">def</span> <span class="nf">process_files_data</span><span class="p">(</span><span class="n">fileType</span><span class="o">=</span><span class="s">'rentals'</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+
+    <span class="k">if</span> <span class="n">fileType</span> <span class="o">==</span> <span class="s">'rentals'</span><span class="p">:</span>
+        <span class="n">filePrefix</span> <span class="o">=</span> <span class="s">'moby_'</span>
+    <span class="k">elif</span> <span class="n">fileType</span> <span class="o">==</span> <span class="s">'weather'</span><span class="p">:</span>
+        <span class="n">filePrefix</span> <span class="o">=</span> <span class="s">'weather_'</span>
+
+    <span class="n">files_in_bucket</span> <span class="o">=</span> <span class="n">s3_client</span><span class="p">.</span><span class="n">list_objects</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="n">S3_BUCKET</span><span class="p">,</span> <span class="n">Prefix</span><span class="o">=</span><span class="n">filePrefix</span><span class="p">)</span>
+
+    <span class="n">all_data</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">files_queued</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="s">'Contents'</span> <span class="ow">in</span> <span class="n">files_in_bucket</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">files_in_bucket</span><span class="p">[</span><span class="s">'Contents'</span><span class="p">]:</span>
+
+            <span class="n">tag</span> <span class="o">=</span> <span class="n">get_file_tag</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="s">'Key'</span><span class="p">])</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">tag</span><span class="p">:</span> <span class="c1"># if object is not tagged, needs to be processed
+</span>
+                <span class="n">files_queued</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="s">'Key'</span><span class="p">])</span>
+
+                <span class="n">obj</span> <span class="o">=</span> <span class="n">s3_client</span><span class="p">.</span><span class="n">get_object</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="n">S3_BUCKET</span><span class="p">,</span> <span class="n">Key</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="s">'Key'</span><span class="p">])</span>
+                <span class="n">json_data</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="s">'Body'</span><span class="p">].</span><span class="n">read</span><span class="p">().</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">))</span>
+
+                <span class="k">if</span> <span class="n">fileType</span> <span class="o">==</span> <span class="s">'rentals'</span><span class="p">:</span>
+
+                    <span class="n">list_rdata</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="p">[</span><span class="s">'LastRentalStart'</span><span class="p">],</span>
+                                    <span class="n">i</span><span class="p">[</span><span class="s">'BikeID'</span><span class="p">],</span>
+                                    <span class="n">i</span><span class="p">[</span><span class="s">'Battery'</span><span class="p">],</span>
+                                    <span class="n">i</span><span class="p">[</span><span class="s">'LastGPSTime'</span><span class="p">],</span>
+                                    <span class="n">i</span><span class="p">[</span><span class="s">'Latitude'</span><span class="p">],</span>
+                                    <span class="n">i</span><span class="p">[</span><span class="s">'Longitude'</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">json_data</span><span class="p">]</span>
+                    <span class="n">all_data</span><span class="p">.</span><span class="n">extend</span><span class="p">(</span><span class="n">list_rdata</span><span class="p">)</span>
+
+                <span class="k">elif</span> <span class="n">fileType</span> <span class="o">==</span> <span class="s">'weather'</span><span class="p">:</span>
+
+                    <span class="n">list_wdata</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="p">[</span><span class="s">'temperature'</span><span class="p">],</span>
+                                    <span class="n">i</span><span class="p">[</span><span class="s">'windSpeed'</span><span class="p">],</span>
+                                    <span class="n">i</span><span class="p">[</span><span class="s">'humidity'</span><span class="p">],</span>
+                                    <span class="n">i</span><span class="p">[</span><span class="s">'rainfall'</span><span class="p">],</span>
+                                    <span class="n">i</span><span class="p">[</span><span class="s">'date'</span><span class="p">],</span>
+                                    <span class="n">i</span><span class="p">[</span><span class="s">'reportTime'</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">json_data</span><span class="p">]</span>
+
+                    <span class="n">list_wdata</span> <span class="o">=</span> <span class="n">feat_eng_weather</span><span class="p">(</span><span class="n">list_wdata</span><span class="p">)</span>
+                    <span class="n">all_data</span><span class="p">.</span><span class="n">extend</span><span class="p">(</span><span class="n">list_wdata</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">all_data</span><span class="p">,</span> <span class="n">files_queued</span>
+
+<span class="k">def</span> <span class="nf">lambda_handler</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+
+    <span class="n">conn</span><span class="p">,</span> <span class="n">cursor</span> <span class="o">=</span> <span class="n">openDB_connection</span><span class="p">()</span>
+
+    <span class="k">try</span><span class="p">:</span>
+
+        <span class="n">rentals_data</span><span class="p">,</span> <span class="n">rfiles_queued</span> <span class="o">=</span> <span class="n">process_files_data</span><span class="p">(</span><span class="n">fileType</span><span class="o">=</span><span class="s">'rentals'</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">rentals_data</span><span class="p">:</span>
+
+            <span class="n">stmt</span> <span class="o">=</span> <span class="s">"""INSERT INTO mobybikes.rawRentals (LastRentalStart, BikeID, Battery, LastGPSTime, Latitude, Longitude) VALUES (%s, %s, %s, %s, %s, %s)"""</span>
+            <span class="n">cursor</span><span class="p">.</span><span class="n">executemany</span><span class="p">(</span><span class="n">stmt</span><span class="p">,</span><span class="n">rentals_data</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">rfiles_queued</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">fileName</span> <span class="ow">in</span> <span class="n">rfiles_queued</span><span class="p">:</span>
+                    <span class="n">add_file_tag</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span><span class="s">'processed'</span><span class="p">)</span>
+
+            <span class="bp">None</span> <span class="k">if</span> <span class="n">conn</span><span class="p">.</span><span class="n">autocommit</span> <span class="k">else</span> <span class="n">conn</span><span class="p">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">cursor</span><span class="p">.</span><span class="n">rowcount</span><span class="p">,</span> <span class="s">"record(s) inserted."</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">'No Rental files were found to be processed!'</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="n">mysql</span><span class="p">.</span><span class="n">connector</span><span class="p">.</span><span class="n">Error</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Failed to update record to database rollback: </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+        <span class="c1"># reverting changes because of exception
+</span>        <span class="n">conn</span><span class="p">.</span><span class="n">rollback</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">rfiles_queued</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">fileName</span> <span class="ow">in</span> <span class="n">rfiles_queued</span><span class="p">:</span>
+                <span class="n">add_file_tag</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span><span class="s">'error'</span><span class="p">)</span>
+
+    <span class="k">finally</span><span class="p">:</span>
+
+        <span class="n">cursor</span><span class="p">.</span><span class="n">callproc</span><span class="p">(</span><span class="s">'SP_RENTALS_PROCESSING'</span><span class="p">)</span>
+        <span class="bp">None</span> <span class="k">if</span> <span class="n">conn</span><span class="p">.</span><span class="n">autocommit</span> <span class="k">else</span> <span class="n">conn</span><span class="p">.</span><span class="n">commit</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="n">weather_data</span><span class="p">,</span> <span class="n">wfiles_queued</span> <span class="o">=</span> <span class="n">process_files_data</span><span class="p">(</span><span class="n">fileType</span><span class="o">=</span><span class="s">'weather'</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">weather_data</span><span class="p">:</span>
+                <span class="n">stmt</span> <span class="o">=</span> <span class="s">"""INSERT INTO mobybikes.Weather (Date, Hour, TimeOfDay, Temperature, WindSpeed, Humidity, Rain, RainLevel) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"""</span>
+                <span class="n">cursor</span><span class="p">.</span><span class="n">executemany</span><span class="p">(</span><span class="n">stmt</span><span class="p">,</span><span class="n">weather_data</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">wfiles_queued</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">fileName</span> <span class="ow">in</span> <span class="n">wfiles_queued</span><span class="p">:</span>
+                        <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">get_date_from_filename</span><span class="p">(</span><span class="n">fileName</span><span class="p">),)</span>
+                        <span class="n">cursor</span><span class="p">.</span><span class="n">callproc</span><span class="p">(</span><span class="s">'SP_LOG_WEATHER_EVENTS'</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+                        <span class="n">add_file_tag</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span><span class="s">'processed'</span><span class="p">)</span>
+
+                <span class="bp">None</span> <span class="k">if</span> <span class="n">conn</span><span class="p">.</span><span class="n">autocommit</span> <span class="k">else</span> <span class="n">conn</span><span class="p">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="s">'No Weather files were found to be processed!'</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="n">mysql</span><span class="p">.</span><span class="n">connector</span><span class="p">.</span><span class="n">Error</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+
+            <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Failed to update record to database rollback: </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+            <span class="c1"># reverting changes because of exception
+</span>            <span class="n">conn</span><span class="p">.</span><span class="n">rollback</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">wfiles_queued</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">fileName</span> <span class="ow">in</span> <span class="n">wfiles_queued</span><span class="p">:</span>
+                    <span class="n">add_file_tag</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span><span class="s">'error'</span><span class="p">)</span>
+
+    <span class="c1"># closing database connection.
+</span>    <span class="n">cursor</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">conn</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+
+</code></pre></div></div>
+
+<h3 id="streamlit-dashboard">Streamlit dashboard</h3>
+
+<p>A <a href="https://pessini-moby-bikes-dashboardapp-hhvohw.streamlitapp.com/">Streamlit web app</a> is deployed to present an analytical dashboard with KPIs and Rentals Demand predictions from Weather Forecast.</p>
+
+<blockquote>
+  <p>See <a href="/moby-bikes/MVP/streamlit/">dashboard mockup</a></p>
+</blockquote>
 
 			</article>
 
