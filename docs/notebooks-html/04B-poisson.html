@@ -13030,8 +13030,6 @@ body {
 div#notebook {
   overflow: visible;
   border-top: none;
-}div#notebook-container{
-  padding: 6ex 12ex 8ex 12ex;
 }@media print {
   body {
     margin: 0;
@@ -13088,16 +13086,18 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img title="GitHub Octocat" src='./img/Octocat.jpg' style='height: 60px; padding-right: 15px' alt="Octocat" align="left"> This notebook is part of a GitHub repository: <a href="https://github.com/pessini/moby-bikes">https://github.com/pessini/moby-bikes</a> 
+<p><img title="GitHub Octocat" src='https://github.com/pessini/moby-bikes/blob/902858f47ba9afaf380abfc2be02a2b7f1f09174/notebooks/img/Octocat.jpg?raw=true' style='height: 60px; padding-right: 15px' alt="Octocat" align="left"> This notebook is part of a GitHub repository: <a href="https://github.com/pessini/moby-bikes">https://github.com/pessini/moby-bikes</a> 
 <br>MIT Licensed
 <br>Author: Leandro Pessini</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Poisson-Regression">Poisson Regression<a class="anchor-link" href="#Poisson-Regression">&#182;</a></h1>
 </div>
@@ -13105,7 +13105,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -13135,7 +13135,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">reload_ext</span> watermark
@@ -13149,7 +13149,11 @@ div#notebook {
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Author: Leandro Pessini
@@ -13181,7 +13185,7 @@ Watermark: 2.3.0
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">hourly_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/processed/hourly_data.csv&#39;</span><span class="p">)</span>
@@ -13193,14 +13197,16 @@ Watermark: 2.3.0
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The Poisson distribution is a probability distribution that is used to model the probability that a certain number of events occur during a fixed time interval.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Zero-inflated-problem">Zero-inflated problem<a class="anchor-link" href="#Zero-inflated-problem">&#182;</a></h2>
 </div>
@@ -13208,7 +13214,7 @@ Watermark: 2.3.0
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">zero_values</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">hourly_data</span><span class="p">[</span><span class="n">hourly_data</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">])</span>
@@ -13223,7 +13229,11 @@ Watermark: 2.3.0
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Zeros (#): 1794
@@ -13238,7 +13248,7 @@ Zeros (%): 20.48%
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">zero_percent</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Zeros (%): </span><span class="si">{</span><span class="nb">round</span><span class="p">((</span><span class="n">zero_values</span><span class="o">/</span><span class="n">hourly_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">%&quot;</span>
@@ -13266,7 +13276,11 @@ Zeros (%): 20.48%
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 
 
@@ -13281,7 +13295,8 @@ Zeros (%): 20.48%
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Distribution-across-Times-of-the-Day">Distribution across Times of the Day<a class="anchor-link" href="#Distribution-across-Times-of-the-Day">&#182;</a></h3>
 </div>
@@ -13289,7 +13304,7 @@ Zeros (%): 20.48%
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">labels_zeros</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
@@ -13312,7 +13327,7 @@ Zeros (%): 20.48%
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">22</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
@@ -13350,7 +13365,11 @@ Zeros (%): 20.48%
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 
 
@@ -13365,7 +13384,8 @@ Zeros (%): 20.48%
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Overdispersion">Overdispersion<a class="anchor-link" href="#Overdispersion">&#182;</a></h2>
 </div>
@@ -13373,7 +13393,7 @@ Zeros (%): 20.48%
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">descriptive_stats</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Statistics&#39;</span><span class="p">:</span> <span class="n">hourly_data</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">percentiles</span><span class="o">=</span><span class="p">[</span><span class="mf">.1</span><span class="p">,</span> <span class="mf">.25</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.75</span><span class="p">,</span> <span class="mf">.9</span><span class="p">])})</span>
@@ -13388,7 +13408,11 @@ Zeros (%): 20.48%
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Mean 3.78
@@ -13401,7 +13425,8 @@ Variance 13.1
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>One assumption of a Poisson distribution is that the <code>Mean</code> = <code>Variance</code>. As we can see this is not the case ($Var &gt; Mean$).</p>
 <h3 id="Cameron-and-Trivedi%E2%80%99s-(CT)-(1990)-test">Cameron and Trivedi&#8217;s (CT) (1990) test<a class="anchor-link" href="#Cameron-and-Trivedi%E2%80%99s-(CT)-(1990)-test">&#182;</a></h3><p>It is based on the assumption that under the Poisson model ${(y-E[y])^2 –E[y]}$ has zero mean:</p>
@@ -13415,7 +13440,7 @@ Variance 13.1
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">hourly_data</span><span class="p">[</span><span class="s2">&quot;count&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">var</span><span class="p">()</span> <span class="o">/</span> <span class="n">hourly_data</span><span class="p">[</span><span class="s2">&quot;count&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s1"> =&gt; overdispersion found.&#39;</span><span class="p">)</span>
@@ -13428,7 +13453,11 @@ Variance 13.1
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>3.47 =&gt; overdispersion found.
@@ -13440,7 +13469,8 @@ Variance 13.1
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>As a consequence of overdispersed data, we need to fit some other kind of model to the data, accounting for dispersion. Quasi-Poisson and Negative binomial regression are models that deal with over-dispersion.</p>
 <p>But if you observe the data set contains an excess of zeroes. If you use a standard Poisson or NB regression model on such data sets, it can fit badly and will generate poor quality predictions, no matter how much you tweak its parameters.</p>
@@ -13449,7 +13479,8 @@ Variance 13.1
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="None-rentals-(zeroes)">None rentals (zeroes)<a class="anchor-link" href="#None-rentals-(zeroes)">&#182;</a></h2>
 </div>
@@ -13457,7 +13488,7 @@ Variance 13.1
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">zerocnt_df</span> <span class="o">=</span> <span class="n">hourly_data</span><span class="p">[</span><span class="n">hourly_data</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -13491,7 +13522,11 @@ Variance 13.1
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 
 
@@ -13506,7 +13541,8 @@ Variance 13.1
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Zero-inflated-(ZI)-models">Zero-inflated (ZI) models<a class="anchor-link" href="#Zero-inflated-(ZI)-models">&#182;</a></h2><p>The <em>hurdle model</em> or <em>two-part model</em> relaxes the assumption that the zeros and the positives come from the same data generating process. A hurdle model has the interpretation that it reflects a two-stage decision-making process. For example, a patient may initiate the first visit to a doctor, but the second and subsequent visits may be determined by a different mechanism. This model works in two steps:</p>
 <ul>
@@ -13524,7 +13560,7 @@ Hurdle negative binomial (HUNB) -->
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">df_night</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> =&gt; number of NIGHT rentals.&#39;</span><span class="p">)</span>
@@ -13540,7 +13576,11 @@ Hurdle negative binomial (HUNB) -->
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>2920 =&gt; number of NIGHT rentals.
@@ -13557,7 +13597,7 @@ Hurdle negative binomial (HUNB) -->
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">expr</span> <span class="o">=</span> \
@@ -13574,7 +13614,11 @@ Hurdle negative binomial (HUNB) -->
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>                 Generalized Linear Model Regression Results                  
@@ -13608,7 +13652,7 @@ rain               -0.1322      0.059     -2.231      0.026      -0.248      -0.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;AIC: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">nb_training_results</span><span class="o">.</span><span class="n">aic</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s1"> </span><span class="se">\n</span><span class="s1">BIC: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">nb_training_results</span><span class="o">.</span><span class="n">bic</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -13621,7 +13665,11 @@ rain               -0.1322      0.059     -2.231      0.026      -0.248      -0.
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>AIC: 12629.29 
@@ -13634,7 +13682,8 @@ BIC: -16014.82
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Assumptions">Assumptions<a class="anchor-link" href="#Assumptions">&#182;</a></h2><p><strong><span style='color: #00cd55'>Assumption 1: The number of events can be counted.</span></strong></p>
 <p>We assume that the number of “events” that can occur during a given time interval can be counted and can take on the values of 0, 1, 2, 3, … etc.</p>
@@ -13648,7 +13697,8 @@ BIC: -16014.82
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Considerations">Considerations<a class="anchor-link" href="#Considerations">&#182;</a></h3><ul>
 <li><p>Count has a fixed range due to limitation on bikes available. (e.g. we cannot have more than 30 rentals if Moby Bikes only has 30 bikes available and to a new rental begins the bike needs to become available. This can violates the <code>assumption 2</code> at some level.</p>
@@ -13662,7 +13712,8 @@ BIC: -16014.82
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <blockquote><p><a href="https://towardsdatascience.com/zero-inflated-regression-c7dfc656d8af">https://towardsdatascience.com/zero-inflated-regression-c7dfc656d8af</a></p>
 </blockquote>
@@ -13670,9 +13721,10 @@ BIC: -16014.82
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img title="GitHub Mark" src="./img/GitHub-Mark-64px.png" style="height: 32px; padding-right: 15px" alt="GitHub Mark" align="left"> <a href="https://github.com/pessini/moby-bikes">GitHub repository</a> <br>Author: Leandro Pessini</p>
+<p><img title="GitHub Mark" src="https://github.com/pessini/moby-bikes/blob/902858f47ba9afaf380abfc2be02a2b7f1f09174/notebooks/img/GitHub-Mark-64px.png?raw=true" style="height: 32px; padding-right: 15px" alt="GitHub Mark" align="left"> <a href="https://github.com/pessini/moby-bikes">GitHub repository</a> <br>Author: Leandro Pessini</p>
 
 </div>
 </div>

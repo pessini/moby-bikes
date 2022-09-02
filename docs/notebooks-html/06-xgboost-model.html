@@ -13030,8 +13030,6 @@ body {
 div#notebook {
   overflow: visible;
   border-top: none;
-}div#notebook-container{
-  padding: 6ex 12ex 8ex 12ex;
 }@media print {
   body {
     margin: 0;
@@ -13088,9 +13086,10 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img title="GitHub Octocat" src='./img/Octocat.jpg' style='height: 60px; padding-right: 15px' alt="Octocat" align="left"> This notebook is part of a GitHub repository: <a href="https://github.com/pessini/moby-bikes">https://github.com/pessini/moby-bikes</a> 
+<p><img title="GitHub Octocat" src='https://github.com/pessini/moby-bikes/blob/902858f47ba9afaf380abfc2be02a2b7f1f09174/notebooks/img/Octocat.jpg?raw=true' style='height: 60px; padding-right: 15px' alt="Octocat" align="left"> This notebook is part of a GitHub repository: <a href="https://github.com/pessini/moby-bikes">https://github.com/pessini/moby-bikes</a> 
 <br>MIT Licensed
 <br>Author: Leandro Pessini</p>
 
@@ -13099,7 +13098,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -13139,7 +13138,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># ideas_df = pd.read_excel(&#39;../documentation/experiment_tracker.xlsx&#39;, sheet_name=&#39;Ideas&#39;)</span>
@@ -13153,7 +13152,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># creates a new object to keep track of the experiments</span>
@@ -13167,7 +13166,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/processed/df_train.csv&#39;</span><span class="p">)</span>
@@ -13181,7 +13180,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df_train</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -13199,7 +13198,11 @@ div#notebook {
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[5]:</div>
+
 
 
 
@@ -13215,7 +13218,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_df</span> <span class="o">=</span> <span class="n">df_test</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -13231,7 +13234,11 @@ div#notebook {
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[6]:</div>
+
 
 
 
@@ -13247,7 +13254,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_metrics_to_Experiment</span><span class="p">(</span><span class="n">dict_scores</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
@@ -13265,7 +13272,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">category_encoders</span> <span class="k">as</span> <span class="nn">ce</span>
@@ -13356,7 +13363,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">summarize_dict</span><span class="p">(</span><span class="n">dictionary</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
@@ -13370,7 +13377,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">kfold_score</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">predictors</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">n_folds</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">early_stopping_rounds</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
@@ -13421,7 +13428,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#predictors = [&#39;temp&#39;,&#39;rhum&#39;,&#39;dayofweek&#39;, &#39;holiday&#39;,&#39;timesofday&#39;,&#39;wdsp&#39;,&#39;rainfall_intensity&#39;,&#39;peak&#39;,&#39;working_day&#39;, &#39;hour&#39;, &#39;season&#39;]</span>
@@ -13432,7 +13439,8 @@ div#notebook {
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Hyperparameters-tuning">Hyperparameters tuning<a class="anchor-link" href="#Hyperparameters-tuning">&#182;</a></h2>
 </div>
@@ -13440,7 +13448,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Baseline model</span>
@@ -13465,7 +13473,11 @@ div#notebook {
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>######################################## Fold 1 out of 3 ########################################
@@ -13504,7 +13516,7 @@ Notes: Baseline XGBoost
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;temp&#39;</span><span class="p">,</span><span class="s1">&#39;rhum&#39;</span><span class="p">,</span><span class="s1">&#39;dayofweek&#39;</span><span class="p">,</span> <span class="s1">&#39;holiday&#39;</span><span class="p">,</span><span class="s1">&#39;timesofday&#39;</span><span class="p">,</span><span class="s1">&#39;wdsp&#39;</span><span class="p">,</span><span class="s1">&#39;rainfall_intensity&#39;</span><span class="p">,</span><span class="s1">&#39;peak&#39;</span><span class="p">,</span><span class="s1">&#39;working_day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;season&#39;</span><span class="p">]</span>
@@ -13532,7 +13544,11 @@ Notes: Baseline XGBoost
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>######################################## Fold 1 out of 3 ########################################
@@ -13571,7 +13587,7 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 2.4930,  &#39;validation&#39
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;temp&#39;</span><span class="p">,</span><span class="s1">&#39;rhum&#39;</span><span class="p">,</span><span class="s1">&#39;dayofweek&#39;</span><span class="p">,</span> <span class="s1">&#39;holiday&#39;</span><span class="p">,</span><span class="s1">&#39;timesofday&#39;</span><span class="p">,</span><span class="s1">&#39;wdsp&#39;</span><span class="p">,</span><span class="s1">&#39;rainfall_intensity&#39;</span><span class="p">,</span><span class="s1">&#39;peak&#39;</span><span class="p">,</span><span class="s1">&#39;working_day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;season&#39;</span><span class="p">]</span>
@@ -13599,7 +13615,11 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 2.4930,  &#39;validation&#39
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>######################################## Fold 1 out of 5 ########################################
@@ -13651,7 +13671,7 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 1.8872,  &#39;validation&#39
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">experiment_tracker</span><span class="o">.</span><span class="n">print_partial_results</span><span class="p">(</span><span class="n">filter_metric</span><span class="o">=</span><span class="s1">&#39;rsme&#39;</span><span class="p">)</span>
@@ -13664,7 +13684,11 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 1.8872,  &#39;validation&#39
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- Experiments ---
@@ -13687,7 +13711,7 @@ RSME - Train: 1.8872 - Validation: 2.5822 - Test: None
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;temp&#39;</span><span class="p">,</span><span class="s1">&#39;rhum&#39;</span><span class="p">,</span><span class="s1">&#39;dayofweek&#39;</span><span class="p">,</span> <span class="s1">&#39;holiday&#39;</span><span class="p">,</span><span class="s1">&#39;timesofday&#39;</span><span class="p">,</span><span class="s1">&#39;wdsp&#39;</span><span class="p">,</span><span class="s1">&#39;rainfall_intensity&#39;</span><span class="p">,</span><span class="s1">&#39;peak&#39;</span><span class="p">,</span><span class="s1">&#39;working_day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;season&#39;</span><span class="p">]</span>
@@ -13715,7 +13739,11 @@ RSME - Train: 1.8872 - Validation: 2.5822 - Test: None
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>######################################## Fold 1 out of 5 ########################################
@@ -13767,7 +13795,7 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 1.8869,  &#39;validation&#39
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">experiment_tracker</span><span class="o">.</span><span class="n">print_partial_results</span><span class="p">(</span><span class="n">filter_metric</span><span class="o">=</span><span class="s1">&#39;rsme&#39;</span><span class="p">)</span>
@@ -13780,7 +13808,11 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 1.8869,  &#39;validation&#39
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- Experiments ---
@@ -13806,7 +13838,7 @@ RSME - Train: 1.8869 - Validation: 2.5816 - Test: None
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;temp&#39;</span><span class="p">,</span><span class="s1">&#39;rhum&#39;</span><span class="p">,</span><span class="s1">&#39;dayofweek&#39;</span><span class="p">,</span> <span class="s1">&#39;holiday&#39;</span><span class="p">,</span><span class="s1">&#39;timesofday&#39;</span><span class="p">,</span><span class="s1">&#39;wdsp&#39;</span><span class="p">,</span><span class="s1">&#39;rainfall_intensity&#39;</span><span class="p">,</span><span class="s1">&#39;peak&#39;</span><span class="p">,</span><span class="s1">&#39;working_day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;season&#39;</span><span class="p">]</span>
@@ -13834,7 +13866,11 @@ RSME - Train: 1.8869 - Validation: 2.5816 - Test: None
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>######################################## Fold 1 out of 5 ########################################
@@ -13889,7 +13925,7 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 2.1507,  &#39;validation&#39
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;temp&#39;</span><span class="p">,</span><span class="s1">&#39;rhum&#39;</span><span class="p">,</span><span class="s1">&#39;dayofweek&#39;</span><span class="p">,</span><span class="s1">&#39;timesofday&#39;</span><span class="p">,</span><span class="s1">&#39;wdsp&#39;</span><span class="p">,</span><span class="s1">&#39;rainfall_intensity&#39;</span><span class="p">,</span> <span class="s1">&#39;working_day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;season&#39;</span><span class="p">]</span>
@@ -13917,7 +13953,11 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 2.1507,  &#39;validation&#39
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>######################################## Fold 1 out of 5 ########################################
@@ -13971,7 +14011,8 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 2.1291,  &#39;validation&#39
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Saving-model">Saving model<a class="anchor-link" href="#Saving-model">&#182;</a></h2>
 </div>
@@ -13979,7 +14020,7 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 2.1291,  &#39;validation&#39
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pickle</span>
@@ -13994,7 +14035,7 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 2.1291,  &#39;validation&#39
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">xgb_model</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">save_model</span><span class="p">(</span><span class="s1">&#39;../models/XGBoost.json&#39;</span><span class="p">)</span>
@@ -14008,7 +14049,7 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 2.1291,  &#39;validation&#39
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;temp&#39;</span><span class="p">,</span><span class="s1">&#39;rhum&#39;</span><span class="p">,</span><span class="s1">&#39;dayofweek&#39;</span><span class="p">,</span><span class="s1">&#39;timesofday&#39;</span><span class="p">,</span><span class="s1">&#39;wdsp&#39;</span><span class="p">,</span><span class="s1">&#39;rainfall_intensity&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;season&#39;</span><span class="p">]</span>
@@ -14036,7 +14077,11 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 2.1291,  &#39;validation&#39
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>######################################## Fold 1 out of 5 ########################################
@@ -14092,7 +14137,7 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 2.1735,  &#39;validation&#39
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;temp&#39;</span><span class="p">,</span><span class="s1">&#39;rhum&#39;</span><span class="p">,</span><span class="s1">&#39;dayofweek&#39;</span><span class="p">,</span><span class="s1">&#39;timesofday&#39;</span><span class="p">,</span><span class="s1">&#39;wdsp&#39;</span><span class="p">,</span><span class="s1">&#39;rainfall_intensity&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;working_day&#39;</span><span class="p">]</span>
@@ -14120,7 +14165,11 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 2.1735,  &#39;validation&#39
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>######################################## Fold 1 out of 5 ########################################
@@ -14175,7 +14224,7 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 2.2543,  &#39;validation&#39
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">experiment_tracker</span><span class="o">.</span><span class="n">print_partial_results</span><span class="p">(</span><span class="n">filter_metric</span><span class="o">=</span><span class="s1">&#39;rsme&#39;</span><span class="p">)</span>
@@ -14188,7 +14237,11 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 2.2543,  &#39;validation&#39
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- Experiments ---
@@ -14226,7 +14279,7 @@ RSME - Train: 2.2543 - Validation: 2.6297 - Test: None
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;temp&#39;</span><span class="p">,</span><span class="s1">&#39;rhum&#39;</span><span class="p">,</span><span class="s1">&#39;dayofweek&#39;</span><span class="p">,</span> <span class="s1">&#39;timesofday&#39;</span><span class="p">,</span><span class="s1">&#39;wdsp&#39;</span><span class="p">,</span><span class="s1">&#39;rainfall_intensity&#39;</span><span class="p">,</span><span class="s1">&#39;peak&#39;</span><span class="p">,</span><span class="s1">&#39;working_day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;season&#39;</span><span class="p">]</span>
@@ -14254,7 +14307,11 @@ RSME - Train: 2.2543 - Validation: 2.6297 - Test: None
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>######################################## Fold 1 out of 5 ########################################
@@ -14318,7 +14375,7 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 1.6609,  &#39;validation&#39
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;temp&#39;</span><span class="p">,</span><span class="s1">&#39;rhum&#39;</span><span class="p">,</span><span class="s1">&#39;dayofweek&#39;</span><span class="p">,</span> <span class="s1">&#39;timesofday&#39;</span><span class="p">,</span><span class="s1">&#39;wdsp&#39;</span><span class="p">,</span><span class="s1">&#39;rainfall_intensity&#39;</span><span class="p">,</span><span class="s1">&#39;peak&#39;</span><span class="p">,</span><span class="s1">&#39;working_day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;season&#39;</span><span class="p">]</span>
@@ -14346,7 +14403,11 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 1.6609,  &#39;validation&#39
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>######################################## Fold 1 out of 5 ########################################
@@ -14411,7 +14472,7 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 1.8909,  &#39;validation&#39
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">experiment_tracker</span><span class="o">.</span><span class="n">print_partial_results</span><span class="p">()</span>
@@ -14424,7 +14485,11 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 1.8909,  &#39;validation&#39
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- Experiments ---
@@ -14476,7 +14541,8 @@ MAE - Train: 1.3838 - Validation: 1.8731 - Test: None
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Saving-Model">Saving Model<a class="anchor-link" href="#Saving-Model">&#182;</a></h2>
 </div>
@@ -14484,7 +14550,7 @@ MAE - Train: 1.3838 - Validation: 1.8731 - Test: None
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">xgb_model</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../models/xgboost_complex_pipe.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">))</span>
@@ -14500,7 +14566,7 @@ MAE - Train: 1.3838 - Validation: 1.8731 - Test: None
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">normalized_rsme</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
@@ -14514,7 +14580,7 @@ MAE - Train: 1.3838 - Validation: 1.8731 - Test: None
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Normalized RSME - Root Mean Square Error</span>
@@ -14529,7 +14595,11 @@ MAE - Train: 1.3838 - Validation: 1.8731 - Test: None
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[38]:</div>
+
 
 
 
@@ -14543,7 +14613,8 @@ MAE - Train: 1.3838 - Validation: 1.8731 - Test: None
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Only-positives-count">Only positives count<a class="anchor-link" href="#Only-positives-count">&#182;</a></h2>
 </div>
@@ -14551,7 +14622,7 @@ MAE - Train: 1.3838 - Validation: 1.8731 - Test: None
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_positives</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">df_train</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -14567,7 +14638,11 @@ MAE - Train: 1.3838 - Validation: 1.8731 - Test: None
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[39]:</div>
+
 
 
 
@@ -14583,7 +14658,7 @@ MAE - Train: 1.3838 - Validation: 1.8731 - Test: None
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;temp&#39;</span><span class="p">,</span><span class="s1">&#39;rhum&#39;</span><span class="p">,</span><span class="s1">&#39;dayofweek&#39;</span><span class="p">,</span> <span class="s1">&#39;holiday&#39;</span><span class="p">,</span><span class="s1">&#39;timesofday&#39;</span><span class="p">,</span><span class="s1">&#39;wdsp&#39;</span><span class="p">,</span><span class="s1">&#39;rainfall_intensity&#39;</span><span class="p">,</span><span class="s1">&#39;peak&#39;</span><span class="p">,</span><span class="s1">&#39;working_day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;season&#39;</span><span class="p">]</span>
@@ -14611,7 +14686,11 @@ MAE - Train: 1.3838 - Validation: 1.8731 - Test: None
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>######################################## Fold 1 out of 5 ########################################
@@ -14675,7 +14754,7 @@ Notes: Checking possibility of using hurdle model
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[41]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">experiment_tracker</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="s1">&#39;../documentation/experiment_tracker_xgboost.xlsx&#39;</span><span class="p">)</span>
@@ -14688,7 +14767,7 @@ Notes: Checking possibility of using hurdle model
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">reload_ext</span> watermark
@@ -14702,7 +14781,11 @@ Notes: Checking possibility of using hurdle model
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Author: Leandro Pessini
@@ -14732,9 +14815,10 @@ Watermark: 2.3.0
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img title="GitHub Mark" src="./img/GitHub-Mark-64px.png" style="height: 32px; padding-right: 15px" alt="GitHub Mark" align="left"> <a href="https://github.com/pessini/moby-bikes">GitHub repository</a> <br>Author: Leandro Pessini</p>
+<p><img title="GitHub Mark" src="https://github.com/pessini/moby-bikes/blob/902858f47ba9afaf380abfc2be02a2b7f1f09174/notebooks/img/GitHub-Mark-64px.png?raw=true" style="height: 32px; padding-right: 15px" alt="GitHub Mark" align="left"> <a href="https://github.com/pessini/moby-bikes">GitHub repository</a> <br>Author: Leandro Pessini</p>
 
 </div>
 </div>

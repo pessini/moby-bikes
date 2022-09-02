@@ -13030,8 +13030,6 @@ body {
 div#notebook {
   overflow: visible;
   border-top: none;
-}div#notebook-container{
-  padding: 6ex 12ex 8ex 12ex;
 }@media print {
   body {
     margin: 0;
@@ -13088,43 +13086,26 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img title="GitHub Octocat" src='./img/Octocat.jpg' style='height: 60px; padding-right: 15px' alt="Octocat" align="left"> This notebook is part of a GitHub repository: <a href="https://github.com/pessini/moby-bikes">https://github.com/pessini/moby-bikes</a> 
+<p><img title="GitHub Octocat" src='https://github.com/pessini/moby-bikes/blob/902858f47ba9afaf380abfc2be02a2b7f1f09174/notebooks/img/Octocat.jpg?raw=true' style='height: 60px; padding-right: 15px' alt="Octocat" align="left"> This notebook is part of a GitHub repository: <a href="https://github.com/pessini/moby-bikes">https://github.com/pessini/moby-bikes</a> 
 <br>MIT Licensed
 <br>Author: Leandro Pessini</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Exploratory-Data-Analysis-(EDA)"><p style="font-size:100%; text-align:left; color:#444444;">Exploratory Data Analysis (EDA)</p><a class="anchor-link" href="#Exploratory-Data-Analysis-(EDA)">&#182;</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Table-of-Contents:"><p style="font-size:100%; text-align:left; color:#444444;">Table of Contents:</p><a class="anchor-link" href="#Table-of-Contents:">&#182;</a></h1><ul>
-<li><a href="#1">1. EDA</a><ul>
-<li><a href="#1.1">1.1 Rentals Data - Moby Bikes</a></li>
-<li><a href="#1.2">1.2 Weather Data - Met Éireann</a></li>
-<li><a href="#1.2">1.3 Unusual Observations analysis</a></li>
-</ul>
-</li>
-<li><a href="#2">2. Discrete Analysis (Count Data)</a><ul>
-<li><a href="#2.1">2.1 Overdispersion</a></li>
-<li><a href="#2.2">2.2 Zero-inflated</a></li>
-</ul>
-</li>
-</ul>
-
+<h1 id="Exploratory-Data-Analysis-(EDA)">Exploratory Data Analysis (EDA)<a class="anchor-link" href="#Exploratory-Data-Analysis-(EDA)">&#182;</a></h1>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -13155,7 +13136,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">reload_ext</span> watermark
@@ -13169,7 +13150,11 @@ div#notebook {
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Author: Leandro Pessini
@@ -13201,7 +13186,7 @@ Watermark: 2.3.0
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/processed/df_train.csv&#39;</span><span class="p">)</span>
@@ -13217,7 +13202,11 @@ Watermark: 2.3.0
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[4]:</div>
+
 
 
 <div class="output_html rendered_html output_subarea output_execute_result"><div>
@@ -13395,7 +13384,7 @@ Watermark: 2.3.0
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># EDA libraries</span>
@@ -13435,7 +13424,8 @@ Watermark: 2.3.0
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Battery-distribution">Battery distribution<a class="anchor-link" href="#Battery-distribution">&#182;</a></h2>
 </div>
@@ -13443,7 +13433,7 @@ Watermark: 2.3.0
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">battery_dist_df</span> <span class="o">=</span> <span class="n">all_data</span><span class="p">[</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -13473,7 +13463,11 @@ Watermark: 2.3.0
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[6]:</div>
+
 
 
 <div class="output_html rendered_html output_subarea output_execute_result"><div>
@@ -13534,7 +13528,8 @@ Watermark: 2.3.0
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Initial-battery-density">Initial battery density<a class="anchor-link" href="#Initial-battery-density">&#182;</a></h3>
 </div>
@@ -13542,7 +13537,7 @@ Watermark: 2.3.0
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
@@ -13557,7 +13552,11 @@ Watermark: 2.3.0
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 
 
@@ -13572,7 +13571,8 @@ Watermark: 2.3.0
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Duration-of-rentals">Duration of rentals<a class="anchor-link" href="#Duration-of-rentals">&#182;</a></h2>
 </div>
@@ -13580,7 +13580,7 @@ Watermark: 2.3.0
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">avg_rental_duration</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Average rentals duration: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2"> minutes&quot;</span>
@@ -13593,7 +13593,7 @@ Watermark: 2.3.0
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
@@ -13630,7 +13630,11 @@ Watermark: 2.3.0
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 
 
@@ -13645,14 +13649,16 @@ Watermark: 2.3.0
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We can spot a few patterns when in colder days (Autumn and Winter | Night), the duration of rentals on average is higher. It seems that, on average, customers stay longer with bikes on early days of the week (Monday, Tuesday and Wednesday). On the other hand, it does not seem to be a difference on average rentals duration on Bank Holidays.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Total-number-of-rentals">Total number of rentals<a class="anchor-link" href="#Total-number-of-rentals">&#182;</a></h2>
 </div>
@@ -13660,7 +13666,7 @@ Watermark: 2.3.0
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
@@ -13692,7 +13698,11 @@ Watermark: 2.3.0
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 
 
@@ -13707,7 +13717,8 @@ Watermark: 2.3.0
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>As expected, in the Spring and Summer had more rentals than on Autumn and Winter as the weather impacts directly the number of rentals and those seasons usually have better weather. Also, the number of rentals is significant higher in the <em>Afternoon</em> followed by <em>Mornining</em>, <em>Evening</em> and then <em>Night</em>. Again, the number of rentals do not seem to have a significant difference on Weekends/Holidays.</p>
 <p>As consequence of the duration of rentals being higher during early weekdays, we see that Thursday, Friday and Saturday have a higher flux of new rentals.</p>
@@ -13715,7 +13726,8 @@ Watermark: 2.3.0
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Hourly-number-of-rentals">Hourly number of rentals<a class="anchor-link" href="#Hourly-number-of-rentals">&#182;</a></h2>
 </div>
@@ -13723,7 +13735,7 @@ Watermark: 2.3.0
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
@@ -13750,7 +13762,11 @@ Watermark: 2.3.0
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 
 
@@ -13765,14 +13781,16 @@ Watermark: 2.3.0
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>When we plot the number o rentals on each hour of day, we notice that no discrepancy's found on different Seasons, Weekends/Holidays and even week days follow a similar pattern throughout the day.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="BoxPlot-analyses">BoxPlot analyses<a class="anchor-link" href="#BoxPlot-analyses">&#182;</a></h2>
 </div>
@@ -13780,7 +13798,7 @@ Watermark: 2.3.0
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">ncols</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span>
@@ -13819,7 +13837,11 @@ Watermark: 2.3.0
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 
 
@@ -13834,7 +13856,8 @@ Watermark: 2.3.0
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Main-findings:">Main findings:<a class="anchor-link" href="#Main-findings:">&#182;</a></h3><ul>
 <li>Bikes are, on average, less rented on Bank Holidays. This could be because Moby Bikes have a subscription plan and this could impact if people subscribe to commute, for example.</li>
@@ -13848,7 +13871,7 @@ Watermark: 2.3.0
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
@@ -13865,7 +13888,11 @@ Watermark: 2.3.0
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 
 
@@ -13880,7 +13907,8 @@ Watermark: 2.3.0
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>As demonstrated above by line plots and from the boxplot, in the afternoon bikes are more rented on average and in total. Hourly means have demonstrated being very scattered.</p>
 
@@ -13889,7 +13917,7 @@ Watermark: 2.3.0
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
@@ -13917,7 +13945,11 @@ Watermark: 2.3.0
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 
 
@@ -13932,20 +13964,23 @@ Watermark: 2.3.0
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Weather features, as temperature and humidity, have visually mean differences and it makes sense when deciding to use a bike. Wind Speed seems to decrease usage on average only when it is strong and storms.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Kruskal-Wallis-H-test-on-categorical-features">Kruskal-Wallis H-test on categorical features<a class="anchor-link" href="#Kruskal-Wallis-H-test-on-categorical-features">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The ANOVA test has important assumptions that must be satisfied in order for the associated p-value to be valid.</p>
 <ul>
@@ -13961,7 +13996,7 @@ Watermark: 2.3.0
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Defining a function to find the statistical relationship with all the categorical variables</span>
@@ -13993,7 +14028,7 @@ Watermark: 2.3.0
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Calling the function to check which categorical variables are correlated with target</span>
@@ -14009,7 +14044,11 @@ Watermark: 2.3.0
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>##### Kruskal-Wallis H-test Results ##### 
@@ -14031,6 +14070,9 @@ wind_bft is correlated with count | p-value: 1.810350081440984e-36
 </div>
 
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[16]:</div>
+
 
 
 
@@ -14054,7 +14096,8 @@ wind_bft is correlated with count | p-value: 1.810350081440984e-36
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Correlation-Matrix">Correlation Matrix<a class="anchor-link" href="#Correlation-Matrix">&#182;</a></h2>
 </div>
@@ -14062,7 +14105,7 @@ wind_bft is correlated with count | p-value: 1.810350081440984e-36
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">corrMatt</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[[</span><span class="s1">&#39;temp&#39;</span><span class="p">,</span><span class="s1">&#39;wdsp&#39;</span><span class="p">,</span><span class="s1">&#39;rhum&#39;</span><span class="p">,</span><span class="s1">&#39;count&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
@@ -14085,7 +14128,11 @@ wind_bft is correlated with count | p-value: 1.810350081440984e-36
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 
 
@@ -14097,6 +14144,9 @@ wind_bft is correlated with count | p-value: 1.810350081440984e-36
 </div>
 
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[17]:</div>
+
 
 
 <div class="output_html rendered_html output_subarea output_execute_result"><style type="text/css">
@@ -14143,7 +14193,8 @@ wind_bft is correlated with count | p-value: 1.810350081440984e-36
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Distribution-of-numerical-features">Distribution of numerical features<a class="anchor-link" href="#Distribution-of-numerical-features">&#182;</a></h2>
 </div>
@@ -14151,7 +14202,7 @@ wind_bft is correlated with count | p-value: 1.810350081440984e-36
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">22</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
@@ -14178,7 +14229,11 @@ wind_bft is correlated with count | p-value: 1.810350081440984e-36
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 
 
@@ -14193,7 +14248,8 @@ wind_bft is correlated with count | p-value: 1.810350081440984e-36
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Relations-between-Numerical-Features-and-Target-variable">Relations between Numerical Features and Target variable<a class="anchor-link" href="#Relations-between-Numerical-Features-and-Target-variable">&#182;</a></h2>
 </div>
@@ -14201,7 +14257,7 @@ wind_bft is correlated with count | p-value: 1.810350081440984e-36
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">df_train</span><span class="p">,</span> 
@@ -14221,7 +14277,11 @@ wind_bft is correlated with count | p-value: 1.810350081440984e-36
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 
 
@@ -14236,7 +14296,8 @@ wind_bft is correlated with count | p-value: 1.810350081440984e-36
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Temperature and Relative Humidity show a strong correlation with Rentals Count (positive and negative, respectively) but Wind Speed does not seem to be correlated with Rentals Count.</p>
 
@@ -14245,7 +14306,7 @@ wind_bft is correlated with count | p-value: 1.810350081440984e-36
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">pp</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">df_train</span><span class="p">,</span> 
@@ -14263,7 +14324,11 @@ wind_bft is correlated with count | p-value: 1.810350081440984e-36
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 
 
@@ -14278,14 +14343,16 @@ wind_bft is correlated with count | p-value: 1.810350081440984e-36
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>If we plot the relationship by Season we can see that Wind Speed is correlated but depending on the Season is positive or negative. Which makes sense since on Autumn and Winter, as it is colder and temperature is normally low, Rentals decrease as the Wind Speed increases. In the Spring and Summer, because the temperature are on average higher the wind speed we see a different effect (positive correlation).</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Monthly-Data">Monthly Data<a class="anchor-link" href="#Monthly-Data">&#182;</a></h2>
 </div>
@@ -14293,7 +14360,7 @@ wind_bft is correlated with count | p-value: 1.810350081440984e-36
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">monthly_data</span> <span class="o">=</span> <span class="n">df_train</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;month&#39;</span><span class="p">)[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="s1">&#39;sum&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;total_rentals&#39;</span><span class="p">)</span>
@@ -14323,7 +14390,11 @@ wind_bft is correlated with count | p-value: 1.810350081440984e-36
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 
 
@@ -14340,7 +14411,7 @@ wind_bft is correlated with count | p-value: 1.810350081440984e-36
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">monthly_testdata</span> <span class="o">=</span> <span class="n">df_test</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;month&#39;</span><span class="p">)[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="s1">&#39;sum&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;total_rentals&#39;</span><span class="p">)</span>
@@ -14355,7 +14426,11 @@ wind_bft is correlated with count | p-value: 1.810350081440984e-36
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[38]:</div>
+
 
 
 <div class="output_html rendered_html output_subarea output_execute_result"><div>
@@ -14401,7 +14476,8 @@ wind_bft is correlated with count | p-value: 1.810350081440984e-36
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Distribution-across-Times-of-the-Day">Distribution across Times of the Day<a class="anchor-link" href="#Distribution-across-Times-of-the-Day">&#182;</a></h3>
 </div>
@@ -14409,7 +14485,7 @@ wind_bft is correlated with count | p-value: 1.810350081440984e-36
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">labels_zeros</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
@@ -14432,7 +14508,7 @@ wind_bft is correlated with count | p-value: 1.810350081440984e-36
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">22</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
@@ -14470,7 +14546,11 @@ wind_bft is correlated with count | p-value: 1.810350081440984e-36
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 
 
@@ -14485,9 +14565,10 @@ wind_bft is correlated with count | p-value: 1.810350081440984e-36
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img title="GitHub Mark" src="./img/GitHub-Mark-64px.png" style="height: 32px; padding-right: 15px" alt="GitHub Mark" align="left"> <a href="https://github.com/pessini/moby-bikes">GitHub repository</a> <br>Author: Leandro Pessini</p>
+<p><img title="GitHub Mark" src="https://github.com/pessini/moby-bikes/blob/902858f47ba9afaf380abfc2be02a2b7f1f09174/notebooks/img/GitHub-Mark-64px.png?raw=true" style="height: 32px; padding-right: 15px" alt="GitHub Mark" align="left"> <a href="https://github.com/pessini/moby-bikes">GitHub repository</a> <br>Author: Leandro Pessini</p>
 
 </div>
 </div>

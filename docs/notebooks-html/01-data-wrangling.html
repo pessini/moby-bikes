@@ -13030,8 +13030,6 @@ body {
 div#notebook {
   overflow: visible;
   border-top: none;
-}div#notebook-container{
-  padding: 6ex 12ex 8ex 12ex;
 }@media print {
   body {
     margin: 0;
@@ -13088,16 +13086,18 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img title="GitHub Octocat" src='./img/Octocat.jpg' style='height: 60px; padding-right: 15px' alt="Octocat" align="left" height="60"> This notebook is part of a GitHub repository: <a href="https://github.com/pessini/moby-bikes">https://github.com/pessini/moby-bikes</a>
+<p><img title="GitHub Octocat" src='https://github.com/pessini/moby-bikes/blob/902858f47ba9afaf380abfc2be02a2b7f1f09174/notebooks/img/Octocat.jpg?raw=true' style='height: 60px; padding-right: 15px' alt="Octocat" align="left" height="60"> This notebook is part of a GitHub repository: <a href="https://github.com/pessini/moby-bikes">https://github.com/pessini/moby-bikes</a>
 <br>MIT Licensed
 <br>Author: Leandro Pessini</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Data-Wrangling">Data Wrangling<a class="anchor-link" href="#Data-Wrangling">&#182;</a></h1>
 </div>
@@ -13105,7 +13105,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -13124,7 +13124,8 @@ div#notebook {
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Dataset provided by <a href="https://data.gov.ie/dataset/moby-bikes">Moby Bikes</a> through a public <a href="https://data.smartdublin.ie/mobybikes-api">API</a>.</p>
 <p>Dataset provided by <a href="https://www.met.ie/">Met Éireann</a> through a public <a href="https://data.gov.ie/dataset/met-eireann-weather-forecast-api/resource/5d156b15-38b8-4de9-921b-0ffc8704c88e">API</a>.</p>
@@ -13132,14 +13133,16 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id="1.1"></a></p>
 <h2 id="Rentals-Data---Moby-Bikes">Rentals Data - Moby Bikes<a class="anchor-link" href="#Rentals-Data---Moby-Bikes">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Data-fields">Data fields<a class="anchor-link" href="#Data-fields">&#182;</a></h3><ul>
 <li><code>HarvestTime</code> - Data retrieval timestamp</li>
@@ -13164,7 +13167,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">date_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;HarvestTime&#39;</span><span class="p">,</span><span class="s1">&#39;LastGPSTime&#39;</span><span class="p">,</span> <span class="s1">&#39;LastRentalStart&#39;</span><span class="p">]</span>
@@ -13178,7 +13181,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">historical_data</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
@@ -13191,7 +13194,11 @@ div#notebook {
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
@@ -13226,7 +13233,7 @@ memory usage: 178.0+ MB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">historical_data</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">historical_data</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
@@ -13240,7 +13247,11 @@ memory usage: 178.0+ MB
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[4]:</div>
+
 
 
 <div class="output_html rendered_html output_subarea output_execute_result"><div>
@@ -13381,7 +13392,7 @@ memory usage: 178.0+ MB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Total number of rows: </span><span class="si">{</span><span class="n">historical_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -13395,7 +13406,11 @@ memory usage: 178.0+ MB
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Total number of rows: 1885006
@@ -13410,7 +13425,7 @@ Total number of columns: 15
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">historical_data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
@@ -13423,7 +13438,11 @@ Total number of columns: 15
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[6]:</div>
+
 
 
 
@@ -13454,7 +13473,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">historical_data</span><span class="p">[</span><span class="s1">&#39;isebike&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
@@ -13467,7 +13486,11 @@ dtype: int64</pre>
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[7]:</div>
+
 
 
 
@@ -13484,7 +13507,7 @@ Name: isebike, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">historical_data</span><span class="p">[</span><span class="s1">&#39;ismotor&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
@@ -13497,7 +13520,11 @@ Name: isebike, dtype: int64</pre>
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[8]:</div>
+
 
 
 
@@ -13514,7 +13541,7 @@ Name: ismotor, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">historical_data</span><span class="p">[</span><span class="s1">&#39;issmartlock&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
@@ -13527,7 +13554,11 @@ Name: ismotor, dtype: int64</pre>
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[9]:</div>
+
 
 
 
@@ -13542,14 +13573,16 @@ Name: issmartlock, dtype: int64</pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><code>isebike</code>, <code>ismotor</code> and <code>issmartlock</code> only have one value. For that reason they will not be used further on the analysis.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>EBike State indicates:</p>
 <ul>
@@ -13566,7 +13599,7 @@ Name: issmartlock, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">historical_data</span><span class="p">[</span><span class="s1">&#39;ebikestateid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
@@ -13579,7 +13612,11 @@ Name: issmartlock, dtype: int64</pre>
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[10]:</div>
+
 
 
 
@@ -13598,7 +13635,7 @@ Name: ebikestateid, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">idx_state1</span> <span class="o">=</span> <span class="n">historical_data</span><span class="p">[</span><span class="n">historical_data</span><span class="p">[</span><span class="s1">&#39;ebikestateid&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">][</span><span class="s1">&#39;lastrentalstart&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
@@ -13613,7 +13650,7 @@ Name: ebikestateid, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 2021-03-31 08:52:13</span>
@@ -13627,7 +13664,11 @@ Name: ebikestateid, dtype: int64</pre>
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[12]:</div>
+
 
 
 <div class="output_html rendered_html output_subarea output_execute_result"><div>
@@ -13696,7 +13737,7 @@ Name: ebikestateid, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 2021-04-02 13:00:13</span>
@@ -13710,7 +13751,11 @@ Name: ebikestateid, dtype: int64</pre>
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[13]:</div>
+
 
 
 <div class="output_html rendered_html output_subarea output_execute_result"><div>
@@ -13887,7 +13932,7 @@ Name: ebikestateid, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">bikenotparked_df</span> <span class="o">=</span> <span class="n">historical_data</span><span class="p">[</span><span class="n">historical_data</span><span class="p">[</span><span class="s1">&#39;lastrentalstart&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">idx_state5</span><span class="p">)]</span>
@@ -13901,7 +13946,11 @@ Name: ebikestateid, dtype: int64</pre>
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[14]:</div>
+
 
 
 <div class="output_html rendered_html output_subarea output_execute_result"><div>
@@ -14040,7 +14089,8 @@ Name: ebikestateid, dtype: int64</pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We have values with <code>ebikestateid</code> == 1 (Warning - is in move and not rented) with only one row and others 'within' a rental that could be due to malfunctioning.</p>
 <p>If the <code>ebikestateid</code> == 5 is present, only a fine will applied to the customer according to the Terms of Services which will not impact the analysis of the rental.</p>
@@ -14051,7 +14101,7 @@ Name: ebikestateid, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># filter out the ones with bike state id 1 and only 1 row</span>
@@ -14066,7 +14116,11 @@ Name: ebikestateid, dtype: int64</pre>
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[15]:</div>
+
 
 
 
@@ -14082,7 +14136,7 @@ Name: ebikestateid, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">historical_data_clean</span> <span class="o">=</span> <span class="n">historical_data</span><span class="p">[</span><span class="o">~</span><span class="n">historical_data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">not_rented_list</span><span class="p">)]</span>
@@ -14096,7 +14150,11 @@ Name: ebikestateid, dtype: int64</pre>
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[16]:</div>
+
 
 
 
@@ -14110,7 +14168,8 @@ Name: ebikestateid, dtype: int64</pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Sanity check</strong></p>
 
@@ -14119,7 +14178,7 @@ Name: ebikestateid, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="p">(</span><span class="n">historical_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">historical_data_clean</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">not_rented_list</span><span class="p">),</span> \
@@ -14133,7 +14192,7 @@ Name: ebikestateid, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">historical_data</span><span class="p">[</span><span class="s1">&#39;biketypename&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
@@ -14146,7 +14205,11 @@ Name: ebikestateid, dtype: int64</pre>
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[18]:</div>
+
 
 
 
@@ -14166,7 +14229,7 @@ Name: biketypename, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">workshop_df</span> <span class="o">=</span> <span class="n">historical_data_clean</span><span class="p">[</span><span class="n">historical_data_clean</span><span class="p">[</span><span class="s1">&#39;biketypename&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Workshop&#39;</span><span class="p">]</span>
@@ -14181,7 +14244,7 @@ Name: biketypename, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">date_range</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">workshop_df</span><span class="p">[</span><span class="s1">&#39;lastrentalstart&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">+</span> <span class="s1">&#39; to &#39;</span> <span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">workshop_df</span><span class="p">[</span><span class="s1">&#39;lastrentalstart&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
@@ -14195,7 +14258,11 @@ Name: biketypename, dtype: int64</pre>
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[20]:</div>
+
 
 
 
@@ -14211,7 +14278,7 @@ Name: biketypename, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">workshop_rentals_dt</span> <span class="o">=</span> <span class="n">workshop_df</span><span class="p">[</span><span class="s1">&#39;lastrentalstart&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
@@ -14230,7 +14297,11 @@ Name: biketypename, dtype: int64</pre>
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 
 
@@ -14247,7 +14318,7 @@ Name: biketypename, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">healthcare_df_dt</span> <span class="o">=</span> <span class="n">healthcare_df</span><span class="p">[</span><span class="s1">&#39;lastrentalstart&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
@@ -14266,7 +14337,11 @@ Name: biketypename, dtype: int64</pre>
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 
 
@@ -14283,7 +14358,7 @@ Name: biketypename, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">workshop_df</span><span class="p">[</span><span class="s1">&#39;bikeid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
@@ -14296,7 +14371,11 @@ Name: biketypename, dtype: int64</pre>
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[23]:</div>
+
 
 
 
@@ -14321,7 +14400,7 @@ Name: bikeid, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">private_df</span><span class="p">[</span><span class="s1">&#39;bikeid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
@@ -14334,7 +14413,11 @@ Name: bikeid, dtype: int64</pre>
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[24]:</div>
+
 
 
 
@@ -14351,7 +14434,7 @@ Name: bikeid, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">healthcare_df</span><span class="p">[</span><span class="s1">&#39;bikeid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
@@ -14364,7 +14447,11 @@ Name: bikeid, dtype: int64</pre>
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[25]:</div>
+
 
 
 
@@ -14391,7 +14478,8 @@ Name: bikeid, dtype: int64</pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Moby has one bike with <strong>ID 83</strong> which seems to be <em><code>Private</code></em> and also different rental types called <em><code>Workshop</code></em> and <em><code>Healthcare</code></em>. Workshop is unknown if bikes were allocated either to an specific event or the workshop is provided by Moby Bikes in order to promote its services, for example. The same rule applies to Healthcare type.</p>
 
@@ -14400,7 +14488,7 @@ Name: bikeid, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">general_hist_data</span> <span class="o">=</span> <span class="n">historical_data_clean</span><span class="p">[</span><span class="n">historical_data_clean</span><span class="p">[</span><span class="s1">&#39;biketypename&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;DUB-General&#39;</span><span class="p">]</span>
@@ -14413,7 +14501,7 @@ Name: bikeid, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Private BIKE ID 83: </span><span class="si">{</span><span class="n">general_hist_data</span><span class="p">[</span><span class="n">general_hist_data</span><span class="p">[</span><span class="s2">&quot;bikeid&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">83</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> observations used on DUB-General&#39;</span><span class="p">)</span>
@@ -14428,7 +14516,11 @@ Name: bikeid, dtype: int64</pre>
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Private BIKE ID 83: 21476 observations used on DUB-General
@@ -14442,7 +14534,8 @@ Healthcare BIKE ID 48: 21777 observations used on DUB-General
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We can see that the same bike used as <em><code>Private</code></em>, <em><code>Workshop</code></em> and <em><code>Healthcare</code></em> are being used again from regular customers. Also, workshop day do not have a big impact overall as shown the maximum number of rentals was 8 on a Workshop day.</p>
 <p>Due to the fact that workshop day is unknown (in advance) and its volume on rentals is not significant high, it is not worthy to label a rental as workshop/healthcare (true/false). For the reasons discussed above, the data from those will be removed.</p>
@@ -14450,7 +14543,8 @@ Healthcare BIKE ID 48: 21777 observations used on DUB-General
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Battery">Battery<a class="anchor-link" href="#Battery">&#182;</a></h2>
 </div>
@@ -14458,7 +14552,7 @@ Healthcare BIKE ID 48: 21777 observations used on DUB-General
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">battery_hist_df</span> <span class="o">=</span> <span class="n">general_hist_data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -14472,7 +14566,11 @@ Healthcare BIKE ID 48: 21777 observations used on DUB-General
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[28]:</div>
+
 
 
 
@@ -14503,7 +14601,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">battery_hist_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">battery_hist_df</span><span class="p">[</span><span class="s1">&#39;battery&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">]</span>
@@ -14516,7 +14614,11 @@ dtype: int64</pre>
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[29]:</div>
+
 
 
 <div class="output_html rendered_html output_subarea output_execute_result"><div>
@@ -14583,7 +14685,8 @@ dtype: int64</pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>From the battery records there is a few cases that we can consider. Only one record has <code>battery &gt; 100</code> and a few negatives ones. To simplify the analysis the records will be normalized with values between <code>0 &gt; x &gt; 100</code>.</p>
 <p>All missing values will not be transformed as it could be only malfunction issue when transmiting the data and it could mislead the analysis.</p>
@@ -14593,7 +14696,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">battery_hist_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">battery_hist_df</span><span class="p">[</span><span class="s1">&#39;battery&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;battery&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
@@ -14606,7 +14709,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">negatives_b</span> <span class="o">=</span> <span class="n">battery_hist_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">battery_hist_df</span><span class="p">[</span><span class="s1">&#39;battery&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span>
@@ -14620,7 +14723,11 @@ dtype: int64</pre>
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[31]:</div>
+
 
 
 
@@ -14634,7 +14741,8 @@ dtype: int64</pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>There are lots of negative/missing battery information as well as Latitude/Longitude. Because we are not using battery information for modeling, this feature won't be handled for now. All Latitude/Longitude with 0 will be replace as NaN.</p>
 <p>When grouping the data all the historical info for these two features will be stored as lists.</p>
@@ -14644,7 +14752,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Transforming null values and negative battery values to -1</span>
@@ -14659,7 +14767,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">negatives_b_n</span> <span class="o">=</span> <span class="n">battery_hist_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">battery_hist_df</span><span class="p">[</span><span class="s1">&#39;battery&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span>
@@ -14675,7 +14783,11 @@ dtype: int64</pre>
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Previous # of negative battery values: 34825
@@ -14691,7 +14803,7 @@ Difference: 64375
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">rentals</span> <span class="o">=</span> <span class="n">battery_hist_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -14708,7 +14820,11 @@ Difference: 64375
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[34]:</div>
+
 
 
 
@@ -14722,7 +14838,8 @@ Difference: 64375
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Grouping-Rentals">Grouping Rentals<a class="anchor-link" href="#Grouping-Rentals">&#182;</a></h3>
 </div>
@@ -14730,7 +14847,7 @@ Difference: 64375
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">group_as_list</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
@@ -14751,7 +14868,7 @@ Difference: 64375
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">grouped_rentals</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
@@ -14764,7 +14881,11 @@ Difference: 64375
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[36]:</div>
+
 
 
 <div class="output_html rendered_html output_subarea output_execute_result"><div>
@@ -14845,7 +14966,7 @@ Difference: 64375
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_valid_battery</span><span class="p">(</span><span class="n">battery_list</span><span class="p">):</span>
@@ -14864,7 +14985,7 @@ Difference: 64375
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">grouped_rentals</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;../data/interim/rentals.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -14878,7 +14999,11 @@ Difference: 64375
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[38]:</div>
+
 
 
 
@@ -14892,14 +15017,16 @@ Difference: 64375
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id="1.2"></a></p>
 <h2 id="Weather-Data---Met-%C3%89ireann">Weather Data - Met &#201;ireann<a class="anchor-link" href="#Weather-Data---Met-%C3%89ireann">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Regarding the weather data there are two important decisions to deal with.</p>
 <ul>
@@ -14910,7 +15037,8 @@ Difference: 64375
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Station-Name:-PHOENIX-PARK">Station Name: <strong>PHOENIX PARK</strong><a class="anchor-link" href="#Station-Name:-PHOENIX-PARK">&#182;</a></h3>
 </div>
@@ -14918,7 +15046,7 @@ Difference: 64375
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Hourly data from Phoenix Park Station</span>
@@ -14933,7 +15061,11 @@ Difference: 64375
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[39]:</div>
+
 
 
 <div class="output_html rendered_html output_subarea output_execute_result"><div>
@@ -15048,7 +15180,8 @@ Difference: 64375
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Source: <a href="https://data.gov.ie/dataset/phoenix-park-hourly-data">https://data.gov.ie/dataset/phoenix-park-hourly-data</a></p>
 
@@ -15057,7 +15190,7 @@ Difference: 64375
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Daily data from Phoenix Park Station</span>
@@ -15072,7 +15205,11 @@ Difference: 64375
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[40]:</div>
+
 
 
 <div class="output_html rendered_html output_subarea output_execute_result"><div>
@@ -15187,14 +15324,16 @@ Difference: 64375
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Source: <a href="https://data.gov.ie/dataset/phoenixpark-daily-data">https://data.gov.ie/dataset/phoenixpark-daily-data</a></p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Station-Name:-DUBLIN-AIRPORT">Station Name: <strong>DUBLIN AIRPORT</strong><a class="anchor-link" href="#Station-Name:-DUBLIN-AIRPORT">&#182;</a></h3>
 </div>
@@ -15202,7 +15341,7 @@ Difference: 64375
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[41]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Hourly data from Dublin Airport Station</span>
@@ -15217,7 +15356,11 @@ Difference: 64375
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[41]:</div>
+
 
 
 <div class="output_html rendered_html output_subarea output_execute_result"><div>
@@ -15395,7 +15538,7 @@ Difference: 64375
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Total number of rows: </span><span class="si">{</span><span class="n">dublin_airport_weather_hourly</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -15408,7 +15551,11 @@ Difference: 64375
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Total number of rows: 265873
@@ -15420,14 +15567,16 @@ Difference: 64375
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Source: <a href="https://data.gov.ie/dataset/dublin-airport-hourly-data">https://data.gov.ie/dataset/dublin-airport-hourly-data</a></p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Phoenix-Park-Station-vs-Dublin-Aiport-Station">Phoenix Park Station vs Dublin Aiport Station<a class="anchor-link" href="#Phoenix-Park-Station-vs-Dublin-Aiport-Station">&#182;</a></h3><p>Geographically, the station at Phoenix Park would be the most suitable choice but unfortunately, they do not collect Wind information which in Ireland plays an important role when deciding to go cycling or not. For those who are not familiar with Irish weather, it rains a lot and mostly we do not have much choice about it but the wind is something that can prevent you go outside or choosing a different kind of transportation. Heavy rain is not that common, though.</p>
 <h3 id="Hourly-vs-Daily-data">Hourly vs Daily data<a class="anchor-link" href="#Hourly-vs-Daily-data">&#182;</a></h3><p>A daily data to the business could make more sense but because the weather is so unpredictable in Ireland (it can completely change in an hour), the best option would be hourly data if looking at a historical perspective. Important to note that from the Weather API the forecast is provided hourly. For simplicity and better planning, we can always aggregate the predicted results by day.</p>
@@ -15437,7 +15586,7 @@ Difference: 64375
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[43]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">dublin_airport_weather_hourly</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
@@ -15450,7 +15599,11 @@ Difference: 64375
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
@@ -15491,7 +15644,7 @@ memory usage: 42.6+ MB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[44]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">dublin_airport_weather_hourly</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
@@ -15504,7 +15657,11 @@ memory usage: 42.6+ MB
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[44]:</div>
+
 
 
 <div class="output_html rendered_html output_subarea output_execute_result"><div>
@@ -15682,7 +15839,7 @@ memory usage: 42.6+ MB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[45]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">recent_dubairport_data</span> <span class="o">=</span> <span class="n">dublin_airport_weather_hourly</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -15698,7 +15855,11 @@ memory usage: 42.6+ MB
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[45]:</div>
+
 
 
 
@@ -15719,7 +15880,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[46]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">weather_data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;../data/interim/hist_weather_data.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -15733,7 +15894,11 @@ dtype: int64</pre>
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[46]:</div>
+
 
 
 <div class="output_html rendered_html output_subarea output_execute_result"><div>
@@ -15814,7 +15979,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[47]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">weather_data</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">weather_data</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">date</span><span class="p">)</span>
@@ -15831,7 +15996,8 @@ dtype: int64</pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Combining-Rentals-and-Weather-data">Combining Rentals and Weather data<a class="anchor-link" href="#Combining-Rentals-and-Weather-data">&#182;</a></h2>
 </div>
@@ -15839,7 +16005,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[48]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">grouped_rentals</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">weather_data</span><span class="o">.</span><span class="n">shape</span>
@@ -15852,7 +16018,11 @@ dtype: int64</pre>
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[48]:</div>
+
 
 
 
@@ -15868,7 +16038,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[49]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">rentals</span> <span class="o">=</span> <span class="n">grouped_rentals</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -15884,7 +16054,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[50]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">all_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">rentals</span><span class="p">,</span> <span class="n">weather</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">])</span>
@@ -15896,7 +16066,8 @@ dtype: int64</pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Grouping-data-to-reflect-hourly-count-of-rentals">Grouping data to reflect hourly count of rentals<a class="anchor-link" href="#Grouping-data-to-reflect-hourly-count-of-rentals">&#182;</a></h2>
 </div>
@@ -15904,7 +16075,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[51]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">hourly_rentals</span> <span class="o">=</span> <span class="n">rentals</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">)</span>
@@ -15918,7 +16089,11 @@ dtype: int64</pre>
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[51]:</div>
+
 
 
 <div class="output_html rendered_html output_subarea output_execute_result"><div>
@@ -15973,7 +16148,8 @@ dtype: int64</pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Dataframe-including-only-hours-with-at-least-1-rental">Dataframe including only hours with <em>at least</em> 1 rental<a class="anchor-link" href="#Dataframe-including-only-hours-with-at-least-1-rental">&#182;</a></h3>
 </div>
@@ -15981,7 +16157,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[52]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">hourly_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">hourly_rentals</span><span class="p">,</span> <span class="n">weather</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">,</span><span class="s1">&#39;hour&#39;</span><span class="p">])</span>
@@ -15996,7 +16172,11 @@ dtype: int64</pre>
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[52]:</div>
+
 
 
 <div class="output_html rendered_html output_subarea output_execute_result"><div>
@@ -16079,7 +16259,8 @@ dtype: int64</pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Dataframe-with-all-hours-(including-none-rental)">Dataframe with all hours (including none rental)<a class="anchor-link" href="#Dataframe-with-all-hours-(including-none-rental)">&#182;</a></h3>
 </div>
@@ -16087,7 +16268,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[53]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">hourly_data_withzeros</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">weather</span><span class="p">,</span> <span class="n">hourly_rentals</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">,</span><span class="s1">&#39;hour&#39;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
@@ -16103,7 +16284,11 @@ dtype: int64</pre>
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[53]:</div>
+
 
 
 <div class="output_html rendered_html output_subarea output_execute_result"><div>
@@ -16186,7 +16371,8 @@ dtype: int64</pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Sampling">Sampling<a class="anchor-link" href="#Sampling">&#182;</a></h3>
 </div>
@@ -16194,7 +16380,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[54]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">start_train_dt</span><span class="p">,</span> <span class="n">end_train_dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">28</span><span class="p">)</span> <span class="c1"># train sample</span>
@@ -16208,7 +16394,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[55]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_train</span> <span class="o">=</span> <span class="n">hourly_data_withzeros</span><span class="p">[(</span><span class="n">hourly_data_withzeros</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">start_train_dt</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">hourly_data_withzeros</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">end_train_dt</span><span class="p">)]</span>
@@ -16222,7 +16408,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[56]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_train</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;../data/interim/dfsample_train.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -16236,7 +16422,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[57]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">df_test</span><span class="o">.</span><span class="n">shape</span>
@@ -16249,7 +16435,11 @@ dtype: int64</pre>
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[57]:</div>
+
 
 
 
@@ -16263,9 +16453,10 @@ dtype: int64</pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img title="GitHub Mark" src="./img/GitHub-Mark-64px.png" style="height: 32px; padding-right: 15px" alt="GitHub Mark" align="left"> <a href="https://github.com/pessini/moby-bikes">GitHub repository</a> <br>Author: Leandro Pessini</p>
+<p><img title="GitHub Mark" src="https://github.com/pessini/moby-bikes/blob/902858f47ba9afaf380abfc2be02a2b7f1f09174/notebooks/img/GitHub-Mark-64px.png?raw=true" style="height: 32px; padding-right: 15px" alt="GitHub Mark" align="left"> <a href="https://github.com/pessini/moby-bikes">GitHub repository</a> <br>Author: Leandro Pessini</p>
 
 </div>
 </div>

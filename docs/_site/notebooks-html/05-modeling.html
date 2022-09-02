@@ -13030,8 +13030,6 @@ body {
 div#notebook {
   overflow: visible;
   border-top: none;
-}div#notebook-container{
-  padding: 6ex 12ex 8ex 12ex;
 }@media print {
   body {
     margin: 0;
@@ -13088,9 +13086,10 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img title="GitHub Octocat" src='./img/Octocat.jpg' style='height: 60px; padding-right: 15px' alt="Octocat" align="left"> This notebook is part of a GitHub repository: <a href="https://github.com/pessini/moby-bikes">https://github.com/pessini/moby-bikes</a> 
+<p><img title="GitHub Octocat" src='https://github.com/pessini/moby-bikes/blob/902858f47ba9afaf380abfc2be02a2b7f1f09174/notebooks/img/Octocat.jpg?raw=true' style='height: 60px; padding-right: 15px' alt="Octocat" align="left"> This notebook is part of a GitHub repository: <a href="https://github.com/pessini/moby-bikes">https://github.com/pessini/moby-bikes</a> 
 <br>MIT Licensed
 <br>Author: Leandro Pessini</p>
 
@@ -13099,7 +13098,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -13158,7 +13157,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/processed/df_train.csv&#39;</span><span class="p">)</span>
@@ -13173,7 +13172,11 @@ div#notebook {
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
@@ -13216,7 +13219,7 @@ memory usage: 1.4+ MB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># creates a new object to keep track of the experiments</span>
@@ -13228,7 +13231,8 @@ memory usage: 1.4+ MB
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Splitting-data-in-train-and-test-set">Splitting data in train and test set<a class="anchor-link" href="#Splitting-data-in-train-and-test-set">&#182;</a></h2>
 </div>
@@ -13236,7 +13240,7 @@ memory usage: 1.4+ MB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df_train</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -13254,7 +13258,11 @@ memory usage: 1.4+ MB
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[4]:</div>
+
 
 
 
@@ -13270,7 +13278,7 @@ memory usage: 1.4+ MB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_df</span> <span class="o">=</span> <span class="n">df_test</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -13286,7 +13294,11 @@ memory usage: 1.4+ MB
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[5]:</div>
+
 
 
 
@@ -13302,7 +13314,7 @@ memory usage: 1.4+ MB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">idea_dummy</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">Idea</span><span class="p">(</span><span class="n">idea</span><span class="o">=</span><span class="s1">&#39;Dummy Regressor&#39;</span><span class="p">,</span> <span class="n">potential_outcome</span><span class="o">=</span><span class="s1">&#39;To use as a baseline model, expected to perform badly.&#39;</span><span class="p">)</span>
@@ -13316,7 +13328,11 @@ memory usage: 1.4+ MB
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- New Idea added! ---
@@ -13334,7 +13350,7 @@ Potential Outcome: To use as a baseline model, expected to perform badly.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_train_val_score</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">predictors</span><span class="p">,</span> <span class="n">X_train</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="o">=</span><span class="n">y_train</span><span class="p">,</span> <span class="n">X_val</span><span class="o">=</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="o">=</span><span class="n">y_val</span><span class="p">):</span>
@@ -13364,7 +13380,7 @@ Potential Outcome: To use as a baseline model, expected to perform badly.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_metrics_to_Experiment</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
@@ -13378,13 +13394,15 @@ Potential Outcome: To use as a baseline model, expected to perform badly.
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Baseline-Models">Baseline Models<a class="anchor-link" href="#Baseline-Models">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Dummy-Regressor">Dummy Regressor<a class="anchor-link" href="#Dummy-Regressor">&#182;</a></h3>
 </div>
@@ -13392,7 +13410,7 @@ Potential Outcome: To use as a baseline model, expected to perform badly.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.dummy</span> <span class="kn">import</span> <span class="n">DummyRegressor</span>
@@ -13408,7 +13426,7 @@ Potential Outcome: To use as a baseline model, expected to perform badly.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">exp_dummy_regr</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">Experiment</span><span class="p">(</span><span class="s1">&#39;Dummy Regressor&#39;</span><span class="p">,</span> <span class="n">predictors</span><span class="o">=</span><span class="n">predictors</span><span class="p">,</span> <span class="n">hyperparameters</span><span class="o">=</span><span class="n">dummy_regr</span><span class="o">.</span><span class="n">get_params</span><span class="p">(),</span> 
@@ -13423,7 +13441,11 @@ Potential Outcome: To use as a baseline model, expected to perform badly.
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- New Experiment added! ---
@@ -13442,7 +13464,8 @@ Notes: Baseline Model for comparison
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Linear-Regression">Linear Regression<a class="anchor-link" href="#Linear-Regression">&#182;</a></h3>
 </div>
@@ -13450,7 +13473,7 @@ Notes: Baseline Model for comparison
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">idea_linear</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">Idea</span><span class="p">(</span><span class="n">idea</span><span class="o">=</span><span class="s1">&#39;Linear Regression&#39;</span><span class="p">,</span> <span class="n">potential_outcome</span><span class="o">=</span><span class="s1">&#39;Expected to perform bad as we have many outliers and a count as target variable&#39;</span><span class="p">)</span>
@@ -13464,7 +13487,11 @@ Notes: Baseline Model for comparison
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- New Idea added! ---
@@ -13482,7 +13509,7 @@ Potential Outcome: Expected to perform bad as we have many outliers and a count 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
@@ -13501,7 +13528,11 @@ Potential Outcome: Expected to perform bad as we have many outliers and a count 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- New Experiment added! ---
@@ -13522,7 +13553,7 @@ Notes: Linear Regression
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">experiment_tracker</span><span class="o">.</span><span class="n">update_idea</span><span class="p">(</span><span class="n">idea_linear</span><span class="p">,</span> <span class="n">learnings</span><span class="o">=</span><span class="s1">&#39;As expected the performance is not good as we have a lot of outliers and a count as target variable&#39;</span><span class="p">)</span>
@@ -13535,7 +13566,11 @@ Notes: Linear Regression
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- Idea updated! ---
@@ -13551,7 +13586,8 @@ Learnings: As expected the performance is not good as we have a lot of outliers 
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Random-Forest">Random Forest<a class="anchor-link" href="#Random-Forest">&#182;</a></h3>
 </div>
@@ -13559,7 +13595,7 @@ Learnings: As expected the performance is not good as we have a lot of outliers 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">idea_random_forest</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">Idea</span><span class="p">(</span><span class="n">idea</span><span class="o">=</span><span class="s1">&#39;Random Forest (only weather features)&#39;</span><span class="p">,</span> <span class="n">potential_outcome</span><span class="o">=</span><span class="s1">&#39;Expected to perform better than the Linear Regression&#39;</span><span class="p">)</span>
@@ -13573,7 +13609,11 @@ Learnings: As expected the performance is not good as we have a lot of outliers 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- New Idea added! ---
@@ -13591,7 +13631,7 @@ Potential Outcome: Expected to perform better than the Linear Regression
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
@@ -13610,7 +13650,11 @@ Potential Outcome: Expected to perform better than the Linear Regression
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- New Experiment added! ---
@@ -13631,7 +13675,7 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 2.5369,  &#39;validation&#39
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># update ideas with learnings</span>
@@ -13648,7 +13692,11 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 2.5369,  &#39;validation&#39
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- Idea updated! ---
@@ -13665,7 +13713,8 @@ It seems to be overfitting as we see validation scores much higher than training
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Preprocessing-Pipelines">Preprocessing Pipelines<a class="anchor-link" href="#Preprocessing-Pipelines">&#182;</a></h2>
 </div>
@@ -13673,7 +13722,7 @@ It seems to be overfitting as we see validation scores much higher than training
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">category_encoders</span> <span class="k">as</span> <span class="nn">ce</span>
@@ -13764,7 +13813,7 @@ It seems to be overfitting as we see validation scores much higher than training
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">plot_feature_importances</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">columns</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_val</span><span class="p">,</span> <span class="n">plot_title</span><span class="o">=</span><span class="s1">&#39;Feature Importances using permutation&#39;</span><span class="p">):</span>
@@ -13793,13 +13842,15 @@ It seems to be overfitting as we see validation scores much higher than training
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Models">Models<a class="anchor-link" href="#Models">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Random-Forest">Random Forest<a class="anchor-link" href="#Random-Forest">&#182;</a></h3>
 </div>
@@ -13807,7 +13858,7 @@ It seems to be overfitting as we see validation scores much higher than training
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">idea_rf</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">Idea</span><span class="p">(</span><span class="n">idea</span><span class="o">=</span><span class="s1">&#39;Random Forest with all expected features&#39;</span><span class="p">,</span> <span class="n">potential_outcome</span><span class="o">=</span><span class="s1">&#39;To use as a baseline model with all features.&#39;</span><span class="p">)</span>
@@ -13821,7 +13872,11 @@ It seems to be overfitting as we see validation scores much higher than training
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- New Idea added! ---
@@ -13839,7 +13894,7 @@ Potential Outcome: To use as a baseline model with all features.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;temp_r&#39;</span><span class="p">,</span><span class="s1">&#39;rhum&#39;</span><span class="p">,</span><span class="s1">&#39;holiday&#39;</span><span class="p">,</span><span class="s1">&#39;dayofweek&#39;</span><span class="p">,</span><span class="s1">&#39;timesofday&#39;</span><span class="p">,</span><span class="s1">&#39;wind_speed_group&#39;</span><span class="p">,</span><span class="s1">&#39;rainfall_intensity&#39;</span><span class="p">,</span><span class="s1">&#39;peak&#39;</span><span class="p">,</span><span class="s1">&#39;working_day&#39;</span><span class="p">]</span>
@@ -13868,7 +13923,11 @@ Potential Outcome: To use as a baseline model with all features.
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- New Experiment added! ---
@@ -13889,7 +13948,7 @@ Notes: Added all predictors and using preprocessing
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_feature_importances</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">pipe_rf</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">predictors</span><span class="p">,</span><span class="n">plot_title</span><span class="o">=</span><span class="s1">&#39;Random Forest Feature Importances&#39;</span><span class="p">)</span>
@@ -13902,7 +13961,11 @@ Notes: Added all predictors and using preprocessing
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 
 
@@ -13919,7 +13982,7 @@ Notes: Added all predictors and using preprocessing
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">learnings</span> <span class="o">=</span> \
@@ -13934,7 +13997,11 @@ Notes: Added all predictors and using preprocessing
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- Idea updated! ---
@@ -13952,7 +14019,7 @@ Learnings: Random Forest model with all features has decrease RSME and particula
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">idea_rf_cat</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">Idea</span><span class="p">(</span><span class="n">idea</span><span class="o">=</span><span class="s1">&#39;Random Forest with all features as categorical&#39;</span><span class="p">,</span> <span class="n">potential_outcome</span><span class="o">=</span><span class="s1">&#39;Changing temp and hum to categorical variables it will improve the model</span><span class="se">\</span>
@@ -13967,7 +14034,11 @@ Learnings: Random Forest model with all features has decrease RSME and particula
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- New Idea added! ---
@@ -13985,7 +14056,7 @@ Potential Outcome: Changing temp and hum to categorical variables it will improv
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;temp_bin&#39;</span><span class="p">,</span><span class="s1">&#39;rhum_bin&#39;</span><span class="p">,</span><span class="s1">&#39;holiday&#39;</span><span class="p">,</span><span class="s1">&#39;dayofweek&#39;</span><span class="p">,</span><span class="s1">&#39;timesofday&#39;</span><span class="p">,</span><span class="s1">&#39;wind_speed_group&#39;</span><span class="p">,</span><span class="s1">&#39;rainfall_intensity&#39;</span><span class="p">,</span><span class="s1">&#39;peak&#39;</span><span class="p">,</span><span class="s1">&#39;working_day&#39;</span><span class="p">]</span>
@@ -14015,7 +14086,11 @@ Potential Outcome: Changing temp and hum to categorical variables it will improv
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- New Experiment added! ---
@@ -14036,7 +14111,7 @@ Notes: Added all predictors and using preprocessing
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_feature_importances</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">pipe_rf</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">predictors</span><span class="p">,</span><span class="n">plot_title</span><span class="o">=</span><span class="s1">&#39;Random Forest Feature Importances&#39;</span><span class="p">)</span>
@@ -14049,7 +14124,11 @@ Notes: Added all predictors and using preprocessing
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 
 
@@ -14066,7 +14145,7 @@ Notes: Added all predictors and using preprocessing
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">learnings</span> <span class="o">=</span> \
@@ -14081,7 +14160,11 @@ Notes: Added all predictors and using preprocessing
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- Idea updated! ---
@@ -14099,7 +14182,7 @@ Learnings: Changing temp and hum into categorical variables did not improve the 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># from IPython.display import display</span>
@@ -14113,7 +14196,8 @@ Learnings: Changing temp and hum into categorical variables did not improve the 
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Catboost">Catboost<a class="anchor-link" href="#Catboost">&#182;</a></h2>
 </div>
@@ -14121,7 +14205,7 @@ Learnings: Changing temp and hum into categorical variables did not improve the 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">idea_catboost</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">Idea</span><span class="p">(</span><span class="n">idea</span><span class="o">=</span><span class="s1">&#39;Catboost&#39;</span><span class="p">,</span> <span class="n">potential_outcome</span><span class="o">=</span><span class="s1">&#39;Using all features as categorical variables it will perform better using boosting trees.&#39;</span><span class="p">)</span>
@@ -14135,7 +14219,11 @@ Learnings: Changing temp and hum into categorical variables did not improve the 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- New Idea added! ---
@@ -14153,7 +14241,7 @@ Potential Outcome: Using all features as categorical variables it will perform b
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;temp_bin&#39;</span><span class="p">,</span><span class="s1">&#39;rhum_bin&#39;</span><span class="p">,</span><span class="s1">&#39;holiday&#39;</span><span class="p">,</span><span class="s1">&#39;dayofweek&#39;</span><span class="p">,</span><span class="s1">&#39;timesofday&#39;</span><span class="p">,</span><span class="s1">&#39;wind_speed_group&#39;</span><span class="p">,</span><span class="s1">&#39;rainfall_intensity&#39;</span><span class="p">,</span><span class="s1">&#39;peak&#39;</span><span class="p">,</span><span class="s1">&#39;working_day&#39;</span><span class="p">]</span>
@@ -14185,7 +14273,11 @@ Potential Outcome: Using all features as categorical variables it will perform b
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Learning rate set to 0.310166
@@ -14212,7 +14304,7 @@ Notes: Added all categoricals features to use Catboost model.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_feature_importances</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">pipe_catboost</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">predictors</span><span class="p">,</span><span class="n">plot_title</span><span class="o">=</span><span class="s1">&#39;Catboost Feature Importances&#39;</span><span class="p">)</span>
@@ -14225,7 +14317,11 @@ Notes: Added all categoricals features to use Catboost model.
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 
 
@@ -14242,7 +14338,7 @@ Notes: Added all categoricals features to use Catboost model.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">learnings</span> <span class="o">=</span> \
@@ -14257,7 +14353,11 @@ Notes: Added all categoricals features to use Catboost model.
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- Idea updated! ---
@@ -14273,7 +14373,8 @@ Learnings: Catboost model improved RSME compared to Random Forest (all cat vars)
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Support-Vector-Regression">Support Vector Regression<a class="anchor-link" href="#Support-Vector-Regression">&#182;</a></h2>
 </div>
@@ -14281,7 +14382,7 @@ Learnings: Catboost model improved RSME compared to Random Forest (all cat vars)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">idea_svr</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">Idea</span><span class="p">(</span><span class="n">idea</span><span class="o">=</span><span class="s1">&#39;SVM Regressor&#39;</span><span class="p">,</span> <span class="n">potential_outcome</span><span class="o">=</span><span class="s1">&#39;SVM Regressor can be a good model for this dataset as it is a linear model and extrapolates well.&#39;</span><span class="p">)</span>
@@ -14295,7 +14396,11 @@ Learnings: Catboost model improved RSME compared to Random Forest (all cat vars)
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- New Idea added! ---
@@ -14313,7 +14418,7 @@ Potential Outcome: SVM Regressor can be a good model for this dataset as it is a
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVR</span>
@@ -14343,7 +14448,11 @@ Potential Outcome: SVM Regressor can be a good model for this dataset as it is a
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- New Experiment added! ---
@@ -14364,7 +14473,7 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 2.8928,  &#39;validation&#39
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_feature_importances</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">pipe_svr</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">predictors</span><span class="p">,</span><span class="n">plot_title</span><span class="o">=</span><span class="s1">&#39;SVM Regressor Feature Importances&#39;</span><span class="p">)</span>
@@ -14377,7 +14486,11 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 2.8928,  &#39;validation&#39
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 
 
@@ -14394,7 +14507,7 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 2.8928,  &#39;validation&#39
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">learnings</span> <span class="o">=</span> \
@@ -14410,7 +14523,11 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 2.8928,  &#39;validation&#39
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- Idea updated! ---
@@ -14427,7 +14544,8 @@ This model will be discarded as it is not a good model for this dataset.
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="LightGBM">LightGBM<a class="anchor-link" href="#LightGBM">&#182;</a></h2>
 </div>
@@ -14435,7 +14553,7 @@ This model will be discarded as it is not a good model for this dataset.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">idea_gbm</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">Idea</span><span class="p">(</span><span class="n">idea</span><span class="o">=</span><span class="s1">&#39;LightGBM&#39;</span><span class="p">,</span> <span class="n">potential_outcome</span><span class="o">=</span><span class="s1">&#39;Another boosting tree but lighter and known to be more accurate than Catboost.&#39;</span><span class="p">)</span>
@@ -14449,7 +14567,11 @@ This model will be discarded as it is not a good model for this dataset.
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- New Idea added! ---
@@ -14467,7 +14589,7 @@ Potential Outcome: Another boosting tree but lighter and known to be more accura
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;temp_bin&#39;</span><span class="p">,</span><span class="s1">&#39;rhum_bin&#39;</span><span class="p">,</span><span class="s1">&#39;holiday&#39;</span><span class="p">,</span><span class="s1">&#39;dayofweek&#39;</span><span class="p">,</span><span class="s1">&#39;timesofday&#39;</span><span class="p">,</span><span class="s1">&#39;wind_speed_group&#39;</span><span class="p">,</span><span class="s1">&#39;rainfall_intensity&#39;</span><span class="p">,</span><span class="s1">&#39;peak&#39;</span><span class="p">,</span><span class="s1">&#39;working_day&#39;</span><span class="p">]</span>
@@ -14497,7 +14619,11 @@ Potential Outcome: Another boosting tree but lighter and known to be more accura
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[LightGBM] [Debug] Dataset::GetMultiBinFromSparseFeatures: sparse rate 0.850815
@@ -14628,7 +14754,7 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 2.8429,  &#39;validation&#39
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_feature_importances</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">pipe_lightgbm</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">predictors</span><span class="p">,</span><span class="n">plot_title</span><span class="o">=</span><span class="s1">&#39;LightGBM Feature Importances&#39;</span><span class="p">)</span>
@@ -14641,7 +14767,11 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 2.8429,  &#39;validation&#39
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 
 
@@ -14658,7 +14788,7 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 2.8429,  &#39;validation&#39
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">learnings</span> <span class="o">=</span> \
@@ -14673,7 +14803,11 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 2.8429,  &#39;validation&#39
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- Idea updated! ---
@@ -14691,7 +14825,7 @@ Learnings: LightGBM model did improve the model on Validation set. The gap betwe
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">experiment_tracker</span><span class="o">.</span><span class="n">print_partial_results</span><span class="p">()</span>
@@ -14705,7 +14839,11 @@ Learnings: LightGBM model did improve the model on Validation set. The gap betwe
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- Experiments ---
@@ -14751,7 +14889,7 @@ MAE - Train: 2.0996 - Validation: 2.1035 - Test: None
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[41]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">idea_rf_1</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">Idea</span><span class="p">(</span><span class="n">idea</span><span class="o">=</span><span class="s1">&#39;Random Forest (wind speed numerical + estimators increased)&#39;</span><span class="p">,</span> <span class="n">potential_outcome</span><span class="o">=</span><span class="s2">&quot;Because temperature and humidity as numerical variables is better to RF, changing wind speed will increase model&#39;s performance.&quot;</span><span class="p">)</span>
@@ -14765,7 +14903,11 @@ MAE - Train: 2.0996 - Validation: 2.1035 - Test: None
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- New Idea added! ---
@@ -14783,7 +14925,7 @@ Potential Outcome: Because temperature and humidity as numerical variables is be
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;temp_r&#39;</span><span class="p">,</span><span class="s1">&#39;rhum&#39;</span><span class="p">,</span><span class="s1">&#39;holiday&#39;</span><span class="p">,</span><span class="s1">&#39;dayofweek&#39;</span><span class="p">,</span><span class="s1">&#39;timesofday&#39;</span><span class="p">,</span><span class="s1">&#39;wind_speed_group&#39;</span><span class="p">,</span><span class="s1">&#39;rainfall_intensity&#39;</span><span class="p">,</span><span class="s1">&#39;peak&#39;</span><span class="p">,</span><span class="s1">&#39;working_day&#39;</span><span class="p">]</span>
@@ -14809,7 +14951,11 @@ Potential Outcome: Because temperature and humidity as numerical variables is be
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- New Experiment added! ---
@@ -14830,7 +14976,7 @@ Notes: Changed wind speed group to numerical feature and increased n_estimators 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[43]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">idea_rf_2</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">Idea</span><span class="p">(</span><span class="n">idea</span><span class="o">=</span><span class="s1">&#39;Random Forest (+ hour)&#39;</span><span class="p">,</span> <span class="n">potential_outcome</span><span class="o">=</span><span class="s2">&quot;Adding hour to the model will increase the model&#39;s performance because timesofday (time feature) is a good predictor.&quot;</span><span class="p">)</span>
@@ -14844,7 +14990,11 @@ Notes: Changed wind speed group to numerical feature and increased n_estimators 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- New Idea added! ---
@@ -14862,7 +15012,7 @@ Potential Outcome: Adding hour to the model will increase the model&#39;s perfor
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[44]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;temp_r&#39;</span><span class="p">,</span><span class="s1">&#39;rhum&#39;</span><span class="p">,</span><span class="s1">&#39;holiday&#39;</span><span class="p">,</span><span class="s1">&#39;dayofweek&#39;</span><span class="p">,</span><span class="s1">&#39;timesofday&#39;</span><span class="p">,</span><span class="s1">&#39;wind_speed_group&#39;</span><span class="p">,</span><span class="s1">&#39;rainfall_intensity&#39;</span><span class="p">,</span><span class="s1">&#39;peak&#39;</span><span class="p">,</span><span class="s1">&#39;working_day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">]</span>
@@ -14888,7 +15038,11 @@ Potential Outcome: Adding hour to the model will increase the model&#39;s perfor
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- New Experiment added! ---
@@ -14909,7 +15063,7 @@ Notes: Added hour to the model
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[45]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">learnings</span> <span class="o">=</span> \
@@ -14924,7 +15078,11 @@ Notes: Added hour to the model
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- Idea updated! ---
@@ -14942,7 +15100,7 @@ Learnings: Adding hour to the model did improve the model. Not substantially bet
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[46]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">idea_rf</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">Idea</span><span class="p">(</span><span class="n">idea</span><span class="o">=</span><span class="s1">&#39;Random Forest (+ season and wdsp)&#39;</span><span class="p">,</span> <span class="n">potential_outcome</span><span class="o">=</span><span class="s2">&quot;Adding season and changing wind speed to numerical to the model will increase the model&#39;s performance.&quot;</span><span class="p">)</span>
@@ -14971,7 +15129,11 @@ Learnings: Adding hour to the model did improve the model. Not substantially bet
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- New Idea added! ---
@@ -14997,7 +15159,7 @@ Notes: Added season and wdsp to the model
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[47]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">learnings</span> <span class="o">=</span> \
@@ -15012,7 +15174,11 @@ Notes: Added season and wdsp to the model
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- Idea updated! ---
@@ -15030,7 +15196,7 @@ Learnings: Adding season and changing wind speed to numerical did improve the mo
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[48]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">idea_rf</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">Idea</span><span class="p">(</span><span class="n">idea</span><span class="o">=</span><span class="s1">&#39;Random Forest (max_features: sqrt)&#39;</span><span class="p">,</span> <span class="n">potential_outcome</span><span class="o">=</span><span class="s2">&quot;Changing the number of features to consider when looking for the best split to sqrt(n_features) can increase the performance.&quot;</span><span class="p">)</span>
@@ -15060,7 +15226,11 @@ Learnings: Adding season and changing wind speed to numerical did improve the mo
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- New Idea added! ---
@@ -15086,7 +15256,7 @@ Notes: Changed number of features to sqrt
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[49]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">learnings</span> <span class="o">=</span> \
@@ -15101,7 +15271,11 @@ Notes: Changed number of features to sqrt
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- Idea updated! ---
@@ -15119,7 +15293,7 @@ Learnings: Changing hyperparameter max_features to sqrt did not improve the mode
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[50]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">experiment_tracker</span><span class="o">.</span><span class="n">print_partial_results</span><span class="p">()</span>
@@ -15132,7 +15306,11 @@ Learnings: Changing hyperparameter max_features to sqrt did not improve the mode
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- Experiments ---
@@ -15194,7 +15372,7 @@ MAE - Train: 1.7494 - Validation: 1.9050 - Test: None
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[53]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">idea_rf_grid</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">Idea</span><span class="p">(</span><span class="n">idea</span><span class="o">=</span><span class="s1">&#39;Random Forest (GridSearchCV)&#39;</span><span class="p">,</span> <span class="n">potential_outcome</span><span class="o">=</span><span class="s2">&quot;Hyperparameter tuning with GridSearchCV can increase the model&#39;s performance and reduce overfitting.&quot;</span><span class="p">)</span>
@@ -15227,7 +15405,11 @@ MAE - Train: 1.7494 - Validation: 1.9050 - Test: None
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- New Idea added! ---
@@ -15253,7 +15435,7 @@ Notes: Hyperparameter tuning with GridSearchCV
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[54]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">experiment_tracker</span><span class="o">.</span><span class="n">print_partial_results</span><span class="p">(</span><span class="n">filter_model</span><span class="o">=</span><span class="s1">&#39;Random Forest&#39;</span><span class="p">,</span> <span class="n">filter_metric</span><span class="o">=</span><span class="s1">&#39;rsme&#39;</span><span class="p">)</span>
@@ -15266,7 +15448,11 @@ Notes: Hyperparameter tuning with GridSearchCV
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- Experiments ---
@@ -15304,7 +15490,7 @@ RSME - Train: 1.9270 - Validation: 2.5084 - Test: None
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[55]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">learnings</span> <span class="o">=</span> \
@@ -15319,7 +15505,11 @@ RSME - Train: 1.9270 - Validation: 2.5084 - Test: None
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- Idea updated! ---
@@ -15337,7 +15527,7 @@ Learnings: Random Forest (GridSearchCV) had a little impact on test set performa
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[68]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">idea_xgboost</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">Idea</span><span class="p">(</span><span class="n">idea</span><span class="o">=</span><span class="s1">&#39;XGBoost&#39;</span><span class="p">,</span> <span class="n">potential_outcome</span><span class="o">=</span><span class="s2">&quot;XGBoost can be used to improve the model&#39;s performance as in many Kaggle&#39;s competitions.&quot;</span><span class="p">)</span>
@@ -15368,7 +15558,11 @@ Learnings: Random Forest (GridSearchCV) had a little impact on test set performa
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- New Idea added! ---
@@ -15394,7 +15588,7 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 0.3049,  &#39;validation&#39
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[70]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">learnings</span> <span class="o">=</span> \
@@ -15409,7 +15603,11 @@ Metric: [{ &#39;metric&#39;: RSME, &#39;train&#39;: 0.3049,  &#39;validation&#39
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>--- Idea updated! ---
@@ -15427,7 +15625,7 @@ Learnings: XGBoost looks promising as it has the best score on the train set by 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[72]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_feature_importances</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">pipe_xgboost</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">predictors</span><span class="p">,</span><span class="n">plot_title</span><span class="o">=</span><span class="s1">&#39;XGBoost Feature Importances&#39;</span><span class="p">)</span>
@@ -15440,7 +15638,11 @@ Learnings: XGBoost looks promising as it has the best score on the train set by 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 
 
@@ -15457,7 +15659,7 @@ Learnings: XGBoost looks promising as it has the best score on the train set by 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[71]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">experiment_tracker</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="s1">&#39;../documentation/experiment_tracker.xlsx&#39;</span><span class="p">)</span>
@@ -15470,7 +15672,7 @@ Learnings: XGBoost looks promising as it has the best score on the train set by 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[58]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">joblib</span>
@@ -15485,7 +15687,11 @@ Learnings: XGBoost looks promising as it has the best score on the train set by 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt output_prompt">Out[58]:</div>
+
 
 
 
@@ -15501,7 +15707,7 @@ Learnings: XGBoost looks promising as it has the best score on the train set by 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-
+<div class="prompt input_prompt">In&nbsp;[59]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">reload_ext</span> watermark
@@ -15515,7 +15721,11 @@ Learnings: XGBoost looks promising as it has the best score on the train set by 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+    <div class="prompt"></div>
+
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Author: Leandro Pessini
@@ -15550,9 +15760,10 @@ Watermark: 2.3.0
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img title="GitHub Mark" src="./img/GitHub-Mark-64px.png" style="height: 32px; padding-right: 15px" alt="GitHub Mark" align="left"> <a href="https://github.com/pessini/moby-bikes">GitHub repository</a> <br>Author: Leandro Pessini</p>
+<p><img title="GitHub Mark" src="https://github.com/pessini/moby-bikes/blob/902858f47ba9afaf380abfc2be02a2b7f1f09174/notebooks/img/GitHub-Mark-64px.png?raw=true" style="height: 32px; padding-right: 15px" alt="GitHub Mark" align="left"> <a href="https://github.com/pessini/moby-bikes">GitHub repository</a> <br>Author: Leandro Pessini</p>
 
 </div>
 </div>
