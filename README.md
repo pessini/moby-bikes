@@ -10,7 +10,8 @@ Analytical Dashboard & Demand Forecasting </h3>
     <strong>
         <a href="https://pessini-moby-bikes-dashboardapp-hhvohw.streamlitapp.com/" target="_blank">Web App</a>
         •
-        <a href="https://whimsical.com/design-docs-moby-bikes-operations-optimization-3RJyNyq2NHe8rPGzGZjrje" target="_blank">Documentation</a>
+        <!-- <a href="https://whimsical.com/design-docs-moby-bikes-operations-optimization-3RJyNyq2NHe8rPGzGZjrje" target="_blank">Documentation</a> -->
+        <a href="https://www.pessini.me/moby-bikes/" target="_blank">Documentation</a>
     </strong>
 </p>
 
