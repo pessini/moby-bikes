@@ -29,7 +29,7 @@ To keep track of different models tested, an[ Excel file](https://github.com/pes
 1. [Poisson Regression]({{ site.baseurl }}/notebooks-html/04B-poisson.html)
 1. [Time Series Analysis]({{ site.baseurl }}/notebooks-html/04C-time-series.html)
 1. [Modeling]({{ site.baseurl }}/notebooks-html/05-modeling.html)
-1. [XGBoost]({{ site.baseurl }}/notebooks-html/06-xgboost-model.htm)
+1. [XGBoost]({{ site.baseurl }}/notebooks-html/06-xgboost-model.html)
 1. [Model Evaluation]({{ site.baseurl }}/notebooks-html/07-evaluation.html)
 
 **Pre-trained XGBoost model**: [https://github.com/pessini/moby-bikes/blob/main/dashboard/xgb_pipeline.pkl](https://github.com/pessini/moby-bikes/blob/main/dashboard/xgb_pipeline.pkl)
