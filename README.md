@@ -26,13 +26,13 @@ As part of Moby Operations, there is a role called "_eBike Operators_" which amo
 eBikes throughout the city, while performing safety checks and basic maintenance.
 
 **To optimize operations, we want to predict the demand for the next hours based on weather data in order to decide whether to increase 
-fleet or is safe to perform safety checks and maintenance and even to collect bikes for repair.**
+fleet or is safe to perform safety checks and maintenance or to collect bikes for repairing.**
 
 ### In a nutshell (TL:DR)
 
 - **Data Pipeline** - Pull data from APIs and dump it into a AWS S3 bucket. Read files from S3 and store them in a MYSQL database.
 
-- **Minimum Viable Product (MVP)** - A web app that shows a few business metrics and a few charts.
+- **Minimum Viable Product (MVP)** - A web app displaying a few business metrics and charts.
 
 - Uses **machine learning algorithms** to predict the demand for the next hours based on weather data.
 
@@ -40,4 +40,4 @@ fleet or is safe to perform safety checks and maintenance and even to collect bi
 
 ---
 
-[Read full documentation here](https://whimsical.com/design-docs-moby-bikes-operations-optimization-3RJyNyq2NHe8rPGzGZjrje).
+[Read full documentation](https://www.pessini.me/moby-bikes/).

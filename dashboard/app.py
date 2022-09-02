@@ -557,13 +557,13 @@ if selected == "About":
             eBikes throughout the city, while performing safety checks and basic maintenance.
 
             **To optimize operations, we want to predict the demand for the next hours based on weather data in order to decide whether to increase 
-            fleet or is safe to perform safety checks and maintenance and even to collect bikes for repair.**
+            fleet or is safe to perform safety checks and maintenance or to collect bikes for repairing.**
             
             ### In a nutshell (TL:DR)
             
             - **Data Pipeline** - Pull data from APIs and dump it into an AWS S3 bucket. Read files from S3 and store them in a MYSQL database.
             
-            - **Minimum Viable Product (MVP)** - A web app that shows a few business metrics and a few charts.
+            - **Minimum Viable Product (MVP)** - A web app displaying a few business metrics and charts.
             
             - Uses **machine learning algorithms** to predict the demand for the next hours based on weather data.
             
@@ -572,8 +572,9 @@ if selected == "About":
 
     st.markdown('---')
     st.write("""
-             [Read full documentation](https://whimsical.com/design-docs-moby-bikes-operations-optimization-3RJyNyq2NHe8rPGzGZjrje)
+             [Read full documentation](https://www.pessini.me/moby-bikes/)
              """)
+    # https://whimsical.com/design-docs-moby-bikes-operations-optimization-3RJyNyq2NHe8rPGzGZjrje
 
 footer_github = """<div style='position: absolute; padding-top: 100px; width:100%;'>
 <img title="GitHub Mark" src="https://github.com/pessini/avian-flu-wild-birds-ireland/blob/main/img/GitHub-Mark-64px.png?raw=true" 
