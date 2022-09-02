@@ -11,8 +11,8 @@
 <meta property="og:title" content="Challenges and weakness" />
 <meta name="author" content="Leandro Pessini" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Monitoring &amp; Logging was not implemented yet!" />
-<meta property="og:description" content="Monitoring &amp; Logging was not implemented yet!" />
+<meta name="description" content="Data Wrangling" />
+<meta property="og:description" content="Data Wrangling" />
 <link rel="canonical" href="http://localhost:4000/moby-bikes/milestones-results/challenges/" />
 <meta property="og:url" content="http://localhost:4000/moby-bikes/milestones-results/challenges/" />
 <meta property="og:site_name" content="Design Docs" />
@@ -20,7 +20,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Challenges and weakness" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Article","author":{"@type":"Person","name":"Leandro Pessini"},"description":"Monitoring &amp; Logging was not implemented yet!","headline":"Challenges and weakness","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/moby-bikes/siteicon.png"},"name":"Leandro Pessini"},"url":"http://localhost:4000/moby-bikes/milestones-results/challenges/"}</script>
+{"@context":"https://schema.org","@type":"Article","author":{"@type":"Person","name":"Leandro Pessini"},"description":"Data Wrangling","headline":"Challenges and weakness","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/moby-bikes/siteicon.png"},"name":"Leandro Pessini"},"url":"http://localhost:4000/moby-bikes/milestones-results/challenges/"}</script>
 <!-- End Jekyll SEO tag -->
 
 		<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/moby-bikes/feed.xml" title="Design Docs" />
@@ -126,9 +126,29 @@
 
 			</div>
 			<article class="content">
-				<blockquote>
-  <p>Monitoring &amp; Logging was not implemented yet!</p>
-</blockquote>
+				<h2 id="data-wrangling">Data Wrangling</h2>
+
+<p><a href="/moby-bikes/notebooks-html/01-data-wrangling.html">Jupyter Notebook</a></p>
+
+<h3 id="moby-api-data-fields">Moby API Data fields</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">HarvestTime</code> - Data retrieval timestamp</li>
+  <li><code class="language-plaintext highlighter-rouge">BikeID</code> - Unique bike ID used for rent bike</li>
+  <li><code class="language-plaintext highlighter-rouge">Battery</code> - Battery status (max distance in km)</li>
+  <li><code class="language-plaintext highlighter-rouge">BikeIdentifier</code> - Bike Identifier (Generally contains only digits, might contains chars)</li>
+  <li><code class="language-plaintext highlighter-rouge">BikeTypeName</code> - Bike type name</li>
+  <li><code class="language-plaintext highlighter-rouge">EBikeProfileID</code> - E-bike Profile ID (Every ebike profile has defined Geofence (allowed riding areas))</li>
+  <li><code class="language-plaintext highlighter-rouge">EBikeStateID</code> - EBike State (Indicates: {1:’Warning - is in move and not rented’,2:’Normal’,3:’Switched Off’,4:’Firmware Upgrade’,5:’Laying on the ground’})</li>
+  <li><code class="language-plaintext highlighter-rouge">IsEBike</code> - Is electronic bike (Bike sends messages to Backend if bike is equipped with electronic, bluetooth etc.)</li>
+  <li><code class="language-plaintext highlighter-rouge">IsMotor</code> - Bike has engine</li>
+  <li><code class="language-plaintext highlighter-rouge">IsSmartLock</code> - Bike has smart lock</li>
+  <li><code class="language-plaintext highlighter-rouge">LastGPSTime</code> - Last valid GPS message</li>
+  <li><code class="language-plaintext highlighter-rouge">LastRentalStart</code> - Last time bike was rented</li>
+  <li><code class="language-plaintext highlighter-rouge">Latitude</code> - Bike coordinates if bike is locked out of station</li>
+  <li><code class="language-plaintext highlighter-rouge">Longitude</code> - Bike coordinates if bike is locked out of station</li>
+  <li><code class="language-plaintext highlighter-rouge">SpikeID</code> - Might be used for rent bike instead of BikeID</li>
+</ul>
 
 <p>The lack of data is definitely a bottleneck to our project. For example, within the initial data exploration a few rental types were found:</p>
 
@@ -139,9 +159,9 @@
   <li>Private</li>
 </ul>
 
-<p><em><code class="language-plaintext highlighter-rouge">Workshop</code></em> is unknown if bikes were allocated either to an specific event or the workshop is provided by Moby Bikes in order to promote its services, for example. The same rule applies to <em><code class="language-plaintext highlighter-rouge">Healthcare</code></em> type.</p>
+<p><code class="language-plaintext highlighter-rouge">Workshop</code> is unknown if bikes were allocated either to an specific event or the workshop is provided by Moby Bikes in order to promote its services, for example. The same rule applies to <code class="language-plaintext highlighter-rouge">Healthcare</code> type.</p>
 
-<h2 id="rentals-duration">Rental’s duration</h2>
+<h4 id="rentals-duration">Rental’s duration</h4>
 
 <p><strong>Period of use</strong></p>
 
@@ -153,15 +173,28 @@
 
 \[(RentalDuration = LastGPSTime − LastRentalStart)\]
 
-<h2 id="weather-data">Weather Data</h2>
+<h3 id="weather-data---met-éireann">Weather Data - Met Éireann</h3>
 
-<h3 id="phoenix-park-station-vs-dublin-airport-station">Phoenix Park Station vs Dublin Airport Station</h3>
+<p>Regarding the weather data there are two important decisions to deal with:</p>
+
+<ul>
+  <li>One is about from which station the historical data will be collected;</li>
+  <li>and the other one is about the frequency of data, which can be hourly or daily.</li>
+</ul>
+
+<h4 id="phoenix-park-station-vs-dublin-airport-station">Phoenix Park Station vs Dublin Airport Station</h4>
 
 <p>Geographically, the station at Phoenix Park would be the most suitable choice but unfortunately, they do not collect Wind information which in Ireland plays an important role when deciding to go cycling or not. For those who are not familiar with Irish weather, it rains a lot and mostly we do not have much choice about it but the wind is something that can prevent you go outside or choosing a different kind of transportation. Heavy rain is not that common, though.</p>
 
-<h3 id="hourly-vs-daily-data">Hourly vs Daily data</h3>
+<h4 id="hourly-vs-daily-data">Hourly vs Daily data</h4>
 
 <p>A daily data to the business could make more sense but because the weather is so unpredictable in Ireland (it can completely change in an hour), the best option would be hourly data if looking at a historical perspective. Important to note that from the Weather API the forecast is provided hourly. For simplicity and better planning, we can always aggregate the predicted results by day.</p>
+
+<p><strong>Dublin Airport (<em>Hourly Data</em>)</strong>: <a href="https://data.gov.ie/dataset/dublin-airport-hourly-data">https://data.gov.ie/dataset/dublin-airport-hourly-data</a></p>
+
+<blockquote>
+  <p>Monitoring &amp; Logging was not implemented yet!</p>
+</blockquote>
 
 			</article>
 
@@ -182,6 +215,7 @@
 					<br />Project by <a href="https://pessini.me">Leandro Pessini</a>
 				</p>
 			</div>
+			<div style="padding-bottom: 1px;"></div>
 		</section>
 
 		<script>
@@ -189,6 +223,13 @@
 				document.body.classList.toggle("nav-open");
 			});
 		</script>
+		<!-- Back To Top button https://github.com/vfeskov/vanilla-back-to-top -->
+		<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+		<script>addBackToTop({
+		  diameter: 56,
+		  backgroundColor: '#6eb52f',
+		  textColor: '#fff'
+		})</script>
 	</body>
 </html>
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>

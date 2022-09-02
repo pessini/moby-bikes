@@ -18,7 +18,6 @@ To keep track of different models tested, an[ Excel file](https://github.com/pes
 |:--:|
 | *Experiment Tracker - Sheet Experiments* |
 
-
 ## Notebooks
 
 1. [Data Wrangling]({{ site.baseurl }}/notebooks-html/01-data-wrangling.html)
