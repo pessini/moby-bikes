@@ -13,14 +13,14 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="An AWS Aurora MySQL database will be used to store the data after being dumped on AWS S3 Bucket. An DB Diagram was created to be used as initial schema:" />
 <meta property="og:description" content="An AWS Aurora MySQL database will be used to store the data after being dumped on AWS S3 Bucket. An DB Diagram was created to be used as initial schema:" />
-<link rel="canonical" href="http://localhost:4000/moby-bikes/MVP/database/" />
-<meta property="og:url" content="http://localhost:4000/moby-bikes/MVP/database/" />
+<link rel="canonical" href="http://localhost:4000/moby-bikes/mvp/database/" />
+<meta property="og:url" content="http://localhost:4000/moby-bikes/mvp/database/" />
 <meta property="og:site_name" content="Design Docs" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Database Modeling" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Article","author":{"@type":"Person","name":"Leandro Pessini"},"description":"An AWS Aurora MySQL database will be used to store the data after being dumped on AWS S3 Bucket. An DB Diagram was created to be used as initial schema:","headline":"Database Modeling","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/moby-bikes/siteicon.png"},"name":"Leandro Pessini"},"url":"http://localhost:4000/moby-bikes/MVP/database/"}</script>
+{"@context":"https://schema.org","@type":"Article","author":{"@type":"Person","name":"Leandro Pessini"},"description":"An AWS Aurora MySQL database will be used to store the data after being dumped on AWS S3 Bucket. An DB Diagram was created to be used as initial schema:","headline":"Database Modeling","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/moby-bikes/siteicon.png"},"name":"Leandro Pessini"},"url":"http://localhost:4000/moby-bikes/mvp/database/"}</script>
 <!-- End Jekyll SEO tag -->
 
 		<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/moby-bikes/feed.xml" title="Design Docs" />
@@ -58,26 +58,6 @@
 				<ul>
 					
 					
-						<li class="nav-item top-level current">
-							
-							<a href="/moby-bikes/MVP/pipeline/">Minimum Viable Product (MVP)</a>
-							<ul>
-								
-									
-										<li class="nav-item "><a href="/moby-bikes/MVP/pipeline/">Data Pipeline</a></li>
-									
-								
-									
-										<li class="nav-item current"><a href="/moby-bikes/MVP/database/">Database Modeling</a></li>
-									
-								
-									
-										<li class="nav-item "><a href="/moby-bikes/MVP/streamlit/">Web App Mockup</a></li>
-									
-								
-							</ul>
-						</li>
-					
 						<li class="nav-item top-level ">
 							
 							<a href="/moby-bikes/milestones-results/challenges/">Milestones and Results</a>
@@ -88,17 +68,31 @@
 									
 								
 									
-										<li class="nav-item "><a href="/moby-bikes/milestones-results/Machine-Learning/">Machine Learning</a></li>
+										<li class="nav-item "><a href="/moby-bikes/milestones-results/feature-engineering/">Feature Engineering</a></li>
+									
+								
+									
+										<li class="nav-item "><a href="/moby-bikes/milestones-results/machine-learning/">Machine Learning</a></li>
 									
 								
 							</ul>
 						</li>
 					
-						<li class="nav-item top-level ">
+						<li class="nav-item top-level current">
 							
-							<a href="/moby-bikes/research-exploration/">Research and Exploration</a>
+							<a href="/moby-bikes/mvp/pipeline/">Minimum Viable Product (MVP)</a>
 							<ul>
 								
+									
+										<li class="nav-item "><a href="/moby-bikes/mvp/pipeline/">Data Pipeline</a></li>
+									
+								
+									
+										<li class="nav-item current"><a href="/moby-bikes/mvp/database/">Database Modeling</a></li>
+									
+								
+									
+										<li class="nav-item "><a href="/moby-bikes/mvp/streamlit/">Web App Mockup</a></li>
 									
 								
 							</ul>
@@ -142,6 +136,290 @@
 </table>
 
 <p>See online: <a href="https://app.quickdatabasediagrams.com/#/d/fWEwXP">https://app.quickdatabasediagrams.com/#/d/fWEwXP</a></p>
+
+<h2 id="business-rules---mysql">Business Rules - MySQL</h2>
+
+<p>A set of functions and stored procedures were created to handle processing and logging with SQL.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- --------------------------------------------------------------------------------------------------</span>
+<span class="k">DROP</span> <span class="k">TABLE</span> <span class="n">IF</span> <span class="k">EXISTS</span> <span class="n">mobybikes</span><span class="p">.</span><span class="n">TEMP_completed_rentals</span><span class="p">;</span>
+<span class="c1">-- DROP TEMPORARY TABLE IF EXISTS completed_rentals;</span>
+
+<span class="c1">-- --------------------------------------------------------------------------------------------------</span>
+<span class="c1">-- Function to calculate rentals duration</span>
+<span class="cm">/**
+	Assumption: Due to lack of information and data, to calculate the duration rental time I am assuming that when a new
+    bike rental starts the duration in *minutes* will be calculated by: RentalDuration = LastGPSTime - LastRentalStart
+*/</span>
+<span class="c1">-- --------------------------------------------------------------------------------------------------</span>
+<span class="n">USE</span> <span class="n">mobybikes</span><span class="p">;</span>
+
+<span class="k">DROP</span> <span class="k">FUNCTION</span> <span class="n">IF</span> <span class="k">EXISTS</span> <span class="n">FN_RENTAL_DURATION</span><span class="p">;</span>
+<span class="k">DELIMITER</span> <span class="o">//</span>
+<span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">FN_RENTAL_DURATION</span><span class="p">(</span><span class="n">LAST_GPSTIME</span> <span class="nb">DATETIME</span><span class="p">,</span> <span class="n">RENTAL_START</span> <span class="nb">DATETIME</span><span class="p">)</span>
+<span class="k">RETURNS</span> <span class="nb">INT</span>
+<span class="k">DETERMINISTIC</span>
+<span class="k">BEGIN</span>
+	<span class="k">DECLARE</span> <span class="n">duration</span> <span class="nb">BIGINT</span> <span class="k">DEFAULT</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">SET</span> <span class="n">duration</span> <span class="o">=</span> <span class="n">TIMESTAMPDIFF</span><span class="p">(</span><span class="k">MINUTE</span><span class="p">,</span> <span class="n">RENTAL_START</span><span class="p">,</span> <span class="n">LAST_GPSTIME</span><span class="p">);</span>
+
+    <span class="n">IF</span> <span class="n">duration</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">THEN</span>
+		<span class="k">SET</span> <span class="n">duration</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="k">END</span> <span class="n">IF</span><span class="p">;</span>
+
+    <span class="k">RETURN</span> <span class="n">duration</span><span class="p">;</span>
+<span class="k">END</span> <span class="o">//</span>
+<span class="k">DELIMITER</span> <span class="p">;</span>
+
+<span class="k">DROP</span> <span class="k">FUNCTION</span> <span class="n">IF</span> <span class="k">EXISTS</span> <span class="n">FN_TIMESOFDAY</span><span class="p">;</span>
+<span class="k">DELIMITER</span> <span class="o">//</span>
+<span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">FN_TIMESOFDAY</span><span class="p">(</span><span class="n">rental_date</span> <span class="nb">DATETIME</span><span class="p">)</span>
+<span class="k">RETURNS</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">DETERMINISTIC</span>
+<span class="k">BEGIN</span>
+	<span class="k">DECLARE</span> <span class="n">timeofday</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+    <span class="k">DECLARE</span> <span class="n">rental_hour</span> <span class="nb">INT</span><span class="p">;</span>
+
+    <span class="k">SET</span> <span class="n">rental_hour</span> <span class="p">:</span><span class="o">=</span> <span class="n">HOUR</span><span class="p">(</span><span class="n">rental_date</span><span class="p">);</span>
+
+    <span class="n">IF</span> <span class="n">rental_hour</span> <span class="o">&lt;</span> <span class="mi">7</span> <span class="k">THEN</span>
+		<span class="k">SET</span> <span class="n">timeofday</span> <span class="p">:</span><span class="o">=</span> <span class="s1">'Night'</span><span class="p">;</span>
+	<span class="n">ELSEIF</span> <span class="n">rental_hour</span> <span class="o">&gt;=</span> <span class="mi">7</span> <span class="k">AND</span> <span class="n">rental_hour</span> <span class="o">&lt;</span> <span class="mi">12</span> <span class="k">THEN</span>
+		<span class="k">SET</span> <span class="n">timeofday</span> <span class="p">:</span><span class="o">=</span> <span class="s1">'Morning'</span><span class="p">;</span>
+	<span class="n">ELSEIF</span> <span class="n">rental_hour</span> <span class="o">&gt;=</span> <span class="mi">12</span> <span class="k">AND</span> <span class="n">rental_hour</span> <span class="o">&lt;</span> <span class="mi">18</span> <span class="k">THEN</span>
+		<span class="k">SET</span> <span class="n">timeofday</span> <span class="p">:</span><span class="o">=</span> <span class="s1">'Afternoon'</span><span class="p">;</span>
+	<span class="n">ELSEIF</span> <span class="n">rental_hour</span> <span class="o">&gt;=</span> <span class="mi">18</span> <span class="k">AND</span> <span class="n">rental_hour</span> <span class="o">&lt;</span> <span class="mi">23</span> <span class="k">THEN</span>
+		<span class="k">SET</span> <span class="n">timeofday</span> <span class="p">:</span><span class="o">=</span> <span class="s1">'Evening'</span><span class="p">;</span>
+	<span class="k">ELSE</span>
+		<span class="k">SET</span> <span class="n">timeofday</span> <span class="p">:</span><span class="o">=</span> <span class="s1">'Night'</span><span class="p">;</span>
+    <span class="k">END</span> <span class="n">IF</span><span class="p">;</span>
+
+    <span class="k">RETURN</span> <span class="n">timeofday</span><span class="p">;</span>
+<span class="k">END</span> <span class="o">//</span>
+<span class="k">DELIMITER</span> <span class="p">;</span>
+
+<span class="k">DROP</span> <span class="k">PROCEDURE</span> <span class="n">IF</span> <span class="k">EXISTS</span> <span class="n">SP_LOG_RENTAL_EVENTS</span><span class="p">;</span>
+<span class="k">DELIMITER</span> <span class="o">//</span>
+<span class="k">CREATE</span> <span class="k">PROCEDURE</span> <span class="n">SP_LOG_RENTAL_EVENTS</span><span class="p">(</span>
+    <span class="k">IN</span> <span class="n">rentals_processed</span> <span class="nb">INT</span><span class="p">,</span>
+    <span class="k">IN</span> <span class="n">number_errors</span> <span class="nb">INT</span>
+<span class="p">)</span>
+<span class="k">BEGIN</span>
+
+	<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">mobybikes</span><span class="p">.</span><span class="n">Log_Rentals</span> <span class="p">(</span><span class="nv">`Date`</span><span class="p">,</span> <span class="nv">`Processed`</span><span class="p">,</span> <span class="nv">`Errors`</span><span class="p">)</span>
+    <span class="k">VALUES</span> <span class="p">(</span><span class="n">NOW</span><span class="p">(),</span> <span class="n">rentals_processed</span><span class="p">,</span> <span class="n">number_errors</span><span class="p">);</span>
+
+<span class="k">END</span> <span class="o">//</span>
+<span class="k">DELIMITER</span> <span class="p">;</span>
+
+<span class="k">DROP</span> <span class="k">PROCEDURE</span> <span class="n">IF</span> <span class="k">EXISTS</span> <span class="n">SP_GET_TOTAL_RENTALS_TO_PROCESS</span><span class="p">;</span>
+<span class="k">DELIMITER</span> <span class="o">//</span>
+<span class="k">CREATE</span> <span class="k">PROCEDURE</span> <span class="n">SP_GET_TOTAL_RENTALS_TO_PROCESS</span><span class="p">(</span><span class="k">OUT</span> <span class="n">total_rentals</span> <span class="nb">INT</span><span class="p">)</span>
+<span class="k">BEGIN</span>
+
+	<span class="k">SELECT</span>
+		<span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">INTO</span> <span class="n">total_rentals</span>
+	<span class="k">FROM</span>
+    <span class="p">(</span>
+		<span class="k">SELECT</span>
+			<span class="n">LastRentalStart</span><span class="p">,</span>
+			<span class="n">BikeID</span>
+		<span class="k">FROM</span>
+			<span class="n">mobybikes</span><span class="p">.</span><span class="n">rawRentals</span>
+		<span class="k">GROUP</span> <span class="k">BY</span>
+			<span class="n">LastRentalStart</span><span class="p">,</span> <span class="n">BikeID</span>
+	<span class="p">)</span> <span class="k">AS</span> <span class="n">r</span><span class="p">;</span>
+
+<span class="k">END</span> <span class="o">//</span>
+<span class="k">DELIMITER</span> <span class="p">;</span>
+
+<span class="k">DROP</span> <span class="k">PROCEDURE</span> <span class="n">IF</span> <span class="k">EXISTS</span> <span class="n">SP_GET_TOTAL_OPENED_RENTALS</span><span class="p">;</span>
+<span class="k">DELIMITER</span> <span class="o">//</span>
+<span class="k">CREATE</span> <span class="k">PROCEDURE</span> <span class="n">SP_GET_TOTAL_OPENED_RENTALS</span><span class="p">(</span><span class="k">OUT</span> <span class="n">opened_rentals</span> <span class="nb">INT</span><span class="p">)</span>
+<span class="k">BEGIN</span>
+    <span class="k">WITH</span> <span class="n">CTE_OPENED_RENTALS</span> <span class="k">AS</span> <span class="p">(</span>
+		<span class="k">SELECT</span>
+			<span class="n">r</span><span class="p">.</span><span class="n">LastRentalStart</span><span class="p">,</span>
+			<span class="n">r</span><span class="p">.</span><span class="n">BikeID</span><span class="p">,</span>
+			<span class="n">r</span><span class="p">.</span><span class="n">rent_rank</span>
+		<span class="k">FROM</span>
+		<span class="p">(</span>
+			<span class="k">SELECT</span>
+				<span class="n">LastRentalStart</span><span class="p">,</span>
+				<span class="n">BikeID</span><span class="p">,</span>
+				<span class="n">RANK</span><span class="p">()</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">BikeID</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">LastRentalStart</span> <span class="k">DESC</span><span class="p">)</span> <span class="n">rent_rank</span>
+			<span class="k">FROM</span>
+				<span class="n">mobybikes</span><span class="p">.</span><span class="n">rawRentals</span>
+			<span class="k">GROUP</span> <span class="k">BY</span>
+				<span class="n">LastRentalStart</span><span class="p">,</span> <span class="n">BikeID</span>
+		<span class="p">)</span> <span class="n">r</span>
+        <span class="k">WHERE</span> <span class="n">rent_rank</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="p">)</span>
+    <span class="c1">-- returning the number of rentals NOT completed</span>
+	<span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">INTO</span> <span class="n">opened_rentals</span> <span class="k">FROM</span> <span class="n">CTE_OPENED_RENTALS</span><span class="p">;</span>
+
+<span class="k">END</span> <span class="o">//</span>
+<span class="k">DELIMITER</span> <span class="p">;</span>
+
+<span class="k">DROP</span> <span class="k">PROCEDURE</span> <span class="n">IF</span> <span class="k">EXISTS</span> <span class="n">SP_COMPLETED_RENTALS</span><span class="p">;</span>
+<span class="k">DELIMITER</span> <span class="o">//</span>
+<span class="k">CREATE</span> <span class="k">PROCEDURE</span> <span class="n">SP_COMPLETED_RENTALS</span><span class="p">(</span><span class="k">OUT</span> <span class="n">rentals_to_process</span> <span class="nb">INT</span><span class="p">)</span>
+<span class="k">BEGIN</span>
+	<span class="c1">-- The ERROR 1137 is a known issue with MySQL that hasn’t got any fix since 2008.</span>
+	<span class="c1">-- Not creating a temporary table because of an issue referenced above.</span>
+
+    <span class="k">DROP</span> <span class="k">TABLE</span> <span class="n">IF</span> <span class="k">EXISTS</span> <span class="n">TEMP_completed_rentals</span><span class="p">;</span>
+
+	<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">TEMP_completed_rentals</span>
+	<span class="k">SELECT</span>
+		<span class="n">r</span><span class="p">.</span><span class="n">LastRentalStart</span><span class="p">,</span>
+		<span class="n">r</span><span class="p">.</span><span class="n">BikeID</span><span class="p">,</span>
+		<span class="n">r</span><span class="p">.</span><span class="n">rent_rank</span>
+	<span class="k">FROM</span>
+	<span class="p">(</span>
+		<span class="k">SELECT</span>
+			<span class="n">LastRentalStart</span><span class="p">,</span>
+			<span class="n">BikeID</span><span class="p">,</span>
+			<span class="n">RANK</span><span class="p">()</span> <span class="n">OVER</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">BikeID</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">LastRentalStart</span> <span class="k">DESC</span><span class="p">)</span> <span class="n">rent_rank</span>
+		<span class="k">FROM</span>
+			<span class="n">mobybikes</span><span class="p">.</span><span class="n">rawRentals</span>
+		<span class="k">GROUP</span> <span class="k">BY</span>
+			<span class="n">LastRentalStart</span><span class="p">,</span> <span class="n">BikeID</span>
+	<span class="p">)</span> <span class="n">r</span>
+	<span class="k">WHERE</span> <span class="n">rent_rank</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">;</span>
+
+    <span class="c1">-- returning the number of rentals to be processed</span>
+	<span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">INTO</span> <span class="n">rentals_to_process</span> <span class="k">FROM</span> <span class="n">TEMP_completed_rentals</span><span class="p">;</span>
+
+<span class="k">END</span> <span class="o">//</span>
+<span class="k">DELIMITER</span> <span class="p">;</span>
+
+<span class="k">DROP</span> <span class="k">PROCEDURE</span> <span class="n">IF</span> <span class="k">EXISTS</span> <span class="n">SP_CLEASING_PROCESSED_RENTALS</span><span class="p">;</span>
+<span class="k">DELIMITER</span> <span class="o">//</span>
+<span class="k">CREATE</span> <span class="k">PROCEDURE</span> <span class="n">SP_CLEASING_PROCESSED_RENTALS</span><span class="p">()</span>
+<span class="k">BEGIN</span>
+	<span class="k">SET</span> <span class="n">SQL_SAFE_UPDATES</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="k">DELETE</span> <span class="k">FROM</span> <span class="n">mobybikes</span><span class="p">.</span><span class="n">rawRentals</span> <span class="k">WHERE</span> <span class="p">(</span><span class="n">LastRentalStart</span><span class="p">,</span><span class="n">BikeID</span><span class="p">)</span> <span class="k">IN</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">LastRentalStart</span><span class="p">,</span><span class="n">BikeID</span> <span class="k">FROM</span> <span class="n">mobybikes</span><span class="p">.</span><span class="n">TEMP_completed_rentals</span><span class="p">);</span>
+    <span class="k">DROP</span> <span class="k">TABLE</span> <span class="n">IF</span> <span class="k">EXISTS</span> <span class="n">TEMP_completed_rentals</span><span class="p">;</span>
+    <span class="k">SET</span> <span class="n">SQL_SAFE_UPDATES</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">END</span> <span class="o">//</span>
+<span class="k">DELIMITER</span> <span class="p">;</span>
+
+<span class="k">DROP</span> <span class="k">PROCEDURE</span> <span class="n">IF</span> <span class="k">EXISTS</span> <span class="n">SP_COORDINATES</span><span class="p">;</span>
+<span class="k">DELIMITER</span> <span class="o">//</span>
+<span class="k">CREATE</span> <span class="k">PROCEDURE</span> <span class="n">SP_COORDINATES</span><span class="p">()</span>
+<span class="k">BEGIN</span>
+
+	<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">mobybikes</span><span class="p">.</span><span class="n">Rentals_Coordinates</span> <span class="p">(</span><span class="nb">Date</span><span class="p">,</span> <span class="n">BikeID</span><span class="p">,</span> <span class="n">Latitude</span><span class="p">,</span> <span class="n">Longitude</span><span class="p">)</span>
+    <span class="k">SELECT</span>
+		<span class="n">LastRentalStart</span><span class="p">,</span>
+        <span class="n">BikeID</span><span class="p">,</span>
+        <span class="n">Latitude</span><span class="p">,</span>
+        <span class="n">Longitude</span>
+	<span class="k">FROM</span>
+		<span class="n">mobybikes</span><span class="p">.</span><span class="n">rawRentals</span>
+	<span class="k">WHERE</span>
+		<span class="p">(</span><span class="n">LastRentalStart</span><span class="p">,</span><span class="n">BikeID</span><span class="p">)</span> <span class="k">IN</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">LastRentalStart</span><span class="p">,</span><span class="n">BikeID</span> <span class="k">FROM</span> <span class="n">mobybikes</span><span class="p">.</span><span class="n">TEMP_completed_rentals</span><span class="p">)</span>
+	<span class="k">AND</span>
+		<span class="p">(</span><span class="n">Latitude</span> <span class="k">IS</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">OR</span> <span class="n">Longitude</span> <span class="k">IS</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">)</span>
+	<span class="k">AND</span>
+		<span class="p">(</span><span class="n">Latitude</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span> <span class="k">OR</span> <span class="n">Longitude</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span><span class="p">);</span>
+
+<span class="k">END</span> <span class="o">//</span>
+<span class="k">DELIMITER</span> <span class="p">;</span>
+
+<span class="k">DROP</span> <span class="k">PROCEDURE</span> <span class="n">IF</span> <span class="k">EXISTS</span> <span class="n">SP_RENTALS_PROCESSING</span><span class="p">;</span>
+<span class="k">DELIMITER</span> <span class="o">//</span>
+<span class="k">CREATE</span> <span class="k">PROCEDURE</span> <span class="n">SP_RENTALS_PROCESSING</span><span class="p">()</span>
+<span class="k">BEGIN</span>
+
+    <span class="k">DECLARE</span> <span class="n">total_completed_rentals</span><span class="p">,</span> <span class="n">total_opened_rentals</span><span class="p">,</span> <span class="n">rentals_to_process</span><span class="p">,</span> <span class="n">number_errors</span> <span class="nb">INT</span><span class="p">;</span>
+
+	<span class="c1">-- creates a temporary table and returns the total of completed rentals</span>
+	<span class="k">CALL</span> <span class="n">SP_COMPLETED_RENTALS</span><span class="p">(</span><span class="n">total_completed_rentals</span><span class="p">);</span>
+
+	<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">mobybikes</span><span class="p">.</span><span class="n">Rentals</span> <span class="p">(</span><span class="nb">Date</span><span class="p">,</span> <span class="n">BikeID</span><span class="p">,</span> <span class="n">BatteryStart</span><span class="p">,</span> <span class="n">BatteryEnd</span><span class="p">,</span> <span class="n">Duration</span><span class="p">)</span>
+	<span class="k">WITH</span> <span class="n">CTE_RENTAL_START_FINISH</span> <span class="k">AS</span> <span class="p">(</span>
+		<span class="k">SELECT</span>
+			<span class="n">t</span><span class="p">.</span><span class="n">LastRentalStart</span><span class="p">,</span>
+            <span class="n">t</span><span class="p">.</span><span class="n">BikeID</span><span class="p">,</span>
+            <span class="n">t</span><span class="p">.</span><span class="n">Battery</span><span class="p">,</span>
+            <span class="n">t</span><span class="p">.</span><span class="n">LastGPSTime</span><span class="p">,</span>
+            <span class="k">CASE</span>
+				<span class="k">WHEN</span> <span class="n">t</span><span class="p">.</span><span class="n">RN_RentalStart</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">THEN</span> <span class="mi">1</span>
+				<span class="k">ELSE</span> <span class="mi">0</span>
+			<span class="k">END</span> <span class="k">AS</span> <span class="n">RentStarting</span>
+		<span class="k">FROM</span>
+			<span class="p">(</span><span class="k">SELECT</span>
+				<span class="n">LastRentalStart</span><span class="p">,</span> <span class="n">BikeID</span><span class="p">,</span> <span class="n">Battery</span><span class="p">,</span> <span class="n">LastGPSTime</span><span class="p">,</span>
+				<span class="n">ROW_NUMBER</span><span class="p">()</span> <span class="n">OVER</span><span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">LastRentalStart</span><span class="p">,</span> <span class="n">BikeID</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">LastGPSTime</span><span class="p">)</span> <span class="k">AS</span> <span class="n">RN_RentalStart</span><span class="p">,</span>
+				<span class="n">ROW_NUMBER</span><span class="p">()</span> <span class="n">OVER</span><span class="p">(</span><span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">LastRentalStart</span><span class="p">,</span> <span class="n">BikeID</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">LastGPSTime</span> <span class="k">DESC</span><span class="p">)</span> <span class="k">AS</span> <span class="n">RN_RentalFinished</span>
+			<span class="k">FROM</span>
+				<span class="n">mobybikes</span><span class="p">.</span><span class="n">rawRentals</span>
+			<span class="k">WHERE</span>
+				<span class="p">(</span><span class="n">LastRentalStart</span><span class="p">,</span><span class="n">BikeID</span><span class="p">)</span> <span class="k">IN</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">LastRentalStart</span><span class="p">,</span><span class="n">BikeID</span> <span class="k">FROM</span> <span class="n">mobybikes</span><span class="p">.</span><span class="n">TEMP_completed_rentals</span><span class="p">)</span> <span class="c1">-- get only finished rentals from temp table</span>
+			<span class="k">ORDER</span> <span class="k">BY</span>
+				<span class="n">BikeID</span><span class="p">,</span><span class="n">LastRentalStart</span> <span class="k">ASC</span><span class="p">)</span> <span class="n">t</span>
+		<span class="k">WHERE</span>
+			<span class="n">t</span><span class="p">.</span><span class="n">RN_RentalStart</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">OR</span> <span class="n">t</span><span class="p">.</span><span class="n">RN_RentalFinished</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="p">)</span>
+    <span class="k">SELECT</span>
+		<span class="n">LastRentalStart</span><span class="p">,</span>
+        <span class="n">BikeID</span><span class="p">,</span>
+        <span class="n">FLOOR</span> <span class="p">(</span><span class="k">CAST</span><span class="p">(</span> <span class="n">GROUP_CONCAT</span><span class="p">(</span> <span class="k">CASE</span> <span class="k">WHEN</span> <span class="n">RentStarting</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">THEN</span> <span class="n">Battery</span> <span class="k">ELSE</span> <span class="k">NULL</span> <span class="k">END</span><span class="p">)</span> <span class="k">AS</span> <span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span> <span class="k">AS</span> <span class="n">BatteryStart</span><span class="p">,</span>
+        <span class="n">FLOOR</span> <span class="p">(</span><span class="k">CAST</span><span class="p">(</span> <span class="n">GROUP_CONCAT</span><span class="p">(</span> <span class="k">CASE</span> <span class="k">WHEN</span> <span class="n">RentStarting</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">THEN</span> <span class="n">Battery</span> <span class="k">ELSE</span> <span class="k">NULL</span> <span class="k">END</span><span class="p">)</span> <span class="k">AS</span> <span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span> <span class="k">AS</span> <span class="n">BatteryEnd</span><span class="p">,</span>
+        <span class="c1">-- ORDER BY RentStarting ASC so the first row to calculate would be with RentStarting = 0 (finished rental row)</span>
+        <span class="c1">-- Not using IF because some rows have only one and then if there is only row with RentStarting=1, it will use that one</span>
+        <span class="n">FLOOR</span> <span class="p">(</span><span class="k">CAST</span><span class="p">(</span> <span class="n">GROUP_CONCAT</span><span class="p">(</span> <span class="n">FN_RENTAL_DURATION</span><span class="p">(</span><span class="n">LastGPSTime</span><span class="p">,</span><span class="n">LastRentalStart</span><span class="p">)</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">RentStarting</span> <span class="k">ASC</span> <span class="p">)</span> <span class="k">AS</span> <span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span> <span class="k">AS</span> <span class="n">duration</span>
+    <span class="k">FROM</span>
+		<span class="n">CTE_RENTAL_START_FINISH</span>
+	<span class="k">GROUP</span> <span class="k">BY</span>
+		<span class="n">LastRentalStart</span><span class="p">,</span> <span class="n">BikeID</span>
+	<span class="k">ORDER</span> <span class="k">BY</span>
+		<span class="n">BikeID</span><span class="p">,</span> <span class="n">LastRentalStart</span> <span class="k">ASC</span><span class="p">;</span>
+
+	<span class="k">CALL</span> <span class="n">SP_COORDINATES</span><span class="p">();</span>
+
+	<span class="c1">-- returns the total of opened rentals (not to be processed yet)</span>
+    <span class="k">CALL</span> <span class="n">SP_GET_TOTAL_OPENED_RENTALS</span><span class="p">(</span><span class="n">total_opened_rentals</span><span class="p">);</span>
+    <span class="k">CALL</span> <span class="n">SP_CLEASING_PROCESSED_RENTALS</span><span class="p">();</span>
+
+    <span class="c1">-- Get rentals that are left to process (it should be only opened rentals)</span>
+    <span class="k">CALL</span> <span class="n">SP_GET_TOTAL_RENTALS_TO_PROCESS</span><span class="p">(</span><span class="n">rentals_to_process</span><span class="p">);</span>
+
+    <span class="c1">-- if = 0 there is no error</span>
+    <span class="c1">-- if &gt; 0 there are some rentals left which weren't processed</span>
+    <span class="k">SET</span> <span class="n">number_errors</span> <span class="p">:</span><span class="o">=</span> <span class="n">rentals_to_process</span> <span class="o">-</span> <span class="n">total_opened_rentals</span><span class="p">;</span>
+
+    <span class="c1">-- log the number of processed rentals and the number of errors occurred when processing them</span>
+    <span class="k">CALL</span> <span class="n">SP_LOG_RENTAL_EVENTS</span><span class="p">(</span><span class="n">total_completed_rentals</span><span class="p">,</span> <span class="n">number_errors</span><span class="p">);</span>
+
+<span class="k">END</span> <span class="o">//</span>
+<span class="k">DELIMITER</span> <span class="p">;</span>
+
+
+<span class="c1">-- --------------------------------------------------------------------------------------------------</span>
+<span class="c1">-- WEATHER LOG</span>
+<span class="c1">-- --------------------------------------------------------------------------------------------------</span>
+<span class="n">USE</span> <span class="n">mobybikes</span><span class="p">;</span>
+<span class="k">DROP</span> <span class="k">PROCEDURE</span> <span class="n">IF</span> <span class="k">EXISTS</span> <span class="n">SP_LOG_WEATHER_EVENTS</span><span class="p">;</span>
+<span class="k">DELIMITER</span> <span class="o">//</span>
+<span class="k">CREATE</span> <span class="k">PROCEDURE</span> <span class="n">SP_LOG_WEATHER_EVENTS</span><span class="p">(</span><span class="k">IN</span> <span class="n">DATE_FILE</span> <span class="nb">CHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="k">BEGIN</span>
+    <span class="k">DECLARE</span> <span class="n">weather_events</span><span class="p">,</span> <span class="n">number_errors</span> <span class="nb">INT</span><span class="p">;</span>
+
+    <span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">INTO</span> <span class="n">weather_events</span> <span class="k">FROM</span> <span class="n">mobybikes</span><span class="p">.</span><span class="n">Weather</span> <span class="k">WHERE</span> <span class="nb">DATE</span><span class="p">(</span><span class="nv">`Date`</span><span class="p">)</span> <span class="o">=</span> <span class="n">STR_TO_DATE</span><span class="p">(</span><span class="n">DATE_FILE</span><span class="p">,</span><span class="s1">'%Y-%m-%d'</span><span class="p">);</span>
+
+	<span class="k">SET</span> <span class="n">number_errors</span> <span class="p">:</span><span class="o">=</span> <span class="mi">24</span> <span class="o">-</span> <span class="n">weather_events</span><span class="p">;</span> <span class="c1">-- it should have been recorded 24 hours</span>
+
+	<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">mobybikes</span><span class="p">.</span><span class="n">Log_Weather</span> <span class="p">(</span><span class="nv">`Date`</span><span class="p">,</span> <span class="nv">`Processed`</span><span class="p">,</span> <span class="nv">`Errors`</span><span class="p">)</span>
+    <span class="k">VALUES</span> <span class="p">(</span><span class="n">STR_TO_DATE</span><span class="p">(</span><span class="n">DATE_FILE</span><span class="p">,</span><span class="s1">'%Y-%m-%d'</span><span class="p">),</span> <span class="n">weather_events</span><span class="p">,</span> <span class="n">number_errors</span><span class="p">);</span>
+
+<span class="k">END</span> <span class="o">//</span>
+<span class="k">DELIMITER</span> <span class="p">;</span>
+
+</code></pre></div></div>
 
 			</article>
 

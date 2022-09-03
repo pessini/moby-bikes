@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Feature Engineering | Design Docs</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Feature Engineering" />
+<meta name="author" content="Leandro Pessini" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Hypothesis" />
+<meta property="og:description" content="Hypothesis" />
+<link rel="canonical" href="http://localhost:4000/moby-bikes/milestones-results/feature-engineering/" />
+<meta property="og:url" content="http://localhost:4000/moby-bikes/milestones-results/feature-engineering/" />
+<meta property="og:site_name" content="Design Docs" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Feature Engineering" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","author":{"@type":"Person","name":"Leandro Pessini"},"description":"Hypothesis","headline":"Feature Engineering","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/moby-bikes/siteicon.png"},"name":"Leandro Pessini"},"url":"http://localhost:4000/moby-bikes/milestones-results/feature-engineering/"}</script>
+<!-- End Jekyll SEO tag -->
+
+		<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/moby-bikes/feed.xml" title="Design Docs" />
+
+		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,700,700italic|Open+Sans:400,400italic,600,600italic,700,700italic|Inconsolata:400,700">
+		<link rel="stylesheet" href="/moby-bikes/css/main.css">
+		<link rel="apple-touch-icon" href="/moby-bikes/apple-touch-icon.png">
+		<link rel="icon" type="image/png" href="/moby-bikes/touch-icon.png" sizes="192x192">
+		<link rel="icon" type="image/png" href="/moby-bikes/images/favicon.png">
+
+		
+	</head>
+
+	<body>
+		<header>
+			<h1>
+				<a href="/moby-bikes/"><img src="/moby-bikes/images/emblem.svg" width="40" height="40" alt="Design Docs logo"></a>
+				Design Docs
+				<button type="button" class="open-nav" id="open-nav"></button>
+			</h1>
+
+			<form action="/moby-bikes/search/" method="get">
+				<input type="text" name="q" id="search-input" placeholder="Search" autofocus>
+				<input type="submit" value="Search" style="display: none;">
+			</form>
+
+			<nav class="full-navigation">
+				<ul>
+					<li class="nav-item top-level ">
+						
+						<a href="/moby-bikes/">eBikes Operations Optimization</a>
+					</li>
+				</ul>
+
+				<ul>
+					
+					
+						<li class="nav-item top-level current">
+							
+							<a href="/moby-bikes/milestones-results/challenges/">Milestones and Results</a>
+							<ul>
+								
+									
+										<li class="nav-item "><a href="/moby-bikes/milestones-results/challenges/">Challenges and weakness</a></li>
+									
+								
+									
+										<li class="nav-item current"><a href="/moby-bikes/milestones-results/feature-engineering/">Feature Engineering</a></li>
+									
+								
+									
+										<li class="nav-item "><a href="/moby-bikes/milestones-results/machine-learning/">Machine Learning</a></li>
+									
+								
+							</ul>
+						</li>
+					
+						<li class="nav-item top-level ">
+							
+							<a href="/moby-bikes/mvp/pipeline/">Minimum Viable Product (MVP)</a>
+							<ul>
+								
+									
+										<li class="nav-item "><a href="/moby-bikes/mvp/pipeline/">Data Pipeline</a></li>
+									
+								
+									
+										<li class="nav-item "><a href="/moby-bikes/mvp/database/">Database Modeling</a></li>
+									
+								
+									
+										<li class="nav-item "><a href="/moby-bikes/mvp/streamlit/">Web App Mockup</a></li>
+									
+								
+							</ul>
+						</li>
+					
+				</ul>
+
+				<!-- <ul>
+					<li class="nav-item top-level ">
+						
+						<a href="/moby-bikes/changelog/">Change Log</a>
+					</li>
+				</ul> -->
+			</nav>
+		</header>
+
+		<section class="main">
+			<div class="page-header">
+				<h2>Milestones and Results</h2>
+				<!-- <h3>Feature Engineering</h3> -->
+
+					
+					    <h3 style="padding-top: 35px">Feature Engineering</h3>
+					
+
+			</div>
+			<article class="content">
+				<h2 id="hypothesis">Hypothesis</h2>
+
+<p>Hourly trend: It might be a high demand for people commuting to work. Early morning and late evening can have different trend (cyclist) and low demand during 10:00 pm to 4:00 am.</p>
+
+<p>Daily Trend: Users demand more bike on weekdays as compared to weekend or holiday.</p>
+
+<p>Rain: The demand of bikes will be lower on a rainy day as compared to a sunny day. Similarly, higher humidity will cause to lower the demand and vice versa.</p>
+
+<p>Temperature: In Ireland, temperature has positive correlation with bike demand.</p>
+
+<p>Traffic: It can be positively correlated with Bike demand. Higher traffic may force people to use bike as compared to other road transport medium like car, taxi etc.</p>
+
+<h2 id="date-and-time---new-features">Date and time - new features</h2>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">holiday</code></li>
+  <li><code class="language-plaintext highlighter-rouge">workingday</code></li>
+  <li><code class="language-plaintext highlighter-rouge">peak</code></li>
+  <li><code class="language-plaintext highlighter-rouge">season</code>: (1 = Spring, 2 = Summer, 3 = Fall, 4 = Winter)</li>
+  <li><code class="language-plaintext highlighter-rouge">duration</code>: duration of the rental</li>
+</ul>
+
+<h2 id="times-of-the-day">Times of the Day</h2>
+<ul>
+  <li>Morning (from 7am to noon)</li>
+  <li>Afternoon (from midday to 6pm)</li>
+  <li>Evening (from 6pm to 10pm)</li>
+  <li>Night (from 10pm to 5am)</li>
+</ul>
+
+<h2 id="rainfall-intensity-level">Rainfall Intensity Level</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Level</th>
+      <th style="text-align: center">Rainfall Intensity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">no rain</td>
+      <td style="text-align: center">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">drizzle</td>
+      <td style="text-align: center">0.1~0.3</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">light rain</td>
+      <td style="text-align: center">0.3~0.5</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">moderate rain</td>
+      <td style="text-align: center">0.5~4</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">heavy rain</td>
+      <td style="text-align: center">&gt;4</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Source: <a href="https://www.metoffice.gov.uk/research/library-and-archive/publications/factsheets">https://www.metoffice.gov.uk/research/library-and-archive/publications/factsheets</a></p>
+
+<p>PDF direct link: <a href="https://www.metoffice.gov.uk/binaries/content/assets/metofficegovuk/pdf/research/library-and-archive/library/publications/factsheets/factsheet_3-water-in-the-atmosphere-v02.pdf">Water in the atmosphere</a></p>
+
+<h2 id="met-éireann-weather-forecast-api">Met Éireann Weather Forecast API</h2>
+
+<p>API URL: <a href="https://data.gov.ie/dataset/met-eireann-weather-forecast-api/resource/5d156b15-38b8-4de9-921b-0ffc8704c88e">https://data.gov.ie/dataset/met-eireann-weather-forecast-api/resource/5d156b15-38b8-4de9-921b-0ffc8704c88e</a></p>
+
+<p><strong>Precipitation unit:</strong> Rain will be output in <em>millimetres (mm)</em>.</p>
+
+<p>The minvalue, value and maxvalue values are derived from statistical analysis of the forecast, and refer to the lower (20th percentile), middle (60th percentile) and higher (80th percentile) expected amount. If minvalue and maxvalue are not output, value is the basic forecast amount.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;precipitation</span> <span class="na">unit=</span><span class="s">"mm"</span> <span class="na">value=</span><span class="s">"0.0"</span> <span class="na">minvalue=</span><span class="s">"0.0"</span> <span class="na">maxvalue=</span><span class="s">"0.1"</span><span class="nt">/&gt;</span>
+</code></pre></div></div>
+
+<h2 id="wind-speed-beaufort-scale">Wind Speed Beaufort scale</h2>
+
+<p><a href="https://www.met.ie/forecasts/marine-inland-lakes/beaufort-scale">The Irish Meteorological Service - BEAUFORT SCALE</a></p>
+
+<p><img src="https://github.com/pessini/moby-bikes/blob/902858f47ba9afaf380abfc2be02a2b7f1f09174/notebooks/img/Beaufort-scale.png?raw=true" alt="Beaufort scale" /></p>
+
+<p>Another source: <a href="https://www.metoffice.gov.uk/weather/guides/coast-and-sea/beaufort-scale">https://www.metoffice.gov.uk/weather/guides/coast-and-sea/beaufort-scale</a></p>
+
+<h2 id="grouped-wind-speed-beaufort-scale">Grouped Wind Speed (Beaufort scale)</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Level</th>
+      <th style="text-align: center">Beaufort scale</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Calm / Light Breeze</td>
+      <td style="text-align: center">0~2</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Breeze</td>
+      <td style="text-align: center">3</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Moderate Breeze</td>
+      <td style="text-align: center">4-5</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Strong Breeze / Near Gale</td>
+      <td style="text-align: center">6-7</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Gale / Storm</td>
+      <td style="text-align: center">8~12</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="initial-new-features">Initial new features</h2>
+
+<h4 id="datetime">Date/time</h4>
+<ul>
+  <li>Holiday</li>
+  <li>Working Day (eg. weekend)</li>
+  <li>Season (eg. Summer)</li>
+  <li>Times of Day (eg. Morning)</li>
+  <li>Day of the week (eg. Monday)</li>
+</ul>
+
+<h4 id="weather">Weather</h4>
+<ul>
+  <li>Rainfall Intensity Level (eg. light rain)</li>
+  <li>Wind Speed (Beaufort Scale)</li>
+  <li>Wind Speed (grouped bft wind speed - helps high cardinality)</li>
+  <li>Temperature round (eg. 16.7°C -&gt; 17°C)</li>
+  <li>Temperature Bins (clusters for different temperatures)</li>
+  <li>Humidity Bins (clusters for different relative humidity levels)</li>
+</ul>
+
+<p><em><a href="/moby-bikes/notebooks-html/02-feature-engineering.html">See Feature Engineering Notebook</a></em></p>
+
+			</article>
+
+			<!-- <div style='position: relative; padding: 10px;height: 100px; line-height: 100px; text-align: center;'>
+				<img title="GitHub Mark" src="https://github.com/pessini/avian-flu-wild-birds-ireland/blob/main/img/GitHub-Mark-64px.png?raw=true"
+				style="height: 18px;" alt="GitHub Mark">
+				<a href='https://github.com/pessini/moby-bikes'
+				target='_blank'
+				style="font-size: small;display: inline-block;
+  							vertical-align: middle;
+  							line-height: normal;margin-bottom:5px;">GitHub Repository</a>
+			</div> -->
+			<div>
+				<p align="center">
+				  <a href="https://github.com/pessini"><img alt="GitHub" title="GitHub" height="18" width="18" src="/moby-bikes/images/github.svg"></a>
+					<span style="font-size: 18px; display: inline-block;">|</span>
+				  <a href="https://www.linkedin.com/in/leandropessini"><img alt="LinkedIn" title="LinkedIn" height="18" width="18" src="/moby-bikes/images/linkedin.svg"></a>
+					<br />Project by <a href="https://pessini.me">Leandro Pessini</a>
+				</p>
+			</div>
+			<div style="padding-bottom: 1px;"></div>
+		</section>
+
+		<script>
+			document.getElementById("open-nav").addEventListener("click", function () {
+				document.body.classList.toggle("nav-open");
+			});
+		</script>
+		<!-- Back To Top button https://github.com/vfeskov/vanilla-back-to-top -->
+		<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+		<script>addBackToTop({
+		  diameter: 56,
+		  backgroundColor: '#6eb52f',
+		  textColor: '#fff'
+		})</script>
+	</body>
+</html>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
