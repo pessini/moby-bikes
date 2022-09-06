@@ -31,6 +31,38 @@
 		<link rel="icon" type="image/png" href="/moby-bikes/touch-icon.png" sizes="192x192">
 		<link rel="icon" type="image/png" href="/moby-bikes/images/favicon.png">
 		
+		<style>
+		a.btn {
+					color: #fff;
+					background-color: #206b82;
+					/* background-color: #6eb52f; */
+					border-color: #1b5a6e;
+					/* opacity: 90%; */
+					display: inline-block;
+					margin-bottom: 0;
+					font-weight: bold;
+					text-align: center;
+					white-space: nowrap;
+					vertical-align: middle;
+					touch-action: manipulation;
+					cursor: pointer;
+					background-image: none;
+					border: 1px solid transparent;
+					padding: 6px 12px;
+					font-size: 14px;
+					line-height: 1.42857143;
+					border-radius: 4px;
+					-webkit-user-select: none;
+					-moz-user-select: none;
+					-ms-user-select: none;
+					user-select: none;
+				}
+			a.btn:hover{
+				opacity: 90%;
+				text-decoration: none;
+				color: #fff;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -110,8 +142,8 @@
 				</ul>
 
 				<ul style="height: 100px; line-height: 100px;">
-					<li class="nav-item top-level">
-						<a href="https://pessini-moby-bikes-dashboardapp-hhvohw.streamlitapp.com/" target="_blank">
+					<li class="nav-item top-level" style="text-align:center;margin-top:10px">
+						<a href="https://pessini-moby-bikes-dashboardapp-hhvohw.streamlitapp.com/" target="_blank" class="btn">
 							<!-- Link 45deg icon -->
 							<!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link-45deg" viewBox="0 0 16 16">
 							  <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
@@ -124,7 +156,7 @@
 							  <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
 							</svg>
 
-							<span style="display: inline-block; vertical-align: top; line-height: 1.2em; font-weight:bold;">&nbspGo to Web App</span>
+							<span style="vertical-align: baseline;">&nbspGo to Web App</span>
 
 						</a>
 					</li>
@@ -304,7 +336,7 @@
 		<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
 		<script>addBackToTop({
 		  diameter: 56,
-		  backgroundColor: '#6eb52f',
+		  backgroundColor: '#206b82',
 		  textColor: '#fff'
 		})</script>
 	</body>
