@@ -566,7 +566,7 @@ if selected == "About":
     st.image("https://i.ytimg.com/vi/-s8er6tHD3o/maxresdefault.jpg", use_column_width='always')
 
     st.write("""
-            ### Objective
+            ### Business Problem
             As part of Moby Operations, there is a role called "_eBike Operators_" which among its responsibilities are distributing and relocating 
             eBikes throughout the city, while performing safety checks and basic maintenance.
 
@@ -575,12 +575,12 @@ if selected == "About":
             
             ### In a nutshell (TL:DR)
             
-            - **Data Pipeline** - Pull data from APIs and dump it into an AWS S3 bucket. Read files from S3 and store them in a MYSQL database.
-            
+            - **Data Pipeline** - Pulls data from APIs and dumps it into an AWS S3 bucket. Reads files from S3 and stores them in a MYSQL database.
+
             - **Minimum Viable Product (MVP)** - A web app displaying a few business metrics and charts.
-            
+
             - Uses **machine learning algorithms** to predict the demand for the next hours based on weather data.
-            
+
             - Moby Operations team will use **Dashboard** and **Rental Demand Forecasting** to make decisions and planning its daily operations.
              """)
 
