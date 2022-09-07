@@ -1,5 +1,5 @@
 <h1 align="center" style="padding: 50px">
-    <p align="center"> 
+    <p align="center">
         <img src="https://www.mobybikes.com/wp-content/uploads/2020/05/logo-1.png" width="224px"/>
     </p>
 </h1>
@@ -19,14 +19,13 @@ Analytical Dashboard & Demand Forecasting </h3>
     <img src="https://i.ytimg.com/vi/-s8er6tHD3o/maxresdefault.jpg" width="550">
 </p>
 
-<br />
-Moby bikes is an e-bike bike-share scheme in operation in Dublin. 
+Moby bikes is an e-bike bike-share scheme in operation in Dublin.
 Electric powered bicycles may be rented from and returned to designated cycle stands inside the designated area.
 
-As part of Moby Operations, there is a role called "_eBike Operators_" which among its responsibilities are distributing and relocating 
+As part of Moby Operations, there is a role called "_eBike Operators_" which among its responsibilities are distributing and relocating
 eBikes throughout the city, while performing safety checks and basic maintenance.
 
-**To optimize operations, we want to predict the demand for the next hours based on weather data in order to decide whether to increase 
+**To optimize operations, we want to predict the demand for the next hours based on weather data in order to decide whether to increase
 fleet or is safe to perform safety checks and maintenance or to collect bikes for repairing.**
 
 ### In a nutshell (TL:DR)
