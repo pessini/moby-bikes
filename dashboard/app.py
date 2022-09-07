@@ -43,11 +43,27 @@ st.header(page_subtitle)
 # --- HIDE STREAMLIT STYLE ---
 hide_st_style = """
             <style>
-            /*#MainMenu {visibility: hidden;}*/
-            /*footer {visibility: hidden;}*/
-            /* header {visibility: hidden;} */
-            .row_heading.level0 {display:none}
-            .blank {display:none}
+                /*#MainMenu {visibility: hidden;}*/
+                /*footer {visibility: hidden;}*/
+                /* header {visibility: hidden;} */
+                .row_heading.level0 {display:none}
+                .blank {display:none}
+                a.btn {
+                    color: #fff;
+                    background-color: #206b82;
+                    text-decoration: none;
+                    font-weight: bold;
+                    text-align: center;
+                    background-image: none;
+                    padding: 8px 12px;
+                    font-size: 14px;
+                    border-radius: 6px;
+                }
+                a.btn:hover{
+                    opacity: 90%;
+                    text-decoration: none;
+                    color: #fff;
+                }
             </style>
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
@@ -571,9 +587,20 @@ if selected == "About":
              """)
 
     st.markdown('---')
-    st.write("""
-             [Read full documentation](https://www.pessini.me/moby-bikes/)
-             """)
+    documentation_button = '''
+    <a href="https://www.pessini.me/moby-bikes/" target="_blank" class="btn">
+        <!-- Box arrow up-right -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
+            <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
+        </svg>
+        <span style="vertical-align: baseline;">&nbspRead full documentation</span>
+    </a>
+    '''
+    st.markdown(documentation_button, unsafe_allow_html=True)
+    # st.write("""
+    #          [Read full documentation](https://www.pessini.me/moby-bikes/)
+    #          """)
     # https://whimsical.com/design-docs-moby-bikes-operations-optimization-3RJyNyq2NHe8rPGzGZjrje
 
 footer_github = """<div style='position: absolute; padding-top: 100px; width:100%;'>
