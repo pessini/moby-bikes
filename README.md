@@ -31,7 +31,7 @@ fleet or is safe to perform safety checks and maintenance or to collect bikes fo
 
 ### In a nutshell (TL:DR)
 
-- **Data Pipeline** - Pull data from APIs and dump it into a AWS S3 bucket. Read files from S3 and store them in a MYSQL database.
+- **Data Pipeline** - Pulls data from APIs and dumps it into an AWS S3 bucket. Reads files from S3 and stores them in a MYSQL database.
 
 - **Minimum Viable Product (MVP)** - A web app displaying a few business metrics and charts.
 
@@ -41,4 +41,4 @@ fleet or is safe to perform safety checks and maintenance or to collect bikes fo
 
 ---
 
-[Read full documentation](https://www.pessini.me/moby-bikes/).
+[Read full documentation](https://www.pessini.me/moby-bikes/)

@@ -9,11 +9,11 @@ pathlib.Path().resolve()
 
 #%%
 
-# /Users/lpessini/TUDublin/moby-bikes/data/raw/hist-rentals/
-# /Users/lpessini/TUDublin/moby-bikes/data/raw/mysql-data/
+src_folder = r'/Users/lpessini/moby-bikes/data/raw/hist-rentals-2/'
+dst_folder = r'/Users/lpessini/moby-bikes/data/raw/mysql-data-2/'
 
-src_folder = r'/Users/pessini/Dropbox/Data-Science/moby-bikes/data/raw/hist-rentals-2/'
-dst_folder = r'/Users/pessini/Dropbox/Data-Science/moby-bikes/data/raw/mysql-data-2/'
+# src_folder = r'/Users/pessini/Dropbox/Data-Science/moby-bikes/data/raw/hist-rentals-2/'
+# dst_folder = r'/Users/pessini/Dropbox/Data-Science/moby-bikes/data/raw/mysql-data-2/'
 
 all_files = glob.glob(f'{src_folder}moby-bikes*.csv')
 print('\n'.join(map(str,list(all_files))))
@@ -65,5 +65,3 @@ for f in dst_fold_contents:
     if os.path.isfile(f):
         os.remove(f)
     print(f'{newfileName} done')
-
-# %%

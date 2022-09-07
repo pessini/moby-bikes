@@ -196,7 +196,7 @@ BEGIN
 	-- creates a temporary table and returns the total of completed rentals
 	CALL SP_COMPLETED_RENTALS(total_completed_rentals);
 
-	INSERT INTO mobybikes.Rentals (Date, BikeID, BatteryStart, BatteryEnd, Duration)
+	INSERT IGNORE INTO mobybikes.Rentals (Date, BikeID, BatteryStart, BatteryEnd, Duration)
 	WITH CTE_RENTAL_START_FINISH AS (
 		SELECT
 			t.LastRentalStart,
