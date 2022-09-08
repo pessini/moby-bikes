@@ -451,7 +451,7 @@ def plot_avg_duration_rentals(df, by='Day of the Week'):
                 y=alt.Y(categorical_var, sort=sort, axis=alt.Axis(title='')), 
                 color=alt.Color(categorical_var, legend=None),
                 opacity=alt.OpacityValue(0.9),
-                tooltip=[categorical_var, alt.Tooltip('hourly_avg_duration:Q')],)\
+                tooltip=[categorical_var, alt.Tooltip('hourly_avg_duration:Q', format=".2f")],)\
         .configure_axis(
             grid=True
         ).configure_view(
