@@ -1,5 +1,5 @@
 ---
-title: Challenges and weakness
+title: Challenges and directions
 category: Milestones and Results
 order: 1
 ---

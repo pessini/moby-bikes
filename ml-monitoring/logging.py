@@ -192,7 +192,6 @@ def generate_features(df):
 
     return df
 
-
 def main():
     
     conn, cursor = openDB_connection()

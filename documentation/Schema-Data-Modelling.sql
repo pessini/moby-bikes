@@ -15,6 +15,7 @@ DROP TABLE IF EXISTS mobybikes.`Log_Rentals`;
 DROP TABLE IF EXISTS mobybikes.`Log_Weather`;
 
 CREATE TABLE mobybikes.`Rentals` (
+	`_id` INT AUTO_INCREMENT PRIMARY KEY,
     `Date` datetime  NOT NULL ,
     -- Unique bike ID used for rent bike
     `BikeID` int  NOT NULL ,
@@ -24,9 +25,7 @@ CREATE TABLE mobybikes.`Rentals` (
     `BatteryEnd` int signed  default null ,
     -- Rental Duration = LastGPSTime - LastRentalStart
     `Duration` BIGINT NULL ,
-    PRIMARY KEY (
-        `Date`,`BikeID`
-    )
+    CONSTRAINT rental UNIQUE (`Date`,`BikeID`)
 );
 
 -- Rentals coordinates
@@ -42,6 +41,7 @@ CREATE TABLE mobybikes.`Rentals_Coordinates` (
 );
 
 CREATE TABLE mobybikes.`Weather` (
+	`_id` INT AUTO_INCREMENT PRIMARY KEY,
     `Date` date  NOT NULL ,
     `Hour` int  NOT NULL ,
     -- Morning (from 7am to noon)
@@ -67,6 +67,7 @@ CREATE TABLE mobybikes.`Weather` (
 
 -- Date and time features
 CREATE TABLE mobybikes.`Day_Info` (
+	`_id` INT AUTO_INCREMENT PRIMARY KEY,
     `Date` date  NOT NULL ,
     -- Monday = 0 ~ Sunday = 6
     `DayofWeek` tinyint UNSIGNED NOT NULL ,
@@ -80,6 +81,7 @@ CREATE TABLE mobybikes.`Day_Info` (
 
 -- Table with all rentals before preprocess
 CREATE TABLE mobybikes.`rawRentals` (
+	`_id` INT AUTO_INCREMENT PRIMARY KEY,
     -- Last time bike was rented
     `LastRentalStart` datetime  NOT NULL ,
     -- Use for rent bike
@@ -91,7 +93,8 @@ CREATE TABLE mobybikes.`rawRentals` (
     -- Bike coordinates if bike is locked out of station
     `Latitude` decimal(11,7)  NULL ,
     -- Bike coordinates if bike is locked out of station
-    `Longitude` decimal(11,7)  NULL 
+    `Longitude` decimal(11,7)  NULL,
+    CONSTRAINT gps_rental UNIQUE(`LastRentalStart`,`BikeID`, `LastGPSTime`)
 );
 
 -- Log events to track processing errors on Rentals

@@ -168,7 +168,7 @@ DELIMITER //
 CREATE PROCEDURE SP_COORDINATES()
 BEGIN
 
-	INSERT INTO mobybikes.Rentals_Coordinates (Date, BikeID, Latitude, Longitude)
+	INSERT IGNORE INTO mobybikes.Rentals_Coordinates (`Date`, BikeID, Latitude, Longitude)
     SELECT
 		LastRentalStart,
         BikeID,
@@ -270,7 +270,7 @@ BEGIN
     
 	SET number_errors := 24 - weather_events; -- it should have been recorded 24 hours
     
-	INSERT INTO mobybikes.Log_Weather (`Date`, `Processed`, `Errors`)
+	INSERT IGNORE INTO mobybikes.Log_Weather (`Date`, `Processed`, `Errors`)
     VALUES (STR_TO_DATE(DATE_FILE,'%Y-%m-%d'), weather_events, number_errors);
 	
 END //

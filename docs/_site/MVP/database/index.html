@@ -92,7 +92,7 @@
 							<ul>
 								
 									
-										<li class="nav-item "><a href="/moby-bikes/milestones-results/challenges/">Challenges and weakness</a></li>
+										<li class="nav-item "><a href="/moby-bikes/milestones-results/challenges/">Challenges and directions</a></li>
 									
 								
 									
@@ -221,11 +221,11 @@
 <span class="k">DETERMINISTIC</span>
 <span class="k">BEGIN</span>
 	<span class="k">DECLARE</span> <span class="n">timeofday</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
-    <span class="k">DECLARE</span> <span class="n">rental_hour</span> <span class="nb">INT</span><span class="p">;</span>
+  <span class="k">DECLARE</span> <span class="n">rental_hour</span> <span class="nb">INT</span><span class="p">;</span>
 
-    <span class="k">SET</span> <span class="n">rental_hour</span> <span class="p">:</span><span class="o">=</span> <span class="n">HOUR</span><span class="p">(</span><span class="n">rental_date</span><span class="p">);</span>
+  <span class="k">SET</span> <span class="n">rental_hour</span> <span class="p">:</span><span class="o">=</span> <span class="n">HOUR</span><span class="p">(</span><span class="n">rental_date</span><span class="p">);</span>
 
-    <span class="n">IF</span> <span class="n">rental_hour</span> <span class="o">&lt;</span> <span class="mi">7</span> <span class="k">THEN</span>
+  <span class="n">IF</span> <span class="n">rental_hour</span> <span class="o">&lt;</span> <span class="mi">7</span> <span class="k">THEN</span>
 		<span class="k">SET</span> <span class="n">timeofday</span> <span class="p">:</span><span class="o">=</span> <span class="s1">'Night'</span><span class="p">;</span>
 	<span class="n">ELSEIF</span> <span class="n">rental_hour</span> <span class="o">&gt;=</span> <span class="mi">7</span> <span class="k">AND</span> <span class="n">rental_hour</span> <span class="o">&lt;</span> <span class="mi">12</span> <span class="k">THEN</span>
 		<span class="k">SET</span> <span class="n">timeofday</span> <span class="p">:</span><span class="o">=</span> <span class="s1">'Morning'</span><span class="p">;</span>
@@ -235,9 +235,9 @@
 		<span class="k">SET</span> <span class="n">timeofday</span> <span class="p">:</span><span class="o">=</span> <span class="s1">'Evening'</span><span class="p">;</span>
 	<span class="k">ELSE</span>
 		<span class="k">SET</span> <span class="n">timeofday</span> <span class="p">:</span><span class="o">=</span> <span class="s1">'Night'</span><span class="p">;</span>
-    <span class="k">END</span> <span class="n">IF</span><span class="p">;</span>
+	 <span class="k">END</span> <span class="n">IF</span><span class="p">;</span>
 
-    <span class="k">RETURN</span> <span class="n">timeofday</span><span class="p">;</span>
+  <span class="k">RETURN</span> <span class="n">timeofday</span><span class="p">;</span>
 <span class="k">END</span> <span class="o">//</span>
 <span class="k">DELIMITER</span> <span class="p">;</span>
 
@@ -311,7 +311,7 @@
 	<span class="c1">-- The ERROR 1137 is a known issue with MySQL that hasn’t got any fix since 2008.</span>
 	<span class="c1">-- Not creating a temporary table because of an issue referenced above.</span>
 
-    <span class="k">DROP</span> <span class="k">TABLE</span> <span class="n">IF</span> <span class="k">EXISTS</span> <span class="n">TEMP_completed_rentals</span><span class="p">;</span>
+  <span class="k">DROP</span> <span class="k">TABLE</span> <span class="n">IF</span> <span class="k">EXISTS</span> <span class="n">TEMP_completed_rentals</span><span class="p">;</span>
 
 	<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">TEMP_completed_rentals</span>
 	<span class="k">SELECT</span>
@@ -353,7 +353,7 @@
 <span class="k">CREATE</span> <span class="k">PROCEDURE</span> <span class="n">SP_COORDINATES</span><span class="p">()</span>
 <span class="k">BEGIN</span>
 
-	<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">mobybikes</span><span class="p">.</span><span class="n">Rentals_Coordinates</span> <span class="p">(</span><span class="nb">Date</span><span class="p">,</span> <span class="n">BikeID</span><span class="p">,</span> <span class="n">Latitude</span><span class="p">,</span> <span class="n">Longitude</span><span class="p">)</span>
+	<span class="k">INSERT</span> <span class="k">IGNORE</span> <span class="k">INTO</span> <span class="n">mobybikes</span><span class="p">.</span><span class="n">Rentals_Coordinates</span> <span class="p">(</span><span class="nv">`Date`</span><span class="p">,</span> <span class="n">BikeID</span><span class="p">,</span> <span class="n">Latitude</span><span class="p">,</span> <span class="n">Longitude</span><span class="p">)</span>
     <span class="k">SELECT</span>
 		<span class="n">LastRentalStart</span><span class="p">,</span>
         <span class="n">BikeID</span><span class="p">,</span>
@@ -376,12 +376,12 @@
 <span class="k">CREATE</span> <span class="k">PROCEDURE</span> <span class="n">SP_RENTALS_PROCESSING</span><span class="p">()</span>
 <span class="k">BEGIN</span>
 
-    <span class="k">DECLARE</span> <span class="n">total_completed_rentals</span><span class="p">,</span> <span class="n">total_opened_rentals</span><span class="p">,</span> <span class="n">rentals_to_process</span><span class="p">,</span> <span class="n">number_errors</span> <span class="nb">INT</span><span class="p">;</span>
+  <span class="k">DECLARE</span> <span class="n">total_completed_rentals</span><span class="p">,</span> <span class="n">total_opened_rentals</span><span class="p">,</span> <span class="n">rentals_to_process</span><span class="p">,</span> <span class="n">number_errors</span> <span class="nb">INT</span><span class="p">;</span>
 
 	<span class="c1">-- creates a temporary table and returns the total of completed rentals</span>
 	<span class="k">CALL</span> <span class="n">SP_COMPLETED_RENTALS</span><span class="p">(</span><span class="n">total_completed_rentals</span><span class="p">);</span>
 
-	<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">mobybikes</span><span class="p">.</span><span class="n">Rentals</span> <span class="p">(</span><span class="nb">Date</span><span class="p">,</span> <span class="n">BikeID</span><span class="p">,</span> <span class="n">BatteryStart</span><span class="p">,</span> <span class="n">BatteryEnd</span><span class="p">,</span> <span class="n">Duration</span><span class="p">)</span>
+	<span class="k">INSERT</span> <span class="k">IGNORE</span> <span class="k">INTO</span> <span class="n">mobybikes</span><span class="p">.</span><span class="n">Rentals</span> <span class="p">(</span><span class="nb">Date</span><span class="p">,</span> <span class="n">BikeID</span><span class="p">,</span> <span class="n">BatteryStart</span><span class="p">,</span> <span class="n">BatteryEnd</span><span class="p">,</span> <span class="n">Duration</span><span class="p">)</span>
 	<span class="k">WITH</span> <span class="n">CTE_RENTAL_START_FINISH</span> <span class="k">AS</span> <span class="p">(</span>
 		<span class="k">SELECT</span>
 			<span class="n">t</span><span class="p">.</span><span class="n">LastRentalStart</span><span class="p">,</span>
@@ -455,7 +455,7 @@
 
 	<span class="k">SET</span> <span class="n">number_errors</span> <span class="p">:</span><span class="o">=</span> <span class="mi">24</span> <span class="o">-</span> <span class="n">weather_events</span><span class="p">;</span> <span class="c1">-- it should have been recorded 24 hours</span>
 
-	<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">mobybikes</span><span class="p">.</span><span class="n">Log_Weather</span> <span class="p">(</span><span class="nv">`Date`</span><span class="p">,</span> <span class="nv">`Processed`</span><span class="p">,</span> <span class="nv">`Errors`</span><span class="p">)</span>
+	<span class="k">INSERT</span> <span class="k">IGNORE</span> <span class="k">INTO</span> <span class="n">mobybikes</span><span class="p">.</span><span class="n">Log_Weather</span> <span class="p">(</span><span class="nv">`Date`</span><span class="p">,</span> <span class="nv">`Processed`</span><span class="p">,</span> <span class="nv">`Errors`</span><span class="p">)</span>
     <span class="k">VALUES</span> <span class="p">(</span><span class="n">STR_TO_DATE</span><span class="p">(</span><span class="n">DATE_FILE</span><span class="p">,</span><span class="s1">'%Y-%m-%d'</span><span class="p">),</span> <span class="n">weather_events</span><span class="p">,</span> <span class="n">number_errors</span><span class="p">);</span>
 
 <span class="k">END</span> <span class="o">//</span>

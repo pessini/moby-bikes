@@ -170,7 +170,7 @@ def lambda_handler(event, context):
         
         if rentals_data:
 
-            stmt = """INSERT INTO mobybikes.rawRentals (LastRentalStart, BikeID, Battery, LastGPSTime, Latitude, Longitude) VALUES (%s, %s, %s, %s, %s, %s)"""
+            stmt = """INSERT IGNORE INTO mobybikes.rawRentals (LastRentalStart, BikeID, Battery, LastGPSTime, Latitude, Longitude) VALUES (%s, %s, %s, %s, %s, %s)"""
             cursor.executemany(stmt,rentals_data)
             
             if rfiles_queued:
@@ -203,7 +203,7 @@ def lambda_handler(event, context):
             weather_data, wfiles_queued = process_files_data(fileType='weather')
         
             if weather_data:
-                stmt = """INSERT INTO mobybikes.Weather (Date, Hour, TimeOfDay, Temperature, WindSpeed, Humidity, Rain, RainLevel) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"""
+                stmt = """INSERT IGNORE INTO mobybikes.Weather (Date, Hour, TimeOfDay, Temperature, WindSpeed, Humidity, Rain, RainLevel) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"""
                 cursor.executemany(stmt,weather_data)
                 
                 if wfiles_queued:

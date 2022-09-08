@@ -55,11 +55,11 @@ RETURNS VARCHAR(10)
 DETERMINISTIC
 BEGIN
 	DECLARE timeofday VARCHAR(10);
-    DECLARE rental_hour INT;
+  DECLARE rental_hour INT;
 
-    SET rental_hour := HOUR(rental_date);
+  SET rental_hour := HOUR(rental_date);
 
-    IF rental_hour < 7 THEN
+  IF rental_hour < 7 THEN
 		SET timeofday := 'Night';
 	ELSEIF rental_hour >= 7 AND rental_hour < 12 THEN
 		SET timeofday := 'Morning';
@@ -69,9 +69,9 @@ BEGIN
 		SET timeofday := 'Evening';
 	ELSE
 		SET timeofday := 'Night';
-    END IF;
+	 END IF;
 
-    RETURN timeofday;
+  RETURN timeofday;
 END //
 DELIMITER ;
 
@@ -145,7 +145,7 @@ BEGIN
 	-- The ERROR 1137 is a known issue with MySQL that hasn’t got any fix since 2008.
 	-- Not creating a temporary table because of an issue referenced above.
 
-    DROP TABLE IF EXISTS TEMP_completed_rentals;
+  DROP TABLE IF EXISTS TEMP_completed_rentals;
 
 	CREATE TABLE TEMP_completed_rentals
 	SELECT
@@ -187,7 +187,7 @@ DELIMITER //
 CREATE PROCEDURE SP_COORDINATES()
 BEGIN
 
-	INSERT INTO mobybikes.Rentals_Coordinates (Date, BikeID, Latitude, Longitude)
+	INSERT IGNORE INTO mobybikes.Rentals_Coordinates (`Date`, BikeID, Latitude, Longitude)
     SELECT
 		LastRentalStart,
         BikeID,
@@ -210,12 +210,12 @@ DELIMITER //
 CREATE PROCEDURE SP_RENTALS_PROCESSING()
 BEGIN
 
-    DECLARE total_completed_rentals, total_opened_rentals, rentals_to_process, number_errors INT;
+  DECLARE total_completed_rentals, total_opened_rentals, rentals_to_process, number_errors INT;
 
 	-- creates a temporary table and returns the total of completed rentals
 	CALL SP_COMPLETED_RENTALS(total_completed_rentals);
 
-	INSERT INTO mobybikes.Rentals (Date, BikeID, BatteryStart, BatteryEnd, Duration)
+	INSERT IGNORE INTO mobybikes.Rentals (Date, BikeID, BatteryStart, BatteryEnd, Duration)
 	WITH CTE_RENTAL_START_FINISH AS (
 		SELECT
 			t.LastRentalStart,
@@ -289,7 +289,7 @@ BEGIN
 
 	SET number_errors := 24 - weather_events; -- it should have been recorded 24 hours
 
-	INSERT INTO mobybikes.Log_Weather (`Date`, `Processed`, `Errors`)
+	INSERT IGNORE INTO mobybikes.Log_Weather (`Date`, `Processed`, `Errors`)
     VALUES (STR_TO_DATE(DATE_FILE,'%Y-%m-%d'), weather_events, number_errors);
 
 END //
