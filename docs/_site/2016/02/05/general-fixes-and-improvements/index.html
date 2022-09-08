@@ -56,16 +56,20 @@
 					text-decoration: none;
 					color: #fff;
 				}
+				a.site-title{
+					text-decoration: none;
+				}
 		</style>
 	</head>
 
 	<body>
 		<header>
-			<h1>
-				<a href="/moby-bikes/"><img src="/moby-bikes/images/emblem.svg" width="40" height="40" alt="Design Docs logo"></a>
-				Design Docs
-				<button type="button" class="open-nav" id="open-nav"></button>
-			</h1>
+			<a href="/moby-bikes/" class="site-title">
+				<h1>
+					<img src="/moby-bikes/images/emblem.svg" width="40" height="40" alt="Design Docs logo">Design Docs
+					<button type="button" class="open-nav" id="open-nav"></button>
+				</h1>
+			</a>
 
 			<form action="/moby-bikes/search/" method="get">
 				<input type="text" name="q" id="search-input" placeholder="Search" autofocus>
