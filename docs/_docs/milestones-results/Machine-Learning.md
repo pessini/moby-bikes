@@ -35,7 +35,7 @@ To keep track of different models tested, an[ Excel file](https://github.com/pes
 |:--:|
 | *Experiment Tracker - Sheet Experiments* |
 
-> After [Exploratory]({{ site.baseurl }}/notebooks-html/03-exploratory-data-analysis.html), [Outlier]({{ site.baseurl }}/notebooks-html/03A-outliers.html), and [Time Series]({{ site.baseurl }}/notebooks-html/04C-time-series.html) Analyses, it was decided that **Decision Tree** learning algorithm was chosen as primary model type for the experiments.
+> After [Exploratory]({{ site.baseurl }}/notebooks-html/03-exploratory-data-analysis.html), [Outlier]({{ site.baseurl }}/notebooks-html/03A-outliers.html), and [Time Series]({{ site.baseurl }}/notebooks-html/04C-time-series.html) Analyses, a **Decision Tree** learning algorithm was chosen as primary model type for the experiments.
 
 ## Modeling
 
