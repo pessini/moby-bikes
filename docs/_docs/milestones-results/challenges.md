@@ -33,9 +33,7 @@ The lack of data is definitely a bottleneck to our project. For example, within 
 - Healthcare
 - Private
 
-`Workshop` is related to events which bikes are allocated either to an specific time period or an event provided by Moby Bikes in order to promote its services.
-
-Regarding `Healthcare` type, is a ebike scheme that was offered for free to frontline workers.
+`Workshop` is related to events which bikes are allocated either to an specific time period or an event provided by Moby Bikes in order to promote its services. Regarding `Healthcare` type, is a ebike scheme that was offered for free to frontline workers.
 
 #### Rental's duration
 
