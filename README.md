@@ -8,7 +8,7 @@ Analytical Dashboard & Demand Forecasting </h3>
 <p align="center"><img src="https://img.shields.io/badge/LICENSE-MIT-blue?style=?style=flat-square&logo=appveyor&logo=none" alt="license" /></p>
 <p align="center">
     <strong>
-        <a href="https://pessini-moby-bikes-dashboardapp-hhvohw.streamlitapp.com/" target="_blank">Web App</a>
+        <a href="http://mobybikes.streamlit.com/" target="_blank">Web App</a>
         •
         <!-- <a href="https://whimsical.com/design-docs-moby-bikes-operations-optimization-3RJyNyq2NHe8rPGzGZjrje" target="_blank">Documentation</a> -->
         <a href="https://www.pessini.me/moby-bikes/" target="_blank">Documentation</a>
