@@ -8,4 +8,4 @@ order: 3
 | :--: |
 | *Streamlit Web App Mockup* |
 
-See deployed version: [https://pessini-moby-bikes-dashboardapp-hhvohw.streamlitapp.com/](https://pessini-moby-bikes-dashboardapp-hhvohw.streamlitapp.com/)
+See deployed version: [https://mobybikes.streamlitapp.com/](https://mobybikes.streamlitapp.com/)
