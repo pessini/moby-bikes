@@ -33,7 +33,9 @@ The lack of data is definitely a bottleneck to our project. For example, within 
 - Healthcare
 - Private
 
-`Workshop` is unknown if bikes were allocated either to an specific event or the workshop is provided by Moby Bikes in order to promote its services, for example. The same rule applies to `Healthcare` type.
+`Workshop` is related to events which bikes are allocated either to an specific time period or an event provided by Moby Bikes in order to promote its services.
+
+Regarding `Healthcare` type, is a ebike scheme that was offered for free to frontline workers.
 
 #### Rental's duration
 
@@ -41,7 +43,7 @@ The lack of data is definitely a bottleneck to our project. For example, within 
 
 "5.1 Bikes should not be used for more than 19 consecutive hours, this is the maximum period of use." [General Terms and Conditions (“GTC”)](https://app.mobymove.com/t-c.html)
 
-> **Assumption**: Due to lack of information and data, to calculate the duration rental time I am assuming that when a new bike rental starts the duration in _minutes_ will be calculated by:
+> **Assumption**: Due to lack of data, to calculate the duration rental time I am assuming that when a new bike rental starts the duration in _minutes_ will be calculated by:
 
 $$ (RentalDuration = LastGPSTime − LastRentalStart) $$
 
