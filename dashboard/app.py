@@ -465,7 +465,7 @@ if selected == "Dashboard":
     st.subheader('Dashboard')
     
     # Warning about not real time data
-    st.warning('The data presented in this dashboard is for demonstration purposes only!')
+    st.warning('Data presented in this dashboard is for demonstration purposes only!')
 
     # --- METRICS ---
     col_metric_1, padding, col_metric_2 = st.columns((10,2,10))
