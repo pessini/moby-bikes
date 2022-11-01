@@ -463,6 +463,9 @@ if selected == "Dashboard":
 
     # st.header('Dashboard')
     st.subheader('Dashboard')
+    
+    # Warning about not real time data
+    st.warning('The data presented in this dashboard is for demonstration purposes only!')
 
     # --- METRICS ---
     col_metric_1, padding, col_metric_2 = st.columns((10,2,10))
@@ -513,7 +516,6 @@ if selected == "Dashboard":
         st.caption('Data from the past three months')
         battery_df = group_battery_status()
         st.table(battery_df.style.highlight_max(subset='% of Rentals', color='#c8fe00'))
-
 
 def highlight_high_demand(val):
     color = '#c8fe00' if val > 8 else None
