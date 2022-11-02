@@ -21,6 +21,8 @@
 /models/*complex*
 *conn/
 
+Gemfile.lock
+
 secrets.toml
 credentials.toml
 .ipynb_checkpoints
