@@ -8,4 +8,4 @@ order: 3
 | :--: |
 | *Streamlit Web App Mockup* |
 
-See deployed version: [https://mobybikes.streamlitapp.com/](https://mobybikes.streamlitapp.com/)
+See deployed version: [https://mobybikes.streamlit.app/](https://mobybikes.streamlit.app/)

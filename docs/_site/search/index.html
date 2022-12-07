@@ -13,17 +13,17 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Design Docs - eBikes Operations Optimization" />
 <meta property="og:description" content="Design Docs - eBikes Operations Optimization" />
-<link rel="canonical" href="http://localhost:4000/moby-bikes/search/" />
-<meta property="og:url" content="http://localhost:4000/moby-bikes/search/" />
+<link rel="canonical" href="https://github.com/pessini/moby-bikes/moby-bikes/search/" />
+<meta property="og:url" content="https://github.com/pessini/moby-bikes/moby-bikes/search/" />
 <meta property="og:site_name" content="Design Docs" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Search" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Leandro Pessini"},"description":"Design Docs - eBikes Operations Optimization","headline":"Search","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/moby-bikes/siteicon.png"},"name":"Leandro Pessini"},"url":"http://localhost:4000/moby-bikes/search/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Leandro Pessini"},"description":"Design Docs - eBikes Operations Optimization","headline":"Search","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://github.com/pessini/moby-bikes/moby-bikes/siteicon.png"},"name":"Leandro Pessini"},"url":"https://github.com/pessini/moby-bikes/moby-bikes/search/"}</script>
 <!-- End Jekyll SEO tag -->
 
-		<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/moby-bikes/feed.xml" title="Design Docs" />
+		<link type="application/atom+xml" rel="alternate" href="https://github.com/pessini/moby-bikes/moby-bikes/feed.xml" title="Design Docs" />
 
 		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,700,700italic|Open+Sans:400,400italic,600,600italic,700,700italic|Inconsolata:400,700">
 		<link rel="stylesheet" href="/moby-bikes/css/main.css">
@@ -100,7 +100,7 @@
 									
 								
 									
-										<li class="nav-item "><a href="/moby-bikes/milestones-results/machine-learning/">Machine Learning</a></li>
+										<li class="nav-item "><a href="/moby-bikes/milestones-results/Machine-Learning/">Machine Learning</a></li>
 									
 								
 							</ul>
@@ -173,6 +173,23 @@
 					
 					
 
+					"milestones-results-machine-learning": {
+						"id": "milestones-results-machine-learning",
+						"title": "Machine Learning",
+						"category": "",
+						"url": " /milestones-results/Machine-Learning/",
+						"content": "Notebooks\n\n\n  Data Wrangling\n  Feature Engineering\n  Exploratory Data Analysis\n  Outlier Analysis\n  Linear Regression\n  Poisson Regression\n  Time Series Analysis\n  Modeling\n  XGBoost\n  Model Evaluation\n\n\n\n\nExperiment Tracker\n\nThe Data Pipeline was deployed using a combination of AWS services and Streamlit. To delivery predictions, several notebooks were created such as feature engineering and XGBoost modeling to achieve a Normalized Root Mean Square Error (NRMSE) of 0.14699\n\nTo keep track of different models tested, an Excel file is created (with help of a Python class to document all versions.\n\nExperiment Tracker Class\n\n\n  \n    \n      \n    \n  \n  \n    \n      Experiment Tracker - Sheet Ideas\n    \n  \n\n\n\n  \n    \n      \n    \n  \n  \n    \n      Experiment Tracker - Sheet Experiments\n    \n  \n\n\n\n  After Exploratory, Outlier, and Time Series Analyses, a Decision Tree learning algorithm was chosen as primary model type for the experiments.\n\n\nModeling\n\nDifferent supervised algorithms were tested with little feature engineering and XGBoost yields the best results. Check out the Notebook.\n\n\n  \n    \n      \n    \n  \n  \n    \n      Feature Importances Plot from XGBoost model\n    \n  \n\n\nSeveral XGBoost models were built and logged with Experiment Tracker Class mentioned above. XGBoost Tracker\n\nEvaluation\n\nNormalized Root Mean Square Error (NRMSE) was the main metric used to evaluate and compare the models.\n\n\\[NRMSE = \\frac{RSME}{y_{max} - y_{min}}\\]\n\n\n\n\n  \n    \n      \n    \n  \n  \n    \n      Daily Rentals Prediction Plot"
+					}
+
+					
+				
+			
+		
+			
+				
+					,
+					
+
 					"milestones-results-challenges": {
 						"id": "milestones-results-challenges",
 						"title": "Challenges and directions",
@@ -196,23 +213,6 @@
 						"category": "",
 						"url": " /milestones-results/feature-engineering/",
 						"content": "Hypothesis\n\nHourly trend: It might be a high demand for people commuting to work. Early morning and late evening can have different trend (cyclist) and low demand during 10:00 pm to 4:00 am.\n\nDaily Trend: Users demand more bike on weekdays as compared to weekend or holiday.\n\nRain: The demand of bikes will be lower on a rainy day as compared to a sunny day. Similarly, higher humidity will cause to lower the demand and vice versa.\n\nTemperature: In Ireland, temperature has positive correlation with bike demand.\n\nTraffic: It can be positively correlated with Bike demand. Higher traffic may force people to use bike as compared to other road transport medium like car, taxi etc.\n\nDate and time - new features\n\n  holiday\n  workingday\n  peak\n  season: (1 = Spring, 2 = Summer, 3 = Fall, 4 = Winter)\n  duration: duration of the rental\n\n\nTimes of the Day\n\n  Morning (from 7am to noon)\n  Afternoon (from midday to 6pm)\n  Evening (from 6pm to 10pm)\n  Night (from 10pm to 5am)\n\n\nRainfall Intensity Level\n\n\n  \n    \n      Level\n      Rainfall Intensity\n    \n  \n  \n    \n      no rain\n      0\n    \n    \n      drizzle\n      0.1~0.3\n    \n    \n      light rain\n      0.3~0.5\n    \n    \n      moderate rain\n      0.5~4\n    \n    \n      heavy rain\n      &gt;4\n    \n  \n\n\nSource: https://www.metoffice.gov.uk/research/library-and-archive/publications/factsheets\n\nPDF direct link: Water in the atmosphere\n\nMet Éireann Weather Forecast API\n\nAPI URL: https://data.gov.ie/dataset/met-eireann-weather-forecast-api/resource/5d156b15-38b8-4de9-921b-0ffc8704c88e\n\nPrecipitation unit: Rain will be output in millimetres (mm).\n\nThe minvalue, value and maxvalue values are derived from statistical analysis of the forecast, and refer to the lower (20th percentile), middle (60th percentile) and higher (80th percentile) expected amount. If minvalue and maxvalue are not output, value is the basic forecast amount.\n\n&lt;precipitation unit=\"mm\" value=\"0.0\" minvalue=\"0.0\" maxvalue=\"0.1\"/&gt;\n\n\nWind Speed Beaufort scale\n\nThe Irish Meteorological Service - BEAUFORT SCALE\n\n\n\nAnother source: https://www.metoffice.gov.uk/weather/guides/coast-and-sea/beaufort-scale\n\nGrouped Wind Speed (Beaufort scale)\n\n\n  \n    \n      Level\n      Beaufort scale\n    \n  \n  \n    \n      Calm / Light Breeze\n      0~2\n    \n    \n      Breeze\n      3\n    \n    \n      Moderate Breeze\n      4-5\n    \n    \n      Strong Breeze / Near Gale\n      6-7\n    \n    \n      Gale / Storm\n      8~12\n    \n  \n\n\nInitial new features\n\nDate/time\n\n  Holiday\n  Working Day (eg. weekend)\n  Season (eg. Summer)\n  Times of Day (eg. Morning)\n  Day of the week (eg. Monday)\n\n\nWeather\n\n  Rainfall Intensity Level (eg. light rain)\n  Wind Speed (Beaufort Scale)\n  Wind Speed (grouped bft wind speed - helps high cardinality)\n  Temperature round (eg. 16.7°C -&gt; 17°C)\n  Temperature Bins (clusters for different temperatures)\n  Humidity Bins (clusters for different relative humidity levels)\n\n\nSee Feature Engineering Notebook"
-					}
-
-					
-				
-			
-		
-			
-				
-					,
-					
-
-					"milestones-results-machine-learning": {
-						"id": "milestones-results-machine-learning",
-						"title": "Machine Learning",
-						"category": "",
-						"url": " /milestones-results/machine-learning/",
-						"content": "Notebooks\n\n\n  Data Wrangling\n  Feature Engineering\n  Exploratory Data Analysis\n  Outlier Analysis\n  Linear Regression\n  Poisson Regression\n  Time Series Analysis\n  Modeling\n  XGBoost\n  Model Evaluation\n\n\n\n\nExperiment Tracker\n\nThe Data Pipeline was deployed using a combination of AWS services and Streamlit. To delivery predictions, several notebooks were created such as feature engineering and XGBoost modeling to achieve a Normalized Root Mean Square Error (NRMSE) of 0.14699\n\nTo keep track of different models tested, an Excel file is created (with help of a Python class to document all versions.\n\nExperiment Tracker Class\n\n\n  \n    \n      \n    \n  \n  \n    \n      Experiment Tracker - Sheet Ideas\n    \n  \n\n\n\n  \n    \n      \n    \n  \n  \n    \n      Experiment Tracker - Sheet Experiments\n    \n  \n\n\n\n  After Exploratory, Outlier, and Time Series Analyses, a Decision Tree learning algorithm was chosen as primary model type for the experiments.\n\n\nModeling\n\nDifferent supervised algorithms were tested with little feature engineering and XGBoost yields the best results. Check out the Notebook.\n\n\n  \n    \n      \n    \n  \n  \n    \n      Feature Importances Plot from XGBoost model\n    \n  \n\n\nSeveral XGBoost models were built and logged with Experiment Tracker Class mentioned above. XGBoost Tracker\n\nEvaluation\n\nNormalized Root Mean Square Error (NRMSE) was the main metric used to evaluate and compare the models.\n\n\\[NRMSE = \\frac{RSME}{y_{max} - y_{min}}\\]\n\n\n\n\n  \n    \n      \n    \n  \n  \n    \n      Daily Rentals Prediction Plot"
 					}
 
 					
@@ -263,7 +263,7 @@
 						"title": "Web App Mockup",
 						"category": "",
 						"url": " /mvp/streamlit/",
-						"content": "Streamlit Web App Mockup\n    \n  \n\n\nSee deployed version: https://mobybikes.streamlitapp.com/"
+						"content": "Streamlit Web App Mockup\n    \n  \n\n\nSee deployed version: https://mobybikes.streamlit.app/"
 					}
 
 					
