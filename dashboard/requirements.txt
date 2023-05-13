@@ -13,3 +13,4 @@ mysql-connector-python==8.0.29
 altair==4.2.0
 openpyxl==3.0.9
 boto3==1.24.31
+altair==4.2.2
