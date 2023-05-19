@@ -373,7 +373,7 @@ def get_hourly_total_rentals() -> pd.DataFrame:
     file = response.get("Body").read().decode('utf-8')
     df = pd.read_json(file)
     df.columns=['date_rental', 'timeofday', 'day_of_week', 'total_rentals','hourly_avg_duration']
-    df['date'] = pd.to_datetime(arg=df['date_rental'], utc=True, infer_datetime_format=True).dt.date
+    df['date'] = pd.to_datetime(arg=df['date_rental'], utc=True).dt.date
     df['Season'] = pd.to_datetime(df['date']).map(get_season)
     df.drop(columns=['date'], inplace=True)
 
