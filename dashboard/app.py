@@ -20,6 +20,7 @@ from bs4 import BeautifulSoup
 import boto3
 import json
 import ast
+import os
 
 s3_client = boto3.client("s3")
 S3_BUCKET = "moby-bikes-rentals"
@@ -99,17 +100,17 @@ def host_is_local(hostname, port=None):
 
 # Check if it is local or remote
 if socket.gethostname() == 'Leandros-MacBook-Air.local': # my mac
-    APP_PATH = '/Users/pessini/Dropbox/Data-Science/moby-bikes/dashboard/'
+    APP_PATH = '/Users/pessini/Dropbox/Data-Science/moby-bikes/dashboard'
 else: # remote
     # APP_PATH = '/app/moby-bikes/dashboard/'
-    APP_PATH = '/'
+    APP_PATH = os.getcwd()
 
 def format_rental_duration(minutes):
     return timedelta(minutes=float(minutes)).__str__()
 
 
 #------- Load XGBoost Model ---------#
-pipe_filename = f"{APP_PATH}xgb_pipeline.pkl"
+pipe_filename = f"{APP_PATH}/xgb_pipeline.pkl"
 xgb_pipe = pickle.load(open(pipe_filename, "rb"))
 @st.cache
 def predict(df):
