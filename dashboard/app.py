@@ -102,7 +102,6 @@ def host_is_local(hostname, port=None):
 if socket.gethostname() == 'Leandros-MacBook-Air.local': # my mac
     APP_PATH = '/Users/pessini/Dropbox/Data-Science/moby-bikes/dashboard'
 else: # remote
-    # APP_PATH = '/app/moby-bikes/dashboard/'
     APP_PATH = os.path.dirname(__file__)
 
 def format_rental_duration(minutes):
