@@ -394,6 +394,6 @@ def lambda_handler(event, context):
 
 ### Streamlit dashboard
 
-A [Streamlit web app](https://pessini-moby-bikes-dashboardapp-hhvohw.streamlitapp.com/) is deployed to present an analytical dashboard with KPIs and Rentals Demand predictions from Weather Forecast.
+A [Streamlit web app](https://mobybikes.streamlit.app/) is deployed to present an analytical dashboard with KPIs and Rentals Demand predictions from Weather Forecast.
 
 > See [dashboard mockup]({{ site.baseurl }}/MVP/streamlit/)
