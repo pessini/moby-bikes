@@ -2,7 +2,7 @@ name: Daily Empty Commit
 
 on:
   schedule:
-    - cron: '*/2 * * * *' # Runs daily at 00:00
+    - cron: '0 12 * * *' # Runs daily at 00:00
 
 jobs:
   build:
