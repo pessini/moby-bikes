@@ -15,6 +15,7 @@
 *.code-workspace
 
 # Local only folder
+ignore/
 /ignore-folder/
 /data/
 /src/lambda_data/
