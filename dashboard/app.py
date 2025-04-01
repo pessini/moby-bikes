@@ -530,7 +530,14 @@ if selected == "Demand Forecasting":
 
     st.write('''This table shows the predicted bike rentals demand for the next hours based on Weather data.\n''')
 
-    URL_WEATHER_API = "http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast?lat=53.4264;long=-6.2499"
+    # Source: https://data.gov.ie/dataset/met-eireann-forecast-api
+    # Announcement: The upgrade of the api will result in termination of the old 'metwdb-openaccess.ichec.ie' URL by 15th September. This is replaced with 'openaccess.pf.api.met.ie'.
+    # URLs of the form:
+    # http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast
+    # should be replaced with
+    # http://openaccess.pf.api.met.ie/metno-wdb2ts/locationforecast
+    
+    URL_WEATHER_API = "http://openaccess.pf.api.met.ie/metno-wdb2ts/locationforecast?lat=53.4264;long=-6.2499"
     response = requests.get(URL_WEATHER_API).content
 
     df_xml = parse_xml(response)
