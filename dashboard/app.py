@@ -21,6 +21,7 @@ import boto3
 import json
 import ast
 import os
+from io import StringIO
 
 s3_client = boto3.client("s3")
 S3_BUCKET = "moby-bikes-rentals"
@@ -37,7 +38,7 @@ layout = "centered" # Can be "centered" or "wide". In the future also "dashboard
 # Page layout
 st.set_page_config(page_title=page_title, page_icon=page_icon, layout=layout)
 # 'https://github.com/pessini/moby-bikes/blob/main/dashboard/img/moby-logo.png?raw=true'
-st.image('https://www.mobybikes.com/wp-content/uploads/2020/05/logo-1.png', use_container_width=False)
+st.image('https://www.mobybikes.com/wp-content/uploads/2020/05/logo-1.png', width='content')
 st.header(page_subtitle)
 #---------------------------------
 
@@ -110,9 +111,15 @@ def format_rental_duration(minutes):
 
 #------- Load XGBoost Model ---------#
 pipe_filename = f"{APP_PATH}/xgb_pipeline.pkl"
-xgb_pipe = pickle.load(open(pipe_filename, "rb"))
+try:
+    xgb_pipe = pickle.load(open(pipe_filename, "rb"))
+except Exception:
+    xgb_pipe = None
+
 @st.cache_data
 def predict(df):
+    if xgb_pipe is None:
+        return None
     return xgb_pipe.predict(df)
 
 
@@ -149,9 +156,10 @@ def parse_xml(xml_data):
             precipitation = item.location.precipitation.get('value')
     
         if datetime_object in forecast_df.index:
-            forecast_df.loc[datetime_object]['rain'] = precipitation
+            forecast_df.loc[datetime_object, 'rain'] = precipitation
         else:
-            forecast_df = pd.concat([pd.DataFrame(row, columns=forecast_df.columns, index=[datetime_object]),forecast_df])
+            new_row = pd.DataFrame(row, columns=forecast_df.columns, index=[datetime_object])
+            forecast_df = pd.concat([new_row, forecast_df])
 
     return forecast_df.sort_index()
 
@@ -344,7 +352,7 @@ def get_initial_battery():
     
     response = s3_client.get_object(Bucket=S3_BUCKET, Key=S3_FILE_BATTERY)
     file = response.get("Body").read().decode('utf-8')
-    df_battery = pd.read_json(file)
+    df_battery = pd.read_json(StringIO(file))
     df_battery.columns = ['start_battery']
     
     return df_battery
@@ -372,7 +380,7 @@ def get_hourly_total_rentals() -> pd.DataFrame:
     
     response = s3_client.get_object(Bucket=S3_BUCKET, Key=S3_FILE_RENTALS)
     file = response.get("Body").read().decode('utf-8')
-    df = pd.read_json(file)
+    df = pd.read_json(StringIO(file))
     df.columns=['date_rental', 'timeofday', 'day_of_week', 'total_rentals','hourly_avg_duration']
     df['date'] = pd.to_datetime(arg=df['date_rental'], utc=True).dt.date
     df['Season'] = pd.to_datetime(df['date']).map(get_season)
@@ -537,43 +545,49 @@ if selected == "Demand Forecasting":
     # should be replaced with
     # http://openaccess.pf.api.met.ie/metno-wdb2ts/locationforecast
     
-    URL_WEATHER_API = "http://openaccess.pf.api.met.ie/metno-wdb2ts/locationforecast?lat=53.4264;long=-6.2499"
-    response = requests.get(URL_WEATHER_API).content
+    if xgb_pipe is None:
+        st.error('The ML model could not be loaded due to a version incompatibility. The model needs to be re-trained with the current library versions.')
+    else:
+        URL_WEATHER_API = "http://openaccess.pf.api.met.ie/metno-wdb2ts/locationforecast?lat=53.4264;long=-6.2499"
+        response = requests.get(URL_WEATHER_API).content
 
-    df_xml = parse_xml(response)
-    df_forecast = generate_features(df_xml)
+        df_xml = parse_xml(response)
+        df_forecast = generate_features(df_xml)
 
-    predicted = pd.Series( xgb_pipe.predict(df_forecast), name='predicted') # round up to nearest integer
-    predicted = predicted.map(round_up)
-    df_forecast['predicted'] = predicted.values
+        try:
+            predicted = pd.Series( xgb_pipe.predict(df_forecast), name='predicted') # round up to nearest integer
+            predicted = predicted.map(round_up)
+            df_forecast['predicted'] = predicted.values
 
-    # limiting 15 hours forecast
-    df_predictions = df_forecast[['date', 'hour', 'temp', 'rhum', 'wdsp', 'rainfall_intensity', 'predicted']][:15].reset_index(drop=True)
-    df_predictions.columns = ['Date', 'Hour', 'Temperature', 'Relative Humidity', 'Wind Speed', 'Rainfall Intensity', 'Predicted Demand']
-    st.caption('Highlighting hours with high demand (> 8)')
-    st.table(df_predictions.style.map(highlight_high_demand, subset=['Predicted Demand']))
+            # limiting 15 hours forecast
+            df_predictions = df_forecast[['date', 'hour', 'temp', 'rhum', 'wdsp', 'rainfall_intensity', 'predicted']][:15].reset_index(drop=True)
+            df_predictions.columns = ['Date', 'Hour', 'Temperature', 'Relative Humidity', 'Wind Speed', 'Rainfall Intensity', 'Predicted Demand']
+            st.caption('Highlighting hours with high demand (> 8)')
+            st.table(df_predictions.style.map(highlight_high_demand, subset=['Predicted Demand']))
 
-    # DOWNLOAD DATA Button
-    csv_filename = str(df_predictions['Date'][0]) + '_' + str(df_predictions['Hour'][0]) + 'h_' + \
-        str(df_predictions['Date'][len(df_predictions)-1]) + '_' + str(df_predictions['Hour'][len(df_predictions)-1]) + 'h_predictions.csv'
-    # link to download dataframe as csv
-    csv = convert_df(df_predictions)
+            # DOWNLOAD DATA Button
+            csv_filename = str(df_predictions['Date'][0]) + '_' + str(df_predictions['Hour'][0]) + 'h_' + \
+                str(df_predictions['Date'][len(df_predictions)-1]) + '_' + str(df_predictions['Hour'][len(df_predictions)-1]) + 'h_predictions.csv'
+            # link to download dataframe as csv
+            csv = convert_df(df_predictions)
 
-    st.download_button(
-        label="Download CSV File",
-        data=csv,
-        file_name=csv_filename,
-        mime='text/csv',
-    )
-    
-    st.write("""Source: [Met Éireann - The Irish Meteorological Service](https://www.met.ie/weather/forecast/)""")
+            st.download_button(
+                label="Download CSV File",
+                data=csv,
+                file_name=csv_filename,
+                mime='text/csv',
+            )
+        except Exception as e:
+            st.error(f'Prediction failed: {e}. The ML model may need to be re-trained with the current library versions.')
+
+        st.write("""Source: [Met Éireann - The Irish Meteorological Service](https://www.met.ie/weather/forecast/)""")
 
 #---------------------------------#
 
 if selected == "About":
 
     st.subheader('eBike Operations Optimization')
-    st.image("https://i.ytimg.com/vi/-s8er6tHD3o/maxresdefault.jpg", use_container_width=True)
+    st.image("https://i.ytimg.com/vi/-s8er6tHD3o/maxresdefault.jpg", width='stretch')
 
     st.write("""
             ### Business Problem
