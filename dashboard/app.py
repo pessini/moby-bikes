@@ -111,15 +111,9 @@ def format_rental_duration(minutes):
 
 #------- Load XGBoost Model ---------#
 pipe_filename = f"{APP_PATH}/xgb_pipeline.pkl"
-try:
-    xgb_pipe = pickle.load(open(pipe_filename, "rb"))
-except Exception:
-    xgb_pipe = None
-
+xgb_pipe = pickle.load(open(pipe_filename, "rb"))
 @st.cache_data
 def predict(df):
-    if xgb_pipe is None:
-        return None
     return xgb_pipe.predict(df)
 
 
@@ -545,42 +539,36 @@ if selected == "Demand Forecasting":
     # should be replaced with
     # http://openaccess.pf.api.met.ie/metno-wdb2ts/locationforecast
     
-    if xgb_pipe is None:
-        st.error('The ML model could not be loaded due to a version incompatibility. The model needs to be re-trained with the current library versions.')
-    else:
-        URL_WEATHER_API = "http://openaccess.pf.api.met.ie/metno-wdb2ts/locationforecast?lat=53.4264;long=-6.2499"
-        response = requests.get(URL_WEATHER_API).content
+    URL_WEATHER_API = "http://openaccess.pf.api.met.ie/metno-wdb2ts/locationforecast?lat=53.4264;long=-6.2499"
+    response = requests.get(URL_WEATHER_API).content
 
-        df_xml = parse_xml(response)
-        df_forecast = generate_features(df_xml)
+    df_xml = parse_xml(response)
+    df_forecast = generate_features(df_xml)
 
-        try:
-            predicted = pd.Series( xgb_pipe.predict(df_forecast), name='predicted') # round up to nearest integer
-            predicted = predicted.map(round_up)
-            df_forecast['predicted'] = predicted.values
+    predicted = pd.Series( xgb_pipe.predict(df_forecast), name='predicted') # round up to nearest integer
+    predicted = predicted.map(round_up)
+    df_forecast['predicted'] = predicted.values
 
-            # limiting 15 hours forecast
-            df_predictions = df_forecast[['date', 'hour', 'temp', 'rhum', 'wdsp', 'rainfall_intensity', 'predicted']][:15].reset_index(drop=True)
-            df_predictions.columns = ['Date', 'Hour', 'Temperature', 'Relative Humidity', 'Wind Speed', 'Rainfall Intensity', 'Predicted Demand']
-            st.caption('Highlighting hours with high demand (> 8)')
-            st.table(df_predictions.style.map(highlight_high_demand, subset=['Predicted Demand']))
+    # limiting 15 hours forecast
+    df_predictions = df_forecast[['date', 'hour', 'temp', 'rhum', 'wdsp', 'rainfall_intensity', 'predicted']][:15].reset_index(drop=True)
+    df_predictions.columns = ['Date', 'Hour', 'Temperature', 'Relative Humidity', 'Wind Speed', 'Rainfall Intensity', 'Predicted Demand']
+    st.caption('Highlighting hours with high demand (> 8)')
+    st.table(df_predictions.style.map(highlight_high_demand, subset=['Predicted Demand']))
 
-            # DOWNLOAD DATA Button
-            csv_filename = str(df_predictions['Date'][0]) + '_' + str(df_predictions['Hour'][0]) + 'h_' + \
-                str(df_predictions['Date'][len(df_predictions)-1]) + '_' + str(df_predictions['Hour'][len(df_predictions)-1]) + 'h_predictions.csv'
-            # link to download dataframe as csv
-            csv = convert_df(df_predictions)
+    # DOWNLOAD DATA Button
+    csv_filename = str(df_predictions['Date'][0]) + '_' + str(df_predictions['Hour'][0]) + 'h_' + \
+        str(df_predictions['Date'][len(df_predictions)-1]) + '_' + str(df_predictions['Hour'][len(df_predictions)-1]) + 'h_predictions.csv'
+    # link to download dataframe as csv
+    csv = convert_df(df_predictions)
 
-            st.download_button(
-                label="Download CSV File",
-                data=csv,
-                file_name=csv_filename,
-                mime='text/csv',
-            )
-        except Exception as e:
-            st.error(f'Prediction failed: {e}. The ML model may need to be re-trained with the current library versions.')
+    st.download_button(
+        label="Download CSV File",
+        data=csv,
+        file_name=csv_filename,
+        mime='text/csv',
+    )
 
-        st.write("""Source: [Met Éireann - The Irish Meteorological Service](https://www.met.ie/weather/forecast/)""")
+    st.write("""Source: [Met Éireann - The Irish Meteorological Service](https://www.met.ie/weather/forecast/)""")
 
 #---------------------------------#
 
