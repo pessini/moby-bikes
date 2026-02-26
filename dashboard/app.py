@@ -37,7 +37,7 @@ layout = "centered" # Can be "centered" or "wide". In the future also "dashboard
 # Page layout
 st.set_page_config(page_title=page_title, page_icon=page_icon, layout=layout)
 # 'https://github.com/pessini/moby-bikes/blob/main/dashboard/img/moby-logo.png?raw=true'
-st.image('https://www.mobybikes.com/wp-content/uploads/2020/05/logo-1.png', use_column_width='never')
+st.image('https://www.mobybikes.com/wp-content/uploads/2020/05/logo-1.png', use_container_width=False)
 st.header(page_subtitle)
 #---------------------------------
 
@@ -111,14 +111,14 @@ def format_rental_duration(minutes):
 #------- Load XGBoost Model ---------#
 pipe_filename = f"{APP_PATH}/xgb_pipeline.pkl"
 xgb_pipe = pickle.load(open(pipe_filename, "rb"))
-@st.cache
+@st.cache_data
 def predict(df):
     return xgb_pipe.predict(df)
 
 
 #-------Demand Forecasting --------------------------#
 
-@st.cache
+@st.cache_data
 def parse_xml(xml_data):
   # Initializing soup variable
     soup = BeautifulSoup(xml_data, 'lxml')
@@ -166,7 +166,7 @@ def preprocessor(predictors: list) -> ColumnTransformer:
 
     # categorical variables
     cat_pipe = Pipeline([
-        ('encoder', OneHotEncoder(handle_unknown='ignore', sparse=False))
+        ('encoder', OneHotEncoder(handle_unknown='ignore', sparse_output=False))
     ])
 
     cat_encoder = 'cat', cat_pipe, cat_vars
@@ -300,11 +300,11 @@ def round_up(x):
     from math import copysign
     return int(x + copysign(0.5, x))
 
-@st.cache(allow_output_mutation=True)
+@st.cache_data
 def generate_features(df):
     
     df['hour'] = df.index.hour
-    df['date'] = pd.to_datetime(arg=df.index, utc=True, infer_datetime_format=True).date
+    df['date'] = pd.to_datetime(arg=df.index, utc=True).date
     
     # day of the week
     df['dayofweek_n'] = df.index.map(get_day_of_week_number)
@@ -321,7 +321,7 @@ def generate_features(df):
     return df
 
 # Download Predictions dataframe as csv
-@st.cache
+@st.cache_data
 def convert_df(df):
     # IMPORTANT: Cache the conversion to prevent computation on every rerun
     return df.to_csv(index=False).encode('utf-8')
@@ -332,14 +332,14 @@ def convert_minutes_to_hours(minutes):
 
 #---------------------------------#
 
-@st.cache
+@st.cache_data
 def get_moby_metrics():
     response = s3_client.get_object(Bucket=S3_BUCKET, Key=S3_FILE_METRICS)
     file = response.get("Body").read().decode('utf-8')
     metric_dict = ast.literal_eval(file)
     return pd.DataFrame(metric_dict, index=[0], dtype=float)
 
-@st.cache(allow_output_mutation=True)
+@st.cache_data
 def get_initial_battery():
     
     response = s3_client.get_object(Bucket=S3_BUCKET, Key=S3_FILE_BATTERY)
@@ -367,7 +367,7 @@ def group_battery_status():
     
     return df_summary
 
-@st.cache
+@st.cache_data
 def get_hourly_total_rentals() -> pd.DataFrame:
     
     response = s3_client.get_object(Bucket=S3_BUCKET, Key=S3_FILE_RENTALS)
@@ -422,7 +422,7 @@ def plot_percentage_rentals(df, by='Day of the Week'):
         .encode(x=alt.X('% of Rentals:Q', axis=alt.Axis(format='.0%', title='% of Rentals'), scale=alt.Scale(domain=(0, 1))), 
                 y=alt.Y(categorical_var, sort=sort, axis=alt.Axis(title='')), 
                 color=alt.Color(categorical_var, legend=None),
-                opacity=alt.OpacityValue(0.9),
+                opacity=alt.value(0.9),
                 tooltip=[categorical_var, alt.Tooltip('% of Rentals:Q', format=".2%")],)\
         .configure_axis(
             grid=True
@@ -451,7 +451,7 @@ def plot_avg_duration_rentals(df, by='Day of the Week'):
         .encode(x=alt.X('hourly_avg_duration:Q', axis=alt.Axis(title='Average Duration of Rental (minutes)')), 
                 y=alt.Y(categorical_var, sort=sort, axis=alt.Axis(title='')), 
                 color=alt.Color(categorical_var, legend=None),
-                opacity=alt.OpacityValue(0.9),
+                opacity=alt.value(0.9),
                 tooltip=[categorical_var, alt.Tooltip('hourly_avg_duration:Q', format=".2f", title="Average Duration (min)")],)\
         .configure_axis(
             grid=True
@@ -551,7 +551,7 @@ if selected == "Demand Forecasting":
     df_predictions = df_forecast[['date', 'hour', 'temp', 'rhum', 'wdsp', 'rainfall_intensity', 'predicted']][:15].reset_index(drop=True)
     df_predictions.columns = ['Date', 'Hour', 'Temperature', 'Relative Humidity', 'Wind Speed', 'Rainfall Intensity', 'Predicted Demand']
     st.caption('Highlighting hours with high demand (> 8)')
-    st.table(df_predictions.style.applymap(highlight_high_demand, subset=['Predicted Demand']))
+    st.table(df_predictions.style.map(highlight_high_demand, subset=['Predicted Demand']))
 
     # DOWNLOAD DATA Button
     csv_filename = str(df_predictions['Date'][0]) + '_' + str(df_predictions['Hour'][0]) + 'h_' + \
@@ -573,7 +573,7 @@ if selected == "Demand Forecasting":
 if selected == "About":
 
     st.subheader('eBike Operations Optimization')
-    st.image("https://i.ytimg.com/vi/-s8er6tHD3o/maxresdefault.jpg", use_column_width='always')
+    st.image("https://i.ytimg.com/vi/-s8er6tHD3o/maxresdefault.jpg", use_container_width=True)
 
     st.write("""
             ### Business Problem
